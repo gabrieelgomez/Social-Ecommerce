@@ -21,6 +21,9 @@ gem 'knock'
 #JBuilder para el motor de plantillas de API
 gem 'jbuilder'
 
+#Authentication
+gem 'devise'
+
 # Usamos Active Model Serializers para definir las respuestas del API en JSON
 #gem 'active_model_serializers', '0.10.0'
 # Use Redis adapter to run Action Cable in production
