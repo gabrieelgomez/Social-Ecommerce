@@ -4,6 +4,8 @@ class Api::V1::SessionsController < Devise::SessionsController
 
   respond_to :json
 
+  #curl -XPOST -H "Content-Type: application/json" http://localhost:3000/api/v1/sessions -d "{"user":{"email":"user@example.com","password":"secret"}}"
+
   def create
     warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     render :status => 200,
