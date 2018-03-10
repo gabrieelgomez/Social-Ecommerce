@@ -26,8 +26,11 @@ ActiveRecord::Schema.define(version: 20180308191418) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.text "authentication_token"
+    t.datetime "authentication_token_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -8,7 +8,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '788ffa44b48c1c4fc894f80b4f18dc533af28bdb3fbb02fbe877f618ead1ca3503bdfaade02537923216ed2e0b120b3f07f8009b84228f856d381fabebf83898'
+  # config.secret_key = '360df96b575194b5e5aa149c4ea901deae7a438fb2480322ca35b7eba1d7b38c12feff4ae615535ceee15c76a58bbc327fc24a1ce46dec9c1231292c1de4ae5e'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -66,7 +66,7 @@ Devise.setup do |config|
   # given strategies, for example, `config.http_authenticatable = [:database]` will
   # enable it only for database authentication. The supported strategies are:
   # :database      = Support basic authentication with authentication key + password
-  # config.http_authenticatable = false
+  config.http_authenticatable = true
 
   # If 401 status code should be returned for AJAX requests. True by default.
   # config.http_authenticatable_on_xhr = true
@@ -84,7 +84,7 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
-  config.skip_session_storage = [:http_auth]
+  config.skip_session_storage = [:http_auth, :token_auth]
 
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
@@ -110,7 +110,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '4202d54aecff9927107f42fc921c34bc9e6142783ac0278703e608e8b2e6461be6d9f06648e61d1c43b5d045c3594a52c881c909c7ecf29861a9beeebeb24293'
+  # config.pepper = '6ba1dbf21b635b91fffa23c2f79e665c19d956df6d0157e27cab2938fee8b79dab6294c5001a7e7f06f266d9eea475e313af2329a3e7f8ff59043d8b902af214'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false

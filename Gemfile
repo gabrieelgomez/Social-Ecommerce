@@ -23,6 +23,8 @@ gem 'jbuilder'
 
 #Authentication
 gem 'devise'
+gem 'devise-token_authenticatable'
+
 
 # Usamos Active Model Serializers para definir las respuestas del API en JSON
 #gem 'active_model_serializers', '0.10.0'

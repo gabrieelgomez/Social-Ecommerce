@@ -50,6 +50,8 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    devise-token_authenticatable (1.0.1)
+      devise (>= 4.0.0, < 4.5.0)
     erubi (1.7.1)
     ffi (1.9.23)
     globalid (0.4.1)
@@ -148,6 +150,7 @@ DEPENDENCIES
   bcrypt (= 3.1.7)
   byebug
   devise
+  devise-token_authenticatable
   jbuilder
   knock
   listen (>= 3.0.5, < 3.2)
