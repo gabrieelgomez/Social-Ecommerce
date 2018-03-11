@@ -4,7 +4,16 @@ Rails.application.routes.draw do
 
   scope module: 'api' do
     namespace :v1 do
-      resources :users, only: [:index, :show]
+      #Rutas para métodos del controlador API
+      get '/current', to: 'api#index'
+
+      #Rutas para el controlador User
+      namespace :users do
+        get '/', to: 'show#index', as: :users
+        get '/:id', to: 'show#show', as: :show_user
+        # resources :users, only: [:index, :show]
+      end
+
     end
   end
 

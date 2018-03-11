@@ -1,5 +1,5 @@
-module Api::V1
-  class UsersController < ApiController
+module Api::V1::Users
+  class ShowController < UserController
 
     # GET /v1/users
     def index
