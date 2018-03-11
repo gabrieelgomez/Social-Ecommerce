@@ -1,12 +1,12 @@
 module Api::V1::Profiles
   class CreateController < ProfileController
 
-    # GET /api/v1/profiles
+    # GET /v1/profile
     def new
       @profile = Profile.new
     end
 
-    # GET /api/v1/profiles/{id}
+    # POST /v1/profiles
     def create
       @profile = Profile.new(profile_params)
 

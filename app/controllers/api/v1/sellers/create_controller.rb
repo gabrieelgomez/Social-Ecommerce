@@ -1,17 +1,17 @@
 module Api::V1::Sellers
   class CreateController < SellerController
 
-    # GET /api/v1/sellers
+    # GET /v1/seller
     def new
       @seller = Seller.new
     end
 
-    # GET /api/v1/sellers/{id}
+    # POST /v1/sellers
     def create
       @seller = Seller.new(seller_params)
 
       if @seller.save
-        render json: @seller
+        render json: @seller, status: :created
       else
         render :new
       end
@@ -19,8 +19,8 @@ module Api::V1::Sellers
 
     private
 
-    def product_params
-      params.require(:seller).permit(...)
+    def seller_params
+      params.permit(:user_id, :profile_id)
     end
 
   end
