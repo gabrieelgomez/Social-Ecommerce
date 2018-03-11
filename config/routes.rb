@@ -14,6 +14,14 @@ Rails.application.routes.draw do
         # resources :users, only: [:index, :show]
       end
 
+      #Rutas para el controlador Profile
+      namespace :profiles do
+        get '/new', to: 'create#new', as: :new_profile
+        post '/', to: 'create#create', as: :create_profile
+        get '/', to: 'show#index', as: :profiles
+        get '/:id', to: 'show#show', as: :show_profile
+      end
+
     end
   end
 

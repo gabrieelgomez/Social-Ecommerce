@@ -35,9 +35,9 @@ gem 'active_model_serializers'
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'pry-stack_explorer'
+  # gem 'pry-rails'
+  # gem 'pry-byebug'
+  # gem 'pry-stack_explorer'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
