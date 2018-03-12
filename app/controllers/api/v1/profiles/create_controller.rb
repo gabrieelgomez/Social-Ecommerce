@@ -1,5 +1,5 @@
 module Api::V1::Profiles
-  class CreateController < ProfileController
+  class CreateController < ProfilesController
 
     # GET /v1/profile
     def new
