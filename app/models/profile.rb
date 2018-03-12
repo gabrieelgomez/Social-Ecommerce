@@ -14,7 +14,7 @@ class Profile < ApplicationRecord
 end
 
 
-# Profile.create(user_id:2, type_profile: 3, name: 'vendedor 1')
+# Profile.create(user_id:8, type_profile: 3, name: 'vendedor 1')
 #
 # Profile.create(user_id:1, type_profile: 1, name: 'pymes 1')
 
