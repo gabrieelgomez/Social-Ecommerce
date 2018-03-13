@@ -2,12 +2,13 @@ class Profile < ApplicationRecord
   belongs_to  :user
   has_one     :seller
   validate    :validate_seller
-  validate    :type_profile?
+  validate    :validate_profile
   validates   :user_id, numericality: true
   validates   :user_id, :type_profile, presence: true
 
-  def type_profile?
-    if self.type_profile.downcase != "seller" || "pyme" || "independently"
+  def validate_profile
+    type = self.type_profile.downcase
+    if (type != "seller") || (type != "pyme") || (type != "independently")
       errors.add(:type_profile, "no admitido")
     end
   end

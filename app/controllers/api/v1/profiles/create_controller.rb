@@ -1,6 +1,7 @@
 module Api::V1::Profiles
   class CreateController < ProfilesController
-
+    before_action :authenticate_user!
+    
     # GET /v1/profile
     def new
       @profile = Profile.new
