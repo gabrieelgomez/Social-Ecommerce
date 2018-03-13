@@ -13,7 +13,7 @@ module Api::V1::Sellers
       if @seller.save
         render json: @seller, status: :created
       else
-        render :new
+        render json: @seller.errors
       end
     end
 

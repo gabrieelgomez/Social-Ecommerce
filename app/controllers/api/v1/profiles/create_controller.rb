@@ -13,7 +13,7 @@ module Api::V1::Profiles
       if @profile.save
         render json: @profile, status: :created
       else
-        render :new
+        render json: ErrorSerializer.serialize(@profile.errors)
       end
     end
 

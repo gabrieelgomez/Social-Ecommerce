@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180311183607) do
+ActiveRecord::Schema.define(version: 20180311180406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "type_profile", null: false
+    t.string "type_profile", null: false
     t.string "title"
     t.string "name"
     t.string "email"
@@ -33,13 +33,6 @@ ActiveRecord::Schema.define(version: 20180311183607) do
     t.string "web"
     t.json "profile"
     t.string "experience"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "sellers", force: :cascade do |t|
-    t.integer "profile_id"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
