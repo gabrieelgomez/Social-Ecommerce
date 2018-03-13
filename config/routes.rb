@@ -22,6 +22,12 @@ Rails.application.routes.draw do
         get '/:id', to: 'show#show', as: :show_profile
       end
 
+      #Rutas para el controlador Seller
+      namespace :sellers do
+        get '/', to: 'sellers#all_sellers', as: :all_sellers
+        get '/:id', to: 'show#show', as: :show_seller
+      end
+
     end
   end
 
