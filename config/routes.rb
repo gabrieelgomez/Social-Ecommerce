@@ -24,8 +24,14 @@ Rails.application.routes.draw do
 
       #Rutas para el controlador Seller
       namespace :sellers do
-        get '/', to: 'sellers#all_sellers', as: :all_sellers
-        get '/:id', to: 'show#show', as: :show_seller
+        #Sellers controller
+        get '/', to: 'sellers#all_sellers',           as: :all_sellers
+        #Show
+        get '/:id', to: 'show#show',                  as: :show_seller
+        #Edit
+        put '/:id/update', to: 'update#update',       as: :update_seller
+        #Destroy
+        delete '/:id/destroy', to: 'actions#destroy', as: :destroy_seller
       end
 
     end
