@@ -3,10 +3,9 @@ module Api::V1::Sellers
   class UpdateController < SellersController
     before_action :authenticate_user!
     before_action :set_seller
-    before_action :seller_params
 
     def update
-      if @seller.update(seller_params)
+      if @seller.update(general_params(:seller))
         render json: @seller, status: :updated
       else
         render json: ErrorSerializer.serialize(@seller.errors)

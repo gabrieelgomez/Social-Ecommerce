@@ -7,8 +7,8 @@ module Api::V1
       @seller = Seller.where(type_profile: 'seller').find(params[:id])
     end
 
-    def seller_params
-      params.permit(:user_id, :title, :name)
-    end
+    # def seller_params
+    #   params.permit(:user_id, :title, :name)
+    # end
   end
 end

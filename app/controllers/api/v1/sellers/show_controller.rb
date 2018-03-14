@@ -2,7 +2,7 @@ module Api::V1::Sellers
   # Show controller
   class ShowController < SellersController
     # Callbacks
-    before_action :authenticate_user!, only: :own_sellers
+    before_action :authenticate_user!, only: :show
     before_action :set_seller, only: :show
 
 
