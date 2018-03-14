@@ -1,0 +1,16 @@
+# Api Module
+module Api::V1::Pymes
+  # Destroy Controller
+  class DestroyController < PymesController
+    before_action :authenticate_user!
+    before_action :set_pyme
+
+    def destroy
+      if @pyme.destroy
+        render json: @pyme, status: :destroyed
+      else
+        render json: ErrorSerializer.serialize(@pyme.errors)
+      end
+    end
+  end
+end

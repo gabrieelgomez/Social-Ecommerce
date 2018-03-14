@@ -1,4 +1,8 @@
 class Seller < Profile
+  # Relations
   belongs_to :user
-  # belongs_to :profile
+
+  # def self.all
+  #   Profile.where(type_profile: 'seller')
+  # end
 end

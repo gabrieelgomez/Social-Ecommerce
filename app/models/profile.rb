@@ -1,14 +1,17 @@
 class Profile < ApplicationRecord
+  # Relations
   belongs_to  :user
   has_one     :seller
+
+  # Validations
   validate    :validate_seller
-  validate    :validate_profile
+  # validate    :validate_profile
   validates   :user_id, numericality: true
   validates   :user_id, :type_profile, presence: true
 
   def validate_profile
     type = self.type_profile.downcase
-    if (type != "seller") || (type != "pyme") || (type != "independently")
+    if (type != "seller") || (type != "pyme") || (type != "independent")
       errors.add(:type_profile, "no admitido")
     end
   end
@@ -18,7 +21,6 @@ class Profile < ApplicationRecord
       errors.add(:type_profile, "El usuario ya tiene seller")
     end
   end
-
 end
 
 
