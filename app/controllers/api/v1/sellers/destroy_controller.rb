@@ -1,4 +1,6 @@
+# Api Module
 module Api::V1::Sellers
+  # Destroy Controller
   class DestroyController < SellersController
     before_action :authenticate_user!
     before_action :set_seller
@@ -10,13 +12,5 @@ module Api::V1::Sellers
         render json: ErrorSerializer.serialize(@seller.errors)
       end
     end
-
-    private
-
-    # Consultar el seller que será destruido
-    def set_seller
-      @seller = Seller.find(params[:id])
-    end
-    
   end
 end

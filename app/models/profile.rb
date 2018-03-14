@@ -4,7 +4,7 @@ class Profile < ApplicationRecord
   has_one     :seller
 
   # Validations
-  validate    :validate_seller
+  validate    :validate_seller, on: :create
   # validate    :validate_profile
   validates   :user_id, numericality: true
   validates   :user_id, :type_profile, presence: true
