@@ -11,14 +11,14 @@ class Profile < ApplicationRecord
 
   def validate_profile
     type = self.type_profile.downcase
-    if (type != "seller") || (type != "pyme") || (type != "independent")
-      errors.add(:type_profile, "no admitido")
+    if (type != 'seller') || (type != 'pyme') || (type != 'independent')
+      errors.add(:type_profile, 'no admitido')
     end
   end
 
   def validate_seller
-    if !User.find(self.user_id).seller.nil? && self.type_profile.downcase.eql?("seller")
-      errors.add(:type_profile, "El usuario ya tiene seller")
+    if !User.find(self.user_id).seller.nil? && self.type_profile.downcase.eql?('seller')
+      errors.add(:type_profile, 'El usuario ya tiene seller')
     end
   end
 end
@@ -30,5 +30,4 @@ end
 
 # user.profiles.find_by_type_profile(3).seller
 
-
-#listado de pyme seller indepen sin login
+# listado de pyme seller indepen sin login

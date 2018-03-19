@@ -18,6 +18,5 @@ module Api::V1::Profiles
     def profile_params
       params.permit(:user_id, :type_profile, :title, :name)
     end
-
   end
 end
