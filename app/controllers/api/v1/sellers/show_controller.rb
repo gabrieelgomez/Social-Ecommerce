@@ -2,7 +2,7 @@ module Api::V1::Sellers
   # Show controller
   class ShowController < SellersController
     # Callbacks
-    before_action :authenticate_user!, only: :show
+    before_action :authenticate_user!, only: :own_sellers
     before_action :set_seller, only: :show
 
 
@@ -15,9 +15,8 @@ module Api::V1::Sellers
     #   render json: @seller
     # end
 
-    def show
+    def own_sellers
       seller = Seller.where(user_id: current_user.id, type_profile: 'seller')
-      return render json: { errors: "acceso denegado" } if seller.first.id != params[:id].to_i
       render json: seller
     end
   end

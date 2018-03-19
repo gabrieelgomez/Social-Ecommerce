@@ -27,7 +27,7 @@ Rails.application.routes.draw do
         #Sellers controller
         get '/', to: 'show#index',                    as: :index_pymes
         #Show
-        get '/:id', to: 'show#show',                  as: :show_seller
+        get '/own', to: 'show#own_sellers',           as: :own_seller
         #Edit
         put '/:id/update', to: 'update#update',       as: :update_seller
         #Destroy
@@ -48,7 +48,16 @@ Rails.application.routes.draw do
         #             on: :member
         # match '/own' => 'show#own_pymes', :via => :get
       end
-
+      namespace :independents do
+        get '/', to: 'show#index',
+                 as: :index_independents
+        get '/:id', to: 'show#show',
+                    as: :show_independent
+        put '/:id/update', to: 'update#update',
+                           as: :update_independent
+        delete '/:id/destroy', to: 'destroy#destroy',
+                               as: :destroy_independent
+      end
     end
   end
 
