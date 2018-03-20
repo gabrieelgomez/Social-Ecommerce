@@ -3,7 +3,7 @@ module Api::V1::Pymes
   # Destroy Controller
   class DestroyController < PymesController
     before_action :authenticate_user!
-    before_action :set_pyme
+    before_action :set_pyme, only: [:destroy]
 
     def destroy
       if @pyme.destroy

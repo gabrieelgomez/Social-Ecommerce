@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180311180406) do
+ActiveRecord::Schema.define(version: 20180320012525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "products", force: :cascade do |t|
+    t.boolean "rate"
+    t.integer "weight"
+    t.integer "height"
+    t.integer "width"
+    t.json "files"
+    t.json "images"
+    t.integer "price"
+    t.json "fields"
+    t.string "productable_type"
+    t.bigint "productable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["productable_id", "productable_type"], name: "index_products_on_productable_id_and_productable_type"
+    t.index ["productable_type", "productable_id"], name: "index_products_on_productable_type_and_productable_id"
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id"

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
         delete '/:id/destroy', to: 'destroy#destroy', as: :destroy_seller
       end
 
+      get '/own_pymes', controller: 'pymes/show', action: 'own_pymes'
       namespace :pymes do
         get '/', to: 'show#index',
                  as: :index_pymes

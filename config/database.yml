@@ -25,7 +25,7 @@ default: &default
 development:
   <<: *default
   database: bigwave-api_development
-  username: enmchs
+  username: enmachs
   password: qwerty
 
   # The specified database role being used to connect to postgres.
@@ -61,7 +61,7 @@ development:
 test:
   <<: *default
   database: bigwave-api_test
-  username: enmchs
+  username: enmachs
   password: qwerty
 
 # As with config/secrets.yml, you never want to store sensitive information,
