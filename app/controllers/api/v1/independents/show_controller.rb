@@ -2,8 +2,8 @@ module Api::V1::Independents
   # Show controller
   class ShowController < IndependentsController
     # Callbacks
-    # before_action :authenticate_user!
-    before_action :set_independent, only: :show
+    before_action :authenticate_user!, only: [:own_independents]
+    before_action :set_independent, only: [:show]
 
 
     # Public methods
@@ -15,8 +15,8 @@ module Api::V1::Independents
       render json: @independent
     end
 
-    # def own_pymes
-    #   render json: Pyme.where(user_id: current_user.id, type_profile: 'pyme')
-    # end
+    def own_independents
+      render json: Independent.where(user_id: current_user.id, type_profile: 'independent')
+    end
   end
 end
