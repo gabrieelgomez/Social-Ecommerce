@@ -2,7 +2,7 @@ module Api::V1::Pymes
   # Update controller
   class UpdateController < PymesController
     before_action :authenticate_user!
-    before_action :set_pyme
+    before_action :set_pyme, only: [:update]
 
     def update
       if @pyme.update(general_params(:pyme))

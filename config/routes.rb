@@ -34,6 +34,7 @@ Rails.application.routes.draw do
         delete '/:id/destroy', to: 'destroy#destroy', as: :destroy_seller
       end
 
+      get '/own_pymes', controller: 'pymes/show', action: 'own_pymes'
       namespace :pymes do
         get '/', to: 'show#index',
                  as: :index_pymes
@@ -47,7 +48,19 @@ Rails.application.routes.draw do
         #             as: :own_pymes,
         #             on: :member
         # match '/own' => 'show#own_pymes', :via => :get
+        
       end
+
+      # get '/:type_profile/:id', controller: 'products/products' do
+      #   resources :products, only: [:index, :create, :update, :destroy], controller: 'products/products'
+      # end
+      scope '/:type_profile/:profile_id' do
+        resources :products, only: [:create, :update, :destroy], controller: 'products/action'
+        resources :products, only: [:index, :show], controller: 'products/show'
+      end
+
+      # map.resources :products, namespace: ':type_profile/:id', controller: 'products/products'
+      get '/own_independents', controller: 'independents/show', action: 'own_independents'
       namespace :independents do
         get '/', to: 'show#index',
                  as: :index_independents
