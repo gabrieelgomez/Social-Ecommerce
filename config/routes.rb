@@ -58,6 +58,9 @@ Rails.application.routes.draw do
         resources :products, only: [:create, :update, :destroy], controller: 'products/action'
         resources :products, only: [:index, :show], controller: 'products/show'
       end
+      namespace :products do
+        get '/own', controller: 'show', action: 'show_own'
+      end
 
       # map.resources :products, namespace: ':type_profile/:id', controller: 'products/products'
       get '/own_independents', controller: 'independents/show', action: 'own_independents'

@@ -8,11 +8,11 @@ class User < ActiveRecord::Base
   # --- Relations ---
   # Pymes
   has_many :pymes, -> { where(type_profile: 'pyme') },
-           class_name: 'Profile'
+           class_name: 'Pyme'
   # Independents
   has_many :independents, -> { where(type_profile: 'independent') },
-           class_name: 'Profile'
+           class_name: 'Independent'
   # Seller
   has_one  :seller, -> { where(type_profile: 'seller') },
-           class_name: 'Profile'
+           class_name: 'Seller'
 end

@@ -1,11 +1,13 @@
 class CreateProducts < ActiveRecord::Migration[5.1]
   def change
     create_table :products do |t|
+      t.string :name
       t.boolean :rate
       t.integer :weight
       t.integer :height
       t.integer :width
       t.json :files
+      t.string :product_type
       t.json :images
       t.integer :price
       t.json :fields
