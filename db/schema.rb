@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 20180320012525) do
   enable_extension "plpgsql"
 
   create_table "products", force: :cascade do |t|
+    t.string "name"
     t.boolean "rate"
     t.integer "weight"
     t.integer "height"
     t.integer "width"
     t.json "files"
+    t.string "product_type"
     t.json "images"
     t.integer "price"
     t.json "fields"

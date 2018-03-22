@@ -29,6 +29,9 @@ gem 'puma', '~> 3.7'
 gem 'devise_token_auth'
 gem 'omniauth'
 
+#Database plugin to add soft delete.
+gem "paranoia", "~> 2.2"
+
 #Rendering JSON responses
 gem 'active_model_serializers'
 

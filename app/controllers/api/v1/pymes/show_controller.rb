@@ -16,7 +16,10 @@ module Api::V1::Pymes
     end
 
     def own_pymes
-      render json: Pyme.where(user_id: current_user.id, type_profile: 'pyme')
+      render json: {
+        status: 'success',
+        data:   User.where(id: current_user.id).as_json(root: true, include: :pymes)
+      }
     end
   end
 end
