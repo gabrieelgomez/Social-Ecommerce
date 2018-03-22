@@ -48,7 +48,7 @@ Rails.application.routes.draw do
         #             as: :own_pymes,
         #             on: :member
         # match '/own' => 'show#own_pymes', :via => :get
-        
+
       end
 
       # get '/:type_profile/:id', controller: 'products/products' do
@@ -76,5 +76,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # global options responder -> makes sure OPTION request for CORS endpoints work
+  match '*path', via: [:options], to: lambda {|_| [204, { 'Content-Type' => 'text/plain' }]}
 
 end
