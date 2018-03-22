@@ -78,6 +78,6 @@ Rails.application.routes.draw do
   end
 
   # global options responder -> makes sure OPTION request for CORS endpoints work
-  match '*path', via: [:options], to: lambda {|_| [204, { 'Content-Type' => 'text/plain' }]}
+  # match '*path', via: [:options], to: lambda {|_| [204, { 'Content-Type' => 'text/plain' }]}
 
 end
