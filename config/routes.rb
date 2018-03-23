@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   scope module: 'api' do
+
+    match '*path', :controller => '/api', :action => 'handle_options_request', :via => [:get, :post, :options]
+
     namespace :v1 do
       #Rutas para métodos del controlador API
       get '/current', to: 'api#index'
