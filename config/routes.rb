@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # Route for frontend
-  match '*path', :controller => '/application', :action => 'handle_options_request', :via => [:get, :post, :options]
+  match '*path', :controller => 'application', :action => 'handle_options_request', :via => [:get, :post, :options]
   scope module: 'api' do
 
 
