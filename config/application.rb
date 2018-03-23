@@ -47,7 +47,7 @@ module BigwaveApi
         resource '*',
           :headers => :any,
           :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-          :methods => [:get, :post, :options, :delete, :put, :path, :head]
+          :methods => [:get, :post, :options, :delete, :put, :patch]
       end
     end
 
