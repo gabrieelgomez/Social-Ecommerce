@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   scope module: 'api' do
 
-    # match '*path', :controller => '/api', :action => 'handle_options_request', :via => [:get, :post, :options]
+    match '*path', :controller => '/application', :action => 'handle_options_request', :via => [:get, :post, :options]
 
     namespace :v1 do
       #Rutas para métodos del controlador API
