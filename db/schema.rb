@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20180320012525) do
     t.json "images"
     t.integer "price"
     t.json "fields"
+    t.text "product_relations", default: [], array: true
     t.string "productable_type"
     t.bigint "productable_id"
     t.datetime "created_at", null: false

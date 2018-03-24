@@ -11,6 +11,7 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.json :images
       t.integer :price
       t.json :fields
+      t.text :product_relations, array: true, default: []
       # t.integer :productable_id
       # t.string :productable_type
       t.belongs_to :productable, polymorphic: true

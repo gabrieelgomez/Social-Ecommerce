@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  #match '*path', :controller => 'application', :action => 'handle_options_request', :via => [:get, :post, :options]
+  # match '*path', :controller => 'application', :action => 'handle_options_request', :via => [:get, :post, :options]
   mount_devise_token_auth_for 'User', at: 'auth'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # Route for frontend
@@ -25,15 +25,15 @@ Rails.application.routes.draw do
         get '/:id', to: 'show#show', as: :show_profile
       end
 
-      #Rutas para el controlador Seller
+      # Rutas para el controlador Seller
       namespace :sellers do
-        #Sellers controller
+        # Sellers controller
         get '/', to: 'show#index',                    as: :index_pymes
-        #Show
+        # Show
         get '/own', to: 'show#own_sellers',           as: :own_seller
-        #Edit
+        # Edit
         put '/:id/update', to: 'update#update',       as: :update_seller
-        #Destroy
+        # Destroy
         delete '/:id/destroy', to: 'destroy#destroy', as: :destroy_seller
       end
 
@@ -47,11 +47,6 @@ Rails.application.routes.draw do
                            as: :update_pyme
         delete '/:id/destroy', to: 'destroy#destroy',
                                as: :destroy_pyme
-        # get '/own', to: 'own_pymes#show',
-        #             as: :own_pymes,
-        #             on: :member
-        # match '/own' => 'show#own_pymes', :via => :get
-
       end
 
       # get '/:type_profile/:id', controller: 'products/products' do
@@ -60,6 +55,11 @@ Rails.application.routes.draw do
       scope '/:type_profile/:profile_id' do
         resources :products, only: [:create, :update, :destroy], controller: 'products/action'
         resources :products, only: [:index, :show], controller: 'products/show'
+        resources :products, only: [] do
+          scope module: 'products' do
+            post '/products_related', to: 'products_related/action#create'
+          end     
+        end
       end
       namespace :products do
         get '/own', controller: 'show', action: 'show_own'
