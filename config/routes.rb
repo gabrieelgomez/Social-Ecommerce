@@ -17,15 +17,13 @@ Rails.application.routes.draw do
         # resources :users, only: [:index, :show]
       end
 
-      #Rutas para el controlador Profile
-      namespace :profiles do
-        get '/new', to: 'create#new', as: :new_profile
-        post '/', to: 'create#create', as: :create_profile
-        get '/', to: 'show#index', as: :profiles
-        get '/:id', to: 'show#show', as: :show_profile
+      # --- Profiles route
+      scope module: 'profiles' do
+        post '/:type_profile/create', to: 'create#create', as: :create_profile
       end
+      # --- Profiles route - end
 
-      # Rutas para el controlador Seller
+      # --- Sellers route
       namespace :sellers do
         # Sellers controller
         get '/', to: 'show#index',                    as: :index_pymes
@@ -36,7 +34,9 @@ Rails.application.routes.draw do
         # Destroy
         delete '/:id/destroy', to: 'destroy#destroy', as: :destroy_seller
       end
+      # --- Sellers route - end
 
+      # --- Pymes route
       get '/own_pymes', controller: 'pymes/show', action: 'own_pymes'
       namespace :pymes do
         get '/', to: 'show#index',
@@ -48,10 +48,9 @@ Rails.application.routes.draw do
         delete '/:id/destroy', to: 'destroy#destroy',
                                as: :destroy_pyme
       end
+      # --- Pymes route - end
 
-      # get '/:type_profile/:id', controller: 'products/products' do
-      #   resources :products, only: [:index, :create, :update, :destroy], controller: 'products/products'
-      # end
+      # --- Product routes
       scope '/:type_profile/:profile_id' do
         resources :products, only: [:create, :update, :destroy], controller: 'products/action'
         resources :products, only: [:index, :show], controller: 'products/show'
@@ -64,8 +63,9 @@ Rails.application.routes.draw do
       namespace :products do
         get '/own', controller: 'show', action: 'show_own'
       end
+      # --- Product routes - end
 
-      # map.resources :products, namespace: ':type_profile/:id', controller: 'products/products'
+      # --- Independents routes
       get '/own_independents', controller: 'independents/show', action: 'own_independents'
       namespace :independents do
         get '/', to: 'show#index',
@@ -77,10 +77,9 @@ Rails.application.routes.draw do
         delete '/:id/destroy', to: 'destroy#destroy',
                                as: :destroy_independent
       end
+      # --- Independents routes - end
     end
   end
-
   # global options responder -> makes sure OPTION request for CORS endpoints work
   # match '*path', via: [:options], to: lambda {|_| [204, { 'Content-Type' => 'text/plain' }]}
-
 end
