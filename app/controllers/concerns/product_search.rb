@@ -11,7 +11,6 @@ module ProductSearch
   	@product = @productable.products.find(params[:id])
   end
 
-
   def model_name
     params[:type_profile].singularize.camelize.constantize
   end
