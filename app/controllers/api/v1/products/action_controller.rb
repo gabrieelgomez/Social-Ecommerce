@@ -10,7 +10,7 @@ module Api::V1::Products
 			if @product.save
 				render json:{
 					status: 'success',
-					data:  model_name.find(@productable.id).as_json(root: true, include: { products: {include: :custom_fields} })
+					data:  model_name.find(@productable.id).as_json(root: true, include: { products: {include: :custom_fields, :categories} })
 				}
 			else
 				render json: ErrorSerializer.serialize(@product.errors)
