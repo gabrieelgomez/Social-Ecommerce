@@ -10,7 +10,7 @@ module Api::V1::Products
       	# render json: @products
 				render json:{
 					status: 'success',
-	        data:   model_name.where(id: @productable.id).as_json(root: true, include: :products)
+	        data:   model_name.where(id: @productable.id).as_json(root: true, include: { products: {include: :custom_fields} })
 				}
       else
       	render json: { data: [], errors: 'No products found' }, status: 402
