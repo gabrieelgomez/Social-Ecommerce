@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # match '*path', :controller => 'application', :action => 'handle_options_request', :via => [:get, :post, :options]
   mount_devise_token_auth_for 'User', at: 'auth'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # Route for frontend
@@ -14,7 +13,6 @@ Rails.application.routes.draw do
       namespace :users do
         get '/', to: 'show#index', as: :users
         get '/:id', to: 'show#show', as: :show_user
-        # resources :users, only: [:index, :show]
       end
 
       # --- Profiles route
@@ -57,7 +55,8 @@ Rails.application.routes.draw do
         resources :products, only: [] do
           scope module: 'products' do
             post '/products_related', to: 'products_related/action#create'
-          end     
+            post '/custom_fields', to: 'custom_fields/action#create'
+          end
         end
       end
       namespace :products do
@@ -80,6 +79,5 @@ Rails.application.routes.draw do
       # --- Independents routes - end
     end
   end
-  # global options responder -> makes sure OPTION request for CORS endpoints work
-  # match '*path', via: [:options], to: lambda {|_| [204, { 'Content-Type' => 'text/plain' }]}
+
 end

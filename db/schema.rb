@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320012525) do
+ActiveRecord::Schema.define(version: 20180326145554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "custom_fields", force: :cascade do |t|
+    t.string "name"
+    t.integer "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
@@ -27,6 +34,7 @@ ActiveRecord::Schema.define(version: 20180320012525) do
     t.integer "price"
     t.json "fields"
     t.text "product_relations", default: [], array: true
+    t.integer "custom_field_id"
     t.string "productable_type"
     t.bigint "productable_id"
     t.datetime "created_at", null: false
