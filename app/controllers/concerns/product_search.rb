@@ -15,6 +15,10 @@ module ProductSearch
 		params.require(:custom_fields).permit(:name, :product_id)
 	end
 
+	def set_fields
+		@custom_field = CustomField.find(params[:field_id])
+	end
+
   def model_name
     params[:type_profile].singularize.camelize.constantize
   end

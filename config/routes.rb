@@ -55,7 +55,12 @@ Rails.application.routes.draw do
         resources :products, only: [] do
           scope module: 'products' do
             post '/products_related', to: 'products_related/action#create'
+
+            # --- Module custom fields
             post '/custom_fields', to: 'custom_fields/action#create'
+            delete '/custom_field/:field_id/destroy', to: 'custom_fields/action#destroy', as: :destroy_field
+            # --- Module custom fields - end
+
           end
         end
       end

@@ -1,7 +1,7 @@
 module Api::V1::Products::CustomFields
 	class ActionController < CustomFieldsController
 		before_action :authenticate_user!
-		# before_action :set_product, only: [:create]
+		before_action :set_fields, only: [:destroy]
 
 		def create
 			@custom_fields = CustomField.new(custom_fields_params)
@@ -12,6 +12,17 @@ module Api::V1::Products::CustomFields
 				}
       else
         render json: ErrorSerializer.serialize(@custom_fields.errors)
+      end
+		end
+
+		def destroy
+    	if @custom_field.destroy
+				render json:{
+					status: 'destroyed',
+					data:   @custom_field
+				}
+      else
+        render json: ErrorSerializer.serialize(@custom_field.errors)
       end
 		end
 
