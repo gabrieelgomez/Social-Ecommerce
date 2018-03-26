@@ -7,10 +7,21 @@ module Api::V1::Products
 
 		def create
 			@product = @productable.products.new(product_params)
+			@product.category_ids = params[:product][:category_ids]
 			if @product.save
 				render json:{
 					status: 'success',
-					data:  model_name.find(@productable.id).as_json(root: true, include: { products: {include: :custom_fields, :categories} })
+	        data:   model_name.where(id: @productable.id).as_json(
+						root: true,
+						include: {
+							products: {
+								include: {
+									custom_fields:{},
+									categories:{}
+								}
+							}
+						}
+					)
 				}
 			else
 				render json: ErrorSerializer.serialize(@product.errors)
@@ -18,8 +29,8 @@ module Api::V1::Products
 		end
 
 		def update
+			@product.category_ids = params[:product][:category_ids]
 			if @product.update(product_params)
-				byebug
         render json: @product, status: :updated
       else
         render json: ErrorSerializer.serialize(@product.errors)

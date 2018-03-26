@@ -4,12 +4,13 @@ module ProductSearch
 	private
 
 	def product_params
-		params.require(:product).permit(:name, :height, :width, :weight, :price, { product_relations: [] })
+		params.require(:product).permit(:name, :category_ids, :height, :width, :weight, :price, { product_relations: [] })
 	end
 
   def set_product
   	@product = @productable.products.find(params[:id])
   end
+
 
   def model_name
     params[:type_profile].singularize.camelize.constantize
