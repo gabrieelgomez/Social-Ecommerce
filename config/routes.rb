@@ -68,6 +68,12 @@ Rails.application.routes.draw do
             delete '/custom_field/:field_id/destroy', to: 'custom_fields/action#destroy'
             # --- Module custom fields - end
 
+            # --- Module options products
+            get '/options', to: 'options/show#index'
+            post '/options', to: 'options/action#create'
+            delete '/option/:field_id/destroy', to: 'options/action#destroy'
+            # --- Module options products - end
+
           end
         end
       end
