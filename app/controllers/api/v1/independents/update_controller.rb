@@ -1,7 +1,7 @@
 module Api::V1::Independents
   # Update controller
   class UpdateController < IndependentsController
-    before_action :authenticate_user!
+    before_action :authenticate_v1_user!
     before_action :set_independent
 
     def update

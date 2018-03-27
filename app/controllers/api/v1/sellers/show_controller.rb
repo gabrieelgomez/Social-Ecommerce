@@ -2,7 +2,7 @@ module Api::V1::Sellers
   # Show controller
   class ShowController < SellersController
     # Callbacks
-    before_action :authenticate_user!, only: :own_sellers
+    before_action :authenticate_v1_user!, only: [:own_sellers]
     before_action :set_seller, only: :show
 
 
@@ -18,7 +18,7 @@ module Api::V1::Sellers
     def own_sellers
       render json: {
         status: 'success',
-        data:   User.where(id: current_user.id).as_json(root: true, include: :seller)
+        data:   User.where(id: current_v1_user.id).as_json(root: true, include: :seller)
       }
     end
   end

@@ -26,6 +26,6 @@ module ProductSearch
   def current_user_productable
   	@productable = model_name.find_by_id_and_type_profile_and_user_id(params[:profile_id], 
                                                           						params[:type_profile].singularize,
-                                                          						current_user.id)
+                                                          						current_v1_user.id)
   end
 end

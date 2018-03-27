@@ -2,7 +2,7 @@ module Api::V1::Independents
   # Show controller
   class ShowController < IndependentsController
     # Callbacks
-    before_action :authenticate_user!, only: [:own_independents]
+    before_action :authenticate_v1_user!, only: [:own_independents]
     before_action :set_independent, only: [:show]
 
 
@@ -16,7 +16,7 @@ module Api::V1::Independents
     end
 
     def own_independents
-      render json: Independent.where(user_id: current_user.id, type_profile: 'independent')
+      render json: Independent.where(user_id: current_v1_user.id, type_profile: 'independent')
     end
   end
 end
