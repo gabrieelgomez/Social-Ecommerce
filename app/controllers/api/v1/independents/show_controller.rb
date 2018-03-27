@@ -16,7 +16,10 @@ module Api::V1::Independents
     end
 
     def own_independents
-      render json: Independent.where(user_id: current_user.id, type_profile: 'independent')
+      render json: {
+        status: 'success',
+        data:   User.where(id: current_user.id).as_json(root: true, include: :independents)
+      }
     end
   end
 end

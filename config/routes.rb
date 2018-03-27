@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # match '*path', :controller => 'application', :action => 'handle_options_request', :via => [:get, :post, :options]
   mount_devise_token_auth_for 'User', at: 'auth'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # Route for frontend
@@ -12,43 +11,48 @@ Rails.application.routes.draw do
 
       #Rutas para el controlador User
       namespace :users do
-        get '/', to: 'show#index', as: :users
-        get '/:id', to: 'show#show', as: :show_user
-        # resources :users, only: [:index, :show]
+        get '/', to: 'show#index'
+        get '/:id', to: 'show#show'
       end
 
       # --- Profiles route
       scope module: 'profiles' do
-        post '/:type_profile/create', to: 'create#create', as: :create_profile
+        post '/:type_profile/create', to: 'create#create'
       end
       # --- Profiles route - end
 
       # --- Sellers route
       namespace :sellers do
         # Sellers controller
-        get '/', to: 'show#index',                    as: :index_pymes
+        get '/', to: 'show#index'
         # Show
-        get '/own', to: 'show#own_sellers',           as: :own_seller
+        get '/own', to: 'show#own_sellers'
         # Edit
-        put '/:id/update', to: 'update#update',       as: :update_seller
+        put '/:id/update', to: 'update#update'
         # Destroy
-        delete '/:id/destroy', to: 'destroy#destroy', as: :destroy_seller
+        delete '/:id/destroy', to: 'destroy#destroy'
       end
       # --- Sellers route - end
 
       # --- Pymes route
-      get '/own_pymes', controller: 'pymes/show', action: 'own_pymes'
+      get '/own_pymes', to: 'pymes/show#own_pymes'
       namespace :pymes do
-        get '/', to: 'show#index',
-                 as: :index_pymes
-        get '/:id', to: 'show#show',
-                    as: :show_pyme
-        put '/:id/update', to: 'update#update',
-                           as: :update_pyme
-        delete '/:id/destroy', to: 'destroy#destroy',
-                               as: :destroy_pyme
+        get '/', to: 'show#index'
+        get '/:id', to: 'show#show'
+        put '/:id/update', to: 'update#update'
+        delete '/:id/destroy', to: 'destroy#destroy'
       end
       # --- Pymes route - end
+
+      # --- Independents routes
+      get '/own_independents', to: 'independents/show#own_independents'
+      namespace :independents do
+        get '/', to: 'show#index'
+        get '/:id', to: 'show#show'
+        put '/:id/update', to: 'update#update'
+        delete '/:id/destroy', to: 'destroy#destroy'
+      end
+      # --- Independents routes - end
 
       # --- Product routes
       scope '/:type_profile/:profile_id' do
@@ -57,29 +61,40 @@ Rails.application.routes.draw do
         resources :products, only: [] do
           scope module: 'products' do
             post '/products_related', to: 'products_related/action#create'
-          end     
+
+            # --- Module custom fields
+            get '/custom_fields', to: 'custom_fields/show#index'
+            post '/custom_fields', to: 'custom_fields/action#create'
+            delete '/custom_field/:field_id/destroy', to: 'custom_fields/action#destroy'
+            # --- Module custom fields - end
+
+            # --- Module options products
+            get '/options', to: 'options/show#index'
+            post '/options', to: 'options/action#create'
+            delete '/option/:field_id/destroy', to: 'options/action#destroy'
+            # --- Module options products - end
+
+          end
         end
       end
       namespace :products do
-        get '/own', controller: 'show', action: 'show_own'
+        get '/own', to: 'show#show_own'
+
+        # --- Categories Products routes
+        namespace :categories do
+          post '/', to: 'action#create'
+          get '/', to: 'show#index'
+          get '/:category_id', to: 'show#show'
+          put '/:category_id/update', to: 'action#update'
+          delete '/:category_id/destroy', to: 'action#destroy'
+        end
+        # --- Categories Products routes - end
+
       end
       # --- Product routes - end
 
-      # --- Independents routes
-      get '/own_independents', controller: 'independents/show', action: 'own_independents'
-      namespace :independents do
-        get '/', to: 'show#index',
-                 as: :index_independents
-        get '/:id', to: 'show#show',
-                    as: :show_independent
-        put '/:id/update', to: 'update#update',
-                           as: :update_independent
-        delete '/:id/destroy', to: 'destroy#destroy',
-                               as: :destroy_independent
-      end
-      # --- Independents routes - end
+
     end
   end
-  # global options responder -> makes sure OPTION request for CORS endpoints work
-  # match '*path', via: [:options], to: lambda {|_| [204, { 'Content-Type' => 'text/plain' }]}
+
 end
