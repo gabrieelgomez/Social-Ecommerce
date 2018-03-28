@@ -7,7 +7,7 @@ module Api::V1::Sellers
     before_action :validate_current_seller
 
     def update
-      if @seller.update(seller_params)
+      if @seller.update(general_params(:seller))
         render json: @seller, status: :updated
       else
         render json: ErrorSerializer.serialize(@seller.errors)
