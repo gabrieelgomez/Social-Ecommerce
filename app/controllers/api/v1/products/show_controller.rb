@@ -1,7 +1,6 @@
 module Api::V1::Products
 	class ShowController < ProductsController
-		before_action :authenticate_user!, only: [:show_own]
-
+		before_action :authenticate_v1_user!, only: [:show_own]
 		before_action :public_productable, only: [:show, :index]
     before_action :set_product, only: [:show]
 		def index
@@ -40,7 +39,7 @@ module Api::V1::Products
     def show_own
       #vbyebug
       @products = []
-      direct_staff = current_user.pymes.to_a.concat(current_user.independents.to_a)
+      direct_staff = current_v1_user.pymes.to_a.concat(current_v1_user.independents.to_a)
       direct_staff.each do |thing|
         @products += thing.try(:products)
       end

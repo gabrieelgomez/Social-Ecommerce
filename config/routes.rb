@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'auth'
+  # match '*path', :controller => 'application', :action => 'handle_options_request', :via => [:get, :post, :options]
+  namespace :v1 do
+    mount_devise_token_auth_for 'User', at: 'auth'
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # Route for frontend
   scope module: 'api' do

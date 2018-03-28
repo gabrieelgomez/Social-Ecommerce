@@ -1,6 +1,6 @@
 module Api::V1::Profiles
   class CreateController < ProfilesController
-    before_action :authenticate_user!
+    before_action :authenticate_v1_user!, only: [:create]
     before_action :type_profile, only: [:create]
     # POST /v1/profiles
     def create

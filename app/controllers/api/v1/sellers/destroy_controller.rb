@@ -2,7 +2,7 @@
 module Api::V1::Sellers
   # Destroy Controller
   class DestroyController < SellersController
-    before_action :authenticate_user!
+    before_action :authenticate_v1_user!
     before_action :set_seller
     before_action :validate_current_seller
 
