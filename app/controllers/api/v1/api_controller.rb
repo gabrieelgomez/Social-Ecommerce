@@ -4,7 +4,7 @@ module Api::V1
     respond_to :json
 
     def index
-      @current = current_user
+      @current = current_v1_user
       render json: @current
     end
 

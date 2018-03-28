@@ -1,6 +1,6 @@
 module Api::V1::Products::ProductsRelated
 	class ActionController < ProductsRelatedController
-		before_action :authenticate_user!
+		before_action :authenticate_v1_user!
 		before_action :current_user_productable, only: [:create]
 		# before_action :set_product, only: [:create]
 
