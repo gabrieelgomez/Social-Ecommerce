@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+	mount_uploader :images, ImagesUploader
+
 	belongs_to :productable, polymorphic: true
 
 	has_many :custom_fields

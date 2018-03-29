@@ -4,7 +4,7 @@ module ProductSearch
 	private
 
 	def product_params
-		params.require(:product).permit(:name, :category_ids, :height, :width, :weight, :price, { product_relations: [] })
+		params.require(:product).permit(:name, :images, :category_ids, :height, :width, :weight, :price, { product_relations: [] })
 	end
 
   def set_product
