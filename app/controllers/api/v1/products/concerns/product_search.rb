@@ -1,4 +1,4 @@
-module ProductSearch
+module Api::V1::Products::Concerns::ProductSearch
 	extend ActiveSupport::Concern
 
 	private
