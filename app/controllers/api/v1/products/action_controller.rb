@@ -18,6 +18,8 @@ module Api::V1::Products
 							products: {
 								include: {
 									tags: {},
+									price_ranges: {},
+									options:{},
 									custom_fields:{},
 									categories:{}
 								}
@@ -31,7 +33,8 @@ module Api::V1::Products
 		end
 
 		def update
-			@product.category_ids = params[:product][:category_ids]
+			category_ids = params[:product][:category_ids]
+			@product.category_ids = category_ids if !category_ids.nil?
 			@product.tag_list.add(params[:product][:tags])
 			if @product.update(product_params)
         render json: @product, status: :updated

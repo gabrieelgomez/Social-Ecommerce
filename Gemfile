@@ -35,6 +35,9 @@ gem "paranoia", "~> 2.2"
 #Rendering JSON responses
 gem 'active_model_serializers'
 
+#Uploaders
+gem 'carrierwave'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'

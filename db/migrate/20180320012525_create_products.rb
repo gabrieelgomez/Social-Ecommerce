@@ -9,7 +9,6 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.json    :files
       t.string  :product_type
       t.json    :images
-      t.integer :price
       t.json    :fields
       t.text    :product_relations, array: true, default: []
       t.string  :tags, default: ''

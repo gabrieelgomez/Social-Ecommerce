@@ -1,6 +1,6 @@
 module Api::V1::Products::Categories
 	class ActionController < CategoriesController
-		before_action :authenticate_user!
+		before_action :authenticate_v1_user!
 		before_action :set_category, only: [:update, :destroy]
 
 		def create
