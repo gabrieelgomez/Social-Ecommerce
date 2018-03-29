@@ -1,10 +1,10 @@
-module ProductSearch
+module Api::V1::Products::Concerns::ProductSearch
 	extend ActiveSupport::Concern
 
 	private
 
 	def product_params
-		params.require(:product).permit(:name, :category_ids, :height, :width, :weight, :price, { product_relations: [] })
+		params.require(:product).permit(:name, :images, :category_ids, :height, :width, :weight, :price, { product_relations: [] }, :tags, :rate)
 	end
 
   def set_product

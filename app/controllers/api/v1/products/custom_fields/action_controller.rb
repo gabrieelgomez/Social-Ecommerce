@@ -1,10 +1,13 @@
 module Api::V1::Products::CustomFields
 	class ActionController < CustomFieldsController
-		before_action :authenticate_user!
+		before_action :authenticate_v1_user!
+		before_action :current_user_productable
+		before_action :set_product_custom_field
 		before_action :set_field, only: [:destroy]
 
 		def create
 			@custom_fields = CustomField.new(custom_fields_params)
+			@custom_fields.product = @product
       if @custom_fields.save
 				render json:{
 					status: 'success',

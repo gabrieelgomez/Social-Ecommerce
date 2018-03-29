@@ -18,7 +18,7 @@ gem 'puma', '~> 3.7'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -34,6 +34,9 @@ gem "paranoia", "~> 2.2"
 
 #Rendering JSON responses
 gem 'active_model_serializers'
+
+#Uploaders
+gem 'carrierwave'
 
 group :development, :test do
   gem 'rspec-rails'

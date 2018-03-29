@@ -1,7 +1,7 @@
-module Api::V1
-	class Products::Categories::CategoriesController < ApiController
-		before_action :authenticate_user!
-		
+module Api::V1::Products
+	class Categories::CategoriesController < ProductsController
+		before_action :authenticate_v1_user!
+
 		private
 
 		def categories_params

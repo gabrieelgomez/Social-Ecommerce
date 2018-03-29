@@ -1,6 +1,6 @@
-module Api::V1
-	class Products::CustomFields::CustomFieldsController < ApiController
-		before_action :authenticate_user!
+module Api::V1::Products
+	class CustomFields::CustomFieldsController < ProductsController
+		before_action :authenticate_v1_user!
 
 		private
 
@@ -11,6 +11,10 @@ module Api::V1
 
 		def set_field
 			@custom_field = CustomField.find(params[:field_id])
+		end
+
+		def set_product_custom_field
+			@product = @productable.products.find(params[:product_id])
 		end
 
 		def own_custom_fields(profile, product)
