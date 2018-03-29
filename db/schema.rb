@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20180328201330) do
   end
 
   create_table "price_ranges", force: :cascade do |t|
-    t.integer "stock"
+    t.integer "stock", default: 1
     t.float "price"
     t.bigint "product_id"
     t.datetime "created_at", null: false
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20180328201330) do
     t.integer "price"
     t.json "fields"
     t.text "product_relations", default: [], array: true
-    t.string "tags"
+    t.string "tags", default: ""
     t.string "productable_type"
     t.bigint "productable_id"
     t.datetime "created_at", null: false

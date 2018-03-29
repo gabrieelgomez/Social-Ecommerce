@@ -14,6 +14,9 @@ module Api::V1::Products
 						include: {
 							products: {
 								include: {
+									tags: {},
+									price_ranges: {},
+									options:{},
 									custom_fields:{},
 									categories:{}
 								}
