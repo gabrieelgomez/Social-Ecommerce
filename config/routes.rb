@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # Route for frontend
   scope module: 'api' do
-
-
     namespace :v1 do
       #Rutas para métodos del controlador API
       get '/current', to: 'api#index'
@@ -77,6 +75,14 @@ Rails.application.routes.draw do
             delete '/option/:field_id/destroy', to: 'options/action#destroy'
             # --- Module options products - end
 
+            # --- Module price_range products
+
+            get '/price_ranges', to: 'price_ranges/show#index'
+            post '/price_ranges', to: 'price_ranges/action#create'
+            put '/price_ranges/:price_range_id/update', to: 'price_ranges/action#update'
+            delete '/price_ranges/:price_range_id/destroy', to: 'price_ranges/action#destroy'
+
+            # --- Module price_range products - end
           end
         end
       end
@@ -92,10 +98,8 @@ Rails.application.routes.draw do
           delete '/:category_id/destroy', to: 'action#destroy'
         end
         # --- Categories Products routes - end
-
       end
       # --- Product routes - end
-
 
     end
   end
