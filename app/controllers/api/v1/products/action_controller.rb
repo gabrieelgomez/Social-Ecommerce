@@ -32,6 +32,7 @@ module Api::V1::Products
 
 		def update
 			@product.category_ids = params[:product][:category_ids]
+			@product.tag_list.add(params[:product][:tags])
 			if @product.update(product_params)
         render json: @product, status: :updated
       else

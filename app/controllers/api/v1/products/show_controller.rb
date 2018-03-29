@@ -27,13 +27,17 @@ module Api::V1::Products
     end
 
     def show
-      # begin
-      #   @product = @productable.products.find(params[:id])
-      # rescue ActiveRecord::RecordNotFound => e
-      #   @product = []
-      # end
-      # @product = @productable.products.find(params[:id])
     	render json: @product
+    end
+
+    def search_tag
+      @tags = params[:tags].gsub(/[\[\]]/, '').split(',')
+      # byebug
+      result = Product.tagged_with(@tags, :any => true)
+      render json: {
+        status: 'done',
+        data:   result
+      }
     end
 
     def show_own

@@ -88,7 +88,7 @@ Rails.application.routes.draw do
       end
       namespace :products do
         get '/own', to: 'show#show_own'
-
+        get '/search', to: 'show#search_tag'
         # --- Categories Products routes
         namespace :categories do
           post '/', to: 'action#create'
