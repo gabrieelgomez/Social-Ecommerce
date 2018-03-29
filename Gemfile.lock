@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/mbleigh/acts-as-taggable-on.git
+  revision: 38fefffc8f104455f87fdccd77841a2f550b16c6
+  specs:
+    acts-as-taggable-on (5.0.0)
+      activerecord (>= 4.2.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -43,8 +50,6 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    acts-as-taggable-on (4.0.0)
-      activerecord (>= 4.0)
     arel (8.0.0)
     bcrypt (3.1.11)
     builder (3.2.3)
@@ -179,7 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  acts-as-taggable-on (~> 4.0)
+  acts-as-taggable-on!
   byebug
   devise_token_auth
   factory_bot_rails
