@@ -5,25 +5,7 @@ module Api::V1::Products
     before_action :set_product, only: [:show]
 		def index
       if @productable.respond_to? :products
-      	# @products = @productable.products
-      	# render json: @products
-				render json:{
-					status: 'success',
-	        data:   model_name.where(id: @productable.id).as_json(
-						root: true,
-						include: {
-							products: {
-								include: {
-									tags: {},
-									price_ranges: {},
-									options:{},
-									custom_fields:{},
-									categories:{}
-								}
-							}
-						}
-					)
-				}
+        render json: @productable.products
       else
       	render json: { data: [], errors: 'No products found' }, status: 402
       end

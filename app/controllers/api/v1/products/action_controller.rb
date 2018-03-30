@@ -10,23 +10,24 @@ module Api::V1::Products
 			@product.category_ids = params[:product][:category_ids]
 			@product.tag_list.add(params[:product][:tags])
 			if @product.save
-				render json:{
-					status: 'success',
-	        data:   model_name.where(id: @productable.id).as_json(
-						root: true,
-						include: {
-							products: {
-								include: {
-									tags: {},
-									price_ranges: {},
-									options:{},
-									custom_fields:{},
-									categories:{}
-								}
-							}
-						}
-					)
-				}
+				render json: @product
+				# render json:{
+				# 	status: 'success',
+	   #      data:   model_name.where(id: @productable.id).as_json(
+				# 		root: true,
+				# 		include: {
+				# 			products: {
+				# 				include: {
+				# 					tags: {},
+				# 					price_ranges: {},
+				# 					options:{},
+				# 					custom_fields:{},
+				# 					categories:{}
+				# 				}
+				# 			}
+				# 		}
+				# 	)
+				# }
 			else
 				render json: ErrorSerializer.serialize(@product.errors)
 			end

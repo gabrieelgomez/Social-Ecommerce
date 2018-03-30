@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180328201330) do
+ActiveRecord::Schema.define(version: 20180330011118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20180328201330) do
   create_table "custom_fields", force: :cascade do |t|
     t.string "name"
     t.integer "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.date "start_time"
+    t.date "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,9 +67,9 @@ ActiveRecord::Schema.define(version: 20180328201330) do
     t.integer "height"
     t.integer "width"
     t.json "files"
+    t.float "price"
     t.string "product_type"
     t.json "images"
-    t.integer "price"
     t.json "fields"
     t.text "product_relations", default: [], array: true
     t.string "tags", default: ""
@@ -70,6 +79,13 @@ ActiveRecord::Schema.define(version: 20180328201330) do
     t.datetime "updated_at", null: false
     t.index ["productable_id", "productable_type"], name: "index_products_on_productable_id_and_productable_type"
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable_type_and_productable_id"
+  end
+
+  create_table "products_offers", id: false, force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "offer_id"
+    t.index ["offer_id"], name: "index_products_offers_on_offer_id"
+    t.index ["product_id"], name: "index_products_offers_on_product_id"
   end
 
   create_table "profiles", force: :cascade do |t|

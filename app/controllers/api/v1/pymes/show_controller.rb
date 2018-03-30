@@ -8,7 +8,7 @@ module Api::V1::Pymes
 
     # Public methods
     def index
-      render json: Pyme.where(type_profile: 'pyme')
+      render json: Pyme.mines
     end
 
     def show
@@ -16,10 +16,11 @@ module Api::V1::Pymes
     end
 
     def own_pymes
-      render json: {
-        status: 'success',
-        data:   User.where(id: current_v1_user.id).as_json(root: true, include: :pymes)
-      }
+      # render json: {
+      #   status: 'success',
+      #   data:   User.where(id: current_v1_user.id).as_json(root: true, include: :pymes)
+      # }
+      render json: Pyme.by_owner(current_v1_user.id)
     end
   end
 end

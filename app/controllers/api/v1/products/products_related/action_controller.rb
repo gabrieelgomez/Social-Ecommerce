@@ -10,16 +10,9 @@ module Api::V1::Products::ProductsRelated
 			reals = @productable.products.map(&:id)
 			present_prod = ids.select { |n| reals.include?(n) }
 			if @product.update(product_relations: present_prod)
-				render json: { 
-					status: 'success',
-					data: @product
-				}
+				render json: @product
 			else
-				render json: {
-					status: 'error',
-	        data:   @product,
-	        errors: @product.errors
-				}
+				render json: @product.errors
 			end
 		end
 	end

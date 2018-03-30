@@ -7,6 +7,7 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.integer :height
       t.integer :width
       t.json    :files
+      t.float   :price
       t.string  :product_type
       t.json    :images
       t.json    :fields

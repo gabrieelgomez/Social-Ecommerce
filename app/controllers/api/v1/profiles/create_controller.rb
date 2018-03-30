@@ -7,7 +7,7 @@ module Api::V1::Profiles
       @profile = Profile.new(profile_params)
       @profile.type_profile = type_profile
       if @profile.save
-        render json: { data: @profile }, status: :created
+        render json: @profile
       else
         render json: ErrorSerializer.serialize(@profile.errors)
       end

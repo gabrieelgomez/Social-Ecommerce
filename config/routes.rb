@@ -100,8 +100,6 @@ Rails.application.routes.draw do
         # --- Categories Products routes - end
       end
       # --- Product routes - end
-
     end
   end
-
 end
