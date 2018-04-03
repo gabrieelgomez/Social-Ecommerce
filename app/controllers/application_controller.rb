@@ -17,6 +17,7 @@ class ApplicationController < ActionController::API
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:nickname, :name, :password, :password_confirmation])
   end
 
   def cors_set_access_control_headers

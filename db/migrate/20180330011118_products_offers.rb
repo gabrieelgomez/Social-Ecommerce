@@ -1,6 +1,6 @@
 class ProductsOffers < ActiveRecord::Migration[5.1]
   def change
-  	create_table :products_offers, :id => false do |t|
+  	create_table :offers_products, :id => false do |t|
       t.references :product
       t.references :offer
     end

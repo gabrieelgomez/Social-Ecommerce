@@ -5,8 +5,10 @@ class CreateOffers < ActiveRecord::Migration[5.1]
       t.text :description
       t.date :start_time
       t.date :end_time
-
+      t.references :user, foreign_key: true
       t.timestamps
     end
   end
 end
+# 08803618639
+

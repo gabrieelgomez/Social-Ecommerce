@@ -100,6 +100,16 @@ Rails.application.routes.draw do
         # --- Categories Products routes - end
       end
       # --- Product routes - end
+
+      # --- Offer route
+      namespace :offers do
+        post '/', to: 'create#create'
+        get '/', to: 'show#index'
+        get '/:id', to: 'show#show'
+        put '/:id/update', to: 'update#update'
+        delete '/:id/destroy', to: 'destroy#destroy'
+      end
+      # --- Offer route - end
     end
   end
 end
