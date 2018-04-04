@@ -15,4 +15,5 @@ class User < ActiveRecord::Base
   # Seller
   has_one  :seller, -> { where(type_profile: 'seller') },
            class_name: 'Seller'
+  has_many :offers
 end
