@@ -101,6 +101,20 @@ Rails.application.routes.draw do
       end
       # --- Product routes - end
 
+      # --- Followers route
+      scope module: 'followers' do
+        #Crear seguidor
+        get '/user/follow/:user_id', to: 'followers#create_follow'
+        #Listar todos los seguidores de current_v1_user
+        get '/user/followers', to: 'followers#followers'
+        #Listar los que sigue current_v1_user
+        get '/user/following', to: 'followers#following'
+        #Dejar de seguir un usuario a partir de current_v1_user
+        post '/user/unfollow', to: 'followers#unfollow'
+      end
+      # --- Followers route - end
+
+
     end
   end
 

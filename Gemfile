@@ -29,6 +29,10 @@ gem 'rack-cors'
 gem 'devise_token_auth'
 gem 'omniauth'
 
+#Model Follow any other model
+gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
+
+
 #Database plugin to add soft delete.
 gem "paranoia", "~> 2.2"
 

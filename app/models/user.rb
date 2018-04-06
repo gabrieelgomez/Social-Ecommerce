@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  #User followable with other users
+  acts_as_followable
+  acts_as_follower
+
   # --- Relations ---
   # Pymes
   has_many :pymes, -> { where(type_profile: 'pyme') },
