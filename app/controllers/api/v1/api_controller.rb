@@ -2,6 +2,7 @@ module Api::V1
   class ApiController < ApplicationController
     include ErrorSerializer
     respond_to :json
+    before_action :authenticate_v1_user!, only: [:index]
 
     def index
       @current = current_v1_user
