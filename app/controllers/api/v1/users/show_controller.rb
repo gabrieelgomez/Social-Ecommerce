@@ -1,6 +1,6 @@
 module Api::V1::Users
   class ShowController < UsersController
-    before_action :authenticate_v1_user!, only: [:get_current_user]
+    before_action :authenticate_v1_user!, only: [:index]
     # GET /v1/users
     def index
       render json: User.all
