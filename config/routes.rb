@@ -57,21 +57,18 @@ Rails.application.routes.draw do
 
       # --- Offer route
       namespace :offers do
+        get '/current_user', to: 'show#current_user_offers'
         get '/', to: 'show#index'
         get '/:id', to: 'show#show'
+        post '/', to: 'create#create'
+        put '/:id/update', to: 'update#update'
+        delete '/:id/destroy', to: 'destroy#destroy'
       end
       # --- Offer route - end
 
 
       # --- Product routes
       scope '/:type_profile/:profile_id' do
-        # --- Offer route
-        namespace :offers do
-          post '/', to: 'create#create'
-          put '/:id/update', to: 'update#update'
-          delete '/:id/destroy', to: 'destroy#destroy'
-        end
-        # --- Offer route - end
 
         resources :products, only: [:create, :update, :destroy], controller: 'products/action'
         resources :products, only: [:index, :show], controller: 'products/show'

@@ -1,6 +1,6 @@
 module Api::V1::Offers
   class ShowController < OffersController
-    # before_action :authenticate_v1_user!
+    before_action :authenticate_v1_user!, only: [:current_user_offers]
     # before_action :offer_params, only: [:create]
     before_action :set_offer, only: [:show]
     def index
@@ -10,6 +10,11 @@ module Api::V1::Offers
 
     def show
       render json: @offer
+    end
+
+    def current_user_offers
+      @user = current_v1_user
+      render json: @user
     end
   end
 end
