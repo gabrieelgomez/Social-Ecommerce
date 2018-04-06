@@ -8,13 +8,14 @@ Rails.application.routes.draw do
   scope module: 'api' do
     namespace :v1 do
       #Rutas para métodos del controlador API
-      get '/current', to: 'api#index'
+      
 
       #Rutas para el controlador User
       namespace :users do
         get '/', to: 'show#index'
+        get '/current', to: 'show#get_current_user'
         get '/:id', to: 'show#show'
-      end
+      end 
 
       # --- Profiles route
       scope module: 'profiles' do
