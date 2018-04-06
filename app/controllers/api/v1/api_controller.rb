@@ -1,6 +1,7 @@
 module Api::V1
   class ApiController < ApplicationController
     include ErrorSerializer
+    before_action :authenticate_v1_user!, only: [:index]
     respond_to :json
 
     def index

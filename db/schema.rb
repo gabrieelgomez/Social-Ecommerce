@@ -40,6 +40,11 @@ ActiveRecord::Schema.define(version: 20180330011118) do
     t.text "description"
     t.date "start_time"
     t.date "end_time"
+    t.boolean "state", default: false
+    t.float "price"
+    t.integer "stock"
+    t.text "condition"
+    t.text "included"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

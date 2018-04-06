@@ -55,8 +55,24 @@ Rails.application.routes.draw do
       end
       # --- Independents routes - end
 
+      # --- Offer route
+      namespace :offers do
+        get '/', to: 'show#index'
+        get '/:id', to: 'show#show'
+      end
+      # --- Offer route - end
+
+
       # --- Product routes
       scope '/:type_profile/:profile_id' do
+        # --- Offer route
+        namespace :offers do
+          post '/', to: 'create#create'
+          put '/:id/update', to: 'update#update'
+          delete '/:id/destroy', to: 'destroy#destroy'
+        end
+        # --- Offer route - end
+
         resources :products, only: [:create, :update, :destroy], controller: 'products/action'
         resources :products, only: [:index, :show], controller: 'products/show'
         resources :products, only: [] do
@@ -100,16 +116,6 @@ Rails.application.routes.draw do
         # --- Categories Products routes - end
       end
       # --- Product routes - end
-
-      # --- Offer route
-      namespace :offers do
-        post '/', to: 'create#create'
-        get '/', to: 'show#index'
-        get '/:id', to: 'show#show'
-        put '/:id/update', to: 'update#update'
-        delete '/:id/destroy', to: 'destroy#destroy'
-      end
-      # --- Offer route - end
     end
   end
 end
