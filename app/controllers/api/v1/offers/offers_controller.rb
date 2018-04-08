@@ -20,5 +20,9 @@ module Api::V1
     def set_offer
       @offer = Offer.find(params[:id])
     end
+
+    def set_current_user_offer
+      @offer = current_v1_user.offers.find(params[:id])
+    end
   end
 end

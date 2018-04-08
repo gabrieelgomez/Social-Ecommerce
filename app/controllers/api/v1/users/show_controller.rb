@@ -1,6 +1,6 @@
 module Api::V1::Users
   class ShowController < UsersController
-
+    before_action :authenticate_v1_user!, only: [:profile]
     # GET /v1/users
     def index
       render json: User.all
@@ -11,5 +11,9 @@ module Api::V1::Users
       render json: User.find(params[:id])
     end
 
+    def profile
+      @current = current_v1_user
+      render json: @current
+    end
   end
 end

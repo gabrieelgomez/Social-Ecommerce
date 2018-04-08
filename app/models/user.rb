@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
-
+  validates :email, :nickname, uniqueness: true
   # --- Relations ---
   # Pymes
   has_many :pymes, -> { where(type_profile: 'pyme') },
