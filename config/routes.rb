@@ -19,7 +19,10 @@ Rails.application.routes.draw do
 
       # --- Profiles route
       scope module: 'profiles' do
-        post '/:type_profile/create', to: 'create#create'
+        scope '/:type_profile' do 
+          get '/new', to: 'create#new'
+          post '/create', to: 'create#create'
+        end
       end
       # --- Profiles route - end
 

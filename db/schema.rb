@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 20180409155426) do
     t.string "title"
     t.string "name"
     t.string "email"
+    t.string "country"
     t.json "banner"
     t.string "photo"
     t.string "launched"

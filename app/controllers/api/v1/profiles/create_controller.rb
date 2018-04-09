@@ -3,6 +3,15 @@ module Api::V1::Profiles
     before_action :authenticate_v1_user!, only: [:create]
     before_action :type_profile, only: [:create]
     # POST /v1/profiles
+
+    def new
+      @profile = Profile.new
+      @countries = CS.countries
+      render json: {
+        countries: @countries
+      }
+    end
+
     def create
       @profile = Profile.new(profile_params)
       @profile.type_profile = type_profile

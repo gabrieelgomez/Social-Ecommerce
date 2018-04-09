@@ -28,7 +28,10 @@ gem 'rack-cors'
 # Geolocation
 gem 'geocoder', '~> 1.4', '>= 1.4.7'
 
-#devise
+# All countries gem
+gem 'city-state', '~> 0.0.13'
+
+# Devise
 gem 'devise_token_auth'
 gem 'omniauth'
 
