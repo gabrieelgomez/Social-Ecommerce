@@ -7,4 +7,8 @@ class Independent < Profile
   def self.mines
   	where(type_profile: 'independent')
   end
+
+  def self.by_owner(current_user)
+  	where('type_profile = ? and user_id = ?', 'independent', current_user)
+  end
 end

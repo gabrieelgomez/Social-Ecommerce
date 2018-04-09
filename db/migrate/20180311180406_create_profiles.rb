@@ -6,6 +6,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string  :title
       t.string  :name
       t.string  :email
+      t.string  :country
       t.json    :banner
       t.string  :photo
       t.string  :launched

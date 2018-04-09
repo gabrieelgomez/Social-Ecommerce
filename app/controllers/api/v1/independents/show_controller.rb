@@ -16,10 +16,7 @@ module Api::V1::Independents
     end
 
     def own_independents
-      render json: {
-        status: 'success',
-        data:   User.where(id: current_user.id).as_json(root: true, include: :independents)
-      }
+      render json: Independent.by_owner(current_v1_user.id)
     end
   end
 end

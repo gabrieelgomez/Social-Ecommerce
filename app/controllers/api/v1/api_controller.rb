@@ -3,11 +3,6 @@ module Api::V1
     include ErrorSerializer
     respond_to :json
 
-    def index
-      @current = current_v1_user
-      render json: @current
-    end
-
     private
 
     def general_params(object)

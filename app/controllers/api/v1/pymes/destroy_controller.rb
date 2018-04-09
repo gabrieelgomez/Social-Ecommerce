@@ -7,7 +7,7 @@ module Api::V1::Pymes
 
     def destroy
       if @pyme.destroy
-        render json: @pyme, status: :destroyed
+        render json: @pyme, status: 200
       else
         render json: ErrorSerializer.serialize(@pyme.errors)
       end

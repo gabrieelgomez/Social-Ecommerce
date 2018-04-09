@@ -4,15 +4,7 @@ module Api::V1::Products::PriceRanges
 		before_action :set_product_range
 
 		def index
-			render json:{
-				status: 'success',
-        data:   @product.price_ranges.as_json(
-					root: true,
-					include: {
-						product: {}
-					}
-				)
-			}
+			render json: @product.price_ranges
 		end
 	end
 end
