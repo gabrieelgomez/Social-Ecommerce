@@ -23,7 +23,7 @@ module Api::V1::Profiles
       params.require(:profile).permit(:user_id, :title, :name, :type_profile,
                                       :email, :banner, :photo, :launched, :phone,
                                       :url, :address, :vision, :mission, :description,
-                                      :web, :profile, :experience)
+                                      :web, :profile, :experience, :country)
     end
   end
 end
