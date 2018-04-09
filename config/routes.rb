@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
       #Rutas para el controlador User
       namespace :users do
-        get '/profile', to: 'show#profile'
+        get '/current', to: 'show#profile'
         get '/', to: 'show#index'
         get '/:id', to: 'show#show'
       end
