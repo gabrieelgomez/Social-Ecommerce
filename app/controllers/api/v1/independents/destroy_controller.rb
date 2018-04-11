@@ -2,7 +2,8 @@
 module Api::V1::Independents
   # Destroy Controller
   class DestroyController < IndependentsController
-    before_action :authenticate_v1_user!
+    before_action :authenticate_v1_user!, only: [:destroy]
+    before_action :validate_password, only: [:destroy]
     before_action :set_independent
 
     def destroy
