@@ -21,6 +21,24 @@ class Profile < ApplicationRecord
       errors.add(:type_profile, 'El usuario ya tiene seller')
     end
   end
+
+  #Metodo para buscar todos los usuarios que siguen a un perfil
+  def followers_by_type_profile(follower_type, profile, options={})
+    follows = follower_type.constantize.
+      joins(:follows).
+      where('follows.blocked'         => false,
+            'follows.followable_id'   => self.id,
+            'follows.followable_type' => profile,
+            'follows.follower_type'   => follower_type)
+    if options.has_key?(:limit)
+      follows = follows.limit(options[:limit])
+    end
+    if options.has_key?(:includes)
+      follows = follows.includes(options[:includes])
+    end
+    follows
+  end
+
 end
 
 

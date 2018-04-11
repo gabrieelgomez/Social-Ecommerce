@@ -11,4 +11,10 @@ class Follow < ActiveRecord::Base
     self.update_attribute(:blocked, true)
   end
 
+  # returns Follow records where followable is the record passed in.
+  def self.for_followable_by_profile(followable, profile)
+    where(followable_id: followable.id, followable_type: profile)
+  end
+
+
 end
