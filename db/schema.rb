@@ -21,11 +21,25 @@ ActiveRecord::Schema.define(version: 20180409155426) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories_products", id: false, force: :cascade do |t|
+  create_table "categories_independents", id: false, force: :cascade do |t|
     t.bigint "category_id"
-    t.bigint "product_id"
-    t.index ["category_id"], name: "index_categories_products_on_category_id"
-    t.index ["product_id"], name: "index_categories_products_on_product_id"
+    t.bigint "independent_id"
+    t.index ["category_id"], name: "index_categories_independents_on_category_id"
+    t.index ["independent_id"], name: "index_categories_independents_on_independent_id"
+  end
+
+  create_table "categories_pymes", id: false, force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "pyme_id"
+    t.index ["category_id"], name: "index_categories_pymes_on_category_id"
+    t.index ["pyme_id"], name: "index_categories_pymes_on_pyme_id"
+  end
+
+  create_table "categories_sellers", id: false, force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "seller_id"
+    t.index ["category_id"], name: "index_categories_sellers_on_category_id"
+    t.index ["seller_id"], name: "index_categories_sellers_on_seller_id"
   end
 
   create_table "custom_fields", force: :cascade do |t|
@@ -35,30 +49,18 @@ ActiveRecord::Schema.define(version: 20180409155426) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "offers", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.date "start_time"
-    t.date "end_time"
-    t.boolean "state", default: false
-    t.float "price"
-    t.integer "stock"
-    t.text "condition"
-    t.text "included"
-    t.bigint "user_id"
+  create_table "follows", force: :cascade do |t|
+    t.string "followable_type", null: false
+    t.bigint "followable_id", null: false
+    t.string "follower_type", null: false
+    t.bigint "follower_id", null: false
+    t.boolean "blocked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "address"
-    t.float "latitude"
-    t.float "longitude"
-    t.index ["user_id"], name: "index_offers_on_user_id"
-  end
-
-  create_table "offers_products", id: false, force: :cascade do |t|
-    t.bigint "product_id"
-    t.bigint "offer_id"
-    t.index ["offer_id"], name: "index_offers_products_on_offer_id"
-    t.index ["product_id"], name: "index_offers_products_on_product_id"
+    t.index ["followable_id", "followable_type"], name: "fk_followables"
+    t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
+    t.index ["follower_id", "follower_type"], name: "fk_follows"
+    t.index ["follower_type", "follower_id"], name: "index_follows_on_follower_type_and_follower_id"
   end
 
   create_table "options", force: :cascade do |t|
@@ -119,6 +121,19 @@ ActiveRecord::Schema.define(version: 20180409155426) do
     t.string "experience"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subcategories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subcategories_products", force: :cascade do |t|
+    t.bigint "subcategory_id"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_subcategories_products_on_product_id"
+    t.index ["subcategory_id"], name: "index_subcategories_products_on_subcategory_id"
   end
 
   create_table "taggings", force: :cascade do |t|
