@@ -8,18 +8,22 @@ Rails.application.routes.draw do
   scope module: 'api' do
     namespace :v1 do
       #Rutas para métodos del controlador API
-      
+
 
       #Rutas para el controlador User
       namespace :users do
+        get '/current', to: 'show#profile'
         get '/', to: 'show#index'
         get '/current', to: 'show#get_current_user'
         get '/:id', to: 'show#show'
-      end 
+      end
 
       # --- Profiles route
       scope module: 'profiles' do
-        post '/:type_profile/create', to: 'create#create'
+        scope '/:type_profile' do
+          get '/new', to: 'create#new'
+          post '/create', to: 'create#create'
+        end
       end
       # --- Profiles route - end
 
@@ -56,8 +60,27 @@ Rails.application.routes.draw do
       end
       # --- Independents routes - end
 
+      # --- Offer route
+      scope '/:type_profile/:profile_id' do
+        namespace :offers do
+          post '/', to: 'create#create'
+        end
+      end
+
+      namespace :offers do
+        get '/current_user', to: 'show#current_user_offers'
+        get '/', to: 'show#index'
+        get '/:username', to: 'show#user_offers'
+        get '/:id', to: 'show#show'
+        put '/:id/update', to: 'update#update'
+        delete '/:id/destroy', to: 'destroy#destroy'
+      end
+      # --- Offer route - end
+
+
       # --- Product routes
       scope '/:type_profile/:profile_id' do
+
         resources :products, only: [:create, :update, :destroy], controller: 'products/action'
         resources :products, only: [:index, :show], controller: 'products/show'
         resources :products, only: [] do
@@ -91,18 +114,51 @@ Rails.application.routes.draw do
         get '/own', to: 'show#show_own'
         get '/search', to: 'show#search_tag'
         # --- Categories Products routes
-        namespace :categories do
+        namespace :subcategories do
           post '/', to: 'action#create'
           get '/', to: 'show#index'
-          get '/:category_id', to: 'show#show'
-          put '/:category_id/update', to: 'action#update'
-          delete '/:category_id/destroy', to: 'action#destroy'
+          get '/:subcategory_id', to: 'show#show'
+          put '/:subcategory_id/update', to: 'action#update'
+          delete '/:subcategory_id/destroy', to: 'action#destroy'
         end
         # --- Categories Products routes - end
       end
       # --- Product routes - end
 
+      # --- Followers route
+      scope module: 'followers' do
+
+        # --- Users Following routes
+        namespace :users do
+          #Crear seguidor
+          get '/follow/:user_id', to: 'action#create_follow'
+          #Listar todos los seguidores de current_v1_user
+          get '/all/followers', to: 'action#followers'
+          #Listar los que sigue current_v1_user
+          get '/all/following', to: 'action#following'
+          #Dejar de seguir un usuario a partir de current_v1_user
+          post '/mod/unfollow', to: 'action#unfollow'
+        end
+
+        # /current_user/following/seller
+
+        # --- Profiles Following routes
+        # namespace :profiles do
+        scope module: 'profiles' do
+          #Crear seguidor
+          get 'current_user/follow/:type_profile/:profile_id', to: 'action#create_follow'
+          #Listar todos los seguidores de current_v1_profile
+          get 'current_user/followers/:type_profile/:profile_id', to: 'action#followers'
+          #Listar los que sigue current_v1_profile
+          get 'current_user/following/:type_profile', to: 'action#following'
+          #Dejar de seguir un usuario a partir de current_v1_profile
+          post 'current_user/unfollow/:type_profile/:profile_id/', to: 'action#unfollow'
+        end
+
+      end
+      # --- Followers route - end
+
+
     end
   end
-
 end

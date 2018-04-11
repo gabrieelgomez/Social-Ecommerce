@@ -7,19 +7,12 @@ module Api::V1::Products::ProductsRelated
 		def create
 			@product = @productable.products.find(params[:product_id])
 			ids = params[:products]
-			reals = @productable.products.map(&:id)
-			present_prod = ids.select { |n| reals.include?(n) }
+			reals = @productable.products.map(&:id) # Make a lambda with this
+			present_prod = ids.select { |n| reals.include?(n) } # And this
 			if @product.update(product_relations: present_prod)
-				render json: { 
-					status: 'success',
-					data: @product
-				}
+				render json: @product
 			else
-				render json: {
-					status: 'error',
-	        data:   @product,
-	        errors: @product.errors
-				}
+				render json: @product.errors
 			end
 		end
 	end

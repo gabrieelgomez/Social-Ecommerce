@@ -25,9 +25,19 @@ gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 #Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
-#devise
+# Geolocation
+gem 'geocoder', '~> 1.4', '>= 1.4.7'
+
+# All countries gem
+gem 'city-state', '~> 0.0.13'
+
+# Devise
 gem 'devise_token_auth'
 gem 'omniauth'
+
+#Model Follow any other model
+gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
+
 
 #Database plugin to add soft delete.
 gem "paranoia", "~> 2.2"

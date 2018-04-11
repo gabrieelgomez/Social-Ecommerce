@@ -1,9 +1,10 @@
 module Api::V1::Users
   class ShowController < UsersController
-    before_action :authenticate_v1_user!, only: [:index]
+    before_action :authenticate_v1_user!, only: [:profile]
     # GET /v1/users
     def index
-      render json: User.all
+      @users = User.all
+      render json: @users
     end
 
     # GET /v1/users/{id}
@@ -11,10 +12,9 @@ module Api::V1::Users
       render json: User.find(params[:id])
     end
 
-    def get_current_user
+    def profile
       @current = current_v1_user
       render json: @current
     end
-
   end
 end

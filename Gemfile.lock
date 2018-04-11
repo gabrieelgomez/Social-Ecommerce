@@ -5,6 +5,14 @@ GIT
     acts-as-taggable-on (5.0.0)
       activerecord (>= 4.2.8)
 
+GIT
+  remote: https://github.com/tcocca/acts_as_follower.git
+  revision: c5ac7b9601c4af01eb4d9112330b27be4d694ecc
+  branch: master
+  specs:
+    acts_as_follower (0.2.1)
+      activerecord (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -60,6 +68,8 @@ GEM
       mime-types (>= 1.16)
     case_transform (0.2)
       activesupport
+    city-state (0.0.13)
+      rubyzip (~> 1.1)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     devise (4.4.3)
@@ -79,6 +89,7 @@ GEM
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     ffi (1.9.23)
+    geocoder (1.4.7)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
@@ -164,6 +175,7 @@ GEM
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
     ruby_dep (1.5.0)
+    rubyzip (1.2.1)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -192,10 +204,13 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   acts-as-taggable-on!
+  acts_as_follower!
   byebug
   carrierwave
+  city-state (~> 0.0.13)
   devise_token_auth
   factory_bot_rails
+  geocoder (~> 1.4, >= 1.4.7)
   listen (>= 3.0.5, < 3.2)
   omniauth
   paranoia (~> 2.2)
