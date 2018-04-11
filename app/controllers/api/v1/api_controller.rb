@@ -1,6 +1,7 @@
 module Api::V1
   class ApiController < ApplicationController
     include ErrorSerializer
+    include Concerns::PasswordValidation
     respond_to :json
 
     private

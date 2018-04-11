@@ -3,7 +3,8 @@ module Api::V1::Users
     before_action :authenticate_v1_user!, only: [:profile]
     # GET /v1/users
     def index
-      render json: User.all
+      @users = User.all
+      render json: @users
     end
 
     # GET /v1/users/{id}
