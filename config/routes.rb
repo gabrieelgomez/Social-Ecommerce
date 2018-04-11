@@ -90,12 +90,12 @@ Rails.application.routes.draw do
         get '/own', to: 'show#show_own'
         get '/search', to: 'show#search_tag'
         # --- Categories Products routes
-        namespace :categories do
+        namespace :subcategories do
           post '/', to: 'action#create'
           get '/', to: 'show#index'
-          get '/:category_id', to: 'show#show'
-          put '/:category_id/update', to: 'action#update'
-          delete '/:category_id/destroy', to: 'action#destroy'
+          get '/:subcategory_id', to: 'show#show'
+          put '/:subcategory_id/update', to: 'action#update'
+          delete '/:subcategory_id/destroy', to: 'action#destroy'
         end
         # --- Categories Products routes - end
       end

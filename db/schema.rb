@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180405203743) do
+ActiveRecord::Schema.define(version: 20180411181428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,11 +21,25 @@ ActiveRecord::Schema.define(version: 20180405203743) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories_products", id: false, force: :cascade do |t|
+  create_table "categories_independents", id: false, force: :cascade do |t|
     t.bigint "category_id"
-    t.bigint "product_id"
-    t.index ["category_id"], name: "index_categories_products_on_category_id"
-    t.index ["product_id"], name: "index_categories_products_on_product_id"
+    t.bigint "independent_id"
+    t.index ["category_id"], name: "index_categories_independents_on_category_id"
+    t.index ["independent_id"], name: "index_categories_independents_on_independent_id"
+  end
+
+  create_table "categories_pymes", id: false, force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "pyme_id"
+    t.index ["category_id"], name: "index_categories_pymes_on_category_id"
+    t.index ["pyme_id"], name: "index_categories_pymes_on_pyme_id"
+  end
+
+  create_table "categories_sellers", id: false, force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "seller_id"
+    t.index ["category_id"], name: "index_categories_sellers_on_category_id"
+    t.index ["seller_id"], name: "index_categories_sellers_on_seller_id"
   end
 
   create_table "custom_fields", force: :cascade do |t|
@@ -105,6 +119,19 @@ ActiveRecord::Schema.define(version: 20180405203743) do
     t.string "experience"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subcategories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subcategories_products", force: :cascade do |t|
+    t.bigint "subcategory_id"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_subcategories_products_on_product_id"
+    t.index ["subcategory_id"], name: "index_subcategories_products_on_subcategory_id"
   end
 
   create_table "taggings", force: :cascade do |t|

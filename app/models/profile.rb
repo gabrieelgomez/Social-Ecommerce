@@ -2,7 +2,7 @@ class Profile < ApplicationRecord
   # Relations
   belongs_to  :user
   has_one     :seller
-
+  
   # Validations
   validate    :validate_seller, on: :create
   # validate    :validate_profile
