@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409155426) do
+ActiveRecord::Schema.define(version: 20180411181428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,32 @@ ActiveRecord::Schema.define(version: 20180409155426) do
     t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
     t.index ["follower_id", "follower_type"], name: "fk_follows"
     t.index ["follower_type", "follower_id"], name: "index_follows_on_follower_type_and_follower_id"
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.date "start_time"
+    t.date "end_time"
+    t.boolean "state", default: false
+    t.float "price"
+    t.integer "stock"
+    t.text "condition"
+    t.text "included"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.index ["user_id"], name: "index_offers_on_user_id"
+  end
+
+  create_table "offers_products", id: false, force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "offer_id"
+    t.index ["offer_id"], name: "index_offers_products_on_offer_id"
+    t.index ["product_id"], name: "index_offers_products_on_product_id"
   end
 
   create_table "options", force: :cascade do |t|
