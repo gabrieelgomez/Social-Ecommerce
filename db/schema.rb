@@ -126,6 +126,13 @@ ActiveRecord::Schema.define(version: 20180411181428) do
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable_type_and_productable_id"
   end
 
+  create_table "products_subcategories", force: :cascade do |t|
+    t.bigint "subcategory_id"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_products_subcategories_on_product_id"
+    t.index ["subcategory_id"], name: "index_products_subcategories_on_subcategory_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id"
     t.string "type_profile", null: false
@@ -153,13 +160,6 @@ ActiveRecord::Schema.define(version: 20180411181428) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "subcategories_products", force: :cascade do |t|
-    t.bigint "subcategory_id"
-    t.bigint "product_id"
-    t.index ["product_id"], name: "index_subcategories_products_on_product_id"
-    t.index ["subcategory_id"], name: "index_subcategories_products_on_subcategory_id"
   end
 
   create_table "taggings", force: :cascade do |t|

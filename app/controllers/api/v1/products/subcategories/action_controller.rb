@@ -4,7 +4,7 @@ module Api::V1::Products::Subcategories
 		before_action :set_subcategory, only: [:update, :destroy]
 
 		def create
-			@subcategories = Category.new(subcategories_params)
+			@subcategories = Subcategory.new(subcategories_params)
       if @subcategories.save
 				render json:{
 					status: 'success',
