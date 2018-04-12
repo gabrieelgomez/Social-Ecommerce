@@ -29,20 +29,17 @@ Rails.application.routes.draw do
 
       # --- Sellers route
       namespace :sellers do
-        # Sellers controller
-        get '/', to: 'show#index'
-        # Show
         get '/own', to: 'show#own_sellers'
-        # Edit
+        get '/', to: 'show#index'
         put '/:id/update', to: 'update#update'
-        # Destroy
         delete '/:id/destroy', to: 'destroy#destroy'
       end
       # --- Sellers route - end
 
       # --- Pymes route
-      get '/own_pymes', to: 'pymes/show#own_pymes'
+
       namespace :pymes do
+        get '/own', to: 'show#own_pymes'
         get '/', to: 'show#index'
         get '/:id', to: 'show#show'
         put '/:id/update', to: 'update#update'
@@ -51,8 +48,9 @@ Rails.application.routes.draw do
       # --- Pymes route - end
 
       # --- Independents routes
-      get '/own_independents', to: 'independents/show#own_independents'
+
       namespace :independents do
+        get '/own', to: 'show#own_independents'
         get '/', to: 'show#index'
         get '/:id', to: 'show#show'
         put '/:id/update', to: 'update#update'

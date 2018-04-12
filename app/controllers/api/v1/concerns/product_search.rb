@@ -1,10 +1,10 @@
-module Api::V1::Products::Concerns::ProductSearch
+module Api::V1::Concerns::ProductSearch
 	extend ActiveSupport::Concern
-
+	include ModelModulation
 	private
 
 	def product_params
-		params.require(:product).permit(:name, :images, :category_ids, :height, :width, 
+		params.require(:product).permit(:name, :images, :category_ids, :height, :width,
                                     :weight, :price, { product_relations: [] }, :tags, :rate)
 	end
 

@@ -1,5 +1,5 @@
 module Api::V1
   class Products::ProductsController < ApiController
-  	include Concerns::ProductSearch
+  	include ::Api::V1::Concerns::ProductSearch
   end
 end

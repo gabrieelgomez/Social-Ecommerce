@@ -4,6 +4,7 @@ module Api::V1::Users
     # GET /v1/users
     def index
       @users = User.all
+      # byebug
       render json: @users
     end
 
