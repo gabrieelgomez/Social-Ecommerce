@@ -135,7 +135,7 @@ Rails.application.routes.draw do
           #Listar los que sigue current_v1_user
           get '/all/following', to: 'action#following'
           #Dejar de seguir un usuario a partir de current_v1_user
-          post '/mod/unfollow', to: 'action#unfollow'
+          post '/stop/unfollow', to: 'action#unfollow'
         end
 
         # /current_user/following/seller
