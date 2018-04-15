@@ -1,10 +1,9 @@
 module Api::V1::Products::Subcategories
 	class ActionController < SubcategoriesController
-		before_action :authenticate_v1_user!
 		before_action :set_subcategory, only: [:update, :destroy]
 
 		def create
-			@subcategories = Category.new(subcategories_params)
+			@subcategories = Subcategory.new(subcategories_params)
       if @subcategories.save
 				render json:{
 					status: 'success',

@@ -1,7 +1,7 @@
 module Api::V1::Products::Subcategories
 	class ShowController < SubcategoriesController
-		before_action :set_categories, only: [:index]
-		before_action :set_category, only: [:show]
+		before_action :set_subcategories, only: [:index]
+		before_action :set_subcategory, only: [:show]
 
 		def index
 			render json:{

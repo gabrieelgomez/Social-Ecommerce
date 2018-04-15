@@ -111,7 +111,7 @@ Rails.application.routes.draw do
       namespace :products do
         get '/own', to: 'show#show_own'
         get '/search', to: 'show#search_tag'
-        # --- Categories Products routes
+        # --- Subcategories Products routes
         namespace :subcategories do
           post '/', to: 'action#create'
           get '/', to: 'show#index'
@@ -119,7 +119,7 @@ Rails.application.routes.draw do
           put '/:subcategory_id/update', to: 'action#update'
           delete '/:subcategory_id/destroy', to: 'action#destroy'
         end
-        # --- Categories Products routes - end
+        # --- Subcategories Products routes - end
       end
       # --- Product routes - end
 
@@ -135,7 +135,7 @@ Rails.application.routes.draw do
           #Listar los que sigue current_v1_user
           get '/all/following', to: 'action#following'
           #Dejar de seguir un usuario a partir de current_v1_user
-          post '/mod/unfollow', to: 'action#unfollow'
+          post '/stop/unfollow', to: 'action#unfollow'
         end
 
         # /current_user/following/seller
