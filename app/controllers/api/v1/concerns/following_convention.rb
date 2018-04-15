@@ -1,4 +1,4 @@
-module Api::V1::Followers::Concerns::Following
+module Api::V1::Concerns::FollowingConvention
 	extend ActiveSupport::Concern
 
 	private

@@ -16,10 +16,7 @@ module Api::V1::Sellers
     # end
 
     def own_sellers
-      render json: {
-        status: 'success',
-        data:   User.where(id: current_v1_user.id).as_json(root: true, include: :seller)
-      }
+      render json: Seller.by_owner(current_v1_user.id)
     end
   end
 end

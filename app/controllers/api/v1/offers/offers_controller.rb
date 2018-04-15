@@ -4,7 +4,7 @@ module Api::V1
     private
 
     def offer_params
-      params.require(:offer).permit(:title, :description, :start_time, :end_time, :product_ids, 
+      params.require(:offer).permit(:title, :description, :start_time, :end_time, :product_ids,
                                     :user_id, :state, :price, :stock, :condition, :included, :latitude,
                                     :longitude, :address)
     end

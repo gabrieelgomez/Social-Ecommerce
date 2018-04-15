@@ -13,7 +13,7 @@ module Api::V1
 
     def validate_current_seller
       seller = Seller.where(user_id: current_v1_user.id, type_profile: 'seller')
-      return render json: { errors: "acceso denegado" } if seller.first.id != params[:id].to_i
+      return render json: { errors: "Access denied" } if seller.first.id != params[:id].to_i
     end
   end
 end
