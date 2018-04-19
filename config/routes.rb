@@ -18,6 +18,18 @@ Rails.application.routes.draw do
         get '/:id', to: 'show#show'
       end
 
+      namespace :profiles do
+        # --- Categories Products routes
+        namespace :categories do
+          post '/', to: 'action#create'
+          get '/', to: 'show#index'
+          get '/:category_id', to: 'show#show'
+          put '/:category_id/update', to: 'action#update'
+          delete '/:category_id/destroy', to: 'action#destroy'
+        end
+        # --- Categories Products routes - end
+      end
+
       # --- Profiles route
       scope module: 'profiles' do
         scope '/:type_profile' do
