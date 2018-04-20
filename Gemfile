@@ -41,6 +41,8 @@ gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 #Model Follow any other model
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 
+#Validate email
+gem 'validates_email_format_of'
 
 #Database plugin to add soft delete.
 gem "paranoia", "~> 2.2"
@@ -50,6 +52,7 @@ gem 'active_model_serializers'
 
 #Uploaders
 gem 'carrierwave'
+gem 'carrierwave-base64'
 
 group :development, :test do
   gem 'rspec-rails'
