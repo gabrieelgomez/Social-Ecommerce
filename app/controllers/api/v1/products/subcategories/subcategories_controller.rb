@@ -9,11 +9,11 @@ module Api::V1::Products
 		end
 
 		def set_subcategory
-			@subcategory = Category.find(params[:subcategory_id])
+			@subcategory = Subcategory.find(params[:subcategory_id])
 		end
 
 		def set_subcategories
-			@subcategories = Category.all
+			@subcategories = Subcategory.all
 		end
 
 	end

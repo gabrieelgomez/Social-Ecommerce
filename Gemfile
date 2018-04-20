@@ -35,6 +35,9 @@ gem 'city-state', '~> 0.0.13'
 gem 'devise_token_auth'
 gem 'omniauth'
 
+#Data Faker
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+
 #Model Follow any other model
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 

@@ -7,7 +7,7 @@ module Api::V1::Products
 
 		def create
 			@product = @productable.products.new(product_params)
-			@product.category_ids = params[:product][:category_ids]
+			@product.subcategory_ids = params[:product][:subcategory_ids]
 			@product.tag_list.add(params[:product][:tags])
 			if @product.save
 				render json: @product
@@ -17,8 +17,8 @@ module Api::V1::Products
 		end
 
 		def update
-			category_ids = params[:product][:category_ids]
-			@product.category_ids = category_ids if !category_ids.nil?
+			subcategory_ids = params[:product][:subcategory_ids]
+			@product.subcategory_ids = subcategory_ids if !subcategory_ids.nil?
 			@product.tag_list.add(params[:product][:tags])
 			if @product.update(product_params)
         render json: @product, status: :updated
