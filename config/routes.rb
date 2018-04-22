@@ -168,6 +168,12 @@ Rails.application.routes.draw do
       end
       # --- Followers route - end
 
+      # --- Rates Profiles routes
+      namespace :rates do
+        post '/current_user/:profile_id', to: 'actions#create'
+        delete '/current_user/:id/destroy', to: 'actions#destroy'
+      end
+      # --- Rates Profiles route - end
 
     end
   end

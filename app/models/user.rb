@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
            class_name: 'Seller'
 
   has_many :offers
+  has_many :rates
+
 
    #Metodo para seguir Profiles by users
    def follow_profile(followable, profile)
