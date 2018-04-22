@@ -80,4 +80,21 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Mailer configuration
+  config.action_mailer.default_url_options = { host: Rails.application.secrets.domain_name }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default charset: 'utf-8'
+  config.action_mailer.smtp_settings = {
+    address:              Rails.application.secrets.address,
+    port:                 Rails.application.secrets.port,
+    domain:               Rails.application.secrets.domain_name,
+    user_name:            Rails.application.secrets.email,
+    password:             Rails.application.secrets.password,
+    authentication:   'plain',
+    enable_starttls_auto: true,
+    ssl: true
+  }
 end
