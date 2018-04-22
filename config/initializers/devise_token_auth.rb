@@ -46,4 +46,6 @@ DeviseTokenAuth.setup do |config|
   # do so by enabling this flag. NOTE: This feature is highly experimental!
   # config.enable_standard_devise_support = false
   # config.check_current_password_before_update = true
+  config.default_password_reset_url = '/'
+  config.remove_tokens_after_password_reset = true
 end
