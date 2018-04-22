@@ -2,12 +2,13 @@ class Profile < ApplicationRecord
   # Relations
   belongs_to  :user
   has_one     :seller
-  
+
   # Validations
   validate    :validate_seller, on: :create
   # validate    :validate_profile
   validates   :user_id, numericality: true
   validates   :user_id, :type_profile, presence: true
+  # has_and_belongs_to_many :categories
 
   def validate_profile
     type = self.type_profile.downcase
