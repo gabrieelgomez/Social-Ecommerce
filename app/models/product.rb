@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-	mount_uploader :images, ImagesUploader
+	# mount_uploader :images, ImagesUploader
 
 	belongs_to :productable, polymorphic: true
 	acts_as_taggable_on :tags

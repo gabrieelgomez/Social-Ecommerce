@@ -21,11 +21,11 @@ Rails.application.routes.draw do
       namespace :profiles do
         # --- Categories Products routes
         namespace :categories do
-          post '/', to: 'action#create'
-          get '/', to: 'show#index'
-          get '/:category_id', to: 'show#show'
-          put '/:category_id/update', to: 'action#update'
-          delete '/:category_id/destroy', to: 'action#destroy'
+          post '/', to: 'categories#create'
+          get '/', to: 'categories#index'
+          get '/:category_id', to: 'categories#show'
+          put '/:category_id/update', to: 'categories#update'
+          delete '/:category_id/destroy', to: 'categories#destroy'
         end
         # --- Categories Products routes - end
       end
@@ -100,13 +100,13 @@ Rails.application.routes.draw do
             # --- Module custom fields
             get '/custom_fields', to: 'custom_fields/show#index'
             post '/custom_fields', to: 'custom_fields/action#create'
-            delete '/custom_field/:field_id/destroy', to: 'custom_fields/action#destroy'
+            delete '/custom_fields/:field_id/destroy', to: 'custom_fields/action#destroy'
             # --- Module custom fields - end
 
             # --- Module options products
             get '/options', to: 'options/show#index'
             post '/options', to: 'options/action#create'
-            delete '/option/:field_id/destroy', to: 'options/action#destroy'
+            delete '/options/:option_id/destroy', to: 'options/action#destroy'
             # --- Module options products - end
 
             # --- Module price_range products
@@ -168,6 +168,12 @@ Rails.application.routes.draw do
       end
       # --- Followers route - end
 
+      # --- Rates Profiles routes
+      namespace :rates do
+        post '/current_user/:profile_id', to: 'actions#create'
+        delete '/current_user/:id/destroy', to: 'actions#destroy'
+      end
+      # --- Rates Profiles route - end
 
     end
   end

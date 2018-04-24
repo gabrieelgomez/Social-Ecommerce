@@ -74,6 +74,9 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    carrierwave-base64 (2.7.0)
+      carrierwave (>= 0.8.0)
+      mime-types (~> 3.0)
     case_transform (0.2)
       activesupport
     city-state (0.0.13)
@@ -200,6 +203,8 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    validates_email_format_of (1.6.3)
+      i18n
     warden (1.2.7)
       rack (>= 1.0)
     websocket-driver (0.6.5)
@@ -215,6 +220,7 @@ DEPENDENCIES
   acts_as_follower!
   byebug
   carrierwave
+  carrierwave-base64
   city-state (~> 0.0.13)
   devise_token_auth
   factory_bot_rails
@@ -231,6 +237,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  validates_email_format_of
 
 RUBY VERSION
    ruby 2.3.1p112

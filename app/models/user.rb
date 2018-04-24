@@ -4,7 +4,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
+
+  mount_base64_uploader :avatar, AvatarUploader
+
   validates :email, :nickname, uniqueness: true
+  validates :email, :email_format => { :message => 'Invalid email' }
+
   #Helper para permitir que el modelo pueda ser seguido por otros modelos
   acts_as_followable
   #Helper para permitir que el modelo pueda seguir a otros modelos
@@ -22,7 +27,9 @@ class User < ActiveRecord::Base
            class_name: 'Seller'
 
   has_many :offers
-  
+  has_many :rates
+
+
    #Metodo para seguir Profiles by users
    def follow_profile(followable, profile)
      if self != followable
