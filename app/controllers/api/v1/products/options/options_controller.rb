@@ -10,7 +10,7 @@ module Api::V1::Products
 		end
 
 		def set_option
-			@option = CustomField.find(params[:option_id])
+			@option = Option.find(params[:option_id])
 		end
 
 		def set_product_option
