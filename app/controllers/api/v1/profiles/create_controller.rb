@@ -15,6 +15,7 @@ module Api::V1::Profiles
     def create
       @profile = Profile.new(profile_params)
       @profile.type_profile = type_profile
+      @profile.category_ids = params[:profile][:category_ids]
       @profile.user = current_v1_user
       if @profile.save
         render json: @profile

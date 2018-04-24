@@ -2,25 +2,17 @@ class Profile < ApplicationRecord
   # Relations
   belongs_to  :user
   has_one     :seller
-  has_many :rates
+  has_many    :rates
+  has_and_belongs_to_many :categories
 
   # Validations
   validate    :validate_seller, on: :create
-  # validate    :validate_profile
   validates   :user_id, numericality: true
   validates   :user_id, :type_profile, presence: true
-  # has_and_belongs_to_many :categories
-
-  def validate_profile
-    type = self.type_profile.downcase
-    if (type != 'seller') || (type != 'pyme') || (type != 'independent')
-      errors.add(:type_profile, 'no admitido')
-    end
-  end
 
   def validate_seller
     if !User.find(self.user_id).seller.nil? && self.type_profile.downcase.eql?('seller')
-      errors.add(:type_profile, 'El usuario ya tiene seller')
+      errors.add(:type_profile, 'El usuario ya tiene un perfil seller')
     end
   end
 
@@ -42,12 +34,3 @@ class Profile < ApplicationRecord
   end
 
 end
-
-
-# Profile.create(user_id:8, type_profile: 3, name: 'vendedor 1')
-#
-# Profile.create(user_id:1, type_profile: 1, name: 'pymes 1')
-
-# user.profiles.find_by_type_profile(3).seller
-
-# listado de pyme seller indepen sin login
