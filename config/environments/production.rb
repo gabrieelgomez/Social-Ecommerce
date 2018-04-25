@@ -94,7 +94,6 @@ Rails.application.configure do
     user_name:            Rails.application.secrets.email,
     password:             Rails.application.secrets.password,
     authentication:   'plain',
-    enable_starttls_auto: true,
-    ssl: true
+    enable_starttls_auto: true
   }
 end
