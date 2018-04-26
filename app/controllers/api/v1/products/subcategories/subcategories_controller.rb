@@ -1,6 +1,6 @@
 module Api::V1::Products
 	class Subcategories::SubcategoriesController < ProductsController
-		before_action :authenticate_v1_user!
+		before_action :authenticate_v1_user!, except: [:index, :show]
 
 		private
 
