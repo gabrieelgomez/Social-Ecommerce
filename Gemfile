@@ -12,44 +12,29 @@ gem 'rails', '~> 5.1.5'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+#Tags for Model
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 #Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
-
 # Geolocation
 gem 'geocoder', '~> 1.4', '>= 1.4.7'
-
 # All countries gem
 gem 'city-state', '~> 0.0.13'
-
-# Devise
+# Devise for authentication
 gem 'devise_token_auth'
 gem 'omniauth'
-
 #Data Faker
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
-
 #Model Follow any other model
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
-
+#Comments for Profile and nested comments/replies
+gem 'acts_as_commentable_with_threading'
 #Validate email
 gem 'validates_email_format_of'
-
 #Database plugin to add soft delete.
 gem "paranoia", "~> 2.2"
-
 #Rendering JSON responses
 gem 'active_model_serializers'
-
 #Uploaders
 gem 'carrierwave'
 gem 'carrierwave-base64'
@@ -72,3 +57,12 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# gem 'jbuilder', '~> 2.5'
+# Use Redis adapter to run Action Cable in production
+# gem 'redis', '~> 4.0'
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development

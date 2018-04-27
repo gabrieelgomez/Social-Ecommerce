@@ -1,5 +1,5 @@
-module Api::V1
-  class Categories::CategoriesController < ApiController
+module Api::V1::Profiles
+	class Categories::CategoriesController < ProfilesController
     # before_action :authenticate_v1_user!, except: [:index, :show]
     # before_action :set_category, only: [:update, :destroy, :show]
     before_action :set_category, only: [:show]

@@ -1,5 +1,5 @@
-module Api::V1::Categories
-  class ActionsController < CategoriesController
+module Api::V1::Profiles::Categories
+	class ActionsController < CategoriesController
 
     # def create
     #   @category = Category.new(category_params)
