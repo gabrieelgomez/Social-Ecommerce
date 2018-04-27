@@ -1,5 +1,5 @@
 module Api::V1::Products::Subcategories
-	class ActionController < SubcategoriesController
+	class ActionsController < SubcategoriesController
 		before_action :set_subcategory, only: [:update, :destroy]
 
 		def create
