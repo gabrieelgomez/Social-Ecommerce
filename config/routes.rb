@@ -26,11 +26,17 @@ Rails.application.routes.draw do
       end
       # Location routes - end
 
-      # Search route
+      # Geolocation route
       namespace :geolocation do
         post '/look_for', to: 'gps#profiles_per_categories'
       end
-      # Search route - end
+      # Geolocation route - end
+
+      # Search routes
+      namespace :search do
+        post '/', to: 'search#global_search'
+      end
+      # Search routes - end
 
       # --- Categories Products routes
       namespace :categories do
