@@ -4,7 +4,7 @@ class Profile < ApplicationRecord
   has_one     :seller
   has_many    :rates
   has_and_belongs_to_many :categories
-
+  has_many :locations, as: :locatable
   # Validations
   validate    :validate_seller, on: :create
   validates   :user_id, numericality: true

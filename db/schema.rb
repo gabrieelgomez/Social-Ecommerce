@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180422210508) do
+ActiveRecord::Schema.define(version: 20180429135537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,17 @@ ActiveRecord::Schema.define(version: 20180422210508) do
     t.index ["follower_type", "follower_id"], name: "index_follows_on_follower_type_and_follower_id"
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.text "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "locatable_type"
+    t.bigint "locatable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable_type_and_locatable_id"
+  end
+
   create_table "offers", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -68,9 +79,6 @@ ActiveRecord::Schema.define(version: 20180422210508) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "address"
-    t.float "latitude"
-    t.float "longitude"
     t.index ["user_id"], name: "index_offers_on_user_id"
   end
 
