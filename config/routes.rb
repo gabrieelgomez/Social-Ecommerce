@@ -7,16 +7,36 @@ Rails.application.routes.draw do
   # Route for frontend
   scope module: 'api' do
     namespace :v1 do
-      #Rutas para métodos del controlador API
+      # Rutas para métodos del controlador API
 
 
-      #Rutas para el controlador User
+      # Rutas para el controlador User
       namespace :users do
         get '/current', to: 'show#profile'
         get '/', to: 'show#index'
         get '/current', to: 'show#get_current_user'
         get '/:id', to: 'show#show'
       end
+
+      # Location routes
+      namespace :locations do
+        scope '/:locatable_type/:locatable_id' do
+          post '/create', to: 'create#create'
+        end
+      end
+      # Location routes - end
+
+      # Geolocation route
+      namespace :geolocation do
+        post '/look_for', to: 'gps#profiles_per_categories'
+      end
+      # Geolocation route - end
+
+      # Search routes
+      namespace :search do
+        post '/', to: 'search#global_search'
+      end
+      # Search routes - end
 
       # --- Categories Products routes
       namespace :categories do

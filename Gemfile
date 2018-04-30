@@ -25,6 +25,9 @@ gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 #Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
+# Search
+gem 'ransack', '~> 1.8', '>= 1.8.8'
+
 # Geolocation
 gem 'geocoder', '~> 1.4', '>= 1.4.7'
 

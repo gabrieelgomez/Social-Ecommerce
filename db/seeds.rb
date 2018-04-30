@@ -38,7 +38,42 @@ categories = [
   'Servicios',
   'Viajes',
   'Vinos y gastronomía',
-  'Otras Categorías '
+  'Otras Categorías'
+]
+
+coordenates = [
+  {
+    lat: 11.7000583,
+    long: -70.2054399
+  },
+  {
+    lat: 11.6908227,
+    long: -70.1890812
+  },
+  {
+    lat: 11.6840798,
+    long: -70.1811031
+  },
+  {
+    lat: 11.6580284,
+    long: -70.2076755
+  },
+  {
+    lat: 11.6903822,
+    long: -70.211555
+  },
+  {
+    lat: 11.6905949,
+    long: -70.1944855
+  },
+  {
+    lat: 11.6627642,
+    long: -70.2221431
+  },
+  {
+    lat: 11.6567257,
+    long: -70.1990896
+  },
 ]
 
 categories.each_with_index do |category, i|
@@ -46,10 +81,10 @@ categories.each_with_index do |category, i|
   # Subcategory.create(name: "Sub-#{i}", category: categoria)
 end
 
-#Recorrido para crear Usuarios, Profiles y Productos
+# Recorrido para crear Usuarios, Profiles y Productos
 10.times do |i|
 
-  #Creacion de un Usuario
+  # Creacion de un Usuario
   user = User.create(
     name: Faker::Name.unique.name,
     email: Faker::Internet.unique.free_email,
@@ -58,13 +93,13 @@ end
     nickname: Faker::Internet.unique.user_name
   )
   puts user.email
-  #Fin Creacion de un Usuario
+  # Fin Creacion de un Usuario
 
-  #Creacion de un 2 Pyme y 2 Independent a un usuario
+  # Creacion de un 2 Pyme y 2 Independent a un usuario
   2.times do |i|
 
-    #Pyme
-    pyme = Pyme.create(
+    # Pyme
+    pyme = Profile.create(
       type_profile: 'pyme',
       title: Faker::SiliconValley.company,
       name: Faker::SiliconValley.character,
@@ -73,10 +108,17 @@ end
       phone: Faker::Company.duns_number,
       url: Faker::SiliconValley.url,
       address: Faker::Address.city,
+      category_ids: [Faker::Number.between(1, 29),Faker::Number.between(1, 29)],
       user: user
     )
+    # Location to pyme
+    coord = Faker::Number.between(0, 7)
+    location = Location.create(
+      latitude: coordenates[coord][:lat],
+      longitude: coordenates[coord][:long],
+      locatable: pyme
+    )
     puts pyme.title
-
     # 3 Productos a un Pyme
     3.times do
       product = Product.create(
@@ -85,8 +127,8 @@ end
       )
     end
 
-    #Independent
-    independent = Independent.create(
+    # Independent
+    independent = Profile.create(
       type_profile: 'independent',
       title: Faker::Job.unique.title,
       name: Faker::Name.name,
@@ -95,7 +137,14 @@ end
       phone: Faker::PhoneNumber.cell_phone,
       url: Faker::Internet.url,
       address: Faker::Address.state,
+      category_ids: [Faker::Number.between(1, 29),Faker::Number.between(1, 29)],
       user: user
+    )
+    coord = Faker::Number.between(0, 7)
+    location = Location.create(
+      latitude: coordenates[coord][:lat],
+      longitude: coordenates[coord][:long],
+      locatable: independent
     )
     puts independent.title
 
@@ -109,8 +158,8 @@ end
 
   end
 
-  #Creacion de 1 Usuario Seller
-  seller = Seller.create(
+  # Creacion de 1 Usuario Seller
+  seller = Profile.create(
     type_profile: 'seller',
     title: Faker::SiliconValley.unique.app,
     name: Faker::Name.name,
@@ -119,6 +168,7 @@ end
     phone: Faker::PhoneNumber.cell_phone,
     url: Faker::Internet.url,
     address: Faker::Address.state,
+    category_ids: [Faker::Number.between(1, 29),Faker::Number.between(1, 29)],
     user: user
   )
   puts seller.title
@@ -130,7 +180,5 @@ end
       productable: seller
     )
   end
-
   puts "-------------\n"
-
 end
