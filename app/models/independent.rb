@@ -11,11 +11,11 @@ class Independent < Profile
   has_and_belongs_to_many :categories
 
   def self.mines
-  	where(type_profile: 'independent')
+    where(type_profile: 'independent')
   end
 
   def self.by_owner(current_user)
-  	where('type_profile = ? and user_id = ?', 'independent', current_user)
+    where('type_profile = ? and user_id = ?', 'independent', current_user)
   end
 
   def root_comments_profile

@@ -11,13 +11,12 @@ class Pyme < Profile
   has_and_belongs_to_many :categories
 
 
-
   def self.mines
-  	where(type_profile: 'pyme')
+    where(type_profile: 'pyme')
   end
 
   def self.by_owner(current_user)
-  	where('type_profile = ? and user_id = ?', 'pyme', current_user)
+    where('type_profile = ? and user_id = ?', 'pyme', current_user)
   end
 
   def root_comments_profile

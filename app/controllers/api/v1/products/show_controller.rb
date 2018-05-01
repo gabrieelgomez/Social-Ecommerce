@@ -1,18 +1,18 @@
 module Api::V1::Products
-	class ShowController < ProductsController
-		before_action :authenticate_v1_user!, only: [:show_own]
-		before_action :public_productable, only: [:show, :index]
+  class ShowController < ProductsController
+    before_action :authenticate_v1_user!, only: [:show_own]
+    before_action :public_productable, only: [:show, :index]
     before_action :set_product, only: [:show]
-		def index
+    def index
       if @productable.respond_to? :products
         render json: @productable.products
       else
-      	render json: { data: [], errors: 'No products found' }, status: 402
+        render json: { data: [], errors: 'No products found' }, status: 402
       end
     end
 
     def show
-    	render json: @product
+      render json: @product
     end
 
     def search_tag
@@ -35,5 +35,5 @@ module Api::V1::Products
       render json: @products
       # current_user.independents
     end
-	end
+  end
 end

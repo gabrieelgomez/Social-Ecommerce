@@ -71,6 +71,17 @@ ActiveRecord::Schema.define(version: 20180426195532) do
     t.index ["follower_type", "follower_id"], name: "index_follows_on_follower_type_and_follower_id"
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.text "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "locatable_type"
+    t.bigint "locatable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable_type_and_locatable_id"
+  end
+
   create_table "offers", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -84,9 +95,6 @@ ActiveRecord::Schema.define(version: 20180426195532) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "address"
-    t.float "latitude"
-    t.float "longitude"
     t.index ["user_id"], name: "index_offers_on_user_id"
   end
 
