@@ -1,5 +1,5 @@
 module Api::V1
-  class Search::SearchController < ApiController
+  class Searchs::SearchController < ApiController
 
     def global_search
       @result = Search.deep_search(params)

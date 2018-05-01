@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       # Geolocation route - end
 
       # Search routes
-      namespace :search do
+      namespace :searchs do
         post '/', to: 'search#global_search'
       end
       # Search routes - end
