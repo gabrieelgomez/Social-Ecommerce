@@ -1,5 +1,5 @@
-module Api::V1::Categories
-  class ShowController < CategoriesController
+module Api::V1::Profiles::Categories
+	class ShowController < CategoriesController
 
     def index
       @categories = Category.all

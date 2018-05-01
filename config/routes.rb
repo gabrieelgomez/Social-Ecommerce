@@ -39,14 +39,27 @@ Rails.application.routes.draw do
       # Search routes - end
 
       # --- Categories Products routes
-      namespace :categories do
-        post '/', to: 'actions#create'
-        get '/', to: 'show#index'
-        get '/:category_id', to: 'show#show'
-        put '/:category_id/update', to: 'actions#update'
-        delete '/:category_id/destroy', to: 'actions#destroy'
+      namespace :profiles do
+        namespace :categories do
+          post '/', to: 'actions#create'
+          get '/', to: 'show#index'
+          get '/:category_id', to: 'show#show'
+          put '/:category_id/update', to: 'actions#update'
+          delete '/:category_id/destroy', to: 'actions#destroy'
+        end
       end
       # --- Categories Products routes - end
+
+      # --- Comments route
+      namespace :comments do
+        post '/new', to: 'create#create'
+        get '/:type_profile/:profile_id', to: 'show#index'
+        get '/:comment_id', to: 'show#show'
+        put '/:comment_id/update', to: 'update#update'
+        delete '/:comment_id/destroy', to: 'destroy#destroy'
+      end
+      # --- Comments route - end
+
 
       # --- Profiles route
       scope module: 'profiles' do
