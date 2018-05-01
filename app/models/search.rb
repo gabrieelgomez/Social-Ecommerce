@@ -16,7 +16,6 @@ class Search
     (profiles + products).flatten
   end
 
-
   # Filter profiles by categories
   def self.filter_by_catgs(categories)
     profiles = []
