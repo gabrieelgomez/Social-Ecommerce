@@ -20,6 +20,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string  :web
       t.json    :profile
       t.string  :experience
+      t.datetime :deleted_at
       t.timestamps
     end
   end
