@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 20180429135537) do
   create_table "categories_profiles", id: false, force: :cascade do |t|
     t.bigint "category_id"
     t.bigint "profile_id"
-    t.bigint "seller_id"
-    t.bigint "independent_id"
     t.bigint "pyme_id"
+    t.bigint "independent_id"
+    t.bigint "seller_id"
     t.index ["category_id"], name: "index_categories_profiles_on_category_id"
     t.index ["independent_id"], name: "index_categories_profiles_on_independent_id"
     t.index ["profile_id"], name: "index_categories_profiles_on_profile_id"
