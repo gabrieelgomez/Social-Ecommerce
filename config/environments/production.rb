@@ -91,8 +91,8 @@ Rails.application.configure do
     address:              Rails.application.secrets.address,
     port:                 Rails.application.secrets.port,
     domain:               Rails.application.secrets.domain_name,
-    user_name:            Rails.application.secrets.email,
-    password:             Rails.application.secrets.password,
+    user_name:            Rails.application.secrets.mailgun_mail,
+    password:             Rails.application.secrets.mailgun_password,
     authentication:   'plain',
     enable_starttls_auto: true
   }
