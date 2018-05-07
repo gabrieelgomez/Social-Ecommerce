@@ -169,6 +169,7 @@ ActiveRecord::Schema.define(version: 20180429135537) do
     t.string "web"
     t.json "profile"
     t.string "experience"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

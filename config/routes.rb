@@ -76,6 +76,7 @@ Rails.application.routes.draw do
         get '/', to: 'show#index'
         put '/:id/update', to: 'update#update'
         put '/:id/destroy', to: 'destroy#destroy'
+        put '/:id/restore', to: 'restore#restore'
       end
       # --- Sellers route - end
 
@@ -87,6 +88,7 @@ Rails.application.routes.draw do
         get '/:id', to: 'show#show'
         put '/:id/update', to: 'update#update'
         put '/:id/destroy', to: 'destroy#destroy'
+        put '/:id/restore', to: 'restore#restore'
       end
       # --- Pymes route - end
 
@@ -98,6 +100,7 @@ Rails.application.routes.draw do
         get '/:id', to: 'show#show'
         put '/:id/update', to: 'update#update'
         put '/:id/destroy', to: 'destroy#destroy'
+        put '/:id/restore', to: 'restore#restore'
       end
       # --- Independents routes - end
 
