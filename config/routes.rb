@@ -154,6 +154,7 @@ Rails.application.routes.draw do
       namespace :products do
         get '/own', to: 'show#show_own'
         get '/search', to: 'show#search_tag'
+        get '/all', to: 'show#all'
         # --- Subcategories Products routes
         namespace :subcategories do
           post '/', to: 'action#create'
