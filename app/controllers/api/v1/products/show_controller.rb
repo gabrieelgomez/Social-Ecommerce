@@ -35,5 +35,9 @@ module Api::V1::Products
       render json: @products
       # current_user.independents
     end
+
+    def all
+      render json: Product.all
+    end
   end
 end
