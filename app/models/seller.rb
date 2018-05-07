@@ -3,6 +3,7 @@ class Seller < Profile
   acts_as_commentable
   #Helper para permitir que el modelo pueda ser seguido por otros modelos
   acts_as_followable
+  acts_as_paranoid
 
   # Relations
   belongs_to :user
