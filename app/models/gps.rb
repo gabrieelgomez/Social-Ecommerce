@@ -25,7 +25,7 @@ class Gps
   # Get profiles list
   def self.get_profiles(categories)
     return Profile.all if categories.nil?
-    categories.collect { |n| Category.try(:find, n).profiles }.first
+    categories.collect { |n| Category.try(:find, n).by_profiles }.flatten.uniq
   end
 
   # Main function of search
