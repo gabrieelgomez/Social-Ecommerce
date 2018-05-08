@@ -17,8 +17,7 @@ class Search
     products_cat = product_by_subcat(categories)
     products = (products_q + products_cat).uniq
 
-    # (profiles_by_cat + products).flatten
-    profiles_by_cat
+    (profiles_by_cat + products).flatten
   end
 
   # Filter profiles by categories
@@ -53,7 +52,7 @@ class Search
 
   # Filter products by :q param
   def self.products_by_q(search)
-    # return [] if search.empty?
+    return [] if search.blank?
     # byebug
     Product.ransack(name_cont: search).result.to_a
   end
