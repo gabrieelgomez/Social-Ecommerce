@@ -4,7 +4,7 @@ class Search
     categories = params[:categories].try(:map, &:to_i) || []
 
     # Filtering profiles
-    
+
     # profiles_by_q = filter_by_q(search)
     profiles_by_cat = filter_by_catgs(categories,
                                       search).to_a
@@ -23,17 +23,17 @@ class Search
   # Filter profiles by categories
   def self.filter_by_catgs(categories, search)
     # profiles =
-    # result = [] 
+    # result = []
     # categories.map{|cat| profiles}
     # search_result = categories.collect do |cat|
     #   Profile.ransack(categories_id_eq: cat).result
     #          .ransack(name_or_description_or_title_cont: search)
     # end
     # Profile.ransack(categories_id_m)
-    Profile.ransack(categories_id_in: categories)
+    Pyme.ransack(categories_id_in: categories)
            .result
            .ransack(name_or_description_or_title_cont: search)
-           .result   
+           .result
     # byebug0
     # search_result.map{|r| r.result}.flatten.uniq
     # profiles.select do |profile|
@@ -52,7 +52,7 @@ class Search
 
   # Filter products by :q param
   def self.products_by_q(search)
-    # return [] if search.empty?
+    return [] if search.blank?
     # byebug
     Product.ransack(name_cont: search).result.to_a
   end
