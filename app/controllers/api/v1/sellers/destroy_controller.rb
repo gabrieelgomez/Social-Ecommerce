@@ -9,7 +9,7 @@ module Api::V1::Sellers
 
     def destroy
       if @seller.destroy
-        render json: @seller, status: :destroyed
+        render json: @seller, status: 200
       else
         render json: ErrorSerializer.serialize(@seller.errors)
       end
