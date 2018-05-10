@@ -22,7 +22,7 @@ module Api::V1::Products
 			@product.subcategory_ids = subcategory_ids if !subcategory_ids.nil?
 			@product.tag_list.add(params[:product][:tags])
 			if @product.update(product_params)
-        render json: @product, status: :updated
+        render json: @product, status: 200
       else
         render json: ErrorSerializer.serialize(@product.errors)
       end

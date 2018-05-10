@@ -21,7 +21,7 @@ module Api::V1::Products::Options
 		def destroy
     	if @option.destroy
 				render json:{
-					status: 'destroyed',
+					status: 200,
 					data:   @option
 				}
       else

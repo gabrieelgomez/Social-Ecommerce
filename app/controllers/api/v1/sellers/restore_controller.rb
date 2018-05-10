@@ -6,7 +6,7 @@ module Api::V1::Sellers
     def restore
       @seller = Seller.restore(params[:id])
       if @seller
-        render json: @seller, status: :restored
+        render json: @seller, status: 200
       else
         render json: ErrorSerializer.serialize(@seller.errors)
       end

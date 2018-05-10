@@ -21,7 +21,7 @@ module Api::V1::Products::CustomFields
 		def destroy
     	if @custom_field.destroy
 				render json:{
-					status: 'destroyed',
+					status: 200,
 					data:   @custom_field
 				}
       else
