@@ -124,8 +124,8 @@ Rails.application.routes.draw do
 
       # --- Product routes
       scope '/:type_profile/:profile_id' do
-
-        resources :products, only: [:create, :update, :destroy], controller: 'products/action'
+        put '/:id/destroy', to: 'destroy#destroy'
+        resources :products, only: [:create, :update], controller: 'products/action'
         resources :products, only: [:index, :show], controller: 'products/show'
         resources :products, only: [] do
           scope module: 'products' do

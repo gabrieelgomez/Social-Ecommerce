@@ -2,6 +2,7 @@ module Api::V1::Products
 	class ActionController < ProductsController
 		before_action :authenticate_v1_user!
 		before_action :current_user_productable
+		before_action :validate_password, only: [:destroy]
 		before_action :set_product, only: [:destroy, :update]
 
 
