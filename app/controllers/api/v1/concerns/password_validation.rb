@@ -10,7 +10,7 @@ module Api::V1::Concerns::PasswordValidation
         error: [
           'Your password is missing or invalid'
         ]
-      }, status: 403
+      }, status: :unauthorized
     end
   end
 end

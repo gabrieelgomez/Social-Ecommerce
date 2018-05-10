@@ -30,7 +30,7 @@ module Api::V1::Products
 
 		def destroy
     	if @product.destroy
-        render json: @product, status: :destroyed
+        render json: @product, status: 200
       else
         render json: ErrorSerializer.serialize(@product.errors)
       end
