@@ -6,10 +6,10 @@ module Api::V1::Concerns::PasswordValidation
   def validate_password
     psswd = params[:current_password]
     unless current_v1_user.valid_password?(params[:current_password])
-      render json: { 
+      render json: {
         error: [
           'Your password is missing or invalid'
-        ] 
+        ]
       }, status: :unauthorized
     end
   end
