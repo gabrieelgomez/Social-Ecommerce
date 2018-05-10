@@ -6,7 +6,7 @@ module Api::V1::Independents
 
     def update
       if @independent.update(general_params(:independent))
-        render json: @independent, status: :updated
+        render json: @independent, status: 200
       else
         render json: ErrorSerializer.serialize(@independent.errors)
       end
