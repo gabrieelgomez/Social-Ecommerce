@@ -2,6 +2,7 @@ module Api::V1::Products
 	class ActionController < ProductsController
 		before_action :authenticate_v1_user!
 		before_action :current_user_productable
+		before_action :validate_password, only: [:destroy]
 		before_action :set_product, only: [:destroy, :update]
 
 
@@ -21,7 +22,7 @@ module Api::V1::Products
 			@product.subcategory_ids = subcategory_ids if !subcategory_ids.nil?
 			@product.tag_list.add(params[:product][:tags])
 			if @product.update(product_params)
-        render json: @product, status: :updated
+        render json: @product, status: 200
       else
         render json: ErrorSerializer.serialize(@product.errors)
       end
@@ -29,7 +30,7 @@ module Api::V1::Products
 
 		def destroy
     	if @product.destroy
-        render json: @product, status: :destroyed
+        render json: @product, status: 200
       else
         render json: ErrorSerializer.serialize(@product.errors)
       end

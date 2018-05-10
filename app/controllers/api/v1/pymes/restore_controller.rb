@@ -6,7 +6,7 @@ module Api::V1::Pymes
     def restore
       @pyme = Pyme.restore(params[:id])
       if @pyme
-        render json: @pyme, status: :restored
+        render json: @pyme, status: 200
       else
         render json: ErrorSerializer.serialize(@pyme.errors)
       end

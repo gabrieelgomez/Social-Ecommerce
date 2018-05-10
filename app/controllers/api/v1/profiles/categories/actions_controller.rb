@@ -12,7 +12,7 @@ module Api::V1::Profiles::Categories
     #
     # def update
 		# 	if @category.update(category_params)
-    #     render json: @category, status: :updated
+    #     render json: @category, status: 200
     #   else
     #     render json: ErrorSerializer.serialize(@category.errors)
     #   end
@@ -20,7 +20,7 @@ module Api::V1::Profiles::Categories
     #
 		# def destroy
     # 	if @category.destroy
-    #     render json: @category, status: :destroyed
+    #     render json: @category, status: 200
     #   else
     #     render json: ErrorSerializer.serialize(@category.errors)
     #   end
