@@ -1,3 +1,3 @@
 class SellerSerializer < ProfileSerializer
-  attributes :products
+  attributes :products, :custom_fields
 end
