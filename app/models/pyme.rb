@@ -9,6 +9,7 @@ class Pyme < Profile
   # Relations
   belongs_to :user
   has_many :products, as: :productable
+  has_many :custom_fields, as: :customizable
   has_and_belongs_to_many :categories
 
 
