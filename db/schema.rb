@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180511140212) do
+ActiveRecord::Schema.define(version: 20180512022511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 20180511140212) do
     t.integer "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "profile_id"
     t.integer "customizable_id"
     t.string "customizable_type"
   end
@@ -251,8 +250,25 @@ ActiveRecord::Schema.define(version: 20180511140212) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "wishes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name", default: ""
+    t.float "budget", default: 0.0
+    t.string "priority"
+    t.boolean "response", default: false
+    t.boolean "sent", default: false
+    t.text "description", default: ""
+    t.string "wisheable_type"
+    t.bigint "wisheable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_wishes_on_user_id"
+    t.index ["wisheable_type", "wisheable_id"], name: "index_wishes_on_wisheable_type_and_wisheable_id"
+  end
+
   add_foreign_key "offers", "users"
   add_foreign_key "price_ranges", "products"
   add_foreign_key "rates", "profiles"
   add_foreign_key "rates", "users"
+  add_foreign_key "wishes", "users"
 end

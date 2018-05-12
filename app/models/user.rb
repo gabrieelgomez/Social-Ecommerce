@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 
   has_many :offers
   has_many :rates
+  has_many :wishes
 
 
    #Metodo para seguir Profiles by users

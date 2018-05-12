@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       # Rutas para métodos del controlador API
 
+      # Wishes routes
+      draw :wishes
 
       # Rutas para el controlador User
       namespace :users do
@@ -210,7 +212,6 @@ Rails.application.routes.draw do
         delete '/current_user/:id/destroy', to: 'actions#destroy'
       end
       # --- Rates Profiles route - end
-
     end
   end
 end
