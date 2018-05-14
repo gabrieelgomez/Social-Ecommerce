@@ -17,7 +17,7 @@ class Wish < ApplicationRecord
     model.try(:find, wish[:wisheable_id])
   end
 
-  def is_mine?(user)
+  def mine?(user)
     self.user == user
   end
 end

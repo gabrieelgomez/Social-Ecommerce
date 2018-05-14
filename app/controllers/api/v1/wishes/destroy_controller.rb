@@ -2,7 +2,7 @@ module Api::V1::Wishes
   class DestroyController < WishesController
 
     # Callbacks
-    before_action :set_and_verify_wish
+    before_action :verify_and_set_wish
 
     def destroy
       if @wish.destroy

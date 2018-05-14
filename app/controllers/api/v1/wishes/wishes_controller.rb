@@ -9,9 +9,9 @@ module Api::V1
                                    :description, :wisheable_id, :wisheable_type)
     end
 
-    def set_and_verify_wish
+    def verify_and_set_wish
       @wish = Wish.find(params[:wish_id])
-      return @wish if @wish.is_mine?(current_v1_user)
+      return @wish if @wish.mine?(current_v1_user)
       render json: {
         error: [
           'Register could not be found'
