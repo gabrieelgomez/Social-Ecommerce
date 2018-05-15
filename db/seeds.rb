@@ -171,6 +171,13 @@ end
     category_ids: [Faker::Number.between(1, 29),Faker::Number.between(1, 29)],
     user: user
   )
+  # Location to pyme
+  coord = Faker::Number.between(0, 7)
+  location = Location.create(
+    latitude: coordenates[coord][:lat],
+    longitude: coordenates[coord][:long],
+    locatable: seller
+  )
   puts seller.title
 
   # 3 Productos a un Seller
