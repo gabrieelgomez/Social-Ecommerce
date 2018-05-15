@@ -1,6 +1,24 @@
 # Gps class for search using gps (mobile app)
 class Gps
 
+  def self.locations_response(profiles)
+    all_locations =  Location.all.collect{ |local| {latitude: local.latitude, longitude: local.longitude, profiles: []} }.uniq
+     profiles.each do |profile|
+      profile.locations.each do |location_profile|
+        all_locations.each_with_index do |lol,z|
+          if location_profile.latitude.eql?(lol[:latitude]) && location_profile.longitude.eql?(lol[:longitude])
+            all_locations[z][:profiles].push(profile.title).uniq
+          end
+        end
+      end
+    end
+    clean_profiles(all_locations)
+  end
+
+  def self.clean_profiles(all_locations)
+    all_locations.reject{|loc| loc[:profiles].empty?}
+  end
+
   # Get lat
   def self.latitud(prof)
     prof.locations.first.try(:latitude)
