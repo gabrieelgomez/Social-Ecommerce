@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20180512022511) do
     t.integer "stock"
     t.text "condition"
     t.text "included"
+    t.integer "saved_offer_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -254,12 +255,13 @@ ActiveRecord::Schema.define(version: 20180512022511) do
     t.bigint "user_id"
     t.string "name", default: ""
     t.float "budget", default: 0.0
-    t.string "priority"
+    t.string "priority", default: "low"
     t.boolean "response", default: false
     t.boolean "sent", default: false
     t.text "description", default: ""
     t.string "wisheable_type"
     t.bigint "wisheable_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_wishes_on_user_id"
