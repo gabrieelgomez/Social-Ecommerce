@@ -1,6 +1,5 @@
 # Gps class for search using gps (mobile app)
 class Gps
-
   # Get lat
   def self.latitud(prof)
     prof.locations.first.try(:latitude)

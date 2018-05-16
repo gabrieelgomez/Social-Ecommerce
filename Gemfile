@@ -15,10 +15,10 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 
-#Tags for Model
+# Tags for Model
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 
-#Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
 # Search
@@ -34,25 +34,25 @@ gem 'city-state', '~> 0.0.13'
 gem 'devise_token_auth'
 gem 'omniauth'
 
-#Data Faker
-gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+# Data Faker
+gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
 
-#Model Follow any other model
+# Model Follow any other model
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 
-#Comments for Profile and nested comments/replies
+# Comments for Profile and nested comments/replies
 gem 'acts_as_commentable_with_threading'
 
-#Validate email
+# Validate email
 gem 'validates_email_format_of'
 
-#Database plugin to add soft delete.
-gem "paranoia", "~> 2.2"
+# Database plugin to add soft delete.
+gem 'paranoia', '~> 2.2'
 
-#Rendering JSON responses
+# Rendering JSON responses
 gem 'active_model_serializers'
 
-#Uploaders
+# Uploaders
 gem 'carrierwave'
 gem 'carrierwave-base64'
 
