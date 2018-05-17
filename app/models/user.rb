@@ -29,7 +29,8 @@ class User < ActiveRecord::Base
   has_many :offers
   has_many :rates
   has_many :wishes
-  has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
+  has_many :saved_offers
+  # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
 
   # Metodo para seguir Profiles by users

@@ -123,6 +123,7 @@ Rails.application.routes.draw do
       end
       # --- Offer route - end
 
+      draw :saved_offers
 
       # --- Product routes
       scope '/:type_profile/:profile_id' do

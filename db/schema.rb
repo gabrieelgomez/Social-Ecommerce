@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180512022511) do
+ActiveRecord::Schema.define(version: 20180516141903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,6 @@ ActiveRecord::Schema.define(version: 20180512022511) do
     t.integer "stock"
     t.text "condition"
     t.text "included"
-    t.integer "saved_offer_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -187,6 +186,14 @@ ActiveRecord::Schema.define(version: 20180512022511) do
     t.index ["user_id"], name: "index_rates_on_user_id"
   end
 
+  create_table "saved_offers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "offer_id"
+    t.text "description"
+    t.index ["offer_id"], name: "index_saved_offers_on_offer_id"
+    t.index ["user_id"], name: "index_saved_offers_on_user_id"
+  end
+
   create_table "subcategories", force: :cascade do |t|
     t.string "name"
     t.integer "category_id"
@@ -272,5 +279,7 @@ ActiveRecord::Schema.define(version: 20180512022511) do
   add_foreign_key "price_ranges", "products"
   add_foreign_key "rates", "profiles"
   add_foreign_key "rates", "users"
+  add_foreign_key "saved_offers", "offers"
+  add_foreign_key "saved_offers", "users"
   add_foreign_key "wishes", "users"
 end
