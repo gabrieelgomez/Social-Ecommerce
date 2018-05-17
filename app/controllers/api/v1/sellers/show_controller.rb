@@ -11,9 +11,9 @@ module Api::V1::Sellers
       render json: Seller.where(type_profile: 'seller')
     end
 
-    # def show
-    #   render json: @seller
-    # end
+    def show
+      render json: @seller
+    end
 
     def own_sellers
       render json: Seller.by_owner(current_v1_user.id)
