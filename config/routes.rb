@@ -74,6 +74,7 @@ Rails.application.routes.draw do
       namespace :sellers do
         get '/own', to: 'show#own_sellers'
         get '/', to: 'show#index'
+        get '/:id', to: 'show#show'
         put '/:id/update', to: 'update#update'
         put '/:id/destroy', to: 'destroy#destroy'
         put '/:id/restore', to: 'restore#restore'
