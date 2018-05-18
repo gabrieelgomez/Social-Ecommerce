@@ -12,7 +12,7 @@ module Api::V1
         error: [
           'Record not found'
         ]
-      }, status: 402
+      }, status: 404
     end
 
     def set_and_verify_offer

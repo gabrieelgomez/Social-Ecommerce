@@ -9,23 +9,18 @@ Rails.application.routes.draw do
     namespace :v1 do
       # Rutas para métodos del controlador API
 
+      # Concerns routes
+      draw :concerns
+      # Concerns routes - end
+
       # Wishes routes
       draw :wishes
 
       # Rutas para el controlador User
-      namespace :users do
-        get '/current', to: 'show#profile'
-        get '/', to: 'show#index'
-        get '/current', to: 'show#get_current_user'
-        get '/:id', to: 'show#show'
-      end
+      draw :users
 
       # Location routes
-      namespace :locations do
-        scope '/:locatable_type/:locatable_id' do
-          post '/create', to: 'create#create'
-        end
-      end
+      draw :locations
       # Location routes - end
 
       # Geolocation route
@@ -53,13 +48,7 @@ Rails.application.routes.draw do
       # --- Categories Products routes - end
 
       # --- Comments route
-      namespace :comments do
-        post '/new', to: 'create#create'
-        get '/:type_profile/:profile_id', to: 'show#index'
-        get '/:comment_id', to: 'show#show'
-        put '/:comment_id/update', to: 'update#update'
-        delete '/:comment_id/destroy', to: 'destroy#destroy'
-      end
+      draw :comments
       # --- Comments route - end
 
 
@@ -73,145 +62,57 @@ Rails.application.routes.draw do
       # --- Profiles route - end
 
       # --- Sellers route
-      namespace :sellers do
-        get '/own', to: 'show#own_sellers'
-        get '/', to: 'show#index'
-        put '/:id/update', to: 'update#update'
-        put '/:id/destroy', to: 'destroy#destroy'
-        put '/:id/restore', to: 'restore#restore'
-      end
+      draw :sellers
       # --- Sellers route - end
 
       # --- Pymes route
-
-      namespace :pymes do
-        get '/own', to: 'show#own_pymes'
-        get '/', to: 'show#index'
-        get '/:id', to: 'show#show'
-        put '/:id/update', to: 'update#update'
-        put '/:id/destroy', to: 'destroy#destroy'
-        put '/:id/restore', to: 'restore#restore'
-      end
+      draw :pymes
       # --- Pymes route - end
 
       # --- Independents routes
-
-      namespace :independents do
-        get '/own', to: 'show#own_independents'
-        get '/', to: 'show#index'
-        get '/:id', to: 'show#show'
-        put '/:id/update', to: 'update#update'
-        put '/:id/destroy', to: 'destroy#destroy'
-        put '/:id/restore', to: 'restore#restore'
-      end
+      draw :independents
       # --- Independents routes - end
 
       # --- Offer route
-      scope '/:type_profile/:profile_id' do
-        namespace :offers do
-          post '/', to: 'create#create'
-        end
-      end
-
-      namespace :offers do
-        get '/current_user', to: 'show#current_user_offers'
-        get '/', to: 'show#index'
-        get '/:username', to: 'show#user_offers'
-        get '/:id', to: 'show#show'
-        put '/:id/update', to: 'update#update'
-        delete '/:id/destroy', to: 'destroy#destroy'
-      end
+      draw :offers
       # --- Offer route - end
 
       draw :saved_offers
 
-      # --- Product routes
+      # --- Product routes and related to them
       scope '/:type_profile/:profile_id' do
-        put 'products/:id/destroy', to: 'products/action#destroy'
-        resources :products, only: [:create, :update], controller: 'products/action'
-        resources :products, only: [:index, :show], controller: 'products/show'
-        resources :products, only: [] do
-          scope module: 'products' do
+        # Product routes
+        draw :products
+        # Product routes - end
+        scope '/products/:product_id', module: 'products' do
 
-            post '/products_related', to: 'products_related/action#create'
+          draw :products_related
 
-            # --- Module custom fields
-            get '/custom_fields', to: 'custom_fields/show#index'
-            post '/custom_fields', to: 'custom_fields/action#create'
-            delete '/custom_fields/:field_id/destroy', to: 'custom_fields/action#destroy'
-            # --- Module custom fields - end
+          # --- Module custom fields
+          draw :custom_fields
+          # --- Module custom fields - end
 
-            # --- Module options products
-            get '/options', to: 'options/show#index'
-            post '/options', to: 'options/action#create'
-            delete '/options/:option_id/destroy', to: 'options/action#destroy'
-            # --- Module options products - end
+          # --- Module options products
+          draw :options
+          # --- Module options products - end
 
-            # --- Module price_range products
+          # --- Module price_range products
+          draw :price_ranges
+          # --- Module price_range products - end
 
-            get '/price_ranges', to: 'price_ranges/show#index'
-            post '/price_ranges', to: 'price_ranges/action#create'
-            put '/price_ranges/:price_range_id/update', to: 'price_ranges/action#update'
-            delete '/price_ranges/:price_range_id/destroy', to: 'price_ranges/action#destroy'
-
-            # --- Module price_range products - end
-          end
         end
       end
-      namespace :products do
-        get '/own', to: 'show#show_own'
-        get '/search', to: 'show#search_tag'
-        get '/all', to: 'show#all'
-        # --- Subcategories Products routes
-        namespace :subcategories do
-          post '/', to: 'action#create'
-          get '/', to: 'show#index'
-          get '/:subcategory_id', to: 'show#show'
-          put '/:subcategory_id/update', to: 'action#update'
-          delete '/:subcategory_id/destroy', to: 'action#destroy'
-        end
-        # --- Subcategories Products routes - end
-      end
-      # --- Product routes - end
+
+      # --- Subcategories Products routes
+      draw :subcategories
+      # --- Subcategories Products routes - end
 
       # --- Followers route
-      scope module: 'followers' do
-
-        # --- Users Following routes
-        namespace :users do
-          #Crear seguidor
-          get '/follow/:user_id', to: 'action#create_follow'
-          #Listar todos los seguidores de current_v1_user
-          get '/all/followers', to: 'action#followers'
-          #Listar los que sigue current_v1_user
-          get '/all/following', to: 'action#following'
-          #Dejar de seguir un usuario a partir de current_v1_user
-          post '/stop/unfollow', to: 'action#unfollow'
-        end
-
-        # /current_user/following/seller
-
-        # --- Profiles Following routes
-        # namespace :profiles do
-        scope module: 'profiles' do
-          #Crear seguidor
-          get 'current_user/follow/:type_profile/:profile_id', to: 'action#create_follow'
-          #Listar todos los seguidores de current_v1_profile
-          get 'current_user/followers/:type_profile/:profile_id', to: 'action#followers'
-          #Listar los que sigue current_v1_profile
-          get 'current_user/following/:type_profile', to: 'action#following'
-          #Dejar de seguir un usuario a partir de current_v1_profile
-          post 'current_user/unfollow/:type_profile/:profile_id/', to: 'action#unfollow'
-        end
-
-      end
+      draw :followers
       # --- Followers route - end
 
       # --- Rates Profiles routes
-      namespace :rates do
-        post '/current_user/:profile_id', to: 'actions#create'
-        delete '/current_user/:id/destroy', to: 'actions#destroy'
-      end
+      draw :rates
       # --- Rates Profiles route - end
     end
   end
