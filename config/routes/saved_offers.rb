@@ -5,4 +5,8 @@ scope '/offer/:offer_id' do
     delete '/remove', to: 'destroy#remove'
   end
 end
+namespace :saved_offers do
+  get '/all_offers', to: 'show#saved_offers_user'
+  get '/:saved_offer_id', to: 'show#show'
+end
 # --- Saved Offers routes - end
