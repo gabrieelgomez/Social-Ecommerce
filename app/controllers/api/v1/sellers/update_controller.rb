@@ -8,7 +8,7 @@ module Api::V1::Sellers
 
     def update
       if @seller.update(general_params(:seller))
-        render json: @seller, status: :updated
+        render json: @seller, status: 200
       else
         render json: ErrorSerializer.serialize(@seller.errors)
       end

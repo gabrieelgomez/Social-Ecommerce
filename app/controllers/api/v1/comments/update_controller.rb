@@ -4,7 +4,7 @@ module Api::V1::Comments
 
     def update
       if @comment.update(comment_params)
-        render json: @comment, status: :updated
+        render json: @comment, status: 200
       else
         render json: ErrorSerializer.serialize(@comment.errors)
       end

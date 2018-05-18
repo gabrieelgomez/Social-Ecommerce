@@ -4,7 +4,7 @@ module Api::V1::Comments
 
     def destroy
       if @comment.destroy
-        render json: @comment, status: :destroyed
+        render json: @comment, status: 200
       else
         render json: ErrorSerializer.serialize(@comment.errors)
       end

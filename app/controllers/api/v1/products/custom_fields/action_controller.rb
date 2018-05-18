@@ -6,7 +6,7 @@ module Api::V1::Products::CustomFields
 		before_action :set_field, only: [:destroy]
 
 		def create
-			@custom_fields = CustomField.new(custom_fields_params)
+			@custom_fields = @productable.custom_fields.new(custom_fields_params)
 			@custom_fields.product = @product
       if @custom_fields.save
 				render json:{
@@ -21,7 +21,7 @@ module Api::V1::Products::CustomFields
 		def destroy
     	if @custom_field.destroy
 				render json:{
-					status: 'destroyed',
+					status: 200,
 					data:   @custom_field
 				}
       else

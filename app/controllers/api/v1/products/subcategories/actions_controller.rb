@@ -16,7 +16,7 @@ module Api::V1::Products::Subcategories
 
 		def update
 			if @subcategory.update(subcategories_params)
-        render json: @subcategory, status: :updated
+        render json: @subcategory, status: 200
       else
         render json: ErrorSerializer.serialize(@subcategory.errors)
       end
@@ -25,7 +25,7 @@ module Api::V1::Products::Subcategories
 		def destroy
     	if @subcategory.destroy
 				render json:{
-					status: 'destroyed',
+					status: 200,
 					data:   @subcategory
 				}
       else

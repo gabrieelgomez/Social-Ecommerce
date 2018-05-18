@@ -99,7 +99,7 @@ end
   2.times do |i|
 
     # Pyme
-    pyme = Profile.create(
+    pyme = Pyme.create(
       type_profile: 'pyme',
       title: Faker::SiliconValley.company,
       name: Faker::SiliconValley.character,
@@ -128,7 +128,7 @@ end
     end
 
     # Independent
-    independent = Profile.create(
+    independent = Independent.create(
       type_profile: 'independent',
       title: Faker::Job.unique.title,
       name: Faker::Name.name,
@@ -159,7 +159,7 @@ end
   end
 
   # Creacion de 1 Usuario Seller
-  seller = Profile.create(
+  seller = Seller.create(
     type_profile: 'seller',
     title: Faker::SiliconValley.unique.app,
     name: Faker::Name.name,

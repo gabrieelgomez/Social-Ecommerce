@@ -4,10 +4,12 @@ class Independent < Profile
   acts_as_commentable
   #Helper para permitir que el modelo pueda ser seguido por otros modelos
   acts_as_followable
+  acts_as_paranoid
 
   # Relations
   belongs_to :user
   has_many :products, as: :productable
+  has_many :custom_fields, as: :customizable
   has_and_belongs_to_many :categories
 
   def self.mines

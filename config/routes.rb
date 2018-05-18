@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       # Rutas para métodos del controlador API
 
+      # Wishes routes
+      draw :wishes
 
       # Rutas para el controlador User
       namespace :users do
@@ -76,6 +78,7 @@ Rails.application.routes.draw do
         get '/', to: 'show#index'
         put '/:id/update', to: 'update#update'
         put '/:id/destroy', to: 'destroy#destroy'
+        put '/:id/restore', to: 'restore#restore'
       end
       # --- Sellers route - end
 
@@ -87,6 +90,7 @@ Rails.application.routes.draw do
         get '/:id', to: 'show#show'
         put '/:id/update', to: 'update#update'
         put '/:id/destroy', to: 'destroy#destroy'
+        put '/:id/restore', to: 'restore#restore'
       end
       # --- Pymes route - end
 
@@ -98,6 +102,7 @@ Rails.application.routes.draw do
         get '/:id', to: 'show#show'
         put '/:id/update', to: 'update#update'
         put '/:id/destroy', to: 'destroy#destroy'
+        put '/:id/restore', to: 'restore#restore'
       end
       # --- Independents routes - end
 
@@ -118,14 +123,16 @@ Rails.application.routes.draw do
       end
       # --- Offer route - end
 
+      draw :saved_offers
 
       # --- Product routes
       scope '/:type_profile/:profile_id' do
-
-        resources :products, only: [:create, :update, :destroy], controller: 'products/action'
+        put 'products/:id/destroy', to: 'products/action#destroy'
+        resources :products, only: [:create, :update], controller: 'products/action'
         resources :products, only: [:index, :show], controller: 'products/show'
         resources :products, only: [] do
           scope module: 'products' do
+
             post '/products_related', to: 'products_related/action#create'
 
             # --- Module custom fields
@@ -154,6 +161,7 @@ Rails.application.routes.draw do
       namespace :products do
         get '/own', to: 'show#show_own'
         get '/search', to: 'show#search_tag'
+        get '/all', to: 'show#all'
         # --- Subcategories Products routes
         namespace :subcategories do
           post '/', to: 'action#create'
@@ -205,7 +213,6 @@ Rails.application.routes.draw do
         delete '/current_user/:id/destroy', to: 'actions#destroy'
       end
       # --- Rates Profiles route - end
-
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180429135537) do
+ActiveRecord::Schema.define(version: 20180516141903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 20180429135537) do
   create_table "categories_profiles", id: false, force: :cascade do |t|
     t.bigint "category_id"
     t.bigint "profile_id"
-    t.bigint "seller_id"
-    t.bigint "independent_id"
     t.bigint "pyme_id"
+    t.bigint "independent_id"
+    t.bigint "seller_id"
     t.index ["category_id"], name: "index_categories_profiles_on_category_id"
     t.index ["independent_id"], name: "index_categories_profiles_on_independent_id"
     t.index ["profile_id"], name: "index_categories_profiles_on_profile_id"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20180429135537) do
     t.integer "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customizable_id"
+    t.string "customizable_type"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -169,6 +171,7 @@ ActiveRecord::Schema.define(version: 20180429135537) do
     t.string "web"
     t.json "profile"
     t.string "experience"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -181,6 +184,14 @@ ActiveRecord::Schema.define(version: 20180429135537) do
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_rates_on_profile_id"
     t.index ["user_id"], name: "index_rates_on_user_id"
+  end
+
+  create_table "saved_offers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "offer_id"
+    t.text "description"
+    t.index ["offer_id"], name: "index_saved_offers_on_offer_id"
+    t.index ["user_id"], name: "index_saved_offers_on_user_id"
   end
 
   create_table "subcategories", force: :cascade do |t|
@@ -247,8 +258,28 @@ ActiveRecord::Schema.define(version: 20180429135537) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "wishes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name", default: ""
+    t.float "budget", default: 0.0
+    t.string "priority", default: "low"
+    t.boolean "response", default: false
+    t.boolean "sent", default: false
+    t.text "description", default: ""
+    t.string "wisheable_type"
+    t.bigint "wisheable_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_wishes_on_user_id"
+    t.index ["wisheable_type", "wisheable_id"], name: "index_wishes_on_wisheable_type_and_wisheable_id"
+  end
+
   add_foreign_key "offers", "users"
   add_foreign_key "price_ranges", "products"
   add_foreign_key "rates", "profiles"
   add_foreign_key "rates", "users"
+  add_foreign_key "saved_offers", "offers"
+  add_foreign_key "saved_offers", "users"
+  add_foreign_key "wishes", "users"
 end

@@ -8,7 +8,7 @@ module Api::V1::Independents
 
     def destroy
       if @independent.destroy
-        render json: @independent, status: :destroyed
+        render json: @independent, status: 200
       else
         render json: ErrorSerializer.serialize(@independent.errors)
       end
