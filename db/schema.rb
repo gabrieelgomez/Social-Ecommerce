@@ -131,11 +131,17 @@ ActiveRecord::Schema.define(version: 20180516141903) do
     t.integer "width"
     t.json "files"
     t.float "price"
-    t.string "product_type"
+    t.string "service_type"
     t.json "images"
     t.json "fields"
     t.text "product_relations", default: [], array: true
     t.string "tags", default: ""
+    t.float "stock", default: 0.0
+    t.boolean "status", default: true
+    t.string "num_ref", default: ""
+    t.string "bar_code", default: ""
+    t.string "brand", default: ""
+    t.string "currency", default: ""
     t.string "productable_type"
     t.bigint "productable_id"
     t.datetime "created_at", null: false
