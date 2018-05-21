@@ -10,7 +10,6 @@ class CreateOffers < ActiveRecord::Migration[5.1]
       t.integer :stock
       t.text :condition
       t.text :included
-      # t.text :location, default: ''
       t.references :user, foreign_key: true
       t.timestamps
     end

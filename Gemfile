@@ -8,13 +8,17 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.5'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
-#Tags for Model
+
+# Tags for Model
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
-#Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
 # Search
@@ -22,26 +26,38 @@ gem 'ransack', '~> 1.8', '>= 1.8.8'
 
 # Geolocation
 gem 'geocoder', '~> 1.4', '>= 1.4.7'
+
 # All countries gem
 gem 'city-state', '~> 0.0.13'
+
 # Devise for authentication
 gem 'devise_token_auth'
 gem 'omniauth'
-#Data Faker
-gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
-#Model Follow any other model
+
+# Data Faker
+gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
+
+# Model Follow any other model
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
-#Comments for Profile and nested comments/replies
+
+# Comments for Profile and nested comments/replies
 gem 'acts_as_commentable_with_threading'
-#Validate email
+
+# Validate email
 gem 'validates_email_format_of'
-#Database plugin to add soft delete.
-gem "paranoia", "~> 2.2"
-#Rendering JSON responses
+
+# Database plugin to add soft delete.
+gem 'paranoia', '~> 2.2'
+
+# Rendering JSON responses
 gem 'active_model_serializers'
-#Uploaders
+
+# Uploaders
 gem 'carrierwave'
 gem 'carrierwave-base64'
+
+# State machine - Handle state of models
+gem 'aasm', '4.12.3'
 
 group :development, :test do
   gem 'rspec-rails'
