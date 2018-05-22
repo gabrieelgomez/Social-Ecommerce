@@ -2,7 +2,7 @@ class Wish < ApplicationRecord
   # Relations
   belongs_to :user
   belongs_to :wisheable, polymorphic: true, optional: true
-
+  has_one :sended_wish
   # State machine
   include AASM
 

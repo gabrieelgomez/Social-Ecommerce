@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516141903) do
+ActiveRecord::Schema.define(version: 20180522031938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,17 @@ ActiveRecord::Schema.define(version: 20180516141903) do
     t.index ["user_id"], name: "index_saved_offers_on_user_id"
   end
 
+  create_table "sended_wishes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "profile_id"
+    t.bigint "wish_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_sended_wishes_on_profile_id"
+    t.index ["user_id"], name: "index_sended_wishes_on_user_id"
+    t.index ["wish_id"], name: "index_sended_wishes_on_wish_id"
+  end
+
   create_table "subcategories", force: :cascade do |t|
     t.string "name"
     t.integer "category_id"
@@ -287,5 +298,8 @@ ActiveRecord::Schema.define(version: 20180516141903) do
   add_foreign_key "rates", "users"
   add_foreign_key "saved_offers", "offers"
   add_foreign_key "saved_offers", "users"
+  add_foreign_key "sended_wishes", "profiles"
+  add_foreign_key "sended_wishes", "users"
+  add_foreign_key "sended_wishes", "wishes"
   add_foreign_key "wishes", "users"
 end
