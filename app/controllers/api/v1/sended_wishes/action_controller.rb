@@ -6,8 +6,12 @@ module Api::V1::SendedWishes
     before_action :set_profile
 
     def send_wish
-      byebug
       @sended_wish = SendedWish.new(sended_wish_params)
+      if @sended_wish.save!
+        render json: @sended_wish
+      else
+        render json: @sended_wish.errors
+      end
     end
   end
 end

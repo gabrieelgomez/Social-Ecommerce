@@ -6,4 +6,5 @@ class SendedWish < ApplicationRecord
 
   # Validations
   validates :profile_id, :user_id, :wish_id, presence: true
+  validates :user_id, :wish_id, uniqueness: true
 end
