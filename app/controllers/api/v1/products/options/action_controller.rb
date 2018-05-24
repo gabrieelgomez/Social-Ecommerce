@@ -6,17 +6,34 @@ module Api::V1::Products::Options
 		before_action :set_option, only: [:destroy]
 
 		def create
-			@options = Option.new(options_params)
-			@options.product = @product
-      if @options.save
+			if option_ids.include?(:option_ids)
+				create_option_ids
+			else
+				@options = @productable.options.new(options_params)
+				@options.product_ids = @product.id
+				if @options.save
+					render json:{
+						status: 'success',
+						data:   own_options(params[:profile_id], params[:product_id])
+					}
+				else
+					render json: ErrorSerializer.serialize(@options.errors)
+				end
+			end
+		end
+
+		def create_option_ids
+			@product.update(option_ids: option_ids[:option_ids])
+			if @product.save
 				render json:{
 					status: 'success',
 					data:   own_options(params[:profile_id], params[:product_id])
 				}
-      else
-        render json: ErrorSerializer.serialize(@options.errors)
-      end
+			else
+				render json: ErrorSerializer.serialize(@product.errors)
+			end
 		end
+
 
 		def destroy
     	if @option.destroy
