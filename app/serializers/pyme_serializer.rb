@@ -1,3 +1,3 @@
 class PymeSerializer < ProfileSerializer
-  attributes :products, :custom_fields
+  attributes :custom_fields#, :products
 end
