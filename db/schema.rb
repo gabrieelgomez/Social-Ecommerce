@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20180523184221) do
 
   create_table "options", force: :cascade do |t|
     t.string "name"
+    t.json "values"
     t.integer "product_id"
     t.string "optionable_type"
     t.bigint "optionable_id"

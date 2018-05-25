@@ -10,6 +10,7 @@ module Api::V1::Products::Options
 				create_option_ids
 			else
 				@options = @productable.options.new(options_params)
+				@options.values = option_ids[:values]
 				@options.product_ids = @product.id
 				if @options.save
 					render json:{

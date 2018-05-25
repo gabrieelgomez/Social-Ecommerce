@@ -6,7 +6,7 @@ module Api::V1::Products
 
 		#Concerns pendientes para ser modularizados
 		def options_params
-			params.require(:options).permit(:name, :product_id, :option_ids)
+			params.require(:options).permit(:name, :product_id, :option_ids, :values)
 		end
 
 		def set_option
