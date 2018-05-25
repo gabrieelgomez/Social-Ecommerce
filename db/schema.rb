@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516141903) do
+ActiveRecord::Schema.define(version: 20180522031938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,11 +131,17 @@ ActiveRecord::Schema.define(version: 20180516141903) do
     t.integer "width"
     t.json "files"
     t.float "price"
-    t.string "product_type"
+    t.string "service_type"
     t.json "images"
     t.json "fields"
     t.text "product_relations", default: [], array: true
     t.string "tags", default: ""
+    t.float "stock", default: 0.0
+    t.boolean "status", default: true
+    t.string "num_ref", default: ""
+    t.string "bar_code", default: ""
+    t.string "brand", default: ""
+    t.string "currency", default: ""
     t.string "productable_type"
     t.bigint "productable_id"
     t.datetime "created_at", null: false
@@ -192,6 +198,17 @@ ActiveRecord::Schema.define(version: 20180516141903) do
     t.text "description"
     t.index ["offer_id"], name: "index_saved_offers_on_offer_id"
     t.index ["user_id"], name: "index_saved_offers_on_user_id"
+  end
+
+  create_table "sended_wishes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "profile_id"
+    t.bigint "wish_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_sended_wishes_on_profile_id"
+    t.index ["user_id"], name: "index_sended_wishes_on_user_id"
+    t.index ["wish_id"], name: "index_sended_wishes_on_wish_id"
   end
 
   create_table "subcategories", force: :cascade do |t|
@@ -281,5 +298,8 @@ ActiveRecord::Schema.define(version: 20180516141903) do
   add_foreign_key "rates", "users"
   add_foreign_key "saved_offers", "offers"
   add_foreign_key "saved_offers", "users"
+  add_foreign_key "sended_wishes", "profiles"
+  add_foreign_key "sended_wishes", "users"
+  add_foreign_key "sended_wishes", "wishes"
   add_foreign_key "wishes", "users"
 end

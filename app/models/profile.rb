@@ -1,12 +1,13 @@
 class Profile < ApplicationRecord
   acts_as_paranoid
-  
+
   # Relations
   belongs_to  :user
   has_one     :seller
   has_many    :rates
   has_and_belongs_to_many :categories
   has_many :locations, as: :locatable
+  has_many :sended_wishes
   # Validations
   validate    :validate_seller, on: :create
   validates   :user_id, numericality: true
@@ -16,6 +17,10 @@ class Profile < ApplicationRecord
     if !User.find(self.user_id).seller.nil? && self.type_profile.downcase.eql?('seller')
       errors.add(:type_profile, 'El usuario ya tiene un perfil seller')
     end
+  end
+
+  def products_locations
+    self.as_json(only: [:name])
   end
 
   #Metodo para buscar todos los usuarios que siguen a un perfil
