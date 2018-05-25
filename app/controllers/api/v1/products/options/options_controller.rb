@@ -6,7 +6,7 @@ module Api::V1::Products
 
 		#Concerns pendientes para ser modularizados
 		def options_params
-			params.require(:options).permit(:name, :product_id)
+			params.require(:options).permit(:name, :product_id, :option_ids, :values)
 		end
 
 		def set_option
@@ -21,6 +21,10 @@ module Api::V1::Products
 			model_name.find(profile).products.find(product).as_json(root: true, include: :options)
 		end
 		#----
+
+		def option_ids
+			params[:options]
+		end
 
 	end
 end
