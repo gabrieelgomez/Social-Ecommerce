@@ -13,5 +13,15 @@ module Api::V1
                                       :description,:web, :profile, :experience,
                                       :country)
     end
+
+    def custom_find
+      yield
+    rescue ActiveRecord::RecordNotFound
+      render json: {
+        error: [
+          'Record not found'
+        ]
+      }, status: 404
+    end
   end
 end

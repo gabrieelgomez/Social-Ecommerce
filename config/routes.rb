@@ -114,6 +114,10 @@ Rails.application.routes.draw do
       # --- Rates Profiles routes
       draw :rates
       # --- Rates Profiles route - end
+
+      # --- Sended wish routes
+      draw :sended_wishes
+      # --- Sended wish routes - end
     end
   end
 end
