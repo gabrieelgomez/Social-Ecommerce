@@ -6,7 +6,7 @@ module Api::V1::Products
 
 		#Concerns pendientes para ser modularizados
 		def custom_fields_params
-			params.require(:custom_fields).permit(:name, :product_id)
+			params.require(:custom_fields).permit(:name, :product_id, :value, :custom_field_ids)
 		end
 
 		def set_field
@@ -21,6 +21,10 @@ module Api::V1::Products
 			model_name.find(profile).products.find(product).as_json(root: true, include: :custom_fields)
 		end
 		#----
+
+		def custom_ids
+			params[:custom_fields]
+		end
 
 	end
 end

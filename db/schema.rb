@@ -52,11 +52,20 @@ ActiveRecord::Schema.define(version: 20180522031938) do
 
   create_table "custom_fields", force: :cascade do |t|
     t.string "name"
+    t.string "value"
     t.integer "product_id"
+    t.string "customizable_type"
+    t.bigint "customizable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "customizable_id"
-    t.string "customizable_type"
+    t.index ["customizable_type", "customizable_id"], name: "index_custom_fields_on_customizable_type_and_customizable_id"
+  end
+
+  create_table "custom_fields_products", force: :cascade do |t|
+    t.bigint "custom_field_id"
+    t.bigint "product_id"
+    t.index ["custom_field_id"], name: "index_custom_fields_products_on_custom_field_id"
+    t.index ["product_id"], name: "index_custom_fields_products_on_product_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -109,9 +118,20 @@ ActiveRecord::Schema.define(version: 20180522031938) do
 
   create_table "options", force: :cascade do |t|
     t.string "name"
+    t.json "values"
     t.integer "product_id"
+    t.string "optionable_type"
+    t.bigint "optionable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["optionable_type", "optionable_id"], name: "index_options_on_optionable_type_and_optionable_id"
+  end
+
+  create_table "options_products", force: :cascade do |t|
+    t.bigint "option_id"
+    t.bigint "product_id"
+    t.index ["option_id"], name: "index_options_products_on_option_id"
+    t.index ["product_id"], name: "index_options_products_on_product_id"
   end
 
   create_table "price_ranges", force: :cascade do |t|
@@ -292,7 +312,11 @@ ActiveRecord::Schema.define(version: 20180522031938) do
     t.index ["wisheable_type", "wisheable_id"], name: "index_wishes_on_wisheable_type_and_wisheable_id"
   end
 
+  add_foreign_key "custom_fields_products", "custom_fields"
+  add_foreign_key "custom_fields_products", "products"
   add_foreign_key "offers", "users"
+  add_foreign_key "options_products", "options"
+  add_foreign_key "options_products", "products"
   add_foreign_key "price_ranges", "products"
   add_foreign_key "rates", "profiles"
   add_foreign_key "rates", "users"
