@@ -10,6 +10,7 @@ module Api::V1::Wishes
       @profile = custom_find {
         @user.try(type).find p_params[:profile_id]
       }
+      # byebug
     end
 
     def set_sended_wish
