@@ -7,7 +7,16 @@ class Gps
       profile.locations.each do |location_profile|
         all_locations.each_with_index do |lol,z|
           if location_profile.latitude.eql?(lol[:latitude]) && location_profile.longitude.eql?(lol[:longitude])
-            all_locations[z][:profiles].push([type_profile: profile.type_profile, title: profile.title, products: profile.products_locations ] ).uniq
+            all_locations[z][:profiles].push(
+              [
+                id: profile.id,
+                type_profile: profile.type_profile,
+                banner: profile.banner,
+                photo: profile.photo,
+                title: profile.title,
+                products: profile.products_locations
+              ]
+            ).uniq
           end
         end
       end
