@@ -1,5 +1,5 @@
-module Api::V1
-  class SavedOffers::SavedOffersController < ApiController
+module Api::V1::Offers
+  class SavedOffers::SavedOffersController < OffersController
     before_action :authenticate_v1_user!
 
     private

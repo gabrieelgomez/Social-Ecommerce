@@ -1,5 +1,5 @@
-module Api::V1
-  class SendedWishes::SendedWishesController < ApiController
+module Api::V1::Wishes
+  class SendedWishes::SendedWishesController < WishesController
     before_action :authenticate_v1_user!
 
     private

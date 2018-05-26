@@ -1,4 +1,4 @@
-module Api::V1::SavedOffers
+module Api::V1::Offers::SavedOffers
   class DestroyController < SavedOffersController
     before_action :set_offer
     before_action :set_saved_offer
