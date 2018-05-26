@@ -20,7 +20,7 @@ class Profile < ApplicationRecord
   end
 
   def products_locations
-    self.as_json(only: [:name])
+    self.products.as_json(only: [:id, :name, :price, :images])
   end
 
   #Metodo para buscar todos los usuarios que siguen a un perfil
