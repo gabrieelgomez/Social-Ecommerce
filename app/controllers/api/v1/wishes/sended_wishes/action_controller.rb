@@ -1,4 +1,4 @@
-module Api::V1::SendedWishes
+module Api::V1::Wishes::SendedWishes
   class ActionController < SendedWishesController
 
     before_action :set_user

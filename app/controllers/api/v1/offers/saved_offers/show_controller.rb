@@ -1,4 +1,4 @@
-module Api::V1::SavedOffers
+module Api::V1::Offers::SavedOffers
   # Show controller - get routes 
   class ShowController < SavedOffersController
 

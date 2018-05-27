@@ -1,11 +1,11 @@
-module Api::V1::SavedOffers
+module Api::V1::Offers::SavedOffers
   class CreateController < SavedOffersController
     before_action :set_offer
     before_action :set_and_verify_offer
 
     def add
       @saved_offer = SavedOffer.find_or_create_by(
-        user: current_v1_user, 
+        user: current_v1_user,
         offer: @offer
       )
       # byebug
