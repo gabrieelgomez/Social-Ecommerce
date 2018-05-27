@@ -18,13 +18,13 @@ class User < ActiveRecord::Base
   # --- Relations ---
   # Pymes
   has_many :pymes, -> { where(type_profile: 'pyme') },
-           class_name: 'Pyme'
+           class_name: 'Profile'
   # Independents
   has_many :independents, -> { where(type_profile: 'independent') },
-           class_name: 'Independent'
+           class_name: 'Profile'
   # Seller
   has_one  :seller, -> { where(type_profile: 'seller') },
-           class_name: 'Seller'
+           class_name: 'Profile'
 
   has_many :offers
   has_many :rates

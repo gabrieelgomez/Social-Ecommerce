@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180523184221) do
+ActiveRecord::Schema.define(version: 20180525204403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answer_wishes", force: :cascade do |t|
+    t.bigint "profile_id"
+    t.bigint "sended_wish_id"
+    t.text "message"
+    t.float "special_price"
+    t.datetime "limit_date"
+    t.string "claim_code"
+    t.text "special_conditions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_answer_wishes_on_profile_id"
+    t.index ["sended_wish_id"], name: "index_answer_wishes_on_sended_wish_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -312,6 +326,8 @@ ActiveRecord::Schema.define(version: 20180523184221) do
     t.index ["wisheable_type", "wisheable_id"], name: "index_wishes_on_wisheable_type_and_wisheable_id"
   end
 
+  add_foreign_key "answer_wishes", "profiles"
+  add_foreign_key "answer_wishes", "sended_wishes"
   add_foreign_key "custom_fields_products", "custom_fields"
   add_foreign_key "custom_fields_products", "products"
   add_foreign_key "offers", "users"

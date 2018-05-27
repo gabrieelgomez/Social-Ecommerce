@@ -118,6 +118,10 @@ Rails.application.routes.draw do
       # --- Sended wish routes
       draw :sended_wishes
       # --- Sended wish routes - end
+
+      # --- Answer wish routes
+      draw :answer_wishes
+      # --- Answer wish routes - end
     end
   end
 end
