@@ -13,7 +13,7 @@ gem 'rails', '~> 5.1.5'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '3.11.2'
 
 # Tags for Model
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'

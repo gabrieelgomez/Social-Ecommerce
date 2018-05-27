@@ -248,7 +248,7 @@ DEPENDENCIES
   omniauth
   paranoia (~> 2.2)
   pg (>= 0.18, < 2.0)
-  puma (~> 3.7)
+  puma (= 3.11.2)
   rack-cors
   rails (~> 5.1.5)
   ransack (~> 1.8, >= 1.8.8)

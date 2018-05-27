@@ -123,7 +123,8 @@ end
     3.times do
       product = Product.create(
         name: Faker::SiliconValley.invention,
-        productable: pyme
+        productable: pyme,
+        price: Faker::Number.between(100, 10000)
       )
     end
 
@@ -152,7 +153,8 @@ end
     3.times do
       product = Product.create(
         name: Faker::Job.field,
-        productable: independent
+        productable: independent,
+        price: Faker::Number.between(100, 10000)
       )
     end
 
@@ -184,7 +186,8 @@ end
   3.times do
     product = Product.create(
       name: Faker::Job.field,
-      productable: seller
+      productable: seller,
+      price: Faker::Number.between(100, 10000)
     )
   end
   puts "-------------\n"
