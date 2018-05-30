@@ -1,8 +1,8 @@
 class CreateConversations < ActiveRecord::Migration[5.1]
   def change
     create_table :conversations do |t|
-      t.references :senderable, polymorhic: true
-      t.references :recipientable, polymorphic: true
+      t.references :recipientable, polymorphic: true, index: true
+      t.references :senderable, polymorhic: true, index: true
       t.timestamps
     end
     # add_index :conversations, :recipientable_id
