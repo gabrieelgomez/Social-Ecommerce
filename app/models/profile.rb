@@ -9,8 +9,7 @@ class Profile < ApplicationRecord
   has_many :locations, as: :locatable
   has_many :sended_wishes
   has_many :answer_wishes
-  has_many :messages, as: :messageable
-  has_many :conversations, as: :senderable
+
   # Validations
   validate    :validate_seller, on: :create
   validates   :user_id, numericality: true
