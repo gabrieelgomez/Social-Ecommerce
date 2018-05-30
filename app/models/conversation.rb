@@ -3,7 +3,9 @@ class Conversation < ApplicationRecord
   belongs_to :recipientable, polymorphic: true
   has_many :messages, dependent: :destroy
 
-  validates :senderable, uniqueness: { scope: :recipientable }
+  validates :senderable_id, uniqueness: {
+    scope: i%[senderable_type, recipientable_id, recipientable_id]
+  }
 
   scope :between, -> (sender, recipient) do
     where(senderable: sender, recipientable: recipient).or(

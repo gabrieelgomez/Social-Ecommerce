@@ -67,11 +67,12 @@ ActiveRecord::Schema.define(version: 20180529223345) do
   create_table "conversations", force: :cascade do |t|
     t.string "recipientable_type"
     t.bigint "recipientable_id"
+    t.string "senderable_type"
     t.bigint "senderable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipientable_type", "recipientable_id"], name: "index_conversations_on_recipientable_type_and_recipientable_id"
-    t.index ["senderable_id"], name: "index_conversations_on_senderable_id"
+    t.index ["senderable_type", "senderable_id"], name: "index_conversations_on_senderable_type_and_senderable_id"
   end
 
   create_table "custom_fields", force: :cascade do |t|
