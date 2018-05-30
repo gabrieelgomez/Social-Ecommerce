@@ -6,6 +6,8 @@ class Wish < ApplicationRecord
   # State machine
   include AASM
 
+  after_create :create_notify
+
   # Soft delete
   acts_as_paranoid
 
@@ -19,7 +21,7 @@ class Wish < ApplicationRecord
   #   end
 
   #   # event :to_low do
-  #   #   transitions from: %i[med high], to: 
+  #   #   transitions from: %i[med high], to:
   #   # end
   # end
 
@@ -48,4 +50,8 @@ class Wish < ApplicationRecord
   def mine?(user)
     self.user == user
   end
+
+  def create_notify
+  end
+
 end

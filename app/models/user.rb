@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   # Helper para permitir que el modelo pueda seguir a otros modelos
   acts_as_follower
 
+  #Notifications Target
+  notification_target
+
   # --- Relations ---
   # Pymes
   has_many :pymes, -> { where(type_profile: 'pyme') },
