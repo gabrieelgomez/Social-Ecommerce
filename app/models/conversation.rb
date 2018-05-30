@@ -4,7 +4,7 @@ class Conversation < ApplicationRecord
   has_many :messages, dependent: :destroy
 
   validates :senderable_id, uniqueness: {
-    scope: i%[senderable_type, recipientable_id, recipientable_id]
+    scope: %i[senderable_type recipientable_id recipientable_id]
   }
 
   scope :between, -> (sender, recipient) do
