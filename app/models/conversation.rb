@@ -13,7 +13,12 @@ class Conversation < ApplicationRecord
     )
   end
 
+  scope :current_user_conversations, -> (current_user) do
+    where(senderable: current_user).or(where(recipientable: current_user))
+  end
+
   def self.get(sender, recipient)
+    # byebug
     conversation = between(sender, recipient).first
     return conversation if conversation.present?
 

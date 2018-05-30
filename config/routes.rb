@@ -14,8 +14,8 @@ Rails.application.routes.draw do
       # Chat module
       scope module: 'chat' do
         namespace :conversations do
-          post '/create/:nickname', to: 'create#create'
-          get '/own', to: 'show#current_user_conversations'
+          post '/create', to: 'create#create'
+          get '/my_conversations', to: 'show#current_user_conversations'
           # delete '/:id/destroy', to: 'destroy#destroy'
         end
         namespace :messages do
