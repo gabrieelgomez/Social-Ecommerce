@@ -2,7 +2,7 @@ module Api::V1::Independents
   # Update controller
   class UpdateController < IndependentsController
     before_action :authenticate_v1_user!
-    before_action :set_independent
+    before_action :set_my_independent, only: %i[update]
 
     def update
       if @independent.update(general_params(:independent))

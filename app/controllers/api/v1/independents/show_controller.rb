@@ -8,7 +8,7 @@ module Api::V1::Independents
 
     # Public methods
     def index
-      render json: Independent.where(type_profile: 'independent')
+      render json: Independent.all
     end
 
     def show
@@ -16,7 +16,8 @@ module Api::V1::Independents
     end
 
     def own_independents
-      render json: Independent.by_owner(current_v1_user.id)
+      # byebug
+      render json: current_v1_user.independents
     end
   end
 end

@@ -119,6 +119,10 @@ Rails.application.routes.draw do
 
         end
       end
+      namespace :products do
+        get '/all', to: 'show#all'
+      end
+      # --- Product routes and related to them
 
       # --- Subcategories Products routes
       draw :subcategories
