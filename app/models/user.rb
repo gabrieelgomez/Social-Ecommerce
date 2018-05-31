@@ -31,6 +31,9 @@ class User < ActiveRecord::Base
   has_many :wishes
   has_many :saved_offers
   has_many :sended_wishes
+
+  has_many :messages, as: :messageable
+  has_many :conversations, as: :senderable
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
 

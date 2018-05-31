@@ -9,10 +9,12 @@ class Profile < ApplicationRecord
   has_many :locations, as: :locatable
   has_many :sended_wishes
   has_many :answer_wishes
+
   # Validations
   validate    :validate_seller, on: :create
   validates   :user_id, numericality: true
   validates   :user_id, :type_profile, presence: true
+
 
   def validate_seller
     if !User.find(self.user_id).seller.nil? && self.type_profile.downcase.eql?('seller')

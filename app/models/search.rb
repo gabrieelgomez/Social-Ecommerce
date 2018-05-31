@@ -30,10 +30,8 @@ class Search
     #          .ransack(name_or_description_or_title_cont: search)
     # end
     # Profile.ransack(categories_id_m)
-    Pyme.ransack(categories_id_in: categories)
-           .result
-           .ransack(name_or_description_or_title_cont: search)
-           .result
+    Pyme.ransack(categories_id_in: categories).result
+        .ransack(name_or_description_or_title_cont: search).result
     # byebug0
     # search_result.map{|r| r.result}.flatten.uniq
     # profiles.select do |profile|
