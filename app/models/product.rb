@@ -11,4 +11,7 @@ class Product < ApplicationRecord
 
 	# scope :public_productable, -> (model_name, profile_id, type_profile) {
 	# }
+	# def productable_type=(sType)
+  #   sType.classify.constantize.to_s
+  # end
 end

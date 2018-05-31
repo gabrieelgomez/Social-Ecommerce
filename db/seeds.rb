@@ -100,7 +100,7 @@ end
 
     # Pyme
     pyme = Pyme.create(
-      type_profile: 'pyme',
+      # type_profile: 'pyme',
       title: Faker::SiliconValley.company,
       name: Faker::SiliconValley.character,
       email: Faker::SiliconValley.email,
@@ -130,7 +130,7 @@ end
 
     # Independent
     independent = Independent.create(
-      type_profile: 'independent',
+      # type_profile: 'independent',
       title: Faker::Job.unique.title,
       name: Faker::Name.name,
       email: Faker::Internet.safe_email,
@@ -162,7 +162,7 @@ end
 
   # Creacion de 1 Usuario Seller
   seller = Seller.create(
-    type_profile: 'seller',
+    # type_profile: 'seller',
     title: Faker::SiliconValley.unique.app,
     name: Faker::Name.name,
     email: Faker::Internet.safe_email,
