@@ -9,11 +9,19 @@ class Profile < ApplicationRecord
   has_many :locations, as: :locatable
   has_many :sended_wishes
   has_many :answer_wishes
+
   # Validations
   validate    :validate_seller, on: :create
   validates   :user_id, numericality: true
   validates   :user_id, :type_profile, presence: true
+  # delegate :pymes, :independents, :sellers, to: :profiles
+  self.inheritance_column = :type_profile
 
+  # We will need a way to know which animals
+  # will subclass the Animal model
+  def self.type_profile
+    %w(Pyme Independent Seller)
+  end
   def validate_seller
     if !User.find(self.user_id).seller.nil? && self.type_profile.downcase.eql?('seller')
       errors.add(:type_profile, 'El usuario ya tiene un perfil seller')
