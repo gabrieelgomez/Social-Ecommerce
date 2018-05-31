@@ -11,6 +11,8 @@ class Seller < Profile
   has_many :custom_fields, as: :customizable
   has_many :options, as: :optionable
   has_and_belongs_to_many :categories
+  has_many :messages, as: :messageable
+  has_many :conversations, as: :senderable
 
   def self.by_owner(current_user)
   	where('type_profile = ? and user_id = ?', 'seller', current_user)

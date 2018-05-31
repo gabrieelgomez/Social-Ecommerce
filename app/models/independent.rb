@@ -12,6 +12,8 @@ class Independent < Profile
   has_many :custom_fields, as: :customizable
   has_many :options, as: :optionable
   has_and_belongs_to_many :categories
+  has_many :messages, as: :messageable
+  has_many :conversations, as: :senderable
 
   def self.mines
     where(type_profile: 'independent')

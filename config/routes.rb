@@ -8,6 +8,23 @@ Rails.application.routes.draw do
   scope module: 'api' do
     namespace :v1 do
       # Rutas para métodos del controlador API
+      # ActionCable route
+      mount ActionCable.server => '/cable'
+
+      # Chat module
+      scope module: 'chat' do
+        namespace :conversations do
+          post '/create', to: 'create#create'
+          get '/my_conversations', to: 'show#current_user_conversations'
+          # delete '/:id/destroy', to: 'destroy#destroy'
+        end
+        namespace :messages do
+          scope '/:conversation_id' do
+            post '/create', to: 'create#create'
+          end
+        end
+      end
+      # Chat module - end
 
       # Concerns routes
       draw :concerns
