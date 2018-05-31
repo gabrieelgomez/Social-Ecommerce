@@ -16,7 +16,7 @@ class Pyme < Profile
   has_many :conversations, as: :senderable
 
   def self.mines
-    where(type_profile: 'pyme')
+    where(type_profile: 'Pyme')
   end
 
   def self.by_owner(current_user)
