@@ -55,18 +55,31 @@ class Gps
     categories.collect { |n| Category.try(:find, n).by_profiles }.flatten.uniq
   end
 
+  def self.get_products(query)
+    Product.ransack(name_cont: query).result.map(&:productable)
+  end
+
   # Main function of search
   def self.categ_search(params)
     cats = params[:categories].try(:map, &:to_i)
     radio = params[:radio] || 0
     q = params[:q].downcase || ''
-    get_profiles(cats).select do |prof|
+    profiles = get_profiles(cats).select do |prof|
       if radio.zero?
         eval_q(prof, q)
       else
         get_distance(params[:user], prof) < radio.to_i && eval_q(prof, q)
       end
     end
+    products = get_products(q).select do |product|
+      if radio.zero?
+        true
+      else
+        get_distance(params[:user], product) < radio.to_i
+      end
+    end
+    # byebug
+    (profiles + products).uniq
   end
 
 end
