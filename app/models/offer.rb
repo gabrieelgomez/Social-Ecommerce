@@ -5,7 +5,7 @@ class Offer < ApplicationRecord
   # belongs_to :owners, class_name: 'User', foreign_key: 'saved_offer_id'
   has_one :location, as: :locatable
   has_many :saved_offers
-
+  has_many :wishes, as: :wisheable
   def not_mine?(user)
     self.user != user
   end
