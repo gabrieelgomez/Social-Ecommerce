@@ -143,6 +143,11 @@ Rails.application.routes.draw do
       # --- Answer wish routes
       draw :answer_wishes
       # --- Answer wish routes - end
+
+      # --- Notifications route
+      draw :notifications
+      # --- Notifications route - end
+
     end
   end
 end

@@ -9,15 +9,12 @@ module Api::V1::Concerns::ModelModulation
 
   # to show and index actions
   def public_productable
-    @productable = model_name.find_by_id_and_type_profile(params[:profile_id],
-                                                          params[:type_profile].singularize)
+    @productable = model_name.find(params[:profile_id])
   end
 
   # to create, destroy and update
   def current_user_productable
-    @productable = model_name.find_by_id_and_type_profile_and_user_id(params[:profile_id],
-                                                                      params[:type_profile].singularize,
-                                                                      current_v1_user.id)
+    @productable = model_name.find_by_id_and_user_id(params[:profile_id], current_v1_user.id)
   end
 
 end
