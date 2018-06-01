@@ -7,18 +7,19 @@ class Offer < ApplicationRecord
   has_many :saved_offers
   has_many :wishes, as: :wisheable
 
-  after_create :create_notify
-
   def not_mine?(user)
     self.user != user
   end
 
-  def create_notify
-    # notifiable = self.wisheable.productable.user
-  	# notify = self.user
-		# notifiable.notify metadata: {
-    #   title: "#{notify.name} ha deseado tu producto #{self.wisheable.name}"
-    # }
+  def create_notify(profile, offer)
+    model_name = profile.type_profile.capitalize
+    followers = profile.followers_by_type_profile('User', model_name)
+		return if followers.nil?
+		followers.each do |follower|
+			follower.notify metadata: {
+	      title: "#{profile.title} ha creado la oferta #{offer.title}"
+	    }
+		end
   end
 
 end

@@ -11,6 +11,9 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :offers
   belongs_to :productable, polymorphic: true
   has_many :wishes, as: :wisheable
+
+	validates   :name, :price, presence: true
+
   # scope :public_productable, -> (model_name, profile_id, type_profile) {
   # }
   # def productable_type=(sType)
@@ -29,8 +32,14 @@ class Product < ApplicationRecord
   end
 
 	def set_change_price
+		return if price_before_last_save.nil?
 		if price < price_before_last_save
-			p 'hola'
+			whishes = self.wishes
+			whishes.each do |whish|
+				whish.user.notify metadata: {
+		      title: "#{self.name} ha bajado el precio de #{price_before_last_save} a #{price}"
+		    }
+			end
 		end
 	end
 
