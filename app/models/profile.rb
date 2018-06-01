@@ -11,7 +11,7 @@ class Profile < ApplicationRecord
   has_many :answer_wishes
 
   # Validations
-  validate    :validate_seller, on: :create
+  # validate    :validate_seller, on: :create
   validates   :user_id, numericality: true
   validates   :user_id, :type_profile, presence: true
   # delegate :pymes, :independents, :sellers, to: :profiles
