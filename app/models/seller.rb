@@ -19,10 +19,6 @@ class Seller < Profile
     message: 'already has a seller'
   }
 
-  def self.by_owner(current_user)
-    where('type_profile = ? and user_id = ?', 'seller', current_user)
-  end
-
   def root_comments_profile
     Comment.where(commentable_id:self.id, commentable_type: self.type_profile.capitalize, parent_id: nil)
   end
