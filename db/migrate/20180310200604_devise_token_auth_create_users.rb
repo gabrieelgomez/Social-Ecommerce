@@ -29,6 +29,10 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
       t.datetime :confirmation_sent_at
       t.string   :unconfirmed_email # Only if using reconfirmable
 
+      #Notifiable - Notifications Rails
+      t.integer :read_notification_count
+      t.integer :unread_notification_count
+
       ## Lockable
       # t.integer  :failed_attempts, :default => 0, :null => false # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both

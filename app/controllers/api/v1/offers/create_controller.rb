@@ -15,6 +15,7 @@ module Api::V1::Offers
       @offer.user = current_v1_user
       # byebug
       if @offer.save
+        @offer.create_notify(@profile, @offer)
         render json: @offer
       else
         render json: @offer.errors
