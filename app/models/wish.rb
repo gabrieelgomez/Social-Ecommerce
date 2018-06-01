@@ -52,9 +52,10 @@ class Wish < ApplicationRecord
   end
 
   def create_notify
-    notifiable = self.wisheable.profile.user
+    notifiable = self.wisheable.productable.user
   	notify = self.user
 		notifiable.notify metadata: {
       title: "#{notify.name} ha deseado tu producto #{self.wisheable.name}"
     }
+  end
 end

@@ -4,8 +4,8 @@ module Api::V1
     private
 
     def set_my_pyme
-      @pyme = custom_find { 
-        current_v1_user.pymes.find(params[:id]) 
+      @pyme = custom_find {
+        current_v1_user.pymes.find(params[:id])
       }
     end
 

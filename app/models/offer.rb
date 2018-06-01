@@ -6,7 +6,18 @@ class Offer < ApplicationRecord
   has_one :location, as: :locatable
   has_many :saved_offers
 
+  after_create :create_notify
+
   def not_mine?(user)
     self.user != user
   end
+
+  def create_notify
+    # notifiable = self.wisheable.productable.user
+  	# notify = self.user
+		# notifiable.notify metadata: {
+    #   title: "#{notify.name} ha deseado tu producto #{self.wisheable.name}"
+    # }
+  end
+
 end
