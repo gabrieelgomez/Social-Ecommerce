@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180529223345) do
+ActiveRecord::Schema.define(version: 20180530165132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,20 @@ ActiveRecord::Schema.define(version: 20180529223345) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable_type_and_locatable_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.boolean "read"
+    t.bigint "conversation_id"
+    t.string "image"
+    t.string "file"
+    t.string "messageable_type"
+    t.bigint "messageable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable_type_and_messageable_id"
   end
 
   create_table "notifications", force: :cascade do |t|

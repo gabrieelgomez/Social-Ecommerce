@@ -22,6 +22,7 @@ class Profile < ApplicationRecord
   def self.type_profile
     %w(Pyme Independent Seller)
   end
+  
   def validate_seller
     if !User.find(self.user_id).seller.nil? && self.type_profile.downcase.eql?('seller')
       errors.add(:type_profile, 'El usuario ya tiene un perfil seller')
