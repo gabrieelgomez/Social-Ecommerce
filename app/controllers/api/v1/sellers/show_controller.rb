@@ -3,12 +3,12 @@ module Api::V1::Sellers
   class ShowController < SellersController
     # Callbacks
     before_action :authenticate_v1_user!, only: [:own_sellers]
-    before_action :set_seller, only: :show
+    before_action :set_seller, only: [:show]
 
 
     # Public methods
     def index
-      render json: Seller.where(type_profile: 'seller')
+      render json: Seller.all
     end
 
     def show
@@ -16,7 +16,7 @@ module Api::V1::Sellers
     end
 
     def own_sellers
-      render json: Seller.by_owner(current_v1_user.id)
+      render json: current_v1_user.seller
     end
   end
 end
