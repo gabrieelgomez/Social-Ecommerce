@@ -4,15 +4,25 @@ module Api::V1
     private
 
     def set_seller
-      @seller = Seller.where(type_profile: 'seller').find(params[:id])
+      @seller = custom_find{ Seller.find(params[:id]) }
     end
 
     def seller_params
       params.permit(:user_id, :title, :name)
     end
 
+    def set_my_seller
+      @seller = current_v1_user.seller
+      return @seller unless @seller.nil?
+      render json: {
+        error: [
+          'Record not found'
+        ]
+      }, status: 404
+    end
+
     def validate_current_seller
-      seller = Seller.where(user_id: current_v1_user.id, type_profile: 'seller')
+      seller = Seller.where(user_id: current_v1_user.id, type_profile: 'Seller')
       return render json: { errors: "Access denied" } if seller.first.id != params[:id].to_i
     end
   end
