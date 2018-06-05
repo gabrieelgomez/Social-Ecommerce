@@ -5,12 +5,13 @@ module Api::V1::Users
     def index
       @users = User.all
       # byebug
-      render json: @users 
+      render json: @users, status: 200
     end
 
     # GET /v1/users/{id}
     def show
-      render json: User.find(params[:id])
+      @user = custom_find { User.find(params[:id]) }
+      render json: @user
     end
 
     def profile

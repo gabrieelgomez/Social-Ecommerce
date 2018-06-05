@@ -3,7 +3,7 @@ module Api::V1::Pymes
   class ShowController < PymesController
     # Callbacks
     before_action :authenticate_v1_user!, only: :own_pymes
-    before_action :set_pyme, only: [:show]
+    before_action :set_pyme, only: %i[:show]
 
 
     # Public methods

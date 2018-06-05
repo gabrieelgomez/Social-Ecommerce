@@ -4,7 +4,7 @@ module Api::V1
     def profiles_per_categories
       @profiles = Gps.categ_search(params)
       @locations_response = Gps.locations_response(@profiles)
-      render json: @locations_response
+      render json: @locations_response, status: 200
     end
   end
 end

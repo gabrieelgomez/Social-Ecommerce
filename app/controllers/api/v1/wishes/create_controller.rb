@@ -7,7 +7,7 @@ module Api::V1::Wishes
       if @wish.save
         render json: @wish, status: 200
       else
-        render json: @wish.errors
+        render json: @wish.errors, status: 500
       end
     end
   end
