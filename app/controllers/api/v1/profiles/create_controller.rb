@@ -19,7 +19,7 @@ module Api::V1::Profiles
       if @profile.save
         render json: @profile, status: 201
       else
-        render json: ErrorSerializer.serialize(@profile.errors),
+        render json: @profile.errors,
                status: 500
       end
     end

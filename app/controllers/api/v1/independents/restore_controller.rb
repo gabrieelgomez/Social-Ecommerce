@@ -8,7 +8,7 @@ module Api::V1::Independents
       if @independent
         render json: @independent, status: 200
       else
-        render json: ErrorSerializer.serialize(@independent.errors),
+        render json: @independent.errors,
                status: 500
       end
     end

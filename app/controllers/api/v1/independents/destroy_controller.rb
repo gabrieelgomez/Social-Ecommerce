@@ -10,7 +10,7 @@ module Api::V1::Independents
       if @independent.destroy
         render json: @independent, status: 200
       else
-        render json: ErrorSerializer.serialize(@independent.errors),
+        render json: @independent.errors,
                status: 200
       end
     end

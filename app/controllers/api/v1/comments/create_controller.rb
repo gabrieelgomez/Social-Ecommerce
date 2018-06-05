@@ -9,7 +9,7 @@ module Api::V1::Comments
         make_child_comment
         render json: @comment, status: 200
       else
-        render json: ErrorSerializer.serialize(@comment.errors),
+        render json: @comment.errors,
                status: 500
       end
     end

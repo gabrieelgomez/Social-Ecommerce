@@ -10,8 +10,7 @@ module Api::V1::Pymes
       if @pyme.destroy
         render json: @pyme, status: 200
       else
-        render json: ErrorSerializer.serialize(@pyme.errors),
-               status: 500
+        render json: @pyme.errors, status: 500
       end
     end
   end

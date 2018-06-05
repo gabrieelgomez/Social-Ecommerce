@@ -1,8 +1,8 @@
 module Api::V1::Products
   class ShowController < ProductsController
-    before_action :authenticate_v1_user!, only: [:show_own]
-    before_action :public_productable, only: [:show, :index]
-    before_action :set_product, only: [:show]
+    before_action :authenticate_v1_user!, only: %i[show_own]
+    before_action :public_productable, only: %i[show index]
+    before_action :set_product, only: %i[show]
     def index
       if @productable.respond_to? :products
         render json: @productable.products
@@ -12,17 +12,14 @@ module Api::V1::Products
     end
 
     def show
-      render json: @product
+      render json: @product, status: 200
     end
 
     def search_tag
       @tags = params[:tags].gsub(/[\[\]]/, '').split(',')
       # byebug
       result = Product.tagged_with(@tags, :any => true)
-      render json: {
-        status: 'done',
-        data:   result
-      }
+      render json: result, status: 200
     end
 
     def show_own
@@ -37,7 +34,7 @@ module Api::V1::Products
     end
 
     def all
-      render json: Product.all
+      render json: Product.all, status: 200
     end
   end
 end
