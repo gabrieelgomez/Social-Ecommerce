@@ -13,7 +13,7 @@ module Api::V1::Profiles
     end
 
     def create
-      byebug
+      # byebug
       @profile = model_name.new(profile_params)
       # @profile.type_profile = type_profile
       @profile.category_ids = params[:profile][:category_ids]
