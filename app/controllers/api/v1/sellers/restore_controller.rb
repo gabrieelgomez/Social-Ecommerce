@@ -8,7 +8,8 @@ module Api::V1::Sellers
       if @seller
         render json: @seller, status: 200
       else
-        render json: ErrorSerializer.serialize(@seller.errors)
+        render json: ErrorSerializer.serialize(@seller.errors),
+               status: 500
       end
     end
   end

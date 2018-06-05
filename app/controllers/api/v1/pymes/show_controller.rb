@@ -8,18 +8,14 @@ module Api::V1::Pymes
 
     # Public methods
     def index
-      render json: Pyme.all
+      render json: Pyme.all, status: 200
     end
 
     def show
-      render json: @pyme
+      render json: @pyme, status: 200
     end
 
     def own_pymes
-      # render json: {
-      #   status: 'success',
-      #   data:   User.where(id: current_v1_user.id).as_json(root: true, include: :pymes)
-      # }
       render json: current_v1_user.pymes
     end
   end
