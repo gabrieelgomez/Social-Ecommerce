@@ -6,9 +6,9 @@ module Api::V1::Wishes
 
     def destroy
       if @wish.destroy
-        render json: @wish
+        render json: @wish, status: 200
       else
-        render json: @wish.errors
+        render json: @wish.errors, status: 500
       end
     end
   end
