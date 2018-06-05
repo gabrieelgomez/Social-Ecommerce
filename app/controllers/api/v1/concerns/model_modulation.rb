@@ -3,6 +3,10 @@ module Api::V1::Concerns::ModelModulation
 
   private
 
+  def model_symbol
+    params[:type_profile].to_sym
+  end
+
   def model_name
     params[:type_profile].singularize.camelize.constantize
   end
