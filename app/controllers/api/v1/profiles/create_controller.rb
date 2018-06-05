@@ -13,15 +13,14 @@ module Api::V1::Profiles
     end
 
     def create
-      # current_v1_user.try(:pymes).create
-      @profile = model_name.new(profile_params)
-      # @profile.type_profile = type_profile
+      @profile = current_v1_user.try(model_symbol)
+                                .new(profile_params)
       @profile.category_ids = params[:profile][:category_ids]
-      @profile.user = current_v1_user
       if @profile.save
-        render json: @profile
+        render json: @profile, status: 201
       else
-        render json: ErrorSerializer.serialize(@profile.errors), status: 500
+        render json: ErrorSerializer.serialize(@profile.errors),
+               status: 500
       end
     end
 
