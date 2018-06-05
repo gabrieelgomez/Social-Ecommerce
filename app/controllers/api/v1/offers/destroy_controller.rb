@@ -5,9 +5,9 @@ module Api::V1::Offers
 
     def destroy
       if @offer.destroy
-        render json: @offer, status: :done
+        render json: @offer, status: 200
       else 
-        render json: @offer.errors
+        render json: @offer.errors, status: 500
       end
     end
   end

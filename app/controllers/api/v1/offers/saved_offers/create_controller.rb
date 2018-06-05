@@ -9,7 +9,7 @@ module Api::V1::Offers::SavedOffers
         offer: @offer
       )
       # byebug
-      render json: @saved_offer
+      render json: @saved_offer, status: 200
     end
   end
 end

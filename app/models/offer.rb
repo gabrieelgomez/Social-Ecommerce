@@ -14,12 +14,11 @@ class Offer < ApplicationRecord
   def create_notify(profile, offer)
     model_name = profile.type_profile.capitalize
     followers = profile.followers_by_type_profile('User', model_name)
-		return if followers.nil?
-		followers.each do |follower|
-			follower.notify metadata: {
-	      title: "#{profile.title} ha creado la oferta #{offer.title}"
-	    }
-		end
+    return if followers.nil?
+    followers.each do |follower|
+      follower.notify metadata: {
+        title: "#{profile.title} ha creado la oferta #{offer.title}"
+      }
+    end
   end
-
 end

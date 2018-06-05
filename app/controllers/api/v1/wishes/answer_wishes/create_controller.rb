@@ -7,9 +7,9 @@ module Api::V1::Wishes::AnswerWishes
     def create
       @answer = @profile.answer_wishes.new(answer_wish_params)
       if @answer.save
-        render json: @answer
+        render json: @answer, status: 200
       else
-        render json: @answer.errors
+        render json: @answer.errors, status: 500
       end
     end
   end

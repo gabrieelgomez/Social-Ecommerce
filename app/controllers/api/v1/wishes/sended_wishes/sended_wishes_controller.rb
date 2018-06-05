@@ -13,7 +13,7 @@ module Api::V1::Wishes
     end
 
     def set_profile
-      @profile = Profile.find params[:profile_id]
+      @profile = custom_find { Profile.find params[:profile_id] }
     end
 
     def sended_wish_params
