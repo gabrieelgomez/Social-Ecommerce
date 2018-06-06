@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180530165132) do
+ActiveRecord::Schema.define(version: 20180606195542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,19 +132,46 @@ ActiveRecord::Schema.define(version: 20180530165132) do
     t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable_type_and_messageable_id"
   end
 
+  create_table "notification_settings_settings", force: :cascade do |t|
+    t.string "object_type"
+    t.bigint "object_id"
+    t.bigint "subscription_id"
+    t.string "status"
+    t.text "settings"
+    t.jsonb "category_settings", default: {"wish"=>{"app"=>true, "email"=>true}, "offer"=>{"app"=>true, "email"=>true}, "follow"=>{"app"=>true, "email"=>true}, "product"=>{"app"=>true, "email"=>true}}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["object_type", "object_id"], name: "idx_settings_object_type_object_id"
+    t.index ["subscription_id"], name: "index_notification_settings_settings_on_subscription_id"
+  end
+
+  create_table "notification_settings_subscriptions", force: :cascade do |t|
+    t.string "subscriber_type"
+    t.bigint "subscriber_id"
+    t.string "subscribable_type"
+    t.bigint "subscribable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscribable_type", "subscribable_id"], name: "idx_subscriptions_subscribable_type_subscribable_id"
+    t.index ["subscriber_type", "subscriber_id"], name: "idx_subscriptions_subscriber_type_subscriber_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string "target_type"
     t.bigint "target_id"
     t.string "object_type"
     t.bigint "object_id"
     t.boolean "read", default: false, null: false
-    t.text "metadata"
     t.string "type"
+    t.text "metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "subscription_id"
+    t.string "category"
     t.index ["object_type", "object_id"], name: "index_notifications_on_object_type_and_object_id"
     t.index ["read"], name: "index_notifications_on_read"
     t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id"
+    t.index ["type"], name: "index_notifications_on_type"
   end
 
   create_table "offers", force: :cascade do |t|

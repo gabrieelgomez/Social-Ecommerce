@@ -25,7 +25,7 @@ class Follow < ActiveRecord::Base
     sender    = self.follower
     message   = "#{self.follower.name} ha seguido tu perfil #{self.followable.title}"
     #Method for create_notify, in order is recipient, sender, type, message
-    Notification.create_notify_models(recipient, sender, 'Follow', message)
+    Notification.create_notify_models(recipient, sender, 'follow', message)
   end
 
 end

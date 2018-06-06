@@ -6,11 +6,9 @@ class NotificationHandlerMigration < ActiveRecord::Migration[5.1]
             t.references :object, polymorphic: true, index: true
 
             t.boolean :read, default: false, null: false, index: true
+            t.string  :type, index: true
 
             t.text :metadata
-
-            t.string :type
-
             t.timestamps
 
         end

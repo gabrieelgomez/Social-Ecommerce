@@ -19,4 +19,10 @@ namespace :notifications do
   #Marcar como leída o no leída
   get '/:notification_id/:mark', to: 'show#mark_notification'
 
+  #Ver listado de las configuraciones
+  get '/settings', to: 'settings#show'
+
+  #Editar Setting
+  post '/settings/update', to: 'settings#update'
+
 end

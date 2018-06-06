@@ -1,6 +1,6 @@
 class NotificationMailer < ApplicationMailer
   default from: 'bigwave.ve@gmail.com'
-  layout 'push'
+  # layout 'push'
 
     def push(message, options = {})
       # render(layout: options[:layout]) if options.has_key?(:layout)
