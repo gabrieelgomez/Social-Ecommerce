@@ -16,6 +16,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '3.11.2'
 
+gem 'haml-rails'
+
 # Tags for Model
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 
@@ -26,7 +28,7 @@ gem 'rack-cors'
 gem 'notification-handler', '1.2.5'
 gem 'notification-pusher'
 gem 'notification-pusher-actionmailer'
-# gem 'notification-settings'
+gem 'notification-settings'
 
 # Search
 gem 'ransack', '~> 1.8', '>= 1.8.8'
