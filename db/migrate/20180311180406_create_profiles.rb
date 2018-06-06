@@ -7,7 +7,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string  :name
       t.string  :email
       t.json    :country
-      t.json    :banner
+      t.string  :banner
       t.string  :photo
       t.float   :score
       t.string  :launched

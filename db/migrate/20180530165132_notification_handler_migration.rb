@@ -9,6 +9,8 @@ class NotificationHandlerMigration < ActiveRecord::Migration[5.1]
 
             t.text :metadata
 
+            t.string :type
+
             t.timestamps
 
         end
