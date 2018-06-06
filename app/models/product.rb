@@ -25,7 +25,7 @@ class Product < ApplicationRecord
     followers = self.productable.followers_by_type_profile('User', model_name)
     return if followers.nil?
     followers.each do |follower|
-      follower.notify type: 'Product', metadata: {
+      follower.notify type: 'product', metadata: {
         title: "#{self.productable.title} ha añadido el producto #{self.name}"
       }
     end
@@ -38,7 +38,7 @@ class Product < ApplicationRecord
       message = "#{self.name} ha bajado el precio de #{price_before_last_save} a #{price}"
       whishes.each do |wish|
         #Method for create_notify, in order is recipient, sender, type, message
-        Notification.create_notify_models(wish.user, self, 'Product', message)
+        Notification.create_notify_models(wish.user, self, 'product', message)
       end
     end
   end
