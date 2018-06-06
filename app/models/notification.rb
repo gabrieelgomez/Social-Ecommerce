@@ -6,9 +6,9 @@ class Notification < NotificationHandler::Notification
     settings.each{|c| type_category = c if c[0].eql?(type)}
 
     if type_category.second['app']
-      # recipient.notify category: type, metadata: {
-      #   title: message
-      # }
+      recipient.notify category: type, metadata: {
+        title: message
+      }
     end
 
     if type_category.second['email']

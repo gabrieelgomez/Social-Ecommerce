@@ -26,8 +26,6 @@ gem 'rack-cors'
 
 #Notifications
 gem 'notification-handler', '1.2.5'
-gem 'notification-pusher'
-gem 'notification-pusher-actionmailer'
 gem 'notification-settings'
 
 # Search
