@@ -64,12 +64,13 @@ gem 'carrierwave-base64'
 gem 'aasm', '4.12.3'
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'action-cable-testing'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'rspec-rails'
   # gem 'pry-rails'
   # gem 'pry-byebug'
   # gem 'pry-stack_explorer'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
