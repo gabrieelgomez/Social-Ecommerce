@@ -28,7 +28,7 @@ gem 'rack-cors'
 gem 'notification-handler', '1.2.5'
 # gem 'notification-pusher'
 # gem 'notification-pusher-actionmailer'
-# gem 'notification-settings'
+gem 'notification-settings'
 
 # Search
 gem 'ransack', '~> 1.8', '>= 1.8.8'
