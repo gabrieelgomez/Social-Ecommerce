@@ -21,9 +21,11 @@ class Follow < ActiveRecord::Base
   end
 
   def create_notify
-    self.followable.user.notify metadata: {
-      title: "#{self.follower.name} ha seguido tu perfil #{self.followable.title}"
-    }
+    recipient = self.followable.user
+    sender    = self.follower
+    message   = "#{self.follower.name} ha seguido tu perfil #{self.followable.title}"
+    #Method for create_notify, in order is recipient, sender, type, message
+    Notification.create_notify_models(recipient, sender, 'Follow', message)
   end
 
 end

@@ -23,7 +23,10 @@ gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 gem 'rack-cors'
 
 #Notifications
-gem 'notification-handler'
+gem 'notification-handler', '1.2.5'
+gem 'notification-pusher'
+gem 'notification-pusher-actionmailer'
+# gem 'notification-settings'
 
 # Search
 gem 'ransack', '~> 1.8', '>= 1.8.8'

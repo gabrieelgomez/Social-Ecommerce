@@ -144,6 +144,19 @@ GEM
       activerecord (>= 5.0)
       activesupport (>= 5.0)
       railties (>= 5.0)
+    notification-pusher (1.2.5)
+      activesupport (>= 5.0)
+      notification-handler (= 1.2.5)
+    notification-pusher-actionmailer (1.2.5)
+      actionmailer (>= 5.0)
+      notification-pusher (= 1.2.5)
+      notification-renderer (= 1.2.5)
+      railties (>= 5.0)
+    notification-renderer (1.2.5)
+      actionview (>= 5.0)
+      activesupport (>= 5.0)
+      notification-handler (= 1.2.5)
+      railties (>= 5.0)
     omniauth (1.8.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
@@ -257,7 +270,9 @@ DEPENDENCIES
   faker!
   geocoder (~> 1.4, >= 1.4.7)
   listen (>= 3.0.5, < 3.2)
-  notification-handler
+  notification-handler (= 1.2.5)
+  notification-pusher
+  notification-pusher-actionmailer
   omniauth
   paranoia (~> 2.2)
   pg (>= 0.18, < 2.0)

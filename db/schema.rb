@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20180530165132) do
     t.bigint "object_id"
     t.boolean "read", default: false, null: false
     t.text "metadata"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["object_type", "object_id"], name: "index_notifications_on_object_type_and_object_id"
@@ -237,7 +238,7 @@ ActiveRecord::Schema.define(version: 20180530165132) do
     t.string "name"
     t.string "email"
     t.json "country"
-    t.json "banner"
+    t.string "banner"
     t.string "photo"
     t.float "score"
     t.string "launched"
