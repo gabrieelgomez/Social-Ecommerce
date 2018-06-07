@@ -10,7 +10,7 @@ module Api::V1
     end
 
     def set_pyme
-      @pyme = custom_find{ Pyme.find(params[:id]) }
+      @pyme = custom_find { Pyme.find(params[:id]) }
     end
   end
 end
