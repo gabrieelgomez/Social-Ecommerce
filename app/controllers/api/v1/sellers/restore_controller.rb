@@ -4,6 +4,7 @@ module Api::V1::Sellers
     before_action :authenticate_v1_user!
 
     def restore
+      return
       @seller = Seller.restore(params[:id])
       if @seller
         render json: @seller, status: 200

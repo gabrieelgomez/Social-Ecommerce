@@ -4,7 +4,7 @@ module Api::V1::Independents
     before_action :authenticate_v1_user!
 
     def restore
-      @independent = Independent.restore(params[:id])
+      @independent = current_v1_user.independents.restore(params[:id])
       if @independent
         render json: @independent, status: 200
       else

@@ -16,7 +16,7 @@ module Api::V1::Pymes
     end
 
     def own_pymes
-      render json: current_v1_user.pymes
+      render json: current_v1_user.pymes, status: 200
     end
   end
 end
