@@ -33,6 +33,15 @@ module Api::V1::Products
       # current_user.independents
     end
 
+    def subcat_enabled
+      @subcategories = product.categories.reverse.collect{|cat| {category: cat.name, subcategories: cat.subcategories}}
+      render json: @subcategories.to_json, status: 200
+    end
+
+    def product
+      @product = Product.find(params[:product_id]).productable
+    end
+
     def all
       render json: Product.all, status: 200
     end

@@ -13,13 +13,8 @@ module Api::V1::Profiles
     end
 
     def create
-      if model_symbol != :sellers
-        @profile = current_v1_user.try(model_symbol)
-                                  .new(profile_params)
-      else
-        @profile = Seller.new(profile_params)
-        @profile.user = current_v1_user
-      end
+      @profile = model_name.new(profile_params)
+      @profile.user = current_v1_user
       @profile.category_ids = params[:profile][:category_ids]
       if @profile.save
         render json: @profile, status: 201

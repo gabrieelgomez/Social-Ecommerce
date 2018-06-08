@@ -12,7 +12,7 @@ class Product < ApplicationRecord
   belongs_to :productable, polymorphic: true
   has_many :wishes, as: :wisheable
 
-  validates :name, :price, presence: true
+  validates :name, :price, :subcategory_ids, presence: true
 
   # scope :public_productable, -> (model_name, profile_id, type_profile) {
   # }

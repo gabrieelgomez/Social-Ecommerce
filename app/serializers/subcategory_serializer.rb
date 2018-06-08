@@ -1,3 +1,3 @@
-class SubategorySerializer < ActiveModel::Serializer
-  attributes :id, :name, :category
+class SubcategorySerializer < ActiveModel::Serializer
+  attributes :id, :name#, :category
 end

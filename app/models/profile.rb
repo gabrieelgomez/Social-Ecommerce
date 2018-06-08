@@ -15,7 +15,7 @@ class Profile < ApplicationRecord
   # Validations
   # validate    :validate_seller, on: :create
   validates   :user_id, numericality: true
-  validates   :user_id, :title, presence: true
+  validates   :user_id, :title, :category_ids, presence: true
   # delegate :pymes, :independents, :sellers, to: :profiles
   self.inheritance_column = :type_profile
 
