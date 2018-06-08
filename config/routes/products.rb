@@ -5,7 +5,7 @@ namespace :products do
   get '/:id', to: 'show#show'
   put '/:id/destroy', to: 'action#destroy'
   post '/', to: 'action#create'
-  put '/:id', to: 'action#update'
+  put '/:id/update', to: 'action#update'
 end
 
 # resources :products, only: [:create, :update], controller: 'products/action'
