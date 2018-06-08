@@ -5,7 +5,6 @@ module Api::V1::Sellers
     before_action :authenticate_v1_user!, only: %i[own_sellers]
     before_action :set_seller, only: %i[show]
 
-
     # Public methods
     def index
       render json: Seller.all, status: 200
@@ -16,7 +15,8 @@ module Api::V1::Sellers
     end
 
     def own_sellers
-      render json: current_v1_user.seller
+      render json: current_v1_user.seller,
+             status: 200
     end
   end
 end

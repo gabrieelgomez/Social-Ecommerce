@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   # Seller
   has_one  :seller, -> { where(type_profile: 'Seller') },
            class_name: 'Profile'
+  # has_one :deleted_seller, -> { with_deleted }, class_name: 'Profile'
 
   has_many :offers
   has_many :rates

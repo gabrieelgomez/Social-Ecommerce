@@ -4,7 +4,7 @@ module Api::V1::Pymes
     before_action :authenticate_v1_user!
     
     def restore
-      @pyme = Pyme.restore(params[:id])
+      @pyme = current_v1_user.pymes.restore(params[:id])
       if @pyme
         render json: @pyme, status: 200
       else

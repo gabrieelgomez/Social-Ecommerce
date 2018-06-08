@@ -22,7 +22,7 @@ class Profile < ApplicationRecord
   # We will need a way to know which animals
   # will subclass the Animal model
   def self.type_profile
-    %w(Pyme Independent Seller)
+    %w[Pyme Independent Seller]
   end
 
   def validate_seller

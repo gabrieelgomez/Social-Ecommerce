@@ -2,8 +2,8 @@ module Api::V1::Products
   class ActionController < ProductsController
     before_action :authenticate_v1_user!
     before_action :current_user_productable
-    before_action :validate_password, only: [:destroy]
-    before_action :set_product, only: [:destroy, :update]
+    before_action :validate_password, only: %i[destroy]
+    before_action :set_product, only: %i[destroy update]
 
 
     def create
@@ -20,7 +20,7 @@ module Api::V1::Products
 
     def update
       subcategory_ids = params[:product][:subcategory_ids]
-      @product.subcategory_ids = subcategory_ids if !subcategory_ids.nil?
+      @product.subcategory_ids = subcategory_ids unless subcategory_ids.nil?
       @product.tag_list.add(params[:product][:tags])
       if @product.update(product_params)
         render json: @product, status: 200
