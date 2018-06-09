@@ -39,7 +39,7 @@ module Api::V1::Products
     end
 
     def product
-      @product = Product.find(params[:product_id]).productable
+      @product = Profile.find(params[:profile_id])
     end
 
     def all
