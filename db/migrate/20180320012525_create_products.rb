@@ -13,6 +13,9 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.json    :fields
       t.text    :product_relations, array: true, default: []
       t.string  :tags, default: ''
+      t.boolean :prominent
+      t.string :service_type
+      t.boolean :virtual_product
       # t.integer :productable_id
       # t.string :productable_type
       t.float :stock, default: 0
