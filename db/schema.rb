@@ -237,6 +237,8 @@ ActiveRecord::Schema.define(version: 20180606195542) do
     t.json "fields"
     t.text "product_relations", default: [], array: true
     t.string "tags", default: ""
+    t.boolean "prominent"
+    t.boolean "virtual_product"
     t.float "stock", default: 0.0
     t.boolean "status", default: true
     t.string "num_ref", default: ""
