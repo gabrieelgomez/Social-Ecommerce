@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(version: 20180606195542) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
+    t.text "description", default: ""
     t.boolean "rate"
     t.integer "weight"
     t.integer "height"
