@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   # Helper para permitir que el modelo pueda seguir a otros modelos
   acts_as_follower
 
-  #Notifications Target
+  # Notifications Target
   notification_target
 
   # --- Relations ---
@@ -28,18 +28,18 @@ class User < ActiveRecord::Base
   # Seller
   has_one  :seller, -> { where(type_profile: 'Seller') },
            class_name: 'Profile'
-  # has_one :deleted_seller, -> { with_deleted }, class_name: 'Profile'
-
   has_many :offers
   has_many :rates
   has_many :wishes
   has_many :saved_offers
   has_many :sended_wishes
-
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
+  has_one  :shopping_car
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
+  # Callbacks
+  after_save :create_shopping_car, on: :create
 
   # Metodo para seguir Profiles by users
   def follow_profile(followable, profile)
@@ -64,5 +64,11 @@ class User < ActiveRecord::Base
   # Returns a follow record for the current instance and followable object.
   def get_follow_by_profile(followable, profile)
     self.follows.unblocked.for_followable_by_profile(followable, profile).first
+  end
+
+  def create_shopping_car
+    # byebug
+    @shop_car = ShoppingCar.new(user: self)
+    @shop_car.save!
   end
 end
