@@ -6,17 +6,17 @@ module Api::V1::Products
 
     #Concerns pendientes para ser modularizados
     def options_params
-      params.require(:options).permit(:name, :product_id, :option_ids, :values)
+      params.require(:options).permit(:name, :product_id, values:[], option_ids: [] )
     end
 
     def set_option
-      @option = custom_find { 
+      @option = custom_find {
         Option.find(params[:option_id])
       }
     end
 
     def set_product_option
-      @product = custom_find { 
+      @product = custom_find {
         @productable.products.find(params[:product_id])
       }
     end
