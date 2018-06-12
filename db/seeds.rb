@@ -503,7 +503,8 @@ coordenates = [
       product = Product.create(
         name: Faker::SiliconValley.invention,
         productable: pyme,
-        price: Faker::Number.between(100, 10000)
+        price: Faker::Number.between(100, 10000),
+        subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
       )
     end
 
@@ -533,7 +534,8 @@ coordenates = [
       product = Product.create(
         name: Faker::Job.field,
         productable: independent,
-        price: Faker::Number.between(100, 10000)
+        price: Faker::Number.between(100, 10000),
+        subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
       )
     end
 
@@ -566,7 +568,8 @@ coordenates = [
     product = Product.create(
       name: Faker::Job.field,
       productable: seller,
-      price: Faker::Number.between(100, 10000)
+      price: Faker::Number.between(100, 10000),
+      subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
     )
   end
   puts "-------------\n"

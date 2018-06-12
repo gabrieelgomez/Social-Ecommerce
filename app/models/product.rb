@@ -20,6 +20,10 @@ class Product < ApplicationRecord
   #   sType.classify.constantize.to_s
   # end
 
+  def build_products_relations
+    Product.find(self.product_relations).as_json(only: [:id, :name, :price, :images])
+  end
+
   def create_notify
     model_name = self.productable.type_profile.capitalize
     followers = self.productable.followers_by_type_profile('User', model_name)
