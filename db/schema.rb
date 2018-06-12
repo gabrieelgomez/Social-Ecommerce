@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180609034531) do
+ActiveRecord::Schema.define(version: 20180611131243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -254,6 +254,13 @@ ActiveRecord::Schema.define(version: 20180609034531) do
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable_type_and_productable_id"
   end
 
+  create_table "products_shopping_cars", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "shopping_car_id"
+    t.index ["product_id"], name: "index_products_shopping_cars_on_product_id"
+    t.index ["shopping_car_id"], name: "index_products_shopping_cars_on_shopping_car_id"
+  end
+
   create_table "products_subcategories", force: :cascade do |t|
     t.bigint "subcategory_id"
     t.bigint "product_id"
@@ -416,6 +423,8 @@ ActiveRecord::Schema.define(version: 20180609034531) do
   add_foreign_key "options_products", "options"
   add_foreign_key "options_products", "products"
   add_foreign_key "price_ranges", "products"
+  add_foreign_key "products_shopping_cars", "products"
+  add_foreign_key "products_shopping_cars", "shopping_cars"
   add_foreign_key "rates", "profiles"
   add_foreign_key "rates", "users"
   add_foreign_key "saved_offers", "offers"

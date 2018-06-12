@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
   # Callbacks
-  after_save :create_shopping_car, on: :create
+  after_create :create_shopping_car
 
   # Metodo para seguir Profiles by users
   def follow_profile(followable, profile)
