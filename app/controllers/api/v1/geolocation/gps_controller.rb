@@ -5,8 +5,9 @@ module Api::V1
       @profiles, @profiles_pr, @product_ids = Gps.categ_search(params)
       #Gps.locations(array de profiles, boolean si lleva o no products, y array products ids)
       @response_prof = Gps.locations_response(@profiles, false, false)
-      @response_prof_prod = Gps.locations_response(@profiles_pr, true, @product_ids)
-      @locations_response = @response_prof + @response_prof_prod
+      @response_prof_prod = Gps.locations_response(@profiles_pr, true, @product_ids) unless params[:q].blank?
+      @locations_response = @response_prof
+      @locations_response += @response_prof_prod unless params[:q].blank?
       render json: @locations_response, status: 200
     end
   end
