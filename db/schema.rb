@@ -107,6 +107,14 @@ ActiveRecord::Schema.define(version: 20180611131243) do
     t.index ["follower_type", "follower_id"], name: "index_follows_on_follower_type_and_follower_id"
   end
 
+  create_table "items", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "shopping_cart_id"
+    t.integer "quantity", default: 1, null: false
+    t.index ["product_id"], name: "index_items_on_product_id"
+    t.index ["shopping_cart_id"], name: "index_items_on_shopping_cart_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.text "address"
     t.float "latitude"
@@ -254,13 +262,6 @@ ActiveRecord::Schema.define(version: 20180611131243) do
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable_type_and_productable_id"
   end
 
-  create_table "products_shopping_cars", force: :cascade do |t|
-    t.bigint "product_id"
-    t.bigint "shopping_car_id"
-    t.index ["product_id"], name: "index_products_shopping_cars_on_product_id"
-    t.index ["shopping_car_id"], name: "index_products_shopping_cars_on_shopping_car_id"
-  end
-
   create_table "products_subcategories", force: :cascade do |t|
     t.bigint "subcategory_id"
     t.bigint "product_id"
@@ -322,13 +323,13 @@ ActiveRecord::Schema.define(version: 20180611131243) do
     t.index ["wish_id"], name: "index_sended_wishes_on_wish_id"
   end
 
-  create_table "shopping_cars", force: :cascade do |t|
+  create_table "shopping_carts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "code", null: false
     t.string "state", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_shopping_cars_on_user_id"
+    t.index ["user_id"], name: "index_shopping_carts_on_user_id"
   end
 
   create_table "subcategories", force: :cascade do |t|
@@ -418,13 +419,13 @@ ActiveRecord::Schema.define(version: 20180611131243) do
   add_foreign_key "answer_wishes", "sended_wishes"
   add_foreign_key "custom_fields_products", "custom_fields"
   add_foreign_key "custom_fields_products", "products"
+  add_foreign_key "items", "products"
+  add_foreign_key "items", "shopping_carts"
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
   add_foreign_key "options_products", "options"
   add_foreign_key "options_products", "products"
   add_foreign_key "price_ranges", "products"
-  add_foreign_key "products_shopping_cars", "products"
-  add_foreign_key "products_shopping_cars", "shopping_cars"
   add_foreign_key "rates", "profiles"
   add_foreign_key "rates", "users"
   add_foreign_key "saved_offers", "offers"
@@ -432,6 +433,6 @@ ActiveRecord::Schema.define(version: 20180611131243) do
   add_foreign_key "sended_wishes", "profiles"
   add_foreign_key "sended_wishes", "users"
   add_foreign_key "sended_wishes", "wishes"
-  add_foreign_key "shopping_cars", "users"
+  add_foreign_key "shopping_carts", "users"
   add_foreign_key "wishes", "users"
 end

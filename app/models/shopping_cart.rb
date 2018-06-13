@@ -1,7 +1,9 @@
-class ShoppingCar < ApplicationRecord
+class ShoppingCart < ApplicationRecord
   # Relations
   belongs_to :user
-  has_and_belongs_to_many :products
+  # has_and_belongs_to_many :products
+  has_many :products, through: :items
+  has_many :items
 
   # Validations
   validates :code, uniqueness: true

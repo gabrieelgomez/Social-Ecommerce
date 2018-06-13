@@ -1,5 +1,5 @@
 module Api::V1
-  class ShoppingCars::ShoppingCarsController < ApiController
+  class ShoppingCarts::ShoppingCartsController < ApiController
     before_action :authenticate_v1_user!
 
     private
@@ -10,8 +10,8 @@ module Api::V1
       }
     end
 
-    def set_shopping_car
-      @shopping_car = current_v1_user.shopping_car
+    def set_shopping_cart
+      @shopping_cart = current_v1_user.shopping_cart
     end
   end
 end

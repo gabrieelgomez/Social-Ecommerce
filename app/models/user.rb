@@ -35,11 +35,11 @@ class User < ActiveRecord::Base
   has_many :sended_wishes
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
-  has_one  :shopping_car
+  has_one  :shopping_cart
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
   # Callbacks
-  after_create :create_shopping_car
+  after_create :create_shopping_cart
 
   # Metodo para seguir Profiles by users
   def follow_profile(followable, profile)
@@ -66,9 +66,9 @@ class User < ActiveRecord::Base
     self.follows.unblocked.for_followable_by_profile(followable, profile).first
   end
 
-  def create_shopping_car
+  def create_shopping_cart
     # byebug
-    @shop_car = ShoppingCar.new(user: self)
-    @shop_car.save!
+    @shop_cart = ShoppingCart.new(user: self)
+    @shop_cart.save!
   end
 end
