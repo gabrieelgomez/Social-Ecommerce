@@ -21,7 +21,7 @@ class Product < ApplicationRecord
   # end
 
   def build_products_relations
-    Product.find(self.product_relations).as_json(only: [:id, :name, :price, :images])
+    Product.find(self.product_relations).as_json(only: [:id, :name, :price, :images]) rescue self.product_relations.as_json
   end
 
   def create_notify
