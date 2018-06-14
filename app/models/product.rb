@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  # Callbacks
   # mount_uploader :images, ImagesUploader
   after_create :create_notify
   after_save :set_change_price, if: :price_changed?
@@ -9,9 +10,13 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :options
   has_and_belongs_to_many :subcategories
   has_and_belongs_to_many :offers
+  # has_and_belongs_to_many :shopping_cars
+  has_many :shopping_carts, through: :items
+  has_many :items
   belongs_to :productable, polymorphic: true
   has_many :wishes, as: :wisheable
 
+  # Validations
   validates :name, :price, :subcategory_ids, presence: true
 
   # scope :public_productable, -> (model_name, profile_id, type_profile) {

@@ -65,6 +65,9 @@ gem 'active_model_serializers'
 gem 'carrierwave'
 gem 'carrierwave-base64'
 
+# Generate tokens
+gem 'has_secure_token', '~> 1.0'
+
 # State machine - Handle state of models
 gem 'aasm', '4.12.3'
 
