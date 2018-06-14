@@ -26,6 +26,10 @@ Rails.application.routes.draw do
       end
       # Chat module - end
 
+      # Shopping car
+      draw :shopping_carts
+      # Shopping car - end
+
       # Concerns routes
       draw :concerns
       # Concerns routes - end
