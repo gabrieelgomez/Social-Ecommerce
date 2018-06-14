@@ -12,6 +12,7 @@ class Search
     # Filtering products
     products_q = products_by_q(search)
     products_cat = product_by_subcat(categories).flatten
+    byebug
     products = (products_q + products_cat).uniq
 
     (profiles_by_cat + products).flatten
@@ -35,7 +36,11 @@ class Search
     # byebug
     return [] if categories.empty?
     categories.collect do |cat|
-      Category.try(:find, cat).subcategories.try(:map, &:products)
+      begin
+        Category.try(:find, cat).subcategories.try(:map, &:products)
+      rescue ActiveRecord::RecordNotFound
+        []
+      end
     end
   end
 end
