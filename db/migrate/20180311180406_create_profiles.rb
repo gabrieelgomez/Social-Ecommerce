@@ -13,13 +13,13 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string  :launched
       t.string  :phone
       t.string  :url
-      t.string  :address
+      t.text    :address
       t.string  :vision
       t.string  :mission
-      t.string  :description
+      t.text    :description
       t.string  :web
       t.json    :profile
-      t.string  :experience
+      t.text    :experience
       t.datetime :deleted_at
       t.timestamps
     end
