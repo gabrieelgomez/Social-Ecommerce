@@ -19,6 +19,16 @@ class Product < ApplicationRecord
   # Validations
   validates :name, :price, :subcategory_ids, presence: true
 
+  # scope :public_productable, -> (model_name, profile_id, type_profile) {
+  # }
+  # def productable_type=(sType)
+  #   sType.classify.constantize.to_s
+  # end
+
+  def build_products_relations
+    Product.find(self.product_relations).as_json(only: [:id, :name, :price, :images]) rescue self.product_relations.as_json
+  end
+
   def create_notify
     model_name = self.productable.type_profile.capitalize
     followers = self.productable.followers_by_type_profile('User', model_name)

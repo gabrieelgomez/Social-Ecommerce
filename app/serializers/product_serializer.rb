@@ -1,7 +1,7 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id, :name, :price, :height, :weight, :files, :width, :images,
-             :price, :stock, :status, :num_ref, :bar_code, :currency,
+  attributes :id, :name, :price, :height, :weight, :rate, :files, :width, :images,
+             :stock, :status, :num_ref, :bar_code, :currency, :description, :fields,
              :virtual_product, :price_ranges, :tags, :custom_fields, :prominent,
-             :service_type, :options, :product_relations, :productable
+             :brand, :service_type, :options, :subcategories, :build_products_relations, :productable
   # belongs_to :productable
 end

@@ -31,8 +31,13 @@ class Profile < ApplicationRecord
     end
   end
 
-  def products_locations
+  def products_locations(var_bool, product_ids)
+    return custom_json(product_ids) if var_bool
     self.products.as_json(only: [:id, :name, :price, :images])
+  end
+
+  def custom_json(product_ids)
+    self.products.select{|product| product_ids.include?(product.id)}.as_json(only: [:id, :name, :price, :images])
   end
 
   #Metodo para buscar todos los usuarios que siguen a un perfil
@@ -51,5 +56,8 @@ class Profile < ApplicationRecord
     end
     follows
   end
-
+  def self.short_ransack(categories, search)
+    ransack(categories_id_in: categories).result
+    .ransack(name_or_description_or_title_cont: search).result
+  end
 end
