@@ -12,9 +12,9 @@ module Api::V1::Wishes::SendedWishes
         wish: @wish
       )
       if @sended_wish.save
-        render json: @sended_wish
+        render json: @sended_wish, status: 200
       else
-        render json: @sended_wish.errors
+        render json: @sended_wish.errors, status: 500
       end
     end
   end

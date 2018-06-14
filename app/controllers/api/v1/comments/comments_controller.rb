@@ -1,7 +1,7 @@
 module Api::V1
   class Comments::CommentsController < ApiController
     before_action :authenticate_v1_user!
-    before_action :set_comment, only: [:show, :update, :destroy]
+    before_action :set_comment, only: %i[show update destroy]
     include ::Api::V1::Concerns::ModelModulation
 
     private
@@ -11,7 +11,8 @@ module Api::V1
     end
 
     def comment_params
-      params.require(:comment).permit(:body, :commentable_id, :commentable_type, :comment_id)
+      params.require(:comment).permit(:body, :commentable_id,
+                                      :commentable_type, :comment_id)
     end
 
     def commentable_type

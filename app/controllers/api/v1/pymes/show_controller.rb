@@ -3,24 +3,20 @@ module Api::V1::Pymes
   class ShowController < PymesController
     # Callbacks
     before_action :authenticate_v1_user!, only: :own_pymes
-    before_action :set_pyme, only: [:show]
+    before_action :set_pyme, only: %i[show]
 
 
     # Public methods
     def index
-      render json: Pyme.mines
+      render json: Pyme.all, status: 200
     end
 
     def show
-      render json: @pyme
+      render json: @pyme, status: 200
     end
 
     def own_pymes
-      # render json: {
-      #   status: 'success',
-      #   data:   User.where(id: current_v1_user.id).as_json(root: true, include: :pymes)
-      # }
-      render json: Pyme.by_owner(current_v1_user.id)
+      render json: current_v1_user.pymes, status: 200
     end
   end
 end

@@ -16,15 +16,15 @@ module Api::V1
     end
 
     def set_profile
-      @profile = model_name.find(params[:profile_id])
+      @profile = custom_find { model_name.find(params[:profile_id]) }
     end
 
     def set_offer
-      @offer = Offer.find(params[:id])
+      @offer = custom_find { Offer.find(params[:id]) }
     end
 
     def set_current_user_offer
-      @offer = current_v1_user.offers.find(params[:id])
+      @offer = custom_find { current_v1_user.offers.find(params[:id]) }
     end
   end
 end

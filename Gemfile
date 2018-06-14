@@ -16,11 +16,19 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '3.11.2'
 
+gem 'haml-rails'
+
 # Tags for Model
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
+
+#Notifications
+gem 'notification-handler', '1.2.5'
+# gem 'notification-pusher'
+# gem 'notification-pusher-actionmailer'
+gem 'notification-settings'
 
 # Search
 gem 'ransack', '~> 1.8', '>= 1.8.8'
@@ -57,16 +65,20 @@ gem 'active_model_serializers'
 gem 'carrierwave'
 gem 'carrierwave-base64'
 
+# Generate tokens
+gem 'has_secure_token', '~> 1.0'
+
 # State machine - Handle state of models
 gem 'aasm', '4.12.3'
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'action-cable-testing'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'rspec-rails'
   # gem 'pry-rails'
   # gem 'pry-byebug'
   # gem 'pry-stack_explorer'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do

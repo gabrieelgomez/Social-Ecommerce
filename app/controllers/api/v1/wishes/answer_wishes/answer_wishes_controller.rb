@@ -3,14 +3,12 @@ module Api::V1::Wishes
     private
 
     def set_profile
-      # byebug
       p_params = params[:answer_wish]
       @user = current_v1_user
       type = p_params[:type_profile].to_sym
       @profile = custom_find {
         @user.try(type).find p_params[:profile_id]
       }
-      # byebug
     end
 
     def set_sended_wish

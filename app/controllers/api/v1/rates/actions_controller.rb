@@ -10,26 +10,28 @@ module Api::V1::Rates
       @rate.user = current_v1_user
       @rate.profile_id = params[:profile_id]
       if @rate.save
-        render json: @rate
+        render json: @rate, status: 200
       else
-        render json: @rate.errors
+        render json: @rate.errors, status: 500
       end
     end
 
     def update
       @score_user.update(score: rate_params[:score])
       if @score_user.save
-        render json: @score_user
+        render json: @score_user, status: 200
       else
-        render json: @score_user.errors
+        render json: @score_user.errors,
+               status: 500
       end
     end
 
     def destroy
       if @rate.destroy
-        render json: @rate, status: :done
+        render json: @rate, status: 200
       else
-        render json: @rate.errors
+        render json: @rate.errors,
+               status: 500
       end
     end
 

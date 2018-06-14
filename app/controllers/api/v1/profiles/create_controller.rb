@@ -1,7 +1,7 @@
 module Api::V1::Profiles
   class CreateController < ProfilesController
     before_action :authenticate_v1_user!, only: [:create]
-    before_action :type_profile, only: [:create]
+    # before_action :type_profile, only: [:create]
     # POST /v1/profiles
 
     def new
@@ -14,21 +14,17 @@ module Api::V1::Profiles
 
     def create
       @profile = model_name.new(profile_params)
-      @profile.type_profile = type_profile
-      @profile.category_ids = params[:profile][:category_ids]
       @profile.user = current_v1_user
+      @profile.category_ids = params[:profile][:category_ids]
       if @profile.save
-        render json: @profile
+        render json: @profile, status: 201
       else
-        render json: ErrorSerializer.serialize(@profile.errors)
+        render json: @profile.errors,
+               status: 500
       end
     end
 
     private
-
-    def type_profile
-      params[:type_profile].singularize
-    end
 
     def profile_params
       params.require(:profile).permit(:user_id, :title, :name, :type_profile,

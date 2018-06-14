@@ -6,12 +6,12 @@ module Api::V1::Offers::SavedOffers
     before_action :set_saved_offer, only: :show
 
     def show
-      render json: @saved_offer
+      render json: @saved_offer, status: 200
     end
 
     def saved_offers_user
       @user = current_v1_user
-      render json: @user.saved_offers
+      render json: @user.saved_offers, status: 200
     end
 
     private

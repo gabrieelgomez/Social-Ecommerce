@@ -26,6 +26,10 @@ Rails.application.routes.draw do
       end
       # Chat module - end
 
+      # Shopping car
+      draw :shopping_carts
+      # Shopping car - end
+
       # Concerns routes
       draw :concerns
       # Concerns routes - end
@@ -119,6 +123,10 @@ Rails.application.routes.draw do
 
         end
       end
+      namespace :products do
+        get '/all', to: 'show#all'
+      end
+      # --- Product routes and related to them
 
       # --- Subcategories Products routes
       draw :subcategories
@@ -139,6 +147,11 @@ Rails.application.routes.draw do
       # --- Answer wish routes
       draw :answer_wishes
       # --- Answer wish routes - end
+
+      # --- Notifications route
+      draw :notifications
+      # --- Notifications route - end
+
     end
   end
 end

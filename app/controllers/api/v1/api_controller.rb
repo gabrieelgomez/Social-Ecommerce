@@ -8,20 +8,24 @@ module Api::V1
 
     def general_params(object)
       params.require(object).permit(:user_id, :title, :name, :type_profile,
-                                      :email, :banner, :photo, :launched,
-                                      :phone,:url, :address, :vision, :mission,
-                                      :description,:web, :profile, :experience,
-                                      :country)
+                                    :email, :banner, :photo, :launched,
+                                    :phone,:url, :address, :vision, :mission,
+                                    :description,:web, :profile, :experience,
+                                    :country)
     end
 
-    def custom_find
-      yield
-    rescue ActiveRecord::RecordNotFound
+    def rescue_not_found
       render json: {
         error: [
           'Record not found'
         ]
       }, status: 404
+    end
+
+    def custom_find
+      yield
+    rescue ActiveRecord::RecordNotFound
+      rescue_not_found
     end
   end
 end

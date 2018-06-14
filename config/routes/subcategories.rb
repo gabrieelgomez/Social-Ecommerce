@@ -1,4 +1,5 @@
 namespace :products do
+  get '/:profile_id/subcategories/enabled', to: 'show#subcat_enabled'
   namespace :subcategories do
     post '/', to: 'action#create'
     get '/', to: 'show#index'

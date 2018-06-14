@@ -4,7 +4,7 @@ module Api::V1::Products::PriceRanges
 		before_action :set_product_range
 
 		def index
-			render json: @product.price_ranges
+			render json: @product.price_ranges, status: 200
 		end
 	end
 end

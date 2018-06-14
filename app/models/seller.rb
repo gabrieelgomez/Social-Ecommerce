@@ -1,7 +1,7 @@
 class Seller < Profile
-  #Neste relations
+  # Neste relations
   acts_as_commentable
-  #Helper para permitir que el modelo pueda ser seguido por otros modelos
+  # Helper para permitir que el modelo pueda ser seguido por otros modelos
   acts_as_followable
   acts_as_paranoid
 
@@ -14,12 +14,12 @@ class Seller < Profile
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
 
-  def self.by_owner(current_user)
-  	where('type_profile = ? and user_id = ?', 'seller', current_user)
-  end
+  # Validations
+  validates :user_id, uniqueness: {
+    message: 'already has a seller'
+  }
 
   def root_comments_profile
     Comment.where(commentable_id:self.id, commentable_type: self.type_profile.capitalize, parent_id: nil)
   end
-
 end

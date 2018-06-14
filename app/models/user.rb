@@ -15,27 +15,31 @@ class User < ActiveRecord::Base
   # Helper para permitir que el modelo pueda seguir a otros modelos
   acts_as_follower
 
+  # Notifications Target
+  notification_target
+
   # --- Relations ---
   # Pymes
-  has_many :pymes, -> { where(type_profile: 'pyme') },
+  has_many :pymes, -> { where(type_profile: 'Pyme') },
            class_name: 'Profile'
   # Independents
-  has_many :independents, -> { where(type_profile: 'independent') },
+  has_many :independents, -> { where(type_profile: 'Independent') },
            class_name: 'Profile'
   # Seller
-  has_one  :seller, -> { where(type_profile: 'seller') },
+  has_one  :seller, -> { where(type_profile: 'Seller') },
            class_name: 'Profile'
-
   has_many :offers
   has_many :rates
   has_many :wishes
   has_many :saved_offers
   has_many :sended_wishes
-
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
+  has_one  :shopping_cart
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
+  # Callbacks
+  after_create :create_shopping_cart
 
   # Metodo para seguir Profiles by users
   def follow_profile(followable, profile)
@@ -60,5 +64,11 @@ class User < ActiveRecord::Base
   # Returns a follow record for the current instance and followable object.
   def get_follow_by_profile(followable, profile)
     self.follows.unblocked.for_followable_by_profile(followable, profile).first
+  end
+
+  def create_shopping_cart
+    # byebug
+    @shop_cart = ShoppingCart.new(user: self)
+    @shop_cart.save!
   end
 end

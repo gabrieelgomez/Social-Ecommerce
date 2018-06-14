@@ -7,7 +7,7 @@ module Api::V1::Concerns::ProductSearch
     params.require(:product).permit(:name, :images, :category_ids, :height, 
                                     :width, :weight, :price, { product_relations: [] },
                                     :tags, :rate, :stock, :num_ref, :status, :bar_code,
-                                    :brand, :currency, :service_type)
+                                    :brand, :currency, :service_type, :description)
   end
 
   def set_product

@@ -6,7 +6,6 @@ module Api::V1
       @locatable_type = params[:locatable_type].modelarize
       @locatable = @locatable_type.find_by(user: current_v1_user,
                                            id: params[:locatable_id])
-      # byebug
     end
   end
 end

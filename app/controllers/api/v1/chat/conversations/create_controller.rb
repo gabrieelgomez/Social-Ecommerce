@@ -4,9 +4,8 @@ module Api::V1::Chat::Conversations
     before_action :set_senderable
 
     def create
-      # byebug
       @conversation = Conversation.get(@senderable, @recipientable)
-      render json: @conversation
+      render json: @conversation, status: 200
     end
 
     private
@@ -15,16 +14,17 @@ module Api::V1::Chat::Conversations
       conv = params[:conversation]
       return @senderable = current_v1_user if conv[:senderable_type].nil?
       model = conv[:senderable_type].downcase.pluralize.to_sym
-      # byebug
-      @senderable = current_v1_user.try(model).try(:find, conv[:senderable_id])
-      # byebug
+      @senderable = custom_find {
+        current_v1_user.try(model).find conv[:senderable_id]
+      }
     end
 
     def set_recipientable
       conv = params[:conversation]
       model = conv[:recipientable_type].constantize
-      @recipientable = model.try(:find, conv[:recipientable_id])
-      # byebug
+      @recipientable = custom_find {
+        model.find conv[:recipientable_id]
+      }
     end
   end
 end
