@@ -56,5 +56,8 @@ class Profile < ApplicationRecord
     end
     follows
   end
-
+  def self.short_ransack(categories, search)
+    ransack(categories_id_in: categories).result
+    .ransack(name_or_description_or_title_cont: search).result
+  end
 end
