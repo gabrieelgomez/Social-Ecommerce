@@ -4,7 +4,7 @@ module Api::V1::Concerns::ProductSearch
   private
 
   def product_params
-    params.require(:product).permit(:name, :images, :category_ids, :height, :files,
+    params.require(:product).permit(:name, :images, :subcategory_ids, :height, :files,
                                     :fields, :prominent, :virtual_product,
                                     :width, :weight, :price, { product_relations: [] },
                                     :tags, :rate, :stock, :num_ref, :status, :bar_code,
