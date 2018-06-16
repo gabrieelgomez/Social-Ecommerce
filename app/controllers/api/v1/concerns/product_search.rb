@@ -10,7 +10,7 @@ module Api::V1::Concerns::ProductSearch
                                     :status, :bar_code, :brand, :currency,
                                     :service_type, :description, :tags,
                                     subcategory_ids: [], product_relations: [],
-                                    :document_data: []) #add document_data as a permitted parameter
+                                    document_data: []) #add document_data as a permitted parameter
   end
 
   def set_product
