@@ -5,8 +5,8 @@ module Api::V1
 
     def offer_params
       params.require(:offer).permit(:title, :description, :start_time, :end_time,
-                                    :product_ids, :user_id, :state, :price, :stock,
-                                    :condition, :included)
+                                    :user_id, :state, :price, :stock,
+                                    :condition, :included, product_ids: [])
     end
 
     def set_profile_of_user

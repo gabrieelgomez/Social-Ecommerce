@@ -8,8 +8,6 @@ module Api::V1::Products
 
     def create
       @product = @productable.products.new(product_params)
-      @product.subcategory_ids = params[:product][:subcategory_ids]
-      @product.product_relations = params[:product][:product_relations]
       @product.tag_list.add(params[:product][:tags])
       if @product.save
         render json: @product, status: 200

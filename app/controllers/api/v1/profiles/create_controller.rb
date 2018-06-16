@@ -15,7 +15,7 @@ module Api::V1::Profiles
     def create
       @profile = model_name.new(profile_params)
       @profile.user = current_v1_user
-      @profile.category_ids = params[:profile][:category_ids]
+      # @profile.category_ids = params[:profile][:category_ids]
       if @profile.save
         render json: @profile, status: 201
       else
@@ -30,7 +30,8 @@ module Api::V1::Profiles
       params.require(:profile).permit(:user_id, :title, :name, :type_profile,
                                       :email, :banner, :photo, :launched, :phone,
                                       :url, :address, :vision, :mission, :description,
-                                      :web, :profile, :experience, :country)
+                                      :web, :profile, :experience, :country,
+                                      category_ids: [])
     end
   end
 end
