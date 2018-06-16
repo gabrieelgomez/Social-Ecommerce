@@ -8,7 +8,8 @@ module Api::V1::Concerns::ProductSearch
                                     :fields, :prominent, :virtual_product,
                                     :width, :weight, :price, { product_relations: [] },
                                     :tags, :rate, :stock, :num_ref, :status, :bar_code,
-                                    :brand, :currency, :service_type, :description, )
+                                    :brand, :currency, :service_type, :description, :prominent,
+                                    :virtual_product, :service_type)
   end
 
   def set_product

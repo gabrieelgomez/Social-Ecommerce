@@ -282,13 +282,13 @@ ActiveRecord::Schema.define(version: 20180611131243) do
     t.string "launched"
     t.string "phone"
     t.string "url"
-    t.string "address"
+    t.text "address"
     t.string "vision"
     t.string "mission"
-    t.string "description"
+    t.text "description"
     t.string "web"
     t.json "profile"
-    t.string "experience"
+    t.text "experience"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
