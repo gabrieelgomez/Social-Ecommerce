@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   # Callbacks
 
-  mount_uploader :cover, ImageUploader
+  mount_base64_uploader :cover, ImageUploader
   has_many :documents
   attr_accessor :document_data
 
