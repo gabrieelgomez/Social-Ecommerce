@@ -1,6 +1,10 @@
 class Product < ApplicationRecord
   # Callbacks
-  # mount_uploader :images, ImagesUploader
+
+  mount_uploader :cover, ImageUploader
+  has_many :documents
+  attr_accessor :document_data
+
   after_create :create_notify
   after_save :set_change_price, if: :price_changed?
 

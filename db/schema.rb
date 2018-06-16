@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180611131243) do
+ActiveRecord::Schema.define(version: 20180616183638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,14 @@ ActiveRecord::Schema.define(version: 20180611131243) do
     t.bigint "product_id"
     t.index ["custom_field_id"], name: "index_custom_fields_products_on_custom_field_id"
     t.index ["product_id"], name: "index_custom_fields_products_on_product_id"
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.bigint "product_id"
+    t.string "document"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_documents_on_product_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -242,8 +250,7 @@ ActiveRecord::Schema.define(version: 20180611131243) do
     t.json "files"
     t.float "price"
     t.string "service_type"
-    t.json "images"
-    t.json "fields"
+    t.string "cover"
     t.text "product_relations", default: [], array: true
     t.string "tags", default: ""
     t.boolean "prominent"
@@ -419,6 +426,7 @@ ActiveRecord::Schema.define(version: 20180611131243) do
   add_foreign_key "answer_wishes", "sended_wishes"
   add_foreign_key "custom_fields_products", "custom_fields"
   add_foreign_key "custom_fields_products", "products"
+  add_foreign_key "documents", "products"
   add_foreign_key "items", "products"
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "messages", "conversations"

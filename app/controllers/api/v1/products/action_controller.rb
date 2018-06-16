@@ -10,6 +10,13 @@ module Api::V1::Products
       @product = @productable.products.new(product_params)
       @product.tag_list.add(params[:product][:tags])
       if @product.save
+
+        #iterate through each of the files
+        params[:product][:document_data].each do |file|
+            @product.documents.create!(:document => file)
+            #create a document associated with the product that has just been created
+        end
+
         render json: @product, status: 200
       else
         render json: @product.errors,
