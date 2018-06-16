@@ -10,8 +10,9 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.json    :files
       t.float   :price
       t.string  :service_type
-      t.json    :images
-      t.json    :fields
+      t.string  :cover
+      # t.json    :images
+      # t.json    :fields
       t.text    :product_relations, array: true, default: []
       t.string  :tags, default: ''
       t.boolean :prominent

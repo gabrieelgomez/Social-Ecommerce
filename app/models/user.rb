@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-  mount_base64_uploader :avatar, AvatarUploader
+  # mount_base64_uploader :avatar, ImageUploader
+  mount_uploader :avatar, ImageUploader
 
   validates :email, :nickname, uniqueness: true
   validates :email, email_format: { message: 'Invalid email' }
