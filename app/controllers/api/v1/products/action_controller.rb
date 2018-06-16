@@ -9,14 +9,15 @@ module Api::V1::Products
     def create
       @product = @productable.products.new(product_params)
       @product.tag_list.add(params[:product][:tags])
+      files = params[:product][:document_data]
       if @product.save
-
-        #iterate through each of the files
-        params[:product][:document_data].each do |file|
-            @product.documents.create!(:document => file)
-            #create a document associated with the product that has just been created
+        unless files.nil?
+          #iterate through each of the files
+          files.each do |file|
+              @product.documents.create!(:document => file)
+              #create a document associated with the product that has just been created
+          end
         end
-
         render json: @product, status: 200
       else
         render json: @product.errors,
@@ -28,6 +29,15 @@ module Api::V1::Products
       subcategory_ids = params[:product][:subcategory_ids]
       @product.subcategory_ids = subcategory_ids unless subcategory_ids.nil?
       @product.tag_list.add(params[:product][:tags])
+      files = params[:product][:document_data]
+      unless files.nil?
+        #iterate through each of the files
+        files.each do |file|
+            @product.documents.create!(:document => file)
+            #create a document associated with the product that has just been created
+        end
+      end
+
       if @product.update(product_params)
         render json: @product, status: 200
       else
