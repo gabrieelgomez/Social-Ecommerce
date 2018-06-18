@@ -14,19 +14,19 @@ class NotificationSettingsMigration < ActiveRecord::Migration[5.1]
             t.jsonb :category_settings, default: {
                                                   follow: {
                                                     app: true,
-                                                    email: true
+                                                    email: false
                                                   },
                                                   offer: {
                                                     app: true,
-                                                    email: true
+                                                    email: false
                                                   },
                                                   product: {
                                                     app: true,
-                                                    email: true
+                                                    email: false
                                                   },
                                                   wish: {
                                                     app: true,
-                                                    email: true
+                                                    email: false
                                                     }
                                                   }
 

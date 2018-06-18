@@ -12,7 +12,7 @@ class Notification < NotificationHandler::Notification
     end
 
     if type_category.second['email']
-      # NotificationMailer.push(message, to: recipient.email).deliver_now
+      NotificationMailer.push(message, to: recipient.email).deliver_now
       # notification.push :CustomPusher, option_one: 'value_two'
     end
 
