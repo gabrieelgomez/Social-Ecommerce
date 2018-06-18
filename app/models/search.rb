@@ -10,15 +10,22 @@ class Search
                                       search).to_a
 
     # Filtering products
+    # products_q = products_by_q(search)
+    # products_cat = product_by_subcat(categories).flatten
+    # products = (products_q + products_cat).uniq
+
     products_q = products_by_q(search)
-    products_cat = product_by_subcat(categories).flatten
-    products = (products_q + products_cat).uniq
+    # products_cat = product_by_subcat(categories).flatten
+    products = products_q.uniq
+
 
     (profiles_by_cat + products).flatten
+
   end
 
   # Filter profiles by categories
   def self.filter_by_catgs(categories, search)
+    # byebug
     Pyme.short_ransack(categories, search) +
       Independent.short_ransack(categories, search) +
       Seller.short_ransack(categories, search)
