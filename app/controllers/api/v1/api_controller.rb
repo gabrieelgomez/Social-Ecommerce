@@ -17,7 +17,9 @@ module Api::V1
     def rescue_not_found
       render json: {
         error: [
-          'Record not found'
+          "#{I18n.t :not_found.to_s}"
+          # 'Not found'
+          # t('not_found')
         ]
       }, status: 404
     end
