@@ -9,11 +9,11 @@ module Api::V1::Notifications
     end
 
     def update
-      @new = params[:category_settings].to_json
+      @new = JSON.parse(params[:category_settings].to_json)
       @settings = custom_find {
-        current_v1_user.notification_setting.category_settings = @new
+        current_v1_user.notification_setting.update(category_settings: @new)
       }
-      render json: @settings
+      render json: @new
     end
 
   end
