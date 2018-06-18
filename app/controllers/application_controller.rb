@@ -4,15 +4,15 @@ class ApplicationController < ActionController::API
   before_action :cors_preflight_check
   after_action :cors_set_access_control_headers
   before_action :configure_permitted_parameters, if: :devise_controller?
-  # before_action :configure_permitted_parameters, if: :devise_controller?
-  #
-  # protected
-  #
-  # def configure_permitted_parameters
-  #   added_attrs = [:name]
-  #   devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
-  #   # devise_parameter_sanitizer.permit :account_update, keys: added_attrs
-  # end
+  before_action :set_locale
+
+  private
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+    # I18n.locale = :es
+  end
+
   protected
 
   def configure_permitted_parameters
