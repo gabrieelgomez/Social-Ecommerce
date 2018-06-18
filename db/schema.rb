@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(version: 20180616183638) do
     t.bigint "subscription_id"
     t.string "status"
     t.text "settings"
-    t.jsonb "category_settings", default: {"wish"=>{"app"=>true, "email"=>true}, "offer"=>{"app"=>true, "email"=>true}, "follow"=>{"app"=>true, "email"=>true}, "product"=>{"app"=>true, "email"=>true}}
+    t.jsonb "category_settings", default: {"wish"=>{"app"=>true, "email"=>false}, "offer"=>{"app"=>true, "email"=>false}, "follow"=>{"app"=>true, "email"=>false}, "product"=>{"app"=>true, "email"=>false}}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["object_type", "object_id"], name: "idx_settings_object_type_object_id"
