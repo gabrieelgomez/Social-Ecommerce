@@ -5,6 +5,7 @@ module Api::V1::Pymes
     before_action :set_my_pyme, only: %i[update]
 
     def update
+      # title_will_change if @
       if @pyme.update(general_params(:pyme))
         render json: @pyme, status: 200
       else
