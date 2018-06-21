@@ -1,11 +1,14 @@
 class Profile < ApplicationRecord
   acts_as_paranoid
 
+  after_create :create_social_account
+
   # mount_base64_uploader :photo, :banner, ImageUploader
 
   # Relations
   belongs_to  :user
   has_one     :seller
+  has_one     :social_account
   has_many    :rates
   has_and_belongs_to_many :categories
   has_many :locations, as: :locatable
@@ -60,4 +63,10 @@ class Profile < ApplicationRecord
     ransack(categories_id_in: categories).result
     .ransack(name_or_description_or_title_cont: search).result
   end
+
+
+  def create_social_account
+    SocialAccount.create(profile: self)
+  end
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180616183638) do
+ActiveRecord::Schema.define(version: 20180621021807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -342,6 +342,28 @@ ActiveRecord::Schema.define(version: 20180616183638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_shopping_carts_on_user_id"
+  end
+
+  create_table "social_accounts", force: :cascade do |t|
+    t.string "facebook"
+    t.string "twitter"
+    t.string "instagram"
+    t.string "google_plus"
+    t.string "tripadvisor"
+    t.string "pinterest"
+    t.string "flickr"
+    t.string "behance"
+    t.string "dribbble"
+    t.string "tumblr"
+    t.string "github"
+    t.string "linkedin"
+    t.string "soundcloud"
+    t.string "youtube"
+    t.string "skype"
+    t.string "vimeo"
+    t.integer "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subcategories", force: :cascade do |t|

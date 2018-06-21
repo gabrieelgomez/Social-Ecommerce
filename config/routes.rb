@@ -65,6 +65,7 @@ Rails.application.routes.draw do
           put '/:category_id/update', to: 'actions#update'
           delete '/:category_id/destroy', to: 'actions#destroy'
         end
+
       end
       # --- Categories Products routes - end
 
@@ -79,6 +80,13 @@ Rails.application.routes.draw do
           get '/new', to: 'create#new'
           post '/create', to: 'create#create'
         end
+
+        #For SocialAccounts
+        scope '/:type_profile/:profile_id/social_accounts' do
+          get '/show', to: 'social_accounts#show'
+          put '/update', to: 'social_accounts#update'
+        end
+
       end
       # --- Profiles route - end
 
