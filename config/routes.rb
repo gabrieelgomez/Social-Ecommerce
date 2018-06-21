@@ -89,9 +89,16 @@ Rails.application.routes.draw do
 
         #For SocialAccounts
         scope '/:type_profile/:profile_id/social_accounts' do
-          get '/show', to: 'social_accounts#show'
-          put '/update', to: 'social_accounts#update'
+          get '/show', to: 'social_accounts/social_accounts#show'
+          put '/update', to: 'social_accounts/social_accounts#update'
         end
+
+        #For Schedules
+        scope '/:type_profile/:profile_id/schedules' do
+          get '/show', to: 'schedules/schedules#show'
+          put '/update', to: 'schedules/schedules#update'
+        end
+
 
       end
       # --- Profiles route - end

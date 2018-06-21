@@ -1,7 +1,7 @@
 class Profile < ApplicationRecord
   acts_as_paranoid
 
-  after_create :create_social_account
+  after_create :create_social_account_and_schedule
 
   # mount_base64_uploader :photo, :banner, ImageUploader
 
@@ -9,6 +9,7 @@ class Profile < ApplicationRecord
   belongs_to  :user
   has_one     :seller
   has_one     :social_account
+  has_one     :schedule
   has_many    :rates
   has_and_belongs_to_many :categories
   has_many :locations, as: :locatable
@@ -65,8 +66,9 @@ class Profile < ApplicationRecord
   end
 
 
-  def create_social_account
+  def create_social_account_and_schedule
     SocialAccount.create(profile: self)
+    Schedule.create(profile: self)
   end
 
 end

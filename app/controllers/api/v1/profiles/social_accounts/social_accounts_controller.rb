@@ -1,5 +1,5 @@
 module Api::V1::Profiles
-  class SocialAccountsController < ProfilesController
+  class SocialAccounts::SocialAccountsController < ProfilesController
     before_action :authenticate_v1_user!, except: [:show]
 		before_action :set_profile, only: [:show, :update]
 

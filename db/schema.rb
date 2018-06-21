@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180621021807) do
+ActiveRecord::Schema.define(version: 20180621205155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -322,6 +322,19 @@ ActiveRecord::Schema.define(version: 20180621021807) do
     t.text "description"
     t.index ["offer_id"], name: "index_saved_offers_on_offer_id"
     t.index ["user_id"], name: "index_saved_offers_on_user_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.jsonb "monday", default: {"open"=>"8:00am", "close"=>"5:00pm"}
+    t.jsonb "tuesday", default: {"open"=>"8:00am", "close"=>"5:00pm"}
+    t.jsonb "wednesday", default: {"open"=>"8:00am", "close"=>"5:00pm"}
+    t.jsonb "thursday", default: {"open"=>"8:00am", "close"=>"5:00pm"}
+    t.jsonb "friday", default: {"open"=>"8:00am", "close"=>"5:00pm"}
+    t.jsonb "saturday", default: {"open"=>"8:00am", "close"=>"5:00pm"}
+    t.jsonb "sunday", default: {"open"=>"8:00am", "close"=>"5:00pm"}
+    t.integer "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sended_wishes", force: :cascade do |t|
