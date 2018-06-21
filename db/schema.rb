@@ -118,7 +118,12 @@ ActiveRecord::Schema.define(version: 20180616183638) do
   create_table "items", force: :cascade do |t|
     t.bigint "product_id"
     t.bigint "shopping_cart_id"
+    t.bigint "custom_field_id"
+    t.bigint "option_id"
+    t.string "option_value", default: ""
     t.integer "quantity", default: 1, null: false
+    t.index ["custom_field_id"], name: "index_items_on_custom_field_id"
+    t.index ["option_id"], name: "index_items_on_option_id"
     t.index ["product_id"], name: "index_items_on_product_id"
     t.index ["shopping_cart_id"], name: "index_items_on_shopping_cart_id"
   end
@@ -427,6 +432,8 @@ ActiveRecord::Schema.define(version: 20180616183638) do
   add_foreign_key "custom_fields_products", "custom_fields"
   add_foreign_key "custom_fields_products", "products"
   add_foreign_key "documents", "products"
+  add_foreign_key "items", "custom_fields"
+  add_foreign_key "items", "options"
   add_foreign_key "items", "products"
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "messages", "conversations"

@@ -14,20 +14,18 @@ module Api::V1
                                     :country)
     end
 
-    def rescue_not_found
+    def rescue_not_found(class_name)
       render json: {
-        error: [
-          "#{I18n.t :not_found.to_s}"
-          # 'Not found'
-          # t('not_found')
+        errors: [
+          "#{class_name}: #{ I18n.t :not_found.to_s }"
         ]
       }, status: 404
     end
 
     def custom_find
       yield
-    rescue ActiveRecord::RecordNotFound
-      rescue_not_found
+    rescue ActiveRecord::RecordNotFound => error
+      rescue_not_found(error.model)
     end
   end
 end
