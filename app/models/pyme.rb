@@ -16,7 +16,6 @@ class Pyme < Profile
   has_many :conversations, as: :senderable
 
   def root_comments_profile
-    Comment.where(commentable_id:self.id, commentable_type: self.type_profile.capitalize, parent_id: nil)
+    Comment.where(commentable_id: self.id, commentable_type: self.type_profile.capitalize, parent_id: nil)
   end
-
 end
