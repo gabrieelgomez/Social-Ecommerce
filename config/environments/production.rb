@@ -90,12 +90,12 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default charset: 'utf-8'
   config.action_mailer.smtp_settings = {
-    address:              Rails.application.secrets.address,
-    port:                 Rails.application.secrets.port,
-    domain:               Rails.application.secrets.domain_name,
-    user_name:            Rails.application.secrets.email,
-    password:             Rails.application.secrets.password,
-    authentication:   'plain',
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            'bigwave.ve@gmail.com',
+    password:             'sawders.bigwave',
+    authentication:       'plain',
     enable_starttls_auto: true
   }
 end
