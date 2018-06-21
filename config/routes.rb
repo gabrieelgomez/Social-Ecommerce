@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   # Route for frontend
   scope module: 'api' do
     namespace :v1 do
+
+      #Routes for custom reset password
+      scope module: 'users' do
+        post 'auth/password/reset', to: 'password_reset#reset'
+      end
+
       # Rutas para métodos del controlador API
       # ActionCable route
       mount ActionCable.server => '/cable'

@@ -72,4 +72,12 @@ class User < ActiveRecord::Base
     @shop_cart = ShoppingCart.new(user: self)
     @shop_cart.save!
   end
+
+  def send_request_password_change
+    token = SecureRandom.hex(3)
+    self.update(custom_token: token, request_change_password: Time.now)
+    ResetPassword.send_token(self).deliver_now
+  end
+
+
 end

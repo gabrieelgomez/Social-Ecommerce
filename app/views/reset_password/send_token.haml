@@ -1,0 +1,6 @@
+%p= "Hola #{@user.email}"
+%p Alguien ha solicitado una recuperación de tu contraseña. Puedes hacerlo a través del siguiente código.
+%p= @user.custom_token
+%p Si no lo solicitó, ignore este correo electrónico.
+%p Su contraseña no cambiará hasta que acceda a la opción de recuperación e introduzca este código.
+%p Su código expirará en 5 minutos.
