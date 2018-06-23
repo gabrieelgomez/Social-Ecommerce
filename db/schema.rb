@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180621021807) do
+ActiveRecord::Schema.define(version: 20180623142613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,11 +94,12 @@ ActiveRecord::Schema.define(version: 20180621021807) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.bigint "product_id"
+    t.string "documentable_type"
+    t.bigint "documentable_id"
     t.string "document"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_documents_on_product_id"
+    t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -234,6 +235,15 @@ ActiveRecord::Schema.define(version: 20180621021807) do
     t.bigint "product_id"
     t.index ["option_id"], name: "index_options_products_on_option_id"
     t.index ["product_id"], name: "index_options_products_on_product_id"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.string "photo"
+    t.string "photoable_type"
+    t.bigint "photoable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id"
   end
 
   create_table "price_ranges", force: :cascade do |t|
@@ -455,7 +465,6 @@ ActiveRecord::Schema.define(version: 20180621021807) do
   add_foreign_key "answer_wishes", "sended_wishes"
   add_foreign_key "custom_fields_products", "custom_fields"
   add_foreign_key "custom_fields_products", "products"
-  add_foreign_key "documents", "products"
   add_foreign_key "items", "custom_fields"
   add_foreign_key "items", "options"
   add_foreign_key "items", "products"

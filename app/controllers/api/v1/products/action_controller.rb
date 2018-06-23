@@ -10,14 +10,25 @@ module Api::V1::Products
       @product = @productable.products.new(product_params)
       @product.tag_list.add(params[:product][:tags])
       files = params[:product][:document_data]
+      multiple_images = params[:product][:multiple_images]
+
       if @product.save
         unless files.nil?
           #iterate through each of the files
           files.each do |file|
-              @product.documents.create!(:document => file)
+              @product.documents.create!(document: file, product: @product)
               #create a document associated with the product that has just been created
           end
         end
+
+        unless multiple_images.nil?
+          #iterate through each of the multiple_images
+          multiple_images.each do |image|
+              @product.photos.create!(photo: image, photoable: @product)
+              #create a document associated with the product that has just been created
+          end
+        end
+
         render json: @product, status: 200
       else
         render json: @product.errors,
@@ -33,10 +44,19 @@ module Api::V1::Products
       unless files.nil?
         #iterate through each of the files
         files.each do |file|
-            @product.documents.create!(:document => file)
+            @product.documents.update!(document: file, product: @product)
             #create a document associated with the product that has just been created
         end
       end
+
+      unless multiple_images.nil?
+        #iterate through each of the multiple_images
+        multiple_images.each do |image|
+            @product.photos.update!(photo: image, photoable: @product)
+            #create a document associated with the product that has just been created
+        end
+      end
+
 
       if @product.update(product_params)
         render json: @product, status: 200

@@ -2,7 +2,6 @@ class Product < ApplicationRecord
   # Callbacks
 
   mount_base64_uploader :cover, ImageUploader
-  has_many :documents
   attr_accessor :document_data
 
   after_create :create_notify
@@ -18,6 +17,8 @@ class Product < ApplicationRecord
   has_many :shopping_carts, through: :items
   has_many :items
   belongs_to :productable, polymorphic: true
+  has_many :photos, as: :photoable, dependent: :delete_all
+  has_many :documents, as: :documentable, dependent: :delete_all
   has_many :wishes, as: :wisheable
 
   # Validations
