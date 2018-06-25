@@ -41,6 +41,8 @@ module Api::V1::Products
       @product.subcategory_ids = subcategory_ids unless subcategory_ids.nil?
       @product.tag_list.add(params[:product][:tags])
       files = params[:product][:document_data]
+      multiple_images = params[:product][:multiple_images]
+      
       unless files.nil?
         #iterate through each of the files
         files.each do |file|
