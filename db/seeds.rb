@@ -460,6 +460,18 @@ coordenates = [
   },
 ]
 
+options_products = [
+  {
+    name: 'Tallas',
+    values: ['S', 'M', 'L', 'XL']
+  },
+  {
+    name: 'Colores',
+    values: ['Rojo', 'Verde', 'Azul', 'XL']
+  }
+]
+
+
 # Recorrido para crear Usuarios, Profiles y Productos
 10.times do |i|
 
@@ -498,7 +510,7 @@ coordenates = [
       locatable: pyme
     )
     puts pyme.title
-    # 3 Productos a un Pyme
+    # 3 Productos a un Pyme 
     3.times do
       product = Product.create(
         name: Faker::SiliconValley.invention,
@@ -506,6 +518,23 @@ coordenates = [
         price: Faker::Number.between(100, 10000),
         subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
       )
+
+      CustomField.create(
+        name: 'Garantía',
+        value: "#{product.id} meses por fallas eléctricas",
+        product_ids: product.id,
+        customizable: pyme
+      )
+
+      options_products.each do |option|
+        Option.create(
+          name: option[:name],
+          values: option[:values],
+          product_ids: product.id,
+          optionable: pyme
+        )
+      end
+
     end
 
     # Independent
@@ -537,8 +566,24 @@ coordenates = [
         price: Faker::Number.between(100, 10000),
         subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
       )
-    end
 
+      CustomField.create(
+        name: 'Garantía',
+        value: "#{product.id} meses por fallas eléctricas",
+        product_ids: product.id,
+        customizable: independent
+      )
+
+      options_products.each do |option|
+        Option.create(
+          name: option[:name],
+          values: option[:values],
+          product_ids: product.id,
+          optionable: independent
+        )
+      end
+
+    end
   end
 
   # Creacion de 1 Usuario Seller
@@ -570,7 +615,25 @@ coordenates = [
       productable: seller,
       price: Faker::Number.between(100, 10000),
       subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
+
     )
+
+    CustomField.create(
+      name: 'Garantía',
+      value: "#{product.id} meses por fallas eléctricas",
+      product_ids: product.id,
+      customizable: seller
+    )
+
+    options_products.each do |option|
+      Option.create(
+        name: option[:name],
+        values: option[:values],
+        product_ids: product.id,
+        optionable: seller
+      )
+    end
+
   end
   puts "-------------\n"
 end
