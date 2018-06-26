@@ -3,6 +3,7 @@ module Api::V1::Comments
 
     def create
       commentable = commentable_type.constantize.find(commentable_id)
+      # byebug
       @comment = Comment.build_from(commentable, current_v1_user.id, body)
 
       if @comment.save

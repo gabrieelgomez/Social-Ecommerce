@@ -2,9 +2,10 @@ module Api::V1::Comments
   class ShowController < CommentsController
 
     def index
-      commentable = custom_find { 
-        model_name.find(params[:profile_id])
+      commentable = custom_find {
+        params[:commentable_type].modelarize.find(params[:profile_id])
       }
+      byebug
       render json: commentable.root_comments_profile, status: 200
     end
 
