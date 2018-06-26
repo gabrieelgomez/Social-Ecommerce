@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   # Seller
   has_one  :seller, -> { where(type_profile: 'Seller') },
            class_name: 'Profile'
+  has_many :profiles
   has_many :offers
   has_many :rates
   has_many :wishes
@@ -37,6 +38,7 @@ class User < ActiveRecord::Base
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
   has_one  :shopping_cart
+  has_many :posts, as: :postable
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
   # Callbacks

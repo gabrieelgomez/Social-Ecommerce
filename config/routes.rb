@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   scope module: 'api' do
     namespace :v1 do
 
-      #Routes for custom reset password
+      # --- Posts routes
+      draw :posts
+      # --- Posts routes - end
+
+      # Routes for custom reset password
       scope module: 'users' do
         post 'auth/password/reset', to: 'password_reset#reset'
       end
@@ -165,7 +169,6 @@ Rails.application.routes.draw do
       # --- Notifications route
       draw :notifications
       # --- Notifications route - end
-
     end
   end
 end
