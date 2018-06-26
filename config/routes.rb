@@ -58,7 +58,7 @@ Rails.application.routes.draw do
 
       # Search routes
       namespace :searchs do
-        get '/', to: 'search#global_search'
+        post '/', to: 'search#global_search'
       end
       # Search routes - end
 
