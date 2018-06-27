@@ -16,4 +16,8 @@ class ShoppingCart < ApplicationRecord
   def generate_code
     self.code = SecureRandom.hex
   end
+
+  def full_product
+    User.first.as_json(root: true, only: [:name])
+  end
 end
