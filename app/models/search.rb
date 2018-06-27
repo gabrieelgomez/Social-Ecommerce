@@ -1,7 +1,7 @@
 class Search
   def self.deep_search(params)
     search = params[:q] || ''
-    categories = params[:categories].try(:map, &:to_i) || []
+    categories = params[:categories].split('-').map &:to_i || []
 
     # Filtering profiles
 
