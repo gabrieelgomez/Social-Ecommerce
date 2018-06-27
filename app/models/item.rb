@@ -5,9 +5,4 @@ class Item < ApplicationRecord
 
   validates :product, :custom_field,
             :shopping_cart, presence: true
-
-
-  def product
-    self.product
-  end
 end
