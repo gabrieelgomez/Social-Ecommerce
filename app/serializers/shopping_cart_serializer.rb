@@ -6,7 +6,7 @@ class ShoppingCartSerializer < ActiveModel::Serializer
     object.items.map do |item|
       {
         id: item.id,
-        product: Product.find(item.product_id),
+        product: product_serialzr(item.product_id),
         custom_fields: CustomField.find(item.custom_field_ids).as_json,
         options: select_option_val(item),
         quantity: item.quantity
@@ -24,5 +24,13 @@ class ShoppingCartSerializer < ActiveModel::Serializer
                   end
         )
     end
+  end
+
+  def product_serialzr(product_id)
+    Product.find(product_id).as_json(include: {
+      productable: {
+        only: %i[id productable_type name]
+      }
+    })
   end
 end
