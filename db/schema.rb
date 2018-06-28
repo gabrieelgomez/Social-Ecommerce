@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180623142613) do
+ActiveRecord::Schema.define(version: 20180628021711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,13 @@ ActiveRecord::Schema.define(version: 20180623142613) do
     t.index ["customizable_type", "customizable_id"], name: "index_custom_fields_on_customizable_type_and_customizable_id"
   end
 
+  create_table "custom_fields_items", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "custom_field_id"
+    t.index ["custom_field_id"], name: "index_custom_fields_items_on_custom_field_id"
+    t.index ["item_id"], name: "index_custom_fields_items_on_item_id"
+  end
+
   create_table "custom_fields_products", force: :cascade do |t|
     t.bigint "custom_field_id"
     t.bigint "product_id"
@@ -119,14 +126,17 @@ ActiveRecord::Schema.define(version: 20180623142613) do
   create_table "items", force: :cascade do |t|
     t.bigint "product_id"
     t.bigint "shopping_cart_id"
-    t.bigint "custom_field_id"
-    t.bigint "option_id"
-    t.string "option_value", default: ""
+    t.json "option_values", default: {}
     t.integer "quantity", default: 1, null: false
-    t.index ["custom_field_id"], name: "index_items_on_custom_field_id"
-    t.index ["option_id"], name: "index_items_on_option_id"
     t.index ["product_id"], name: "index_items_on_product_id"
     t.index ["shopping_cart_id"], name: "index_items_on_shopping_cart_id"
+  end
+
+  create_table "items_options", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "option_id"
+    t.index ["item_id"], name: "index_items_options_on_item_id"
+    t.index ["option_id"], name: "index_items_options_on_option_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -476,12 +486,14 @@ ActiveRecord::Schema.define(version: 20180623142613) do
 
   add_foreign_key "answer_wishes", "profiles"
   add_foreign_key "answer_wishes", "sended_wishes"
+  add_foreign_key "custom_fields_items", "custom_fields"
+  add_foreign_key "custom_fields_items", "items"
   add_foreign_key "custom_fields_products", "custom_fields"
   add_foreign_key "custom_fields_products", "products"
-  add_foreign_key "items", "custom_fields"
-  add_foreign_key "items", "options"
   add_foreign_key "items", "products"
   add_foreign_key "items", "shopping_carts"
+  add_foreign_key "items_options", "items"
+  add_foreign_key "items_options", "options"
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
   add_foreign_key "options_products", "options"
