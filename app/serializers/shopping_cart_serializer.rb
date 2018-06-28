@@ -29,7 +29,7 @@ class ShoppingCartSerializer < ActiveModel::Serializer
   def product_serialzr(product_id)
     Product.find(product_id).as_json(include: {
       productable: {
-        only: %i[id productable_type name]
+        only: %i[id type_profile name]
       }
     })
   end
