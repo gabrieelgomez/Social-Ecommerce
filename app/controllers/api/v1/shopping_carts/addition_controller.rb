@@ -7,7 +7,7 @@ module Api::V1::ShoppingCarts
 
     def add_product
       @item = @shopping_cart.items.new(product_id: @product.id,
-                                       custom_field: @custom_field,
+                                       custom_field_ids: @custom_field_ids,
                                        option_id: @option.id,
                                        option_value: @option_value,
                                        quantity: params[:quantity])

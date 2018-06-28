@@ -13,9 +13,8 @@ module Api::V1
     end
 
     def set_custom_field
-      @custom_field = custom_find do
-        @product.custom_fields
-                .find(params[:custom_field])
+      @custom_field_ids = params[:custom_field_ids].select do |cf_id|
+        @product.custom_fields.map(&:id).include? cf_id
       end
     end
 
@@ -27,6 +26,11 @@ module Api::V1
 
     def set_shopping_cart
       @shopping_cart = current_v1_user.shopping_cart
+    end
+
+    def item_params
+      params.require(:item).permit(:option_id, :option_value,
+                                   :product_id, custom_field_ids: [])
     end
   end
 end
