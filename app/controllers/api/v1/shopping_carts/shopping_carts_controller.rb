@@ -5,11 +5,31 @@ module Api::V1
     private
 
     def set_option
-      @option = custom_find do
-        @product.productable.options.find(params[:option_id])
+      productable_op_ids = @product.productable.options.map(&:id)
+      @option_ids = params[:option_ids].select do |op_id|
+        productable_op_ids.include? op_id
       end
-      @option_value = @option.values[params[:option_value]]
-      rescue_not_found('Option') if @option_value.nil?
+      # @option = custom_find do
+      #   @product.productable.options.find(params[:option_id])
+      # end
+      # @option_value = @option.values[params[:option_value]]
+      # rescue_not_found('Option') if @option_value.nil?
+    end
+    # {
+    #   "custom_field_ids": [150, 153, 140],
+    #   "option_ids": [23, 45, 76],
+    #   "option_value": {
+    #     23: 'S',
+    #     45: 'M',
+    #     76: 'XL'
+    #   },
+    #   "quantity": 10
+    # }
+    def set_option_values
+      @option_values = params[:option_values].select do |key, val|
+        @option_ids.include?(key.to_i) &&
+          Option.find(key.to_i).values.map(&:downcase).include?(val.downcase)
+      end
     end
 
     def set_custom_field
