@@ -10,7 +10,7 @@ module Api::V1::Products
       @product = @productable.products.new(product_params)
       @product.tag_list.add(params[:product][:tags])
       files = params[:product][:document_data]
-      multiple_images = params[:product][:multiple_images]
+      multiple_images = params[:product][:photos]
 
       if @product.save
         unless files.nil?
@@ -41,7 +41,7 @@ module Api::V1::Products
       @product.subcategory_ids = subcategory_ids unless subcategory_ids.nil?
       @product.tag_list.add(params[:product][:tags])
       files = params[:product][:document_data]
-      multiple_images = params[:product][:multiple_images]
+      multiple_images = params[:product][:photos]
       
       unless files.nil?
         #iterate through each of the files
