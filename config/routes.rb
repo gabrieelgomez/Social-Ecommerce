@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   scope module: 'api' do
     namespace :v1 do
 
+      put 'products/:product_id/upload/:type_upload/:file_id/delete', to: 'products/uploaders/uploaders#destroy'
+
       #Routes for custom reset password
       scope module: 'users' do
         post 'auth/password/reset', to: 'password_reset#reset'
