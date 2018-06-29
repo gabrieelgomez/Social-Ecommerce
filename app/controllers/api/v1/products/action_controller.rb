@@ -46,7 +46,7 @@ module Api::V1::Products
       unless files.nil?
         #iterate through each of the files
         files.each do |file|
-            @product.documents.update!(document: file, product: @product)
+            @product.documents.create!(document: file, product: @product)
             #create a document associated with the product that has just been created
         end
       end
@@ -54,7 +54,7 @@ module Api::V1::Products
       unless multiple_images.nil?
         #iterate through each of the multiple_images
         multiple_images.each do |image|
-            @product.photos.update!(photo: image, photoable: @product)
+            @product.photos.create!(photo: image, photoable: @product)
             #create a document associated with the product that has just been created
         end
       end
