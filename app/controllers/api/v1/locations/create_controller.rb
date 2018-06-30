@@ -4,7 +4,6 @@ module Api::V1::Locations
     before_action :set_locatable
 
     def create
-      # byebug
       @location = Location.new(location_params)
       if @location.save
         render json: @location, status: 200

@@ -328,10 +328,11 @@ ActiveRecord::Schema.define(version: 20180625212106) do
   create_table "rates", force: :cascade do |t|
     t.float "score"
     t.bigint "user_id"
-    t.bigint "profile_id"
+    t.string "rateable_type"
+    t.bigint "rateable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_rates_on_profile_id"
+    t.index ["rateable_type", "rateable_id"], name: "index_rates_on_rateable_type_and_rateable_id"
     t.index ["user_id"], name: "index_rates_on_user_id"
   end
 
@@ -483,7 +484,6 @@ ActiveRecord::Schema.define(version: 20180625212106) do
   add_foreign_key "options_products", "options"
   add_foreign_key "options_products", "products"
   add_foreign_key "price_ranges", "products"
-  add_foreign_key "rates", "profiles"
   add_foreign_key "rates", "users"
   add_foreign_key "saved_offers", "offers"
   add_foreign_key "saved_offers", "users"

@@ -6,14 +6,12 @@ module Api::V1::Offers
     before_action :current_user_productable
 
     def create
-      # byebug
       @offer = Offer.new(offer_params)
       product_ids = params[:offer][:product_ids]
       # Make a lambda with this
       new_arr = product_ids.select{ |prof| @profile.products.map(&:id).include?(prof) }
       @offer.product_ids = new_arr
       @offer.user = current_v1_user
-      # byebug
       if @offer.save
         @offer.create_notify(@profile, @offer)
         render json: @offer, status: 200

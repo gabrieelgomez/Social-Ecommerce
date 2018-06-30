@@ -25,7 +25,6 @@ class Search
 
   # Filter profiles by categories
   def self.filter_by_catgs(categories, search)
-    # byebug
     Pyme.short_ransack(categories, search) +
       Independent.short_ransack(categories, search) +
       Seller.short_ransack(categories, search)
@@ -39,7 +38,6 @@ class Search
 
   # Filter products by categories/subcategories
   def self.product_by_subcat(categories)
-    # byebug
     return [] if categories.empty?
     categories.collect do |cat|
       begin

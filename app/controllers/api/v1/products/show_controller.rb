@@ -17,13 +17,11 @@ module Api::V1::Products
 
     def search_tag
       @tags = params[:tags].gsub(/[\[\]]/, '').split(',')
-      # byebug
       result = Product.tagged_with(@tags, :any => true)
       render json: result, status: 200
     end
 
     def show_own
-      #vbyebug
       @products = []
       direct_staff = current_v1_user.pymes.to_a.concat(current_v1_user.independents.to_a)
       direct_staff.each do |thing|

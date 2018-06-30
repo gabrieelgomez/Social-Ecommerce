@@ -18,7 +18,6 @@ class Conversation < ApplicationRecord
   end
 
   def self.get(sender, recipient)
-    # byebug
     conversation = between(sender, recipient).first
     return conversation if conversation.present?
 
