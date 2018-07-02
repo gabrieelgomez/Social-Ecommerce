@@ -1,3 +1,3 @@
 class IndependentSerializer < ProfileSerializer
-  attributes :custom_fields, :products
+  attributes :products
 end

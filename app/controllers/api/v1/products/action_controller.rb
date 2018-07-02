@@ -9,14 +9,14 @@ module Api::V1::Products
     def create
       @product = @productable.products.new(product_params)
       @product.tag_list.add(params[:product][:tags])
-      files = params[:product][:document_data]
+      files = params[:product][:documents]
       multiple_images = params[:product][:photos]
 
       if @product.save
         unless files.nil?
           #iterate through each of the files
           files.each do |file|
-              @product.documents.create!(document: file, product: @product)
+              @product.documents.create!(document: file, documentable: @product)
               #create a document associated with the product that has just been created
           end
         end
@@ -40,13 +40,13 @@ module Api::V1::Products
       subcategory_ids = params[:product][:subcategory_ids]
       @product.subcategory_ids = subcategory_ids unless subcategory_ids.nil?
       @product.tag_list.add(params[:product][:tags])
-      files = params[:product][:document_data]
+      files = params[:product][:documents]
       multiple_images = params[:product][:photos]
-      
+
       unless files.nil?
         #iterate through each of the files
         files.each do |file|
-            @product.documents.create!(document: file, product: @product)
+            @product.documents.create!(document: file, documentable: @product)
             #create a document associated with the product that has just been created
         end
       end
