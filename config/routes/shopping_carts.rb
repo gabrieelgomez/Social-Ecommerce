@@ -17,4 +17,5 @@ namespace :shopping_carts do
   get '/:item_id/item', to: 'show#show'
   post '/add_product/:product_id', to: 'addition#add_product'
   delete '/remove_product/:item_id', to: 'subtraction#remove_product'
+  delete '/multiple_remove', to: 'subtraction#multiple_remove'
 end
