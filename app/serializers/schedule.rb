@@ -1,3 +1,3 @@
 class ScheduleSerializer < ActiveModel::Serializer
-  attributes *Tag.column_names
+  attributes *Schedule.column_names
 end
