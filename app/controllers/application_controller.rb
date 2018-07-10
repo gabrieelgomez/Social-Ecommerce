@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
+  include ActionController::Serialization
   # include ProductSearch
   before_action :cors_preflight_check
   after_action :cors_set_access_control_headers

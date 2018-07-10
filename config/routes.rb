@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         namespace :messages do
           scope '/:conversation_id' do
             post '/create', to: 'create#create'
+            post '/make_read', to: 'action#make_them_read'
           end
         end
       end
