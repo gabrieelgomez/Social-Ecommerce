@@ -1,7 +1,8 @@
 class ProfileSerializer < ActiveModel::Serializer
-  # attributes :id, :user_id, :type_profile, :title, :name, :score,
-  #            :email, :banner, :photo, :launched, :phone, :url, :address,
-  #            :vision, :mission, :description, :web, :profile, :experience,
-  #            :social_account, :categories, :locations, :options, :custom_fields
-  attributes *Profile.column_name
+  attributes :id, :user_id, :type_profile, :title, :name, :score,
+             :email, :banner, :photo, :launched, :phone, :url, :address,
+             :vision, :mission, :description, :web, :profile, :experience,
+             :social_account, :categories, :locations, :options, :custom_fields,
+             :validation
+  # attributes *Profile.column_name
 end
