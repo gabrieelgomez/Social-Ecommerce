@@ -17,6 +17,12 @@ class Conversation < ApplicationRecord
     where(senderable: current_user).or(where(recipientable: current_user))
   end
 
+  def asdasd
+    {
+      byebug: 'byebug'
+    }
+  end
+
   def self.get(sender, recipient)
     # byebug
     conversation = between(sender, recipient).first

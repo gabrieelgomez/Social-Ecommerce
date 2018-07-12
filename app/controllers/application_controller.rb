@@ -2,6 +2,7 @@ class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
   include ActionController::Serialization
   # include ProductSearch
+  serialization_scope :view_context
   before_action :cors_preflight_check
   after_action :cors_set_access_control_headers
   before_action :configure_permitted_parameters, if: :devise_controller?
