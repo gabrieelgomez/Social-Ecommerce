@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(version: 20180711023014) do
 
   create_table "messages", force: :cascade do |t|
     t.text "body"
-    t.boolean "read"
+    t.boolean "read", default: false
     t.bigint "conversation_id"
     t.string "image"
     t.string "file"
@@ -321,6 +321,8 @@ ActiveRecord::Schema.define(version: 20180711023014) do
     t.string "web"
     t.json "profile"
     t.text "experience"
+    t.string "validation"
+    t.boolean "censured", default: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -468,6 +470,7 @@ ActiveRecord::Schema.define(version: 20180711023014) do
     t.string "nickname"
     t.string "avatar"
     t.string "email"
+    t.boolean "censured", default: false
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
