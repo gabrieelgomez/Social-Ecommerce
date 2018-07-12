@@ -12,7 +12,7 @@ module Api::V1::Chat::Conversations
         only: [
           :id, :senderable, :recipientable
         ], include: [
-          :senderable, :recipientable
+          :senderable, :recipientable, :messages
         ]
       ).push(
         profiles: convs
