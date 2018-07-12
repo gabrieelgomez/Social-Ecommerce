@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         namespace :conversations do
           post '/create', to: 'create#create'
           get '/my_conversations', to: 'show#current_user_conversations'
+          get '/own_profile_conversations', to: 'show#own_profiles_conversations'
           # delete '/:id/destroy', to: 'destroy#destroy'
         end
         namespace :messages do

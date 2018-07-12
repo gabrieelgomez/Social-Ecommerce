@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(version: 20180628021711) do
 
   create_table "messages", force: :cascade do |t|
     t.text "body"
-    t.boolean "read"
+    t.boolean "read", default: false
     t.bigint "conversation_id"
     t.string "image"
     t.string "file"
