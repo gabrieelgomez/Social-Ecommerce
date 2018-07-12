@@ -1,6 +1,11 @@
 class ConversationSerializer < ActiveModel::Serializer
   attributes :id, :senderable, :recipientable, :messages
 
+  # def profiles
+  #   byebug
+  #   # @user = self.object.senderable if self.object.senderable.is_a? User 
+  # end
+
   def recipientable
     class_name = self.object.recipientable.class.name
     if class_name == 'Pyme' || class_name == 'Seller' || class_name == 'Independent'

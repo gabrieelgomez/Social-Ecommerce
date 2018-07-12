@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   # Seller
   has_one  :seller, -> { where(type_profile: 'Seller') },
            class_name: 'Profile'
+  has_many :profiles
   has_many :offers
   has_many :rates
   has_many :wishes
