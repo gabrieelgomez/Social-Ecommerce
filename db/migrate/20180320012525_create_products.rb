@@ -27,6 +27,8 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.string :brand, default: ''
       t.string :currency, default: ''
       t.belongs_to :productable, polymorphic: true
+      t.string :type_profile
+      t.jsonb :categories#, array: true#, default: {}
 
       t.timestamps
     end

@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   attr_accessor :document_data
 
   after_create :create_notify
+  before_save :create_profile, :create_categories
   after_save :set_change_price, if: :price_changed?
 
   acts_as_taggable_on :tags
@@ -30,8 +31,24 @@ class Product < ApplicationRecord
   #   sType.classify.constantize.to_s
   # end
 
+  def mapeo_categorias(params_cat)
+    self.categories.map{|id| params_cat.include?(id)}.include?(true)
+  end
+
   def build_products_relations
     Product.find(self.product_relations).as_json(only: [:id, :name, :price, :images]) rescue self.product_relations.as_json
+  end
+
+  def categories_name
+    self.subcategories.map &:name
+  end
+
+  def create_profile
+    self.type_profile = self.productable.type_profile.downcase
+  end
+
+  def create_categories
+    self.categories = self.subcategories.try(:collect, &:category_id)#.map &:to_s
   end
 
   def create_notify
