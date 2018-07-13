@@ -5,6 +5,8 @@ class Category < ApplicationRecord
   has_and_belongs_to_many :profiles
   has_and_belongs_to_many :independents
   has_and_belongs_to_many :sellers
+  has_and_belongs_to_many :products
+
 
   has_many :subcategories
 

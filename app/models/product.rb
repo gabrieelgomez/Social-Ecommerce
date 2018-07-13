@@ -12,6 +12,7 @@ class Product < ApplicationRecord
   has_many :price_ranges
   has_and_belongs_to_many :custom_fields
   has_and_belongs_to_many :options
+  has_and_belongs_to_many :categories
   has_and_belongs_to_many :subcategories
   has_and_belongs_to_many :offers
   # has_and_belongs_to_many :shopping_cars
@@ -48,7 +49,7 @@ class Product < ApplicationRecord
   end
 
   def create_categories
-    self.categories = self.subcategories.try(:collect, &:category_id)#.map &:to_s
+    self.category_ids = self.subcategories.try(:collect, &:category_id)#.map &:to_s
   end
 
   def create_notify
