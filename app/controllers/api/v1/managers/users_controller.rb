@@ -13,6 +13,11 @@ module Api::V1
         render json: @user, status: 200
       end
 
+      def get_users
+        @users = User.all
+        render json: @users, status: 200
+      end
+
       private
 
       def set_user
