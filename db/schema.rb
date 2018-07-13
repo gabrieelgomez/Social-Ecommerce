@@ -288,6 +288,8 @@ ActiveRecord::Schema.define(version: 20180628021711) do
     t.string "currency", default: ""
     t.string "productable_type"
     t.bigint "productable_id"
+    t.string "type_profile"
+    t.jsonb "categories"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["productable_id", "productable_type"], name: "index_products_on_productable_id_and_productable_type"
