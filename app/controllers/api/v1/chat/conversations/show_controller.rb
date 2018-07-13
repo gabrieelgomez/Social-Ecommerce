@@ -5,14 +5,25 @@ module Api::V1::Chat::Conversations
       convs = @user.profiles.map do |prof|
         prof.as_json.merge(
           conversations: Conversation.current_user_conversations(prof)
-                                     .as_json(include: [:messages])
+                                     .as_json(
+                                       only: [:id],
+                                       methods: [
+                                         :sender,
+                                         :recipient
+                                       ],
+                                       include: [
+                                         :messages
+                                       ]
+                                     )
         )
       end
       render json: Conversation.current_user_conversations(@user).as_json(
         only: [
-          :id, :senderable, :recipientable
+          :id
+        ], methods: [
+          :sender, :recipient
         ], include: [
-          :senderable, :recipientable, :messages
+          :messages
         ]
       ).push(
         profiles: convs

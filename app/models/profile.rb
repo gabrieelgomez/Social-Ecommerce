@@ -1,6 +1,6 @@
 class Profile < ApplicationRecord
   acts_as_paranoid
-
+  # attr_accessor :type_profile
   after_create :create_social_account_and_schedule
 
   # mount_base64_uploader :photo, :banner, ImageUploader

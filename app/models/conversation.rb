@@ -17,10 +17,14 @@ class Conversation < ApplicationRecord
     where(senderable: current_user).or(where(recipientable: current_user))
   end
 
-  def asdasd
-    {
-      byebug: 'byebug'
-    }
+  def sender
+    return senderable.as_json(methods: [:type_profile]) if senderable.is_a? Profile
+    senderable.as_json
+  end
+
+  def recipient
+    return recipientable.as_json(methods: [:type_profile]) if recipientable.is_a? Profile
+    recipientable.as_json
   end
 
   def self.get(sender, recipient)

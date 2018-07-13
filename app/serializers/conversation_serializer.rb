@@ -7,6 +7,7 @@ class ConversationSerializer < ActiveModel::Serializer
   # end
 
   def recipientable
+    # byebug
     class_name = self.object.recipientable.class.name
     if class_name == 'Pyme' || class_name == 'Seller' || class_name == 'Independent'
       recip = self.object.recipientable
@@ -15,7 +16,7 @@ class ConversationSerializer < ActiveModel::Serializer
       }
       return recip.as_json.merge(asd)
     else
-      return self.object.recipientable.as_json
+      return self.object.recipientable
     end
   end
 
@@ -28,7 +29,7 @@ class ConversationSerializer < ActiveModel::Serializer
       }
       return recip.as_json.merge(asd)
     else
-      return self.object.senderable.as_json
+      return self.object.senderable
     end
   end
 end
