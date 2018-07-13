@@ -1,4 +1,4 @@
 class PymeSerializer < ProfileSerializer
-  attributes :products, :type_profile
+  attributes :products
   # has_many :products
 end
