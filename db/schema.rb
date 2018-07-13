@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180628021711) do
+ActiveRecord::Schema.define(version: 20180713121338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 20180628021711) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "categories_products", id: false, force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "product_id"
+    t.index ["category_id"], name: "index_categories_products_on_category_id"
+    t.index ["product_id"], name: "index_categories_products_on_product_id"
   end
 
   create_table "categories_profiles", id: false, force: :cascade do |t|
@@ -289,7 +296,6 @@ ActiveRecord::Schema.define(version: 20180628021711) do
     t.string "productable_type"
     t.bigint "productable_id"
     t.string "type_profile"
-    t.jsonb "categories"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["productable_id", "productable_type"], name: "index_products_on_productable_id_and_productable_type"

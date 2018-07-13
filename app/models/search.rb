@@ -12,7 +12,7 @@ class Search
     results = Product.ransack(name_cont: search).result
                      .ransack(subcategories_id_in: subcategories).result
                      .ransack(type_profile_in: profiles).result
-                     # .ransack(categories_in: categories).result
+                     .ransack(categories_id_in: categories).result
 
     results.as_json(only: [:id, :type_profile, :name, :price, :images], methods: :categories_name)
     #
