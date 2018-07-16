@@ -177,6 +177,9 @@ Rails.application.routes.draw do
       draw :notifications
       # --- Notifications route - end
 
+      # --- Managers route
+      draw :managers
+      # --- Managers route - end
     end
   end
 end

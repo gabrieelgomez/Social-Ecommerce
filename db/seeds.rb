@@ -636,4 +636,14 @@ options_products = [
 
   end
   puts "-------------\n"
+
 end
+superadmin = User.create(
+  name: 'Bigwave Superadmin',
+  email: 'bigwave.admin@gmail.com',
+  password: '+12345678+',
+  password_confirmation: '+12345678+',
+  nickname: 'admin'
+)
+superadmin.add_role :superadmin
+puts "Superadmin created"
