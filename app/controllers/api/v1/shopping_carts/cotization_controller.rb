@@ -23,7 +23,6 @@ module Api::V1::ShoppingCarts
         real_item = @shopping_cart.items.find(item)
         main_text += "\n - #{real_item.product.name}: #{real_item.product.price} \n"
         real_item.option_values.map do |key, opt|
-          # byebug
           main_text += "\t - #{real_item.options.find(key).name}: #{opt} \n"
         end
       end
