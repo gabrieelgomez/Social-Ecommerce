@@ -21,7 +21,7 @@ module Api::V1::ShoppingCarts
       main_text = "El usuario #{current_v1_user.email} desea cotizar contigo los siguientes productos: \n"
       params[:items].map do |item|
         real_item = @shopping_cart.items.find(item)
-        main_text += "\n - #{real_item.product.name}: #{real_item.product.price} \n"
+        main_text += "\n - #{real_item.product.name}: #{real_item.product.price} x #{real_item.quantity} \n"
         real_item.option_values.map do |key, opt|
           main_text += "\t - #{real_item.options.find(key).name}: #{opt} \n"
         end
