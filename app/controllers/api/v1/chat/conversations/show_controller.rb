@@ -4,9 +4,9 @@ module Api::V1::Chat::Conversations
       @user = current_v1_user
       convs = @user.profiles.map do |prof|
         prof.as_json.merge(
-          conversations: Conversation.current_user_conversations(prof)
+          conversations: Conversation.user_conversations(prof)
                                      .as_json(
-                                       only: [:id],
+                                       only: [:id, :type_messages],
                                        methods: [
                                          :sender,
                                          :recipient
@@ -17,9 +17,9 @@ module Api::V1::Chat::Conversations
                                      )
         )
       end
-      render json: Conversation.current_user_conversations(@user).as_json(
+      render json: Conversation.user_conversations(@user).as_json(
         only: [
-          :id
+          :id, :type_messages
         ], methods: [
           :sender, :recipient
         ], include: [
@@ -34,7 +34,7 @@ module Api::V1::Chat::Conversations
       @user = current_v1_user
       convs = @user.profiles.map do |prof|
         prof.as_json.merge(
-          conversations: Conversation.current_user_conversations(prof)
+          conversations: Conversation.user_conversations(prof)
                                      .as_json(include: [:messages])
         )
       end

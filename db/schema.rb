@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20180713121338) do
     t.bigint "recipientable_id"
     t.string "senderable_type"
     t.bigint "senderable_id"
+    t.string "type_messages", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipientable_type", "recipientable_id"], name: "index_conversations_on_recipientable_type_and_recipientable_id"

@@ -18,6 +18,13 @@ module Api::V1
         render json: @users, status: 200
       end
 
+      def diffusion
+        @users = User.all.reject{ |user| user.has_role? :superadmin }
+        @superadmin = current_v1_user
+        message = params[:message]
+        Manager.send_diffusion(@superadmin, @users, message) 
+      end
+
       private
 
       def set_user

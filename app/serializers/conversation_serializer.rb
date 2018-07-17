@@ -1,5 +1,5 @@
 class ConversationSerializer < ActiveModel::Serializer
-  attributes :id, :senderable, :recipientable, :messages
+  attributes :id, :senderable, :recipientable, :messages, :type_messages
 
   # def profiles
   #   byebug

@@ -3,6 +3,7 @@ class CreateConversations < ActiveRecord::Migration[5.1]
     create_table :conversations do |t|
       t.references :recipientable, polymorphic: true
       t.references :senderable, polymorphic: true
+      t.string :type_messages, default: '', null: false
       t.timestamps
     end
     # add_index :conversations, :recipientable_id
@@ -13,6 +14,6 @@ class CreateConversations < ActiveRecord::Migration[5.1]
     # add_index :conversations, :recipientable
     # add_index :conversations, %i[recipientable_id recipientable_type,
     #                              senderable_id senderable_type], unique: true
-    # add_index :conversations, %i[recipientable senderable]]
+    # add_index :conversations, %i[recipientable senderable]
   end
 end
