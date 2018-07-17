@@ -148,9 +148,13 @@ ActiveRecord::Schema.define(version: 20180713121338) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.text "address"
+    t.string "address"
     t.float "latitude"
     t.float "longitude"
+    t.string "state"
+    t.string "state_code"
+    t.string "country"
+    t.string "country_code"
     t.string "locatable_type"
     t.bigint "locatable_id"
     t.datetime "created_at", null: false
@@ -297,6 +301,8 @@ ActiveRecord::Schema.define(version: 20180713121338) do
     t.string "productable_type"
     t.bigint "productable_id"
     t.string "type_profile"
+    t.jsonb "states_codes"
+    t.jsonb "countries_codes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["productable_id", "productable_type"], name: "index_products_on_productable_id_and_productable_type"
