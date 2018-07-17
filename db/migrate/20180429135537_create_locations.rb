@@ -4,6 +4,11 @@ class CreateLocations < ActiveRecord::Migration[5.1]
       t.text :address
       t.float :latitude
       t.float :longitude
+      t.string :address
+      t.string :state
+      t.string :state_code
+      t.string :country
+      t.string :country_code
       t.references :locatable, polymorphic: true
 
       t.timestamps
