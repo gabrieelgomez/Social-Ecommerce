@@ -4,7 +4,10 @@ module Api::V1::Chat
     private
 
     def set_conversation
-      @conversation = @messageable.conversations.find(params[:conversation_id])
+      @conversation = custom_find {
+        Conversation.user_conversations(@messageable).find params[:conversation_id]
+      }
+      # @conversation = @messageable.conversations.find(params[:conversation_id])
     end
 
     def set_messageable
