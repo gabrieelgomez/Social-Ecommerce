@@ -3,7 +3,10 @@ module Api::V1
 
     def global_search
       @result = Search.deep_search(params)
-      render json: @result, status: 200
+      render json: {
+          products: @result.first,
+          profiles: @result.second
+        }, status: 200
     end
   end
 end

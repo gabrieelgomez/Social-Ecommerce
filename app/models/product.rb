@@ -32,9 +32,9 @@ class Product < ApplicationRecord
   #   sType.classify.constantize.to_s
   # end
 
-  def mapeo_categorias(params_cat)
-    self.categories.map{|id| params_cat.include?(id)}.include?(true)
-  end
+  # def mapeo_categorias(params_cat)
+  #   self.categories.map{|id| params_cat.include?(id)}.include?(true)
+  # end
 
   def create_locations
     self.states_codes   = self.productable.locations.try(:collect, &:state_code)
