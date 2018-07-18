@@ -2,11 +2,11 @@ class Search
   def self.deep_search(params)
 
     search        = params[:q] || nil
-    profiles      = params[:profiles].try(:split, '-').map &:capitalize
-    categories    = params[:categories].split('-').map &:to_i      if params[:categories]
-    subcategories = params[:subcategories].split('-').map &:to_i   if params[:subcategories]
-    states        = params[:states_codes].split('-').map &:to_s    if params[:states_codes]
-    countries     = params[:countries_codes].split('-').map &:to_s if params[:countries_codes]
+    profiles      = params[:profiles].try(:split, '-').try(:map, &:capitalize)
+    categories    = params[:categories].try(:split, '-').try(:map, &:to_i)
+    subcategories = params[:subcategories].try(:split, '-').try(:map, &:to_i)
+    states        = params[:states_codes].try(:split, '-').try(:map, &:to_s)
+    countries     = params[:countries_codes].try(:split, '-').try(:map, &:to_s)
 
     # product_json = Product.select{ |product| product.mapeo_categorias(categories) } if params[:categories]
 
