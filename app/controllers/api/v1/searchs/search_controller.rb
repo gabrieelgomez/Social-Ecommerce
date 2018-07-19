@@ -5,7 +5,8 @@ module Api::V1
       @result = Search.deep_search(params)
       render json: {
           products: @result.first,
-          profiles: @result.second
+          profiles: @result.second,
+          filters: @result.third
         }, status: 200
     end
   end
