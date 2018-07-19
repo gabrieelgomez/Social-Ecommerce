@@ -29,4 +29,20 @@ class LookFor
 
     return products, profiles, nil
   end
+
+  def self.locations
+
+    states_codes = []
+    countries_codes = []
+
+    Profile.all.map do |profile|
+      states_codes    += profile.locations.try(:collect, &:state_code)
+      countries_codes += profile.locations.try(:collect, &:country_code)
+    end
+
+    states_codes = states_codes.uniq; countries_codes = countries_codes.uniq
+
+    return states_codes, countries_codes
+  end
+
 end

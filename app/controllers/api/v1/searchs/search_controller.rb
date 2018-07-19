@@ -15,5 +15,13 @@ module Api::V1
         }, status: 200
     end
 
+    def locations_response
+      @result = LookFor.locations
+      render json: {
+        cities: @result.first,
+        countries: @result.second
+        }, status: 200
+    end
+
   end
 end
