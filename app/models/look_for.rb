@@ -17,7 +17,13 @@ class LookFor
                       # .ransack(states_codes_in: states).result
                       # .ransack(countries_codes_in: countries).result
 
+    #By filters search
+    filter_products   = Filter.type_profiles(products)
+    filter_categories = Filter.categories(products, categories, subcategories )
+    #End by filter search
+
     products = products.uniq.as_json(only: [:id, :type_profile, :name, :price, :images, :states_codes, :countries_codes], methods: :categories_name)
+
 
     profiles = Profile.ransack(title_cont: search).result
                       .ransack(type_profile_in: profiles).result
@@ -27,7 +33,7 @@ class LookFor
 
     profiles = profiles.uniq.as_json(only: [:id, :title, :photo, :type_profile])
 
-    return products, profiles, nil
+    return products, profiles, filter_products, filter_categories
   end
 
   def self.locations

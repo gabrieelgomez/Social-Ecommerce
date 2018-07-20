@@ -9,9 +9,12 @@ module Api::V1
     def filters_search
       @result = LookFor.search(params)
       render json: {
-          products: @result.first,
-          profiles: @result.second,
-          filters: @result.third
+          products: @result[0],
+          profiles: @result[1],
+          filters: {
+            profiles:   @result[2],
+            categories: @result[3]
+          }
         }, status: 200
     end
 
