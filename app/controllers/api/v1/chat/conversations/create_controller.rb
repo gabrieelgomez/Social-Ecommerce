@@ -12,8 +12,8 @@ module Api::V1::Chat::Conversations
 
     def set_senderable
       conv = params[:conversation]
+      return @senderable = current_v1_user if conv[:senderable_type].nil?
       if conv[:senderable_type] == 'User'
-        return @senderable = current_v1_user if conv[:senderable_type].nil?
         model = conv[:senderable_type].downcase.pluralize.to_sym
         @senderable = custom_find {
           current_v1_user.try(model).find conv[:senderable_id]
@@ -28,8 +28,8 @@ module Api::V1::Chat::Conversations
 
     def set_recipientable
       conv = params[:conversation]
+      return @recipientable = current_v1_user if conv[:recipientable_type].nil?
       if conv[:recipientable_type] == 'User'
-        return @recipientable = current_v1_user if conv[:recipientable_type].nil?
         model = conv[:recipientable_type].downcase.pluralize.to_sym
         @recipientable = custom_find {
           current_v1_user.try(model).find conv[:recipientable_id]
