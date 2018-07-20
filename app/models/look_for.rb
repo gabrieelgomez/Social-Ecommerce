@@ -22,7 +22,6 @@ class LookFor
     filter_categories = Filter.categories(products, categories, subcategories )
     #End by filter search
 
-    products = products.uniq.as_json(only: [:id, :type_profile, :name, :price, :images, :states_codes, :countries_codes], methods: :categories_name)
 
 
     profiles = Profile.ransack(title_cont: search).result
@@ -31,6 +30,8 @@ class LookFor
                       # .ransack(states_codes_in: states).result
                       # .ransack(countries_codes_in: countries).result
 
+
+    products = products.uniq.as_json(only: [:id, :type_profile, :name, :price, :images, :states_codes, :countries_codes], methods: :categories_format_id)
     profiles = profiles.uniq.as_json(only: [:id, :title, :photo, :type_profile])
 
     return products, profiles, filter_products, filter_categories

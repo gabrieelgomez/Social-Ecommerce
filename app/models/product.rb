@@ -45,7 +45,7 @@ class Product < ApplicationRecord
     Product.find(self.product_relations).as_json(only: [:id, :name, :price, :images]) rescue self.product_relations.as_json
   end
 
-  def categories_name
+  def categories_format_id
     self.subcategories.map{|subcat| subcat.category_id }.uniq
   end
 

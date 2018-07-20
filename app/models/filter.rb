@@ -10,16 +10,35 @@ class Filter
   end
 
   def self.categories(products, categories, subcategories)
-    categories = Category.find(products.collect{|product| product.categories_name}).flatten.uniq
+    categories = Category.find(products.collect{|product| product.categories_format_id}).flatten.uniq
     products_ids = products.map &:id
     @categories = []
 
     categories.map do |cat|
-      a = 0
-      cat.product_ids.uniq.map{ |id| a+=1 if products_ids.include?(id)}
+      total_cat = 0
+      cat.product_ids.uniq.map{ |id| total_cat+=1 if products_ids.include?(id)}
       @categories.push(
+        id: cat.id,
         name: cat.name,
-        total: a,
+        total: total_cat,
+        subcategories: 0
+      )
+    end
+    @categories = @categories.uniq
+  end
+
+  def self.categories(products, categories, subcategories)
+    categories = Category.find(products.collect{|product| product.categories_format_id}).flatten.uniq
+    products_ids = products.map &:id
+    @categories = []
+
+    categories.map do |cat|
+      total_cat = 0
+      cat.product_ids.uniq.map{ |id| total_cat+=1 if products_ids.include?(id)}
+      @categories.push(
+        id: cat.id,
+        name: cat.name,
+        total: total_cat,
         subcategories: 0
       )
     end
