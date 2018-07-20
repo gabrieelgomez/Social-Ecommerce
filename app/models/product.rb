@@ -46,7 +46,7 @@ class Product < ApplicationRecord
   end
 
   def categories_name
-    self.subcategories.map &:name
+    self.subcategories.map{|subcat| subcat.category_id }.uniq
   end
 
   def create_profile
