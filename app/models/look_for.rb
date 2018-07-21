@@ -20,6 +20,10 @@ class LookFor
     #By filters search
     filter_profile_by_products   = Filter.type_profiles(products)
     filter_cat_by_products       = Filter.categories(products)
+
+    # filter_profile_by_products   = nil
+    # filter_cat_by_products       = nil
+
     #End by filter search
 
     profiles = Profile.ransack(title_cont: search).result

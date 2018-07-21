@@ -11,10 +11,10 @@ module Api::V1
       render json: {
           products: @result[0],
           profiles: @result[1],
-          # filters_by_products: {
-          #   type_profiles_by_products:   @result[2],
-          #   categories_by_products:      @result[3]
-          # },
+          filters_by_products: {
+            type_profiles_by_products:   @result[2],
+            categories_by_products:      @result[3]
+          },
 
           filters_by_profiles: {
             type_profiles_by_profiles:   @result[4],
