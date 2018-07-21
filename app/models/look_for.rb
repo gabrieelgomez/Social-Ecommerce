@@ -18,11 +18,9 @@ class LookFor
                       # .ransack(countries_codes_in: countries).result
 
     #By filters search
-    filter_products   = Filter.type_profiles(products)
-    filter_categories = Filter.categories(products, categories, subcategories )
+    filter_profile_by_products   = Filter.type_profiles(products)
+    filter_cat_by_products       = Filter.categories(products)
     #End by filter search
-
-
 
     profiles = Profile.ransack(title_cont: search).result
                       .ransack(type_profile_in: profiles.try(:map, &:capitalize)).result
@@ -30,11 +28,18 @@ class LookFor
                       # .ransack(states_codes_in: states).result
                       # .ransack(countries_codes_in: countries).result
 
+    #By filters search
+    filter_profile_by_profiles   = Filter.type_profiles(profiles)
+    filter_cat_by_profiles       = Filter.categories(profiles)
+    #End by filter search
 
-    products = products.uniq.as_json(only: [:id, :type_profile, :name, :price, :images, :states_codes, :countries_codes], methods: :categories_format_id)
-    profiles = profiles.uniq.as_json(only: [:id, :title, :photo, :type_profile])
 
-    return products, profiles, filter_products, filter_categories
+    products = products.uniq.as_json(only: [:id, :type_profile, :name, :price, :images, :states_codes, :countries_codes],
+                                     methods: [:category_ids, :subcategory_ids])
+    profiles = profiles.uniq.as_json(only: [:id, :title, :photo, :type_profile, :category_ids])
+
+
+    return products, profiles, filter_profile_by_products, filter_cat_by_products, filter_profile_by_profiles, filter_cat_by_profiles
   end
 
   def self.locations

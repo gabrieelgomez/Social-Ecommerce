@@ -45,10 +45,6 @@ class Product < ApplicationRecord
     Product.find(self.product_relations).as_json(only: [:id, :name, :price, :images]) rescue self.product_relations.as_json
   end
 
-  def categories_format_id
-    self.subcategories.map{|subcat| subcat.category_id }.uniq
-  end
-
   def create_profile
     self.type_profile = self.productable.type_profile.downcase
   end
