@@ -8,20 +8,7 @@ module Api::V1
 
     def filters_search
       @result = LookFor.search(params)
-      render json: {
-          products: @result[0],
-          profiles: @result[1],
-          filters_by_products: {
-            type_profiles_by_products:   @result[2],
-            categories_by_products:      @result[3]
-          },
-
-          filters_by_profiles: {
-            type_profiles_by_profiles:   @result[4],
-            categories_by_profiles:      @result[5]
-          }
-
-        }, status: 200
+      render json: @result, status: 200
     end
 
     def locations_response

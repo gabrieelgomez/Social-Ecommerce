@@ -14,21 +14,29 @@ class Filter
     objects_ids = objects.map &:id
     @categories = []
 
-    categories.each do |cat|
-      total_cat = 0
-      total_cat = objects.first.is_a?(Profile) ? set_cat_profiles_ids(cat, objects_ids) : set_cat_products_ids(cat, objects_ids)
+    # byebug
+    categories.each do |category|
+      total_category = 0
+
+      if objects.first.is_a?(Profile)
+        total_category = set_cat_profiles_ids(category, objects_ids)
+
+      elsif objects.first.is_a?(Product)
+        total_category = set_cat_products_ids(category, objects_ids)
+      end
 
       @categories.push(
-        id: cat.id,
-        name: cat.name,
-        total: total_cat,
-        subcategories_by_objects: set_subcat(cat, objects_ids)
+        id: category.id,
+        name: category.name,
+        total: total_category,
+        subcategories_by_objects: set_subcat(category, objects_ids, objects.first)
       )
     end
     @categories = @categories.uniq
   end
 
-  def self.set_subcat(category, objects_ids)
+  def self.set_subcat(category, objects_ids, type_class)
+    return nil if type_class.is_a?(Profile)
     @subcategories = []
     category.subcategories.each do |subcategory|
       total_subcat = 0
@@ -49,16 +57,17 @@ class Filter
 
 
   def self.set_cat_profiles_ids(category, objects_ids)
-    total_cat = 0
-    category.profile_ids.uniq.map{ |id| total_cat+=1 if objects_ids.include?(id)}
-    total_cat
+    total_category = 0
+    array_cat = category.pyme_ids, category.seller_ids, category.independent_ids
+    array_cat.flatten.uniq.map{ |id| total_category+=1 if objects_ids.include?(id)}
+    total_category
   end
 
 
   def self.set_cat_products_ids(category, objects_ids)
-    total_cat = 0
-    category.product_ids.uniq.map{ |id| total_cat+=1 if objects_ids.include?(id)}
-    total_cat
+    total_category = 0
+    category.product_ids.uniq.map{ |id| total_category+=1 if objects_ids.include?(id)}
+    total_category
   end
 
 end
