@@ -29,7 +29,7 @@ class LookFor
       filter_profile_by_profiles   = Filter.type_profiles(profiles)
       filter_cat_by_profiles       = Filter.categories(profiles)
       #End by filter search
-      profiles = profiles.uniq.as_json(only: [:id, :title, :photo, :type_profile, :category_ids])
+      profiles = profiles.uniq.as_json(only: [:id, :title, :photo, :type_profile], methods: :category_ids)
       build_json(profiles, filter_profile_by_profiles, filter_cat_by_profiles)
     end
 
