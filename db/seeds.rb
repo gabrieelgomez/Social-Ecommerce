@@ -510,10 +510,11 @@ options_products = [
       locatable: pyme
     )
     puts pyme.title
-    # 3 Productos a un Pyme 
+    # 3 Productos a un Pyme
     3.times do
       product = Product.create(
         name: Faker::SiliconValley.invention,
+        cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: pyme,
         price: Faker::Number.between(100, 10000),
         subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
@@ -562,6 +563,7 @@ options_products = [
     3.times do
       product = Product.create(
         name: Faker::Job.field,
+        cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: independent,
         price: Faker::Number.between(100, 10000),
         subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
@@ -612,6 +614,7 @@ options_products = [
   3.times do
     product = Product.create(
       name: Faker::Job.field,
+      cover: Rails.root.join('spec/support/product_cover.jpg').open,
       productable: seller,
       price: Faker::Number.between(100, 10000),
       subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],

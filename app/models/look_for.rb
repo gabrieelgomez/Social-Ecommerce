@@ -19,8 +19,8 @@ class LookFor
       filter_profile_by_products   = Filter.type_profiles(products)
       filter_cat_by_products       = Filter.categories(products)
       #End by filter search
-      products = products.uniq.as_json(only: [:id, :type_profile, :name, :price, :images, :states_codes, :countries_codes],
-                                       methods: [:category_ids, :subcategory_ids])
+      products = products.uniq.as_json(only: [:id, :type_profile, :name, :price, :cover, :created_at, :updated_at, :states_codes, :countries_codes],
+                                       methods: [:category_ids, :subcategory_ids, :links])
      build_json(products, filter_profile_by_products, filter_cat_by_products)
 
     elsif params[:type_search].eql?('profiles')
@@ -29,7 +29,7 @@ class LookFor
       filter_profile_by_profiles   = Filter.type_profiles(profiles)
       filter_cat_by_profiles       = Filter.categories(profiles)
       #End by filter search
-      profiles = profiles.uniq.as_json(only: [:id, :title, :photo, :type_profile], methods: :category_ids)
+      profiles = profiles.uniq.as_json(only: [:id, :title, :photo, :created_at, :updated_at, :type_profile], methods: :category_ids)
       build_json(profiles, filter_profile_by_profiles, filter_cat_by_profiles)
     end
 

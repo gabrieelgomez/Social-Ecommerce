@@ -36,6 +36,14 @@ class Product < ApplicationRecord
   #   self.categories.map{|id| params_cat.include?(id)}.include?(true)
   # end
 
+  def links
+    profile_id = self.productable.id
+    type_profile = self.type_profile.pluralize
+    @link = {
+      self: "/v1/#{type_profile}/#{profile_id}/products/#{self.id}"
+    }
+  end
+
   def create_locations
     self.states_codes   = self.productable.locations.try(:collect, &:state_code)
     self.countries_codes = self.productable.locations.try(:collect, &:country_code)
