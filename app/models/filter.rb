@@ -81,6 +81,8 @@ class Filter
   def self.countries(objects)
     @countries = []
     countries = objects.collect{|object| object.countries_codes}.flatten.uniq
+    cities    = objects.collect{|object| object.states_codes}.flatten.uniq
+
     countries.each do |country|
       total_country = 0
       objects.map{ |object| total_country+=1 if object.countries_codes.include?(country)}
@@ -91,7 +93,27 @@ class Filter
         )
       end
     end
+
+    cities_json = set_cities(cities, objects)
+
+    @countries + cities_json
   end
+
+  def self.set_cities(cities_array, objects)
+    @cities = []
+    cities_array.each do |city|
+      total_cities = 0
+      objects.map{ |object| total_cities+=1 if object.states_codes.include?(city)}
+      unless total_cities.zero?
+        @cities.push(
+          name: city,
+          total: total_cities
+        )
+      end
+    end
+    @cities
+  end
+
   # End Filters by Countries
 
 
