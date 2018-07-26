@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
 
   # Callbacks
   after_create :create_shopping_cart
-  before_save   :set_url
+  before_save  :set_url
 
   # Metodo para seguir Profiles by users
   def follow_profile(followable, profile)
@@ -88,7 +88,6 @@ class User < ActiveRecord::Base
 
   def set_url
     self.url = "/v1/users/#{self.slug}"
-    # self.update(url: "/v1/users/#{self.slug}")
   end
 
 end
