@@ -53,7 +53,7 @@ class Product < ApplicationRecord
   end
 
   def create_categories
-    self.category_ids = self.subcategories.try(:collect, &:category_id)#.map &:to_s
+    self.category_ids = self.subcategories.try(:collect, &:category_id).uniq#.map &:to_s
   end
 
   def build_products_relations
