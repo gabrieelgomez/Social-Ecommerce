@@ -47,6 +47,9 @@ gem 'city-state', '~> 0.0.13'
 gem 'devise_token_auth'
 gem 'omniauth'
 
+# Friendly ids to route
+gem 'friendly_id', '5.2.4'
+
 # Data Faker
 gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
 

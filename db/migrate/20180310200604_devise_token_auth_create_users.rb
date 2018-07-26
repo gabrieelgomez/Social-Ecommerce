@@ -45,6 +45,8 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
       t.string :nickname
       t.string :avatar
       t.string :email
+      t.string :url, default: ''
+      t.string :slug
       t.boolean :censured, default: false
 
       ## Tokens
