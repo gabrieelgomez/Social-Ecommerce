@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  # Friendly ID
+  extend FriendlyId
+  friendly_id :nickname, use: [:slugged, :finders]
+
   # mount_uploader :avatar, ImageUploader
   mount_base64_uploader :avatar, ImageUploader
 
@@ -43,6 +47,7 @@ class User < ActiveRecord::Base
 
   # Callbacks
   after_create :create_shopping_cart
+  before_save   :set_url
 
   # Metodo para seguir Profiles by users
   def follow_profile(followable, profile)
@@ -81,5 +86,9 @@ class User < ActiveRecord::Base
     ResetPassword.send_token(self).deliver_now
   end
 
+  def set_url
+    self.url = "/v1/users/#{self.slug}"
+    # self.update(url: "/v1/users/#{self.slug}")
+  end
 
 end

@@ -1,9 +1,9 @@
 class Product < ApplicationRecord
-  # Callbacks
 
   mount_base64_uploader :cover, ImageUploader
   attr_accessor :document_data
 
+  # Callbacks
   after_create :create_notify
   before_save :create_profile, :create_categories, :create_locations
   after_save :set_change_price, if: :price_changed?
