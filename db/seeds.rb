@@ -499,7 +499,7 @@ options_products = [
       phone: Faker::Company.duns_number,
       url: Faker::SiliconValley.url,
       address: Faker::Address.city,
-      category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)],
+      category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
       user: user
     )
     # Location to pyme
@@ -517,7 +517,7 @@ options_products = [
         cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: pyme,
         price: Faker::Number.between(100, 10000),
-        subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
+        subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
       )
 
       CustomField.create(
@@ -548,7 +548,7 @@ options_products = [
       phone: Faker::PhoneNumber.cell_phone,
       url: Faker::Internet.url,
       address: Faker::Address.state,
-      category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)],
+      category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
       user: user
     )
     coord = Faker::Number.between(0, 7)
@@ -566,7 +566,7 @@ options_products = [
         cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: independent,
         price: Faker::Number.between(100, 10000),
-        subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
+        subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
       )
 
       CustomField.create(
@@ -598,7 +598,7 @@ options_products = [
     phone: Faker::PhoneNumber.cell_phone,
     url: Faker::Internet.url,
     address: Faker::Address.state,
-    category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)],
+    category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
     user: user
   )
   # Location to pyme
@@ -617,7 +617,7 @@ options_products = [
       cover: Rails.root.join('spec/support/product_cover.jpg').open,
       productable: seller,
       price: Faker::Number.between(100, 10000),
-      subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)],
+      subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
 
     )
 
