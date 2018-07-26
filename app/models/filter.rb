@@ -88,7 +88,8 @@ class Filter
       objects.map{ |object| total_country+=1 if object.countries_codes.include?(country)}
       unless total_country.zero?
         @countries.push(
-          name: country,
+          country_name: CS.get[country.to_sym],
+          country_code: country,
           total: total_country
         )
       end
@@ -106,7 +107,8 @@ class Filter
       objects.map{ |object| total_cities+=1 if object.states_codes.include?(city)}
       unless total_cities.zero?
         @cities.push(
-          name: city,
+          city_name: city.capitalize,
+          city_code: city,
           total: total_cities
         )
       end
