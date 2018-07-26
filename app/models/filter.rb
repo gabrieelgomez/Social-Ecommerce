@@ -1,5 +1,6 @@
 class Filter
 
+  # Filters by profiles
   def self.type_profiles(objects)
     profiles = objects.map{|object| object.type_profile}.uniq.map &:downcase
     @profiles = {
@@ -8,7 +9,9 @@ class Filter
       independent: profiles.include?('independent') ? true : false
     }
   end
+  # End Filters by profiles
 
+  # Filters by categories
   def self.categories(objects)
     categories = Category.find(objects.collect{|object| object.category_ids}).flatten.uniq
     objects_ids = objects.map &:id
@@ -34,7 +37,9 @@ class Filter
     end
     @categories = @categories.uniq
   end
+  # ----- Categories
 
+  # Filters by subcategories
   def self.set_subcat(category, objects_ids, type_class)
     return nil if type_class.is_a?(Profile)
     @subcategories = []
@@ -54,8 +59,9 @@ class Filter
 
     @subcategories
   end
+  # ----- Subcategories
 
-
+  # Callbacks by categories and subcategories
   def self.set_cat_profiles_ids(category, objects_ids)
     total_category = 0
     array_cat = category.pyme_ids, category.seller_ids, category.independent_ids
@@ -63,11 +69,30 @@ class Filter
     total_category
   end
 
-
   def self.set_cat_products_ids(category, objects_ids)
     total_category = 0
     category.product_ids.uniq.map{ |id| total_category+=1 if objects_ids.include?(id)}
     total_category
   end
+  # End Callbacks by categories and subcategories
+
+
+  # Filter by Countries
+  def self.countries(objects)
+    @countries = []
+    countries = objects.collect{|object| object.countries_codes}.flatten.uniq
+    countries.each do |country|
+      total_country = 0
+      objects.map{ |object| total_country+=1 if object.countries_codes.include?(country)}
+      unless total_country.zero?
+        @countries.push(
+          name: country,
+          total: total_country
+        )
+      end
+    end
+  end
+  # End Filters by Countries
+
 
 end

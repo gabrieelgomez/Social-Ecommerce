@@ -19,6 +19,9 @@ gem 'puma', '3.11.2'
 # Role manager
 gem 'rolify', '5.2'
 
+###
+# gem 'postgres_ext', git: 'https://github.com/DavyJonesLocker/postgres_ext.git', branch: 'master'
+
 # Tags for Model
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 

@@ -28,8 +28,8 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.string :currency, default: ''
       t.belongs_to :productable, polymorphic: true
       t.string :type_profile
-      t.jsonb :states_codes
-      t.jsonb :countries_codes
+      t.string :states_codes, array: true
+      t.string :countries_codes, array: true
       # t.jsonb :categories#
 
       t.timestamps

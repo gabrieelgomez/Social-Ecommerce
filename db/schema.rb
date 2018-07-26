@@ -301,8 +301,8 @@ ActiveRecord::Schema.define(version: 20180713121338) do
     t.string "productable_type"
     t.bigint "productable_id"
     t.string "type_profile"
-    t.jsonb "states_codes"
-    t.jsonb "countries_codes"
+    t.string "states_codes", array: true
+    t.string "countries_codes", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["productable_id", "productable_type"], name: "index_products_on_productable_id_and_productable_type"

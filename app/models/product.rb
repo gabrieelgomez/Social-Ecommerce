@@ -4,6 +4,8 @@ class Product < ApplicationRecord
   mount_base64_uploader :cover, ImageUploader
   attr_accessor :document_data
 
+  serialize :states_codes
+
   after_create :create_notify
   before_save :create_profile, :create_categories, :create_locations
   after_save :set_change_price, if: :price_changed?
@@ -32,10 +34,7 @@ class Product < ApplicationRecord
   #   sType.classify.constantize.to_s
   # end
 
-  # def mapeo_categorias(params_cat)
-  #   self.categories.map{|id| params_cat.include?(id)}.include?(true)
-  # end
-
+  # Methods by filters and searchs
   def links
     profile_id = self.productable.id
     type_profile = self.type_profile.pluralize
@@ -49,10 +48,6 @@ class Product < ApplicationRecord
     self.countries_codes = self.productable.locations.try(:collect, &:country_code)
   end
 
-  def build_products_relations
-    Product.find(self.product_relations).as_json(only: [:id, :name, :price, :images]) rescue self.product_relations.as_json
-  end
-
   def create_profile
     self.type_profile = self.productable.type_profile.downcase
   end
@@ -60,6 +55,16 @@ class Product < ApplicationRecord
   def create_categories
     self.category_ids = self.subcategories.try(:collect, &:category_id)#.map &:to_s
   end
+
+  def build_products_relations
+    Product.find(self.product_relations).as_json(only: [:id, :name, :price, :images]) rescue self.product_relations.as_json
+  end
+
+  def search_in? array, location_code
+    self.try(location_code).included_in?(array)
+  end
+  # End Methods by filters and searchs
+
 
   def create_notify
     model_name = self.productable.type_profile.capitalize
