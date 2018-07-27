@@ -6,7 +6,7 @@ module Api::V1::ShoppingCarts
 
     def quote_it
       conv = Conversation.get(@profile, current_v1_user, 'cotization')
-      conv.update(type_messages: 'cotization')
+      # conv.update(type_messages: 'cotization')
       conv.messages.create(
         body: set_cotization_message,
         messageable: current_v1_user
