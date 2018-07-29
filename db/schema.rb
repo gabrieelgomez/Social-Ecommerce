@@ -349,6 +349,7 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.json "profile"
     t.text "experience"
     t.string "validation"
+    t.string "slug"
     t.boolean "censured", default: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false

@@ -1,5 +1,8 @@
 class Profile < ApplicationRecord
   acts_as_paranoid
+  # Friendly ID
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders]
   # attr_accessor :type_profile
   after_create :create_social_account_and_schedule
 
@@ -22,6 +25,9 @@ class Profile < ApplicationRecord
   validates   :user_id, :title, :category_ids, presence: true
   # delegate :pymes, :independents, :sellers, to: :profiles
   self.inheritance_column = :type_profile
+
+  # Callbacks
+  before_save  :set_url
 
   # We will need a way to know which animals
   # will subclass the Animal model
@@ -69,6 +75,11 @@ class Profile < ApplicationRecord
   def create_social_account_and_schedule
     SocialAccount.create(profile: self)
     Schedule.create(profile: self)
+  end
+
+  def set_url
+    # byebug
+    self.url = "/v1/#{self.type_profile.downcase.pluralize}/#{self.slug}"
   end
 
 end

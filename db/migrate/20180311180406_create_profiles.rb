@@ -22,6 +22,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.text    :experience
       t.string  :validation
       t.string  :url
+      t.string  :slug
       t.boolean :censured, default: false
       t.datetime :deleted_at
       t.timestamps
