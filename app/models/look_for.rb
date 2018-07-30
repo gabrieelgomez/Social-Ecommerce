@@ -13,8 +13,8 @@ class LookFor
       products_by_filters = products_by_q.ransack(subcategories_id_in: subcategories).result
                                          .ransack(type_profile_in: profiles).result
                                          .ransack(categories_id_in: categories).result
-      products_by_filters.select{|product| product.search_in?(states, :states_codes)} if states
-      products_by_filters.select{|product| product.search_in?(countries, :countries_codes)} if countries
+      products_by_filters = products_by_filters.select{|product| product.search_in?(states, :states_codes)} if states
+      products_by_filters = products_by_filters.select{|product| product.search_in?(countries, :countries_codes)} if countries
 
 
       #By filters search

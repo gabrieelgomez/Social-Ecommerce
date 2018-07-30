@@ -44,8 +44,15 @@ class Product < ApplicationRecord
   end
 
   def create_locations
-    self.states_codes   = self.productable.locations.try(:collect, &:state_code)
-    self.countries_codes = self.productable.locations.try(:collect, &:country_code)
+
+    self.states_codes   = [] #self.productable.locations.try(:collect, &:state_code).push.
+    self.countries_codes = []
+
+    self.productable.locations.collect do |location|
+      self.countries_codes.push(location.country_code)
+      self.states_codes.push([location.country_code, location.state_code])
+    end
+
   end
 
   def create_profile
@@ -61,7 +68,8 @@ class Product < ApplicationRecord
   end
 
   def search_in? array, location_code
-    self.try(location_code).included_in?(array)
+    # self.try(location_code).included_in?(array)
+    (self.try(location_code).flatten & array).any?
   end
   # End Methods by filters and searchs
 
