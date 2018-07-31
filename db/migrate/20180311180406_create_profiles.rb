@@ -23,6 +23,8 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string  :validation
       t.string  :url
       t.string  :slug
+      t.jsonb   :states_codes
+      t.jsonb   :countries_codes
       t.boolean :censured, default: false
       t.datetime :deleted_at
       t.timestamps

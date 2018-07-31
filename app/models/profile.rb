@@ -5,6 +5,8 @@ class Profile < ApplicationRecord
   friendly_id :title, use: [:slugged, :finders]
   # attr_accessor :type_profile
   after_create :create_social_account_and_schedule
+  before_save :set_url, :create_locations
+
 
   # mount_base64_uploader :photo, :banner, ImageUploader
 
@@ -27,12 +29,21 @@ class Profile < ApplicationRecord
   self.inheritance_column = :type_profile
 
   # Callbacks
-  before_save  :set_url
 
   # We will need a way to know which animals
   # will subclass the Animal model
   def self.type_profile
     %w[Pyme Independent Seller]
+  end
+
+  def create_locations
+    self.states_codes   = []
+    self.countries_codes = []
+    self.locations.collect do |location|
+      self.countries_codes.push(location.country_code)
+      self.states_codes.push([location.country_code, location.state_code])
+    end
+    # self.update(states_codes: self.states_codes, countries_codes: self.countries_codes)
   end
 
   def validate_seller

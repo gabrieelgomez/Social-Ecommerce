@@ -650,3 +650,5 @@ superadmin = User.create(
 )
 superadmin.add_role :superadmin
 puts "Superadmin created"
+
+# Profile.all.map{|profile| profile.create_locations}
