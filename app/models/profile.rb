@@ -5,7 +5,7 @@ class Profile < ApplicationRecord
   friendly_id :title, use: [:slugged, :finders]
   # attr_accessor :type_profile
   after_create :create_social_account_and_schedule
-  before_save :set_url, :create_locations
+  before_save :set_url#, :create_locations
 
 
   # mount_base64_uploader :photo, :banner, ImageUploader
@@ -43,7 +43,7 @@ class Profile < ApplicationRecord
       self.countries_codes.push(location.country_code)
       self.states_codes.push([location.country_code, location.state_code])
     end
-    # self.update(states_codes: self.states_codes, countries_codes: self.countries_codes)
+    self.update(states_codes: self.states_codes, countries_codes: self.countries_codes)
   end
 
   def validate_seller
