@@ -33,11 +33,11 @@ class LookFor
       #By filters search
       filter_profile_by_profiles   = Filter.type_profiles(profiles[0])
       filter_cat_by_profiles       = Filter.categories(profiles[0])
-      # filter_country_by_products   = Filter.countries(profiles[0])
+      filter_country_by_products   = Filter.countries(profiles[0])
 
       #End by filter search
       profiles[1] = profiles[1].uniq.as_json(only: [:id, :title, :photo, :created_at, :updated_at, :type_profile], methods: :category_ids)
-      build_json(profiles[1], filter_profile_by_profiles, filter_cat_by_profiles, nil)
+      build_json(profiles[1], filter_profile_by_profiles, filter_cat_by_profiles, filter_country_by_products)
     end
 
     @filters

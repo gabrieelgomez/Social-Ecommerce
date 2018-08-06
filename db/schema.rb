@@ -350,6 +350,8 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.text "experience"
     t.string "validation"
     t.string "slug"
+    t.jsonb "states_codes"
+    t.jsonb "countries_codes"
     t.boolean "censured", default: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
