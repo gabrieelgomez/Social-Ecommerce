@@ -30,7 +30,8 @@ module Api::V1
     end
 
     def validate_user_profile
-      @profile.user_id.eql?(current_v1_user.id)
+      @profile.user_id.eql?(current_v1_user.id) or
+      current_v1_user.has_role? :admin, @profile
     end
 
     def error_message_rol
@@ -38,7 +39,21 @@ module Api::V1
     end
 
     def error_message_profile
-      (render json: {error:'Profile not found'}, status: 200)
+      (render json: {error:'Access denied to assign role'}, status: 200)
+    end
+
+    def search_profile(object)
+      Profile.find(object.resource_id).as_json(only: [:id, :title, :type_profile])
+    end
+
+    def search_profile_roles
+      Role.find_by(resource_id: params[:profile]).users.map{|user|
+        [role: user.roles.find_by(resource_id: params[:profile]).name,
+         user: user.name,
+         email: user.email,
+         nickname: user.nickname,
+         avatar: user.avatar]
+      }.flatten
     end
 
   end
