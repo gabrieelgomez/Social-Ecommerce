@@ -1,6 +1,9 @@
 module Api::V1::Products::Subcategories
   class ActionsController < SubcategoriesController
+    before_action :authenticate_v1_user!
+    before_action :verify_superadmin_rol
     before_action :set_subcategory, only: [:update, :destroy]
+
     def create
       @subcategories = Subcategory.new(subcategories_params)
       if @subcategories.save

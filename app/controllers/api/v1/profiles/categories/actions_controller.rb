@@ -1,5 +1,8 @@
 module Api::V1::Profiles::Categories
   class ActionsController < CategoriesController
+    before_action :authenticate_v1_user!
+    before_action :verify_superadmin_rol
+
     def create
       @category = Category.new(category_params)
       if @category.save
