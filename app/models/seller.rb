@@ -1,4 +1,5 @@
 class Seller < Profile
+  resourcify
   # Neste relations
   acts_as_commentable
   # Helper para permitir que el modelo pueda ser seguido por otros modelos
