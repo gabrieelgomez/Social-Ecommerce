@@ -14,6 +14,16 @@ module Api::V1
                                     :country)
     end
 
+    def verify_superadmin_rol
+      unless current_v1_user.has_role? :superadmin
+        render json: {
+          errors: [
+            "You are not authorized to this action."
+          ]
+        }, status: 401
+      end
+    end
+
     def rescue_not_found(class_name)
       render json: {
         errors: [
