@@ -8,7 +8,6 @@ module Api::V1::Offers::SavedOffers
         user: current_v1_user,
         offer: @offer
       )
-      # byebug
       render json: @saved_offer, status: 200
     end
   end

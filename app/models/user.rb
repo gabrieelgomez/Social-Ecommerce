@@ -36,13 +36,14 @@ class User < ActiveRecord::Base
            class_name: 'Profile'
   has_many :profiles
   has_many :offers
-  has_many :rates
+  has_many :rates, as: :rateable
   has_many :wishes
   has_many :saved_offers
   has_many :sended_wishes
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
   has_one  :shopping_cart
+  has_many :posts, as: :postable
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
   # Callbacks
@@ -75,7 +76,6 @@ class User < ActiveRecord::Base
   end
 
   def create_shopping_cart
-    # byebug
     @shop_cart = ShoppingCart.new(user: self)
     @shop_cart.save!
   end

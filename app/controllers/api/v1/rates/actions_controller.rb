@@ -3,12 +3,13 @@ module Api::V1::Rates
     before_action :authenticate_v1_user!
     before_action :rate_params, only: [:create]
     before_action :set_score_validate, only: [:create]
+    before_action :set_rateable
 
     def create
       return update if @score_user
       @rate = Rate.new(rate_params)
       @rate.user = current_v1_user
-      @rate.profile_id = params[:profile_id]
+      @rate.rateable = @rateable
       if @rate.save
         render json: @rate, status: 200
       else

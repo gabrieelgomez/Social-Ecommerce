@@ -8,13 +8,6 @@ module Api::V1::Offers
       @offer = custom_find {
         Offer.find params[:offer_id]
       }
-      # byebug
-      # return @offer unless @offer.nil?
-      # render json: {
-      #   error: [
-      #     'Record not found'
-      #   ]
-      # }, status: 404
     end
 
     def set_and_verify_offer

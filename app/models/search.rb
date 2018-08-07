@@ -22,21 +22,9 @@ class Search
 
   # Filter profiles by categories
   def self.filter_by_catgs(categories, search)
-    # profiles =
-    # result = []
-    # categories.map{|cat| profiles}
-    # search_result = categories.collect do |cat|
-    #   Profile.ransack(categories_id_eq: cat).result
-    #          .ransack(name_or_description_or_title_cont: search)
-    # end
-    # Profile.ransack(categories_id_m)
-    Pyme.ransack(categories_id_in: categories).result
-        .ransack(name_or_description_or_title_cont: search).result
-    # byebug0
-    # search_result.map{|r| r.result}.flatten.uniq
-    # profiles.select do |profile|
-    #   categories.include?(profile.categories.map(&:id))
-    # end
+    Pyme.short_ransack(categories, search) +
+      Independent.short_ransack(categories, search) +
+      Seller.short_ransack(categories, search)
   end
 
   # # Filter profiles by :q param
@@ -57,7 +45,6 @@ class Search
 
   # Filter products by categories/subcategories
   def self.product_by_subcat(categories)
-    # byebug
     return [] if categories.empty?
     categories.collect do |cat|
       Category.try(:find, cat).subcategories.try(:map, &:products)

@@ -8,7 +8,6 @@ module Api::V1::Offers
 
     def update
       if @offer.update(offer_params)
-        # byebug
         render json: @offer, status: 200
       else
         render json: @offer.errors, status: 500
