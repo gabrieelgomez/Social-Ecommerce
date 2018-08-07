@@ -18,7 +18,6 @@ module Api::V1::Offers
     end
 
     def user_offers
-      # byebug
       @user = User.find_by(nickname: params[:username])
       render json: @user.nil? ? { message: 'Not found', status: 404 } : @user
     end

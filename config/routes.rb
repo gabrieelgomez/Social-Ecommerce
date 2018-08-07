@@ -10,7 +10,12 @@ Rails.application.routes.draw do
 
       put 'products/:product_id/upload/:type_upload/:file_id/delete', to: 'products/uploaders/uploaders#destroy'
 
-      #Routes for custom reset password
+      # Routes for custom reset password
+      # --- Posts routes
+      draw :posts
+      # --- Posts routes - end
+
+      # Routes for custom reset password
       scope module: 'users' do
         post 'auth/password/reset', to: 'password_reset#reset'
       end

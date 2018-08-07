@@ -18,7 +18,7 @@ class Comment < ActiveRecord::Base
   def self.build_from(obj, user_id, comment)
     new \
       :commentable_id   => obj.id,
-      :commentable_type => obj.type_profile.camelcase,
+      :commentable_type => obj.class.name,
       :body             => comment,
       :user_id          => user_id
   end

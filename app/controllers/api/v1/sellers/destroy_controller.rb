@@ -8,7 +8,6 @@ module Api::V1::Sellers
     # before_action :validate_current_seller
 
     def destroy
-      # byebug
       if @seller.destroy
         render json: @seller, status: 200
       else
