@@ -19,6 +19,14 @@ module Api::V1::Concerns::ModelModulation
   # to create, destroy and update
   def current_user_productable
     @productable = model_name.find_by_id_and_user_id(params[:profile_id], current_v1_user.id)
+    validate_roles if @productable.nil?
+  end
+
+  def validate_roles
+    profile = Profile.find(params[:profile_id]) rescue Profile
+    permission = current_v1_user.has_role? [:admin, :editor], profile
+    @productable = profile if permission
+    render json: {errors: 'Access denied'} unless permission
   end
 
 end

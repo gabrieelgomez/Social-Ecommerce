@@ -187,6 +187,11 @@ Rails.application.routes.draw do
       # --- Managers route
       draw :managers
       # --- Managers route - end
+
+      # --- Managers route
+      draw :managers_profiles
+      # --- Managers route - end
+
     end
   end
 end

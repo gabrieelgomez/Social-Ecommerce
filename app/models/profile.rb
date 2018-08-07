@@ -1,5 +1,6 @@
 class Profile < ApplicationRecord
   acts_as_paranoid
+  resourcify
   # Friendly ID
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]

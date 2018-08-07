@@ -641,14 +641,14 @@ options_products = [
   puts "-------------\n"
 
 end
-superadmin = User.create(
+user_admin = User.create(
   name: 'Bigwave Superadmin',
   email: 'bigwave.admin@gmail.com',
   password: '+12345678+',
   password_confirmation: '+12345678+',
   nickname: 'admin'
 )
-superadmin.add_role :superadmin
+user_admin.add_role :superadmin
 puts "Superadmin created"
 
 Profile.all.map{|profile| profile.create_locations}

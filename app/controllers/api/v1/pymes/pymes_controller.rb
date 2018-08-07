@@ -7,6 +7,13 @@ module Api::V1
       @pyme = custom_find {
         current_v1_user.pymes.find(params[:id])
       }
+      validate_roles if @pyme.include?('Record not found')
+    end
+
+    def validate_roles
+      pyme = Pyme.find(params[:id]) rescue Profile
+      permission = current_v1_user.has_role? [:admin, :editor], pyme
+      @pyme = pyme if permission
     end
 
     def set_pyme
