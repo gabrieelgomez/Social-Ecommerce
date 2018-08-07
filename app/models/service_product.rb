@@ -1,0 +1,2 @@
+class ServiceProduct
+end
