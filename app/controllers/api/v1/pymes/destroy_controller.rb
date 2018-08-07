@@ -7,11 +7,17 @@ module Api::V1::Pymes
     before_action :set_my_pyme, only: %i[destroy]
 
     def destroy
+      return access_denied if current_v1_user.has_role? [:editor, :moderator], @pyme
       if @pyme.destroy
         render json: @pyme, status: 200
       else
         render json: @pyme.errors, status: 500
       end
     end
+
+    def access_denied
+      render json: {errors: 'Access Denied'}
+    end
+
   end
 end

@@ -18,12 +18,7 @@ module Api::V1::Profiles
     end
 
 		private
-		def set_profile
-			@profile = custom_find {
-        Profile.find(params[:profile_id])
-      }
-		end
-
+    
 		def social_account_params
       params.require(:social_account).permit(:facebook, :twitter, :instagram, :google_plus,
 																	 :tripadvisor, :pinterest, :flickr, :behance,

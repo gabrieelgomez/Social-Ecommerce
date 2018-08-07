@@ -7,6 +7,7 @@ module Api::V1::Independents
     before_action :set_my_independent, only: %i[update]
 
     def destroy
+      return access_denied if current_v1_user.has_role? [:editor, :moderator], @pyme
       if @independent.destroy
         render json: @independent, status: 200
       else
@@ -14,5 +15,10 @@ module Api::V1::Independents
                status: 200
       end
     end
+
+    def access_denied
+      render json: {errors: 'Access Denied'}
+    end
+
   end
 end
