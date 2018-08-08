@@ -15,5 +15,10 @@ module Api::V1
       @profile = profile if permission
     end
 
+    def all_profiles
+      @result = Profile.all
+      render json: @result, status: 200
+    end
+
   end
 end
