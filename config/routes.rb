@@ -69,7 +69,12 @@ Rails.application.routes.draw do
       namespace :searchs do
         get '/', to: 'search#global_search'
         get '/:type_search', to: 'search#filters_search'
-        get '/locations', to: 'search#locations_response'
+        get '/locations/response', to: 'search#locations_response'
+
+        # Routes Services
+          get '/services/profiles', to: 'services_profiles#service_profile'
+        # End Routes Services
+
       end
       # Search routes - end
 
