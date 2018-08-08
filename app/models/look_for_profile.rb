@@ -1,7 +1,9 @@
 class LookForProfile
 
   def self.search_profiles(search, profiles, categories, states, countries)
-    result_by_q = result_by_filters = []
+    result_by_q = []
+    result_by_filters = []
+
 
     ['Pyme', 'Seller', 'Independent'].each do |model|
       custom_model = model.constantize
@@ -14,6 +16,7 @@ class LookForProfile
                     .ransack(categories_id_in: categories).result
       )
     end
+
 
     return result_by_q.flatten.uniq, result_by_filters.flatten.uniq
     # pymes = Pyme.ransack(title_cont: search).result

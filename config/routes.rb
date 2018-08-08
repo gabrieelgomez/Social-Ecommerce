@@ -70,6 +70,9 @@ Rails.application.routes.draw do
 
       # --- Categories Products routes
       namespace :profiles do
+
+        get '/all', to: 'profiles#all_profiles'
+
         namespace :categories do
           post '/', to: 'actions#create'
           get '/', to: 'show#index'
