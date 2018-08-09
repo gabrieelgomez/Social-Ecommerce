@@ -2,6 +2,11 @@ module Api::V1
   class Profiles::ProfilesController < ApiController
     include ::Api::V1::Concerns::ModelModulation
 
+    def all_profiles
+      @result = Profile.all.uniq.as_json(only: [:id, :title, :photo, :created_at, :updated_at, :type_profile], methods: :category_ids)
+      render json: @result, status: 200
+    end
+
     private
     def set_profile
       @profile = custom_find {
