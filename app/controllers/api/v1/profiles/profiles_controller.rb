@@ -3,7 +3,7 @@ module Api::V1
     include ::Api::V1::Concerns::ModelModulation
 
     def all_profiles
-      @result = Profile.all
+      @result = Profile.all.uniq.as_json(only: [:id, :title, :photo, :created_at, :updated_at, :type_profile], methods: :category_ids)
       render json: @result, status: 200
     end
 
