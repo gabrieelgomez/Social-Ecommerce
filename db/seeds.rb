@@ -500,6 +500,7 @@ options_products = [
       url: Faker::SiliconValley.url,
       address: Faker::Address.city,
       category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
+      prominent: [true, false].sample,
       user: user
     )
     # Location to pyme
@@ -513,6 +514,7 @@ options_products = [
     # 3 Productos a un Pyme
     3.times do
       product = Product.create(
+        status: [true, false].sample,
         name: Faker::SiliconValley.invention,
         cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: pyme,
@@ -549,6 +551,7 @@ options_products = [
       url: Faker::Internet.url,
       address: Faker::Address.state,
       category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
+      prominent: [true, false].sample,
       user: user
     )
     coord = Faker::Number.between(0, 7)
@@ -562,6 +565,7 @@ options_products = [
     # 3 Productos a un Independent
     3.times do
       product = Product.create(
+        status: [true, false].sample,
         name: Faker::Job.field,
         cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: independent,
@@ -599,6 +603,7 @@ options_products = [
     url: Faker::Internet.url,
     address: Faker::Address.state,
     category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
+    prominent: [true, false].sample,
     user: user
   )
   # Location to pyme
@@ -613,6 +618,7 @@ options_products = [
   # 3 Productos a un Seller
   3.times do
     product = Product.create(
+      status: [true, false].sample,
       name: Faker::Job.field,
       cover: Rails.root.join('spec/support/product_cover.jpg').open,
       productable: seller,

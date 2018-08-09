@@ -10,6 +10,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string  :banner
       t.string  :photo
       t.float   :score
+      t.boolean :prominent
       t.string  :launched
       t.string  :phone
       t.string  :url

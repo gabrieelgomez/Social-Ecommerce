@@ -73,6 +73,9 @@ Rails.application.routes.draw do
 
         # Routes Services
           get '/services/profiles', to: 'services_profiles#service_profile'
+          get '/services/profiles/by_products_status', to: 'services_profiles#service_by_products_status'
+          get '/services/products', to: 'services_products#service_product'
+          get '/services/filters_by_cat', to: 'services#filters_by_cat'
         # End Routes Services
 
       end

@@ -347,6 +347,7 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.string "banner"
     t.string "photo"
     t.float "score"
+    t.boolean "prominent"
     t.string "launched"
     t.string "phone"
     t.string "url"
