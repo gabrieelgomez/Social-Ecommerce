@@ -7,7 +7,7 @@ module Api::V1
       @pyme = custom_find {
         current_v1_user.pymes.find(params[:id])
       }
-      validate_roles if @pyme.include?('Record not found')
+      validate_roles if @pyme.try(:id?).nil?
     end
 
     def validate_roles

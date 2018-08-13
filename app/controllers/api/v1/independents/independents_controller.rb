@@ -7,7 +7,7 @@ module Api::V1
       @independent = custom_find {
         current_v1_user.independents.find(params[:id])
       }
-      validate_roles if @independent.include?('Record not found')
+      validate_roles if @independent.try(:id?).nil?
     end
 
     def validate_roles
