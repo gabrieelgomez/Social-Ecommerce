@@ -13,6 +13,11 @@ module Api::V1::Users
       render json: @user
     end
 
+    def countries
+      @countries = CS.countries
+      render json: { countries: @countries }, status: 200
+    end
+
     def profile
       @current = current_v1_user
       render json: @current

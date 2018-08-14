@@ -514,6 +514,10 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.string "url", default: ""
     t.string "slug"
     t.boolean "censured", default: false
+    t.string "dni"
+    t.datetime "birth_date"
+    t.string "gender"
+    t.string "country"
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

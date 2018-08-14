@@ -48,6 +48,10 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
       t.string :url, default: ''
       t.string :slug
       t.boolean :censured, default: false
+      t.string :dni
+      t.datetime :birth_date
+      t.string :gender
+      t.string :country
 
       ## Tokens
       t.json :tokens

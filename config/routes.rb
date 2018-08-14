@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       # Routes for custom reset password
       scope module: 'users' do
         post 'auth/password/reset', to: 'password_reset#reset'
+        get 'countries', to: 'show#countries'
       end
 
       # Rutas para métodos del controlador API
