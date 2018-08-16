@@ -14,6 +14,7 @@ module Api::V1::Concerns::ModelModulation
   # to show and index actions
   def public_productable
     @productable = model_name.find(params[:profile_id])
+    byebug
   end
 
   # to create, destroy and update
