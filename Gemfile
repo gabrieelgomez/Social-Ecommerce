@@ -78,9 +78,9 @@ gem 'has_secure_token', '~> 1.0'
 # State machine - Handle state of models
 gem 'aasm', '4.12.3'
 
-gem 'byebug', platforms: %i[mri mingw x64_mingw]
 group :development, :test do
   gem 'action-cable-testing'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   # gem 'pry-rails'

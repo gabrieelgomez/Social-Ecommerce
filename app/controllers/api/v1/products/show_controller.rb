@@ -4,7 +4,6 @@ module Api::V1::Products
     before_action :public_productable, only: %i[show index]
     before_action :set_product, only: %i[show]
     def index
-      byebug
       if @productable.respond_to? :products
         render json: @productable.products
       else
