@@ -8,6 +8,7 @@ class CreateWishes < ActiveRecord::Migration[5.1]
       t.boolean    :response, default: false
       t.boolean    :sent,     default: false
       t.text       :description, default: ''
+      t.boolean    :private, default: false, null: false
       t.references :wisheable, polymorphic: true
       t.datetime :deleted_at
       t.timestamps

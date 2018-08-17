@@ -6,7 +6,8 @@ module Api::V1
 
     def wish_params
       params.require(:wish).permit(:user_id, :budget, :name, :priority,
-                                   :description, :wisheable_id, :wisheable_type)
+                                   :description, :wisheable_id, :wisheable_type,
+                                   :private)
     end
 
     def verify_and_set_wish
