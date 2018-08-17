@@ -3,7 +3,7 @@ module Api::V1::Wishes
 
     # Callbacks
     before_action :validate_password, only: %i[destroy]
-    before_action :verify_and_set_wish
+    # before_action :verify_and_set_wish
 
     def destroy
       if @wish.destroy
