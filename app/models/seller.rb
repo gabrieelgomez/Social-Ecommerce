@@ -1,6 +1,6 @@
 class Seller < Profile
   # Neste relations
-  acts_as_commentable
+  # acts_as_commentable
   # Helper para permitir que el modelo pueda ser seguido por otros modelos
   acts_as_followable
   acts_as_paranoid

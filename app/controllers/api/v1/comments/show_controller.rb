@@ -3,9 +3,9 @@ module Api::V1::Comments
 
     def index
       commentable = custom_find {
-        params[:commentable_type].modelarize.find(params[:profile_id])
+        params[:commentable_type].modelarize.find(params[:commentable_id])
       }
-      render json: commentable.root_comments_profile, status: 200
+      render json: commentable.root_comments, status: 200
     end
 
     def show

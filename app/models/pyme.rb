@@ -2,7 +2,7 @@
 class Pyme < Profile
   resourcify
   # Neste relations
-  acts_as_commentable
+  # acts_as_commentable
   # Helper para permitir que el modelo pueda ser seguido por otros modelos
   acts_as_followable
   acts_as_paranoid
@@ -15,8 +15,4 @@ class Pyme < Profile
   has_and_belongs_to_many :categories
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
-
-  def root_comments_profile
-    Comment.where(commentable_id: self.id, commentable_type: self.type_profile.capitalize, parent_id: nil)
-  end
 end

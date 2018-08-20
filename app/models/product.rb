@@ -9,7 +9,7 @@ class Product < ApplicationRecord
   after_create :create_notify
   before_save :create_profile, :create_categories, :create_locations
   after_save :set_change_price, if: :price_changed?
-
+  acts_as_commentable
   acts_as_taggable_on :tags
   has_many :price_ranges
   has_and_belongs_to_many :custom_fields

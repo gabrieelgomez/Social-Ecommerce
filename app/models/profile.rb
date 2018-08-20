@@ -1,5 +1,6 @@
 class Profile < ApplicationRecord
   acts_as_paranoid
+  acts_as_commentable
   resourcify
   # Friendly ID
   extend FriendlyId
@@ -34,6 +35,14 @@ class Profile < ApplicationRecord
 
   # We will need a way to know which animals
   # will subclass the Animal model
+  def root_comments
+    Comment.where(
+      commentable_id: id,
+      commentable_type: type_profile.capitalize,
+      parent_id: nil
+    )
+  end
+
   def self.type_profile
     %w[Pyme Independent Seller]
   end
