@@ -4,10 +4,14 @@ class WishSerializer < ActiveModel::Serializer
 
   def wisheable
     wisheable = object.wisheable
-    object.wisheable.as_json.merge({
-      productable_url: wisheable.productable.url,
-      wisheable_url: wisheable.productable.url + "/products/#{wisheable.id}"
-    })
+    if wisheable.is_a?(Product)
+      object.wisheable.as_json.merge({
+        productable_url: wisheable.productable.url,
+        wisheable_url: wisheable.productable.url + "/products/#{wisheable.id}"
+      })
+    elsif wisheable.is_a?(Profile)
+      object.wisheable.as_json
+    end
     # /v1/:type_profile/:profile_id/products/:id
   end
 

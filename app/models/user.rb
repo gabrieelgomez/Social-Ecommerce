@@ -91,4 +91,8 @@ class User < ActiveRecord::Base
     self.url = "/v1/users/#{self.slug}"
   end
 
+  def map_suggest(type)
+    self.wishes.map{|wish| wish.wisheable.category_ids if wish.wisheable_type == type}.flatten.uniq.reject!(&:nil?)
+  end
+
 end
