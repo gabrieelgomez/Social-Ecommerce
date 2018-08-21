@@ -2,7 +2,7 @@ module Api::V1::Wishes
   class DestroyController < WishesController
 
     # Callbacks
-    before_action :validate_password, only: %i[destroy]
+    # before_action :validate_password, only: %i[destroy]
     # before_action :verify_and_set_wish
 
     def destroy
