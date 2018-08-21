@@ -21,6 +21,7 @@ class Profile < ApplicationRecord
   has_many    :rates, as: :rateable
   has_and_belongs_to_many :categories
   has_many :locations, as: :locatable
+  has_many :wishes, as: :wisheable
   has_many :sended_wishes
   has_many :answer_wishes
 

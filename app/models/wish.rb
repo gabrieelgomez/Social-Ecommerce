@@ -52,10 +52,10 @@ class Wish < ApplicationRecord
   end
 
   def create_notify
-    recipient = self.wisheable.productable.user
-  	sender = self.user
-    message = "#{sender.name} ha deseado tu producto #{self.wisheable.name}"
-    #Method for create_notify, in order is recipient, sender, type, message
-    Notification.create_notify_models(recipient, sender, 'wish', message)
+    # recipient = self.wisheable.productable.user
+  	# sender = self.user
+    # message = "#{sender.name} ha deseado tu producto #{self.wisheable.name}"
+    # #Method for create_notify, in order is recipient, sender, type, message
+    # Notification.create_notify_models(recipient, sender, 'wish', message)
   end
 end
