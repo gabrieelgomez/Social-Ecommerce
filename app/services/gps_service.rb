@@ -1,5 +1,5 @@
 # Gps class for search using gps (mobile app)
-class Gps
+class GpsService
 
   # Main function of search
   def self.categ_search(params)

@@ -1,4 +1,4 @@
-class Search
+class SearchService
   def self.deep_search(params)
     search = params[:q] || ''
     categories = params[:categories].try(:map, &:to_i) || []

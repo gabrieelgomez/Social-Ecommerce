@@ -1,4 +1,4 @@
-class LookFor
+class LookForService
   def self.search(params)
 
     search        = params[:q] || nil
@@ -18,29 +18,30 @@ class LookFor
 
 
       #By filters search
-      filter_profile_by_products   = Filter.type_profiles(products_by_q)
-      filter_cat_by_products       = Filter.categories(products_by_q)
-      filter_country_by_products   = Filter.countries(products_by_q)
+      filter_profile_by_products   = FilterService.type_profiles(products_by_q)
+      filter_cat_by_products       = FilterService.categories(products_by_q)
+      filter_country_by_products   = FilterService.countries(products_by_q)
       #End by filter search
 
       products_by_filters = products_by_filters.uniq.as_json(only: [:id, :type_profile, :name, :price, :cover, :created_at, :updated_at, :states_codes, :countries_codes],
                                        methods: [:category_ids, :subcategory_ids, :links])
 
-      build_json(products_by_filters, filter_profile_by_products, filter_cat_by_products, filter_country_by_products)
+      return products_by_filters, filter_profile_by_products, filter_cat_by_products, filter_country_by_products
+      # build_json(products_by_filters, filter_profile_by_products, filter_cat_by_products, filter_country_by_products)
 
     elsif params[:type_search].eql?('profiles')
-      profiles = LookForProfile.search_profiles(search, profiles, categories, states, countries)
+      profiles = LookForProfileService.search_profiles(search, profiles, categories, states, countries)
       #By filters search
-      filter_profile_by_profiles   = Filter.type_profiles(profiles[0])
-      filter_cat_by_profiles       = Filter.categories(profiles[0])
-      filter_country_by_products   = Filter.countries(profiles[0])
+      filter_profile_by_profiles   = FilterService.type_profiles(profiles[0])
+      filter_cat_by_profiles       = FilterService.categories(profiles[0])
+      filter_country_by_products   = FilterService.countries(profiles[0])
 
       #End by filter search
       profiles[1] = profiles[1].uniq.as_json(only: [:id, :title, :photo, :created_at, :updated_at, :type_profile], methods: :category_ids)
       build_json(profiles[1], filter_profile_by_profiles, filter_cat_by_profiles, filter_country_by_products)
     end
 
-    @filters
+    # @filters
   end
 
 

@@ -62,6 +62,10 @@ gem 'acts_as_commentable_with_threading'
 # Validate email
 gem 'validates_email_format_of'
 
+# Pagination
+gem 'kaminari'
+# gem 'pager_api'
+
 # Database plugin to add soft delete.
 gem 'paranoia', '~> 2.2'
 

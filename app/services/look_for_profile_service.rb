@@ -1,4 +1,4 @@
-class LookForProfile
+class LookForProfileService
 
   def self.search_profiles(search, profiles, categories, states, countries)
     result_by_q = []

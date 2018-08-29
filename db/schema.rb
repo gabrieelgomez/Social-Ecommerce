@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725154443) do
+ActiveRecord::Schema.define(version: 20180823183714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,6 +157,19 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.bigint "option_id"
     t.index ["item_id"], name: "index_items_options_on_item_id"
     t.index ["option_id"], name: "index_items_options_on_option_id"
+  end
+
+  create_table "job_offers", force: :cascade do |t|
+    t.string "photo"
+    t.string "charge"
+    t.string "location"
+    t.string "salary"
+    t.integer "day_rutine_type"
+    t.integer "job_type"
+    t.text "details"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -368,6 +381,16 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.integer "position"
+    t.bigint "job_offer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_offer_id"], name: "index_questions_on_job_offer_id"
+  end
+
   create_table "rates", force: :cascade do |t|
     t.float "score"
     t.bigint "user_id"
@@ -543,6 +566,7 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.boolean "response", default: false
     t.boolean "sent", default: false
     t.text "description", default: ""
+    t.boolean "private", default: false, null: false
     t.string "wisheable_type"
     t.bigint "wisheable_id"
     t.datetime "deleted_at"
@@ -567,6 +591,7 @@ ActiveRecord::Schema.define(version: 20180725154443) do
   add_foreign_key "options_products", "options"
   add_foreign_key "options_products", "products"
   add_foreign_key "price_ranges", "products"
+  add_foreign_key "questions", "job_offers"
   add_foreign_key "rates", "users"
   add_foreign_key "saved_offers", "offers"
   add_foreign_key "saved_offers", "users"
