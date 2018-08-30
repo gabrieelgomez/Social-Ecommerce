@@ -1,6 +1,8 @@
 class Pymes::ShowSerializer < ActiveModel::Serializer
   attributes :id, :title
-  has_many :products
+  has_many :products, default: false
+  has_many :posts, default: false
+  belongs_to :user, default: false
 
   def attributes(args)
     data = super
