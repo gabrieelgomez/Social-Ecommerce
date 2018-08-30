@@ -111,19 +111,17 @@ Rails.application.routes.draw do
           post '/create', to: 'create#create'
         end
 
-        #For SocialAccounts
+        # For SocialAccounts
         scope '/:type_profile/:profile_id/social_accounts' do
           get '/show', to: 'social_accounts/social_accounts#show'
           put '/update', to: 'social_accounts/social_accounts#update'
         end
 
-        #For Schedules
+        # For Schedules
         scope '/:type_profile/:profile_id/schedules' do
           get '/show', to: 'schedules/schedules#show'
           put '/update', to: 'schedules/schedules#update'
         end
-
-
       end
       # --- Profiles route - end
 
@@ -144,6 +142,10 @@ Rails.application.routes.draw do
       # --- Offer route - end
 
       draw :saved_offers
+
+      # --- Job Offers
+      draw :job_offers
+      # --- Job Offers - end
 
       # --- Product routes and related to them
       scope '/:type_profile/:profile_id' do
