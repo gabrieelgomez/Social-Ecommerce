@@ -8,6 +8,7 @@ module Api::V1::Searchs
       ids = Product.last(quantity).map(&:id)
       categories    = params[:categories].try(:split, '-').try(:map, &:to_i)
       brand = params[:brand].try(:split, '-').try(:map, &:to_s)
+      # Falta que se filtren por ofertas mayores a 50%
 
       # Search Service
       products = Product.where(id:ids)
