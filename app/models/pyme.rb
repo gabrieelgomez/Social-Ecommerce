@@ -15,4 +15,6 @@ class Pyme < Profile
   has_and_belongs_to_many :categories
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
+  has_many :membership_conversations, as: :memberable
+
 end

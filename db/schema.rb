@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725154443) do
+ActiveRecord::Schema.define(version: 20180904182548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,21 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.index ["option_id"], name: "index_items_options_on_option_id"
   end
 
+  create_table "job_offers", force: :cascade do |t|
+    t.string "photo"
+    t.string "charge"
+    t.string "location"
+    t.string "salary"
+    t.integer "day_rutine_type"
+    t.integer "job_type"
+    t.text "details"
+    t.string "status"
+    t.bigint "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_job_offers_on_profile_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "address"
     t.float "latitude"
@@ -172,6 +187,13 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable_type_and_locatable_id"
+  end
+
+  create_table "membership_conversations", force: :cascade do |t|
+    t.bigint "conversation_id"
+    t.string "memberable_type", null: false
+    t.integer "memberable_id", null: false
+    t.index ["conversation_id"], name: "index_membership_conversations_on_conversation_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -289,6 +311,23 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
   end
 
+  create_table "postulations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "job_offer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_offer_id"], name: "index_postulations_on_job_offer_id"
+    t.index ["user_id"], name: "index_postulations_on_user_id"
+  end
+
+  create_table "postulations_questions", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "postulation_id"
+    t.string "answer"
+    t.index ["postulation_id"], name: "index_postulations_questions_on_postulation_id"
+    t.index ["question_id"], name: "index_postulations_questions_on_question_id"
+  end
+
   create_table "price_ranges", force: :cascade do |t|
     t.integer "stock", default: 1
     t.float "price"
@@ -366,6 +405,26 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "q_options", force: :cascade do |t|
+    t.string "name"
+    t.integer "position"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_q_options_on_question_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.string "q_type"
+    t.integer "position"
+    t.bigint "job_offer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_offer_id"], name: "index_questions_on_job_offer_id"
   end
 
   create_table "rates", force: :cascade do |t|
@@ -543,6 +602,7 @@ ActiveRecord::Schema.define(version: 20180725154443) do
     t.boolean "response", default: false
     t.boolean "sent", default: false
     t.text "description", default: ""
+    t.boolean "private", default: false, null: false
     t.string "wisheable_type"
     t.bigint "wisheable_id"
     t.datetime "deleted_at"
@@ -562,11 +622,19 @@ ActiveRecord::Schema.define(version: 20180725154443) do
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "items_options", "items"
   add_foreign_key "items_options", "options"
+  add_foreign_key "job_offers", "profiles"
+  add_foreign_key "membership_conversations", "conversations"
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
   add_foreign_key "options_products", "options"
   add_foreign_key "options_products", "products"
+  add_foreign_key "postulations", "job_offers"
+  add_foreign_key "postulations", "users"
+  add_foreign_key "postulations_questions", "postulations"
+  add_foreign_key "postulations_questions", "questions"
   add_foreign_key "price_ranges", "products"
+  add_foreign_key "q_options", "questions"
+  add_foreign_key "questions", "job_offers"
   add_foreign_key "rates", "users"
   add_foreign_key "saved_offers", "offers"
   add_foreign_key "saved_offers", "users"
