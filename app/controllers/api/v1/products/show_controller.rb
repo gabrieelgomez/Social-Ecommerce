@@ -48,5 +48,11 @@ module Api::V1::Products
       @wished_products = @productable.products.select(&:wished?)
       render json: @wished_products, status: 200
     end
+
+    def sorting_by
+      @sorted_by_wishes = Product.sorter_by_wish(params[:order])
+      render json: @sorted_by_wishes, status: 200
+      # Product.all
+    end
   end
 end

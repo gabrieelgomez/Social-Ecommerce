@@ -94,7 +94,14 @@ class Product < ApplicationRecord
     end
   end
 
+  # True or false if a product is wished
   def wished?
     !wishes.empty?
+  end
+
+  def self.sorter_by_wish(priority)
+    result = all.sort_by { |prof| prof.wishes.size }
+    return result if priority == 'low_to_high'
+    result.reverse
   end
 end

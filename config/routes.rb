@@ -145,6 +145,10 @@ Rails.application.routes.draw do
 
       draw :saved_offers
 
+      namespace :products do
+        get '/sort_by_wishes', to: 'show#sorting_by'
+      end
+
       # --- Product routes and related to them
       scope '/:type_profile/:profile_id' do
 
