@@ -103,6 +103,9 @@ Rails.application.routes.draw do
       draw :comments
       # --- Comments route - end
 
+      # --- Questions route
+      draw :questions
+      # --- Questions route - end
 
       # --- Profiles route
       scope module: 'profiles' do
