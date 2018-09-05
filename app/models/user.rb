@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   has_many :sended_wishes
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
+  has_many :membership_conversations, as: :memberable
   has_one  :shopping_cart
   has_many :posts, as: :postable
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
@@ -69,6 +70,10 @@ class User < ActiveRecord::Base
     if follow = get_follow_by_profile(followable, profile)
       follow.destroy
     end
+  end
+
+  def conv_membership?(conv)
+    membership_conversations.where(conversation: conv).exists?
   end
 
   # Returns a follow record for the current instance and followable object.

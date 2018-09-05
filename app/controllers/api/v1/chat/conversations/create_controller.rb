@@ -24,7 +24,6 @@ module Api::V1::Chat::Conversations
         current_v1_user.try(model).find conv[:senderable_id]
       }
       # if conv[:senderable_type] == 'User'
-        
       # else
       #   model = conv[:senderable_type].constantize
       #   @senderable = custom_find {

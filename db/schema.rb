@@ -189,6 +189,13 @@ ActiveRecord::Schema.define(version: 20180830162246) do
     t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable_type_and_locatable_id"
   end
 
+  create_table "membership_conversations", force: :cascade do |t|
+    t.bigint "conversation_id"
+    t.string "memberable_type", null: false
+    t.integer "memberable_id", null: false
+    t.index ["conversation_id"], name: "index_membership_conversations_on_conversation_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.text "body"
     t.boolean "read", default: false
@@ -616,6 +623,10 @@ ActiveRecord::Schema.define(version: 20180830162246) do
   add_foreign_key "items_options", "items"
   add_foreign_key "items_options", "options"
   add_foreign_key "job_offers", "profiles"
+<<<<<<< HEAD
+=======
+  add_foreign_key "membership_conversations", "conversations"
+>>>>>>> 2383d14784cbae4d801342f4e8c1af7418e82ec1
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
   add_foreign_key "options_products", "options"

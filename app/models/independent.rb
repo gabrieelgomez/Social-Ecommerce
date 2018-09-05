@@ -15,6 +15,8 @@ class Independent < Profile
   has_and_belongs_to_many :categories
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
+  has_many :membership_conversations, as: :memberable
+
 
   def root_comments_profile
     Comment.where(commentable_id:self.id, commentable_type: self.type_profile.capitalize, parent_id: nil)

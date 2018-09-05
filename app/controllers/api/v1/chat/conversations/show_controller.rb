@@ -4,7 +4,7 @@ module Api::V1::Chat::Conversations
       @user = current_v1_user
       convs = @user.profiles.map do |prof|
         prof.as_json.merge(
-          conversations: Conversation.user_conversations(prof)
+          conversations: Conversation.user_conversations(prof).select{|conv| conv.membership?(prod)}
                                      .as_json(
                                        only: [:id, :type_messages],
                                        methods: [
@@ -17,7 +17,7 @@ module Api::V1::Chat::Conversations
                                      )
         )
       end
-      render json: Conversation.user_conversations(@user).as_json(
+      render json: Conversation.user_conversations(@user).select{|conv| conv.membership?(@user)}.as_json(
         only: [
           :id, :type_messages
         ], methods: [
@@ -25,8 +25,9 @@ module Api::V1::Chat::Conversations
         ], include: [
           :messages
         ]
-      ).push(
-        profiles: convs
+      )
+      .push(
+        profiles: convs || []
       )
     end
 
@@ -34,7 +35,7 @@ module Api::V1::Chat::Conversations
       @user = current_v1_user
       convs = @user.profiles.map do |prof|
         prof.as_json.merge(
-          conversations: Conversation.user_conversations(prof)
+          conversations: Conversation.user_conversations(prof).select{|conv| conv.membership?(@user)}
                                      .as_json(include: [:messages])
         )
       end
