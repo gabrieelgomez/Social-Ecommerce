@@ -147,6 +147,8 @@ Rails.application.routes.draw do
 
       # --- Product routes and related to them
       scope '/:type_profile/:profile_id' do
+
+
         # Product routes
         draw :products
         # Product routes - end

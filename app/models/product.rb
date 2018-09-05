@@ -94,4 +94,7 @@ class Product < ApplicationRecord
     end
   end
 
+  def wished?
+    !wishes.empty?
+  end
 end
