@@ -46,6 +46,14 @@ Rails.application.routes.draw do
       draw :shopping_carts
       # Shopping car - end
 
+      # Contacts routes
+      draw :contacts
+      # Contacts routes - end
+
+      # Contact Types routes
+      draw :contact_types
+      # Contact Types routes - end
+
       # Concerns routes
       draw :concerns
       # Concerns routes - end

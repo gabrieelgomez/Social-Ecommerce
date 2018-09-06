@@ -24,7 +24,7 @@ class Profile < ApplicationRecord
   has_many :wishes, as: :wisheable
   has_many :sended_wishes
   has_many :answer_wishes
-
+  has_many :contacts, dependent: :destroy
   # Validations
   # validate    :validate_seller, on: :create
   validates   :user_id, numericality: true

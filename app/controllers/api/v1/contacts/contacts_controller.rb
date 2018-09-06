@@ -5,7 +5,7 @@ module Api::V1
 
     def contact_params
       params.require(:contact).permit(:name, :email, :contact_type_id, :comments,
-                                      :phone, :country)
+                                      :phone, :country, :profile_id)
     end
 
     def set_contact

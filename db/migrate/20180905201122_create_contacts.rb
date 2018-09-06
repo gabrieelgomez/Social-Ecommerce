@@ -6,6 +6,7 @@ class CreateContacts < ActiveRecord::Migration[5.1]
       t.string :country
       t.text :comments
       t.string :phone
+      t.references :profile, foreign_key: true
       t.references :contact_type, foreign_key: true
 
       t.timestamps
