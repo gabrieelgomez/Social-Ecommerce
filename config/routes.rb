@@ -95,6 +95,7 @@ Rails.application.routes.draw do
           get '/:category_id', to: 'show#show'
           put '/:category_id/update', to: 'actions#update'
           delete '/:category_id/destroy', to: 'actions#destroy'
+          get '/products/active', to: 'categories#set_categories_products'
         end
 
       end

@@ -4,6 +4,11 @@ module Api::V1::Profiles
     # before_action :set_category, only: [:update, :destroy, :show]
     before_action :set_category, only: [:show]
 
+		def set_categories_products
+			@result = Category.all.select{|cat| cat.products.count > 0}
+			render json: @result, status: 200
+		end
+
     private
 
     def category_params
