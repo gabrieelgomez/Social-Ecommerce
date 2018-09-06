@@ -13,8 +13,8 @@ module Api::V1::Pymes
 
     def show
       render json: @pyme,
-             serializer: ::Pymes::ShowSerializer,
-             scope: {fields: params[:fields]},
+            #  serializer: ::Pymes::ShowSerializer,
+            #  scope: {fields: params[:fields]},
              status: 200
     end
 

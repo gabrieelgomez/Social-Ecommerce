@@ -1,18 +1,17 @@
 class Pymes::ShowSerializer < ActiveModel::Serializer
-  attributes :id, :title
-  has_many :products
+  attributes :id, :user_id, :type_profile, :title, :name, :score,
+              :email, :banner, :photo, :launched, :phone, :url, :address,
+              :vision, :mission, :description, :web, :profile, :experience,
+              :validation, :censured, :social_account, :categories, :locations,
+              :options, :custom_fields, :slug
+  # has_many :products
 
   def attributes(args)
     data = super
     fields = scope[:fields]
-    if fields
-      replace = {}
-      fields.split(',').map(&:to_sym).map do |field|
-        replace[field] = object[field]
-      end
-      return replace
-    else
-      return data
+    return data unless fields
+    fields.split(',').each_with_object({}) do |field, hash|
+      hash[field] = object[field]
     end
   end
 end

@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180823183714) do
+=======
+ActiveRecord::Schema.define(version: 20180904182548) do
+>>>>>>> 3348d328a6ba086bb81c1da68117b3655c55fa0b
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,6 +189,13 @@ ActiveRecord::Schema.define(version: 20180823183714) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable_type_and_locatable_id"
+  end
+
+  create_table "membership_conversations", force: :cascade do |t|
+    t.bigint "conversation_id"
+    t.string "memberable_type", null: false
+    t.integer "memberable_id", null: false
+    t.index ["conversation_id"], name: "index_membership_conversations_on_conversation_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -586,6 +597,7 @@ ActiveRecord::Schema.define(version: 20180823183714) do
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "items_options", "items"
   add_foreign_key "items_options", "options"
+  add_foreign_key "membership_conversations", "conversations"
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
   add_foreign_key "options_products", "options"

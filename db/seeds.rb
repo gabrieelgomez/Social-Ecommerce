@@ -518,6 +518,7 @@ options_products = [
         name: Faker::SiliconValley.invention,
         cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: pyme,
+        prominent: [true, false].sample,
         price: Faker::Number.between(100, 10000),
         subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
       )
@@ -569,6 +570,7 @@ options_products = [
         name: Faker::Job.field,
         cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: independent,
+        prominent: [true, false].sample,
         price: Faker::Number.between(100, 10000),
         subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
       )
@@ -622,6 +624,7 @@ options_products = [
       name: Faker::Job.field,
       cover: Rails.root.join('spec/support/product_cover.jpg').open,
       productable: seller,
+      prominent: [true, false].sample,
       price: Faker::Number.between(100, 10000),
       subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
 

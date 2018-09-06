@@ -1,12 +1,16 @@
 module Api::V1
   class Rates::RatesController < ApiController
     include Concerns::ModelModulation
+    before_action :set_rateable
+
+    def set_raiting_user_profile
+      render json: @rateable.rates.map(&:user), status: 200
+    end
 
     private
 
     def set_rateable
-      @rateable = custom_find { 
-        params[:rateable_type].modelarize.find params[:rateable_id]
+      @rateable = custom_find { params[:rateable_type].modelarize.find params[:rateable_id]
       }
     end
 

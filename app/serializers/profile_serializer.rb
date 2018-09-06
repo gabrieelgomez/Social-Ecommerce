@@ -5,4 +5,14 @@ class ProfileSerializer < ActiveModel::Serializer
              :validation, :censured, :social_account, :categories, :locations,
              :options, :custom_fields, :slug
   # attributes *Profile.column_name
+  def categories
+    object.categories.as_json(
+      only: %i[id name],
+      include: [
+        subcategories: {
+          only: %i[id name]
+        }
+      ]
+    )
+  end
 end

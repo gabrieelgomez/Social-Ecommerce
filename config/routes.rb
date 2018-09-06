@@ -31,7 +31,7 @@ Rails.application.routes.draw do
           post '/create', to: 'create#create'
           get '/my_conversations', to: 'show#current_user_conversations'
           get '/own_profile_conversations', to: 'show#own_profiles_conversations'
-          # delete '/:id/destroy', to: 'destroy#destroy'
+          delete '/:conversation_id/destroy', to: 'destroy#destroy'
         end
         namespace :messages do
           scope '/:conversation_id' do
@@ -87,6 +87,7 @@ Rails.application.routes.draw do
       namespace :profiles do
 
         get '/all', to: 'profiles#all_profiles'
+        get '/:profile_id/products_prominent', to: 'profiles#products_prominent'
 
         namespace :categories do
           post '/', to: 'actions#create'
@@ -94,6 +95,7 @@ Rails.application.routes.draw do
           get '/:category_id', to: 'show#show'
           put '/:category_id/update', to: 'actions#update'
           delete '/:category_id/destroy', to: 'actions#destroy'
+          get '/products/active', to: 'categories#set_categories_products'
         end
 
       end
@@ -145,8 +147,14 @@ Rails.application.routes.draw do
 
       draw :saved_offers
 
+      namespace :products do
+        get '/sort_by_wishes', to: 'show#sorting_by'
+      end
+
       # --- Product routes and related to them
       scope '/:type_profile/:profile_id' do
+
+
         # Product routes
         draw :products
         # Product routes - end

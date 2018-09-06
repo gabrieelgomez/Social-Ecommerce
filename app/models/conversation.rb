@@ -2,12 +2,14 @@ class Conversation < ApplicationRecord
   belongs_to :senderable, polymorphic: true
   belongs_to :recipientable, polymorphic: true
   has_many :messages, dependent: :destroy
-  # after_create :assign_conversation_type
+  has_many :membership_conversations, dependent: :destroy
+  after_create :assign_conversation_membership
 
   # validates :senderable_id, uniqueness: {
   #   scope: %i[senderable_type recipientable_id]
   # }
-  validates :senderable_id, :senderable_type, :recipientable_id, :recipientable_type, presence: true
+  validates :senderable_id, :senderable_type, :recipientable_id,
+            :recipientable_type, presence: true
 
   validates :type_messages, uniqueness: {
     scope: %i[senderable_id senderable_type recipientable_id recipientable_type]
@@ -22,6 +24,17 @@ class Conversation < ApplicationRecord
   scope :user_conversations, -> (current_user) do
     where(senderable: current_user).or(where(recipientable: current_user))
   end
+
+  def membership?(member)
+    membership_conversations.where(memberable: member).exists?
+  end
+
+  # def member?(member)
+  #   selection = select do |conv|
+  #     conv.membership?(member).exists?
+  #   end
+  #   selection
+  # end
 
   def sender
     return senderable.as_json(methods: [:type_profile]) if senderable.is_a? Profile
@@ -62,5 +75,11 @@ class Conversation < ApplicationRecord
     elsif senderable.has_role? :superadmin or recipientable.has_role? :superadmin
       update(type_messages: 'manager')
     end
+  end
+
+  def assign_conversation_membership
+    # byebug
+    MembershipConversation.create(conversation: self, memberable: recipientable)
+    MembershipConversation.create(conversation: self, memberable: senderable)
   end
 end
