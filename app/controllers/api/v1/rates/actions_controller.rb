@@ -1,9 +1,7 @@
 module Api::V1::Rates
   class ActionsController < RatesController
     before_action :authenticate_v1_user!
-    before_action :rate_params, only: [:create]
     before_action :set_score_validate, only: [:create]
-    before_action :set_rateable
 
     def create
       return update if @score_user

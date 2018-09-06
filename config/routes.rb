@@ -87,6 +87,7 @@ Rails.application.routes.draw do
       namespace :profiles do
 
         get '/all', to: 'profiles#all_profiles'
+        get '/:profile_id/products_prominent', to: 'profiles#products_prominent'
 
         namespace :categories do
           post '/', to: 'actions#create'
