@@ -7,7 +7,10 @@ module Api::V1::Sellers
 
     # Public methods
     def index
-      render json: Seller.all, status: 200
+      render json: Seller.all,
+             each_serializer: IndexSerializer,
+             fields: fields,
+             status: 200
     end
 
     def show
@@ -17,6 +20,15 @@ module Api::V1::Sellers
     def own_sellers
       render json: current_v1_user.seller,
              status: 200
+    end
+
+    private
+
+    def fields
+      return {
+        sellers: params[:fields].split(',').map(&:to_sym)
+      } if params[:fields]
+      nil
     end
   end
 end
