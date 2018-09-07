@@ -6,6 +6,16 @@ module Api::V1
 
     private
 
+    def fields(key)
+      if params[:fields]
+        result = {}
+        result[key] = params[:fields].split(',').map(&:to_sym)
+        return result
+      else
+        nil
+      end
+    end
+
     def general_params(object)
       params.require(object).permit(:user_id, :title, :name, :type_profile,
                                     :email, :banner, :photo, :launched,
