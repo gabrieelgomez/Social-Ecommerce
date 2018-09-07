@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180830162246) do
+ActiveRecord::Schema.define(version: 20180904182548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,14 +160,14 @@ ActiveRecord::Schema.define(version: 20180830162246) do
   end
 
   create_table "job_offers", force: :cascade do |t|
-    t.string "photo"
-    t.string "charge"
-    t.string "location"
-    t.string "salary"
-    t.integer "day_rutine_type"
-    t.integer "job_type"
-    t.text "details"
-    t.string "status"
+    t.string "photo", default: ""
+    t.string "charge", default: ""
+    t.string "location", default: ""
+    t.string "salary", default: ""
+    t.integer "day_rutine_type", default: 0
+    t.integer "job_type", default: 0
+    t.text "details", default: ""
+    t.string "status", default: ""
     t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -623,10 +623,7 @@ ActiveRecord::Schema.define(version: 20180830162246) do
   add_foreign_key "items_options", "items"
   add_foreign_key "items_options", "options"
   add_foreign_key "job_offers", "profiles"
-<<<<<<< HEAD
-=======
   add_foreign_key "membership_conversations", "conversations"
->>>>>>> 2383d14784cbae4d801342f4e8c1af7418e82ec1
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
   add_foreign_key "options_products", "options"
