@@ -15,10 +15,6 @@ module Api::V1::Contacts
 
     private
 
-    def 
-      
-    end
-
     def set_profile
       @profile = custom_find {
         Profile.find(params[:profile_id])
