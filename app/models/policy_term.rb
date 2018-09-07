@@ -1,0 +1,2 @@
+class PolicyTerm < ApplicationRecord
+end
