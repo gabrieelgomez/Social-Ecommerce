@@ -84,6 +84,7 @@ Rails.application.routes.draw do
           get '/services/suggest', to: 'services_profiles#suggest_query'
           get '/services/profiles', to: 'services_profiles#service_profile'
           get '/services/profiles/by_products_status', to: 'services_profiles#service_by_products_status'
+          get '/services/profiles/by_products_nested_categories', to: 'services_profiles#profiles_by_cat_nested_products'
           get '/services/products', to: 'services_products#service_product'
           get '/services/filters_by_cat', to: 'services#filters_by_cat'
         # End Routes Services
