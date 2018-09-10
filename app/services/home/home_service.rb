@@ -49,15 +49,14 @@ module Home
     def self.categories_by_profiles_nested_products(params)
       # Response de categorias con profiles que tengan mas productos de esa categoria
       categories =  Category.all.collect{ |category|
-        # next unless category.class.eql?(Pyme)
         {
           category_id: category.id,
-          profiles: category.by_profiles.count
+          category_name: category.name,
+          profiles: category.profiles_products_active
         }
       }.uniq
       categories
     end
-
 
   end
 
