@@ -16,7 +16,7 @@ module Api::V1::Services
           categories_listing_by_products: Home::HomeService.categories(params),
           products_by_created_at: Home::HomeService.products_by_created_at(params),
           products_by_wishes: Home::HomeService.products_by_wishes(params),
-          profiles_by_categories_nested_products: Home::HomeService.profiles_by_categories_nested_products(params)
+          categories_by_profiles_nested_products: Home::HomeService.categories_by_profiles_nested_products(params)
         }
       }
     end

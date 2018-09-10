@@ -14,7 +14,8 @@ class Category < ApplicationRecord
     pymes        = self.pymes
     sellers      = self.sellers
     independents = self.independents
-    pymes.to_a.concat(sellers.to_a).concat(independents.to_a)
+    ids = pymes.to_a.concat(sellers.to_a).concat(independents.to_a).map(&:id)
+    Profile.where(id:ids)
   end
 
 end
