@@ -18,24 +18,4 @@ class Category < ApplicationRecord
     Profile.where(id:ids)
   end
 
-  # Method used in home services categories by profiles nested
-  def profiles_products_active
-    profiles = self.by_profiles.collect{ |profile|
-      products_count = profile.products.select{|product| product.category_ids.include?(self.id) }.count
-      next if products_count.zero?
-      {
-        profile_id: profile.id,
-        products_categories: products_count,
-        profile_data: [
-          type_profile: profile.type_profile,
-          banner: profile.banner,
-          photo: profile.photo,
-          title: profile.title
-        ]
-      }
-    }.uniq
-    profiles
-    # Faltar ordenar este hash de manera asc por la key products_categories de cada categoria
-  end
-
 end

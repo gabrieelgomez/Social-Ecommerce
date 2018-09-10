@@ -10,13 +10,13 @@ module Api::V1::Services
     def build_json(params)
       @data = {
         data: {
-          profiles_by_created_products: Home::HomeService.profiles(params),
+          profiles_by_created_products: Home::HomeService.profiles,
           independents_by_created_at: Home::HomeService.independents(params),
           sellers_by_followers: Home::HomeService.sellers(params),
-          categories_listing_by_products: Home::HomeService.categories(params),
+          categories_listing_by_products: Home::HomeService.categories,
           products_by_created_at: Home::HomeService.products_by_created_at(params),
           products_by_wishes: Home::HomeService.products_by_wishes(params),
-          categories_by_profiles_nested_products: Home::HomeService.categories_by_profiles_nested_products(params)
+          categories_by_profiles_nested_products: Home::HomeService.categories_by_profiles_nested_products
         }
       }
     end
