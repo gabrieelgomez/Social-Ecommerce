@@ -18,4 +18,8 @@ class Category < ApplicationRecord
     Profile.where(id:ids)
   end
 
+  def by_sorting_profiles_products
+    self.by_profiles.sort_by{|profile| profile.products_categories(self.id)}
+  end
+
 end

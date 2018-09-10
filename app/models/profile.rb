@@ -48,6 +48,10 @@ class Profile < ApplicationRecord
     %w[Pyme Independent Seller]
   end
 
+  def products_categories(id)
+    self.products.select{|product| product.category_ids.include?(id) }.count
+  end
+
   def create_locations
     self.states_codes   = []
     self.countries_codes = []
