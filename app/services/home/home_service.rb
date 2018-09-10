@@ -38,10 +38,12 @@ module Home
     # --------------------------------------------------------------------------
 
     # Services #1 profiles_by_created_products, GabrielGomez
-    def self.profiles
+    def self.profiles(params)
+      quantity = params[:quantity] || 10
       Pyme.all.sort_by{ |profile| (profile.products.map(&:status)-[false]).count }
               .reverse
-              .as_json(only: %i[id title photo created_at updated_at type_profile], methods: :category_ids)
+              .first(quantity)
+              .as_json(only: %i[id title photo name type_profile], methods: :category_ids)
     end
 
     # Services #4 categories_listing_by_products, GabrielGomez
@@ -58,7 +60,7 @@ module Home
           profiles: category.by_sorting_profiles_products
                             .reverse
                             .take(6)
-                            .as_json(only: %i[id title photo created_at updated_at type_profile], methods: :category_ids)
+                            .as_json(only: %i[id title photo name type_profile], methods: :category_ids)
         }
       }.uniq
     end
