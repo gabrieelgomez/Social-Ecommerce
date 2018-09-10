@@ -6,7 +6,7 @@ module Home
       quantity = params[:quantity] || 10
       Independent.order('created_at DESC')
                  .first(quantity)
-                 .as_json(only: %i[id title photo name type_profile])
+                 .as_json(only: %i[id title photo name type_profile created_at])
     end
 
     # Services #3 sellers_by_followers, Enmachs
@@ -15,7 +15,7 @@ module Home
       Seller.all.sort_by{ |seller| seller.followers_by_type_profile('User', 'Seller').count }
             .reverse
             .first(quantity)
-            .as_json(only: %i[id title photo name type_profile])
+            .as_json(only: %i[id title photo name type_profile created_at])
     end
 
     # Services #5 products_by_created_at, Enmachs
@@ -23,7 +23,7 @@ module Home
       quantity = params[:quantity] || 10
       Product.order('created_at DESC')
              .first(quantity)
-             .as_json(only: %i[id name])
+             .as_json(only: %i[id name created_at])
       # byebug
     end
 
@@ -33,7 +33,7 @@ module Home
       Product.all.sort_by{ |product| product.wishes.count }
              .reverse
              .first(quantity)
-             .as_json(only: %i[id name])
+             .as_json(only: %i[id name created_at])
       # byebug
     end
 
