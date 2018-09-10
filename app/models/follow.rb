@@ -3,6 +3,12 @@ class Follow < ActiveRecord::Base
 
   extend ActsAsFollower::FollowerLib
   extend ActsAsFollower::FollowScopes
+  extend ActsAsFollower::Follower
+  extend ActsAsFollower::Followable
+  # autoload :Follower,     'acts_as_follower/follower'
+  # autoload :Followable,   'acts_as_follower/followable'
+  # autoload :FollowerLib,  'acts_as_follower/follower_lib'
+  # autoload :FollowScopes, 'acts_as_follower/follow_scopes'
 
   # NOTE: Follows belong to the "followable" and "follower" interface
   belongs_to :followable, polymorphic: true
@@ -18,6 +24,10 @@ class Follow < ActiveRecord::Base
   # returns Follow records where followable is the record passed in.
   def self.for_followable_by_profile(followable, profile)
     where(followable_id: followable.id, followable_type: profile)
+  end
+
+  def example
+    'hello world'
   end
 
   def create_notify

@@ -3,18 +3,38 @@ module Home
   class HomeService
     # Services #2 independents_by_created_at, Enmachs
     def self.independents(params)
+      quantity = params[:quantity] || 10
+      Independent.order('created_at DESC')
+                 .first(quantity)
+                 .as_json(only: %i[id title photo name type_profile])
     end
 
     # Services #3 sellers_by_followers, Enmachs
     def self.sellers(params)
+      quantity = params[:quantity] || 10
+      Seller.all.sort_by{ |seller| seller.followers_by_type_profile('User', 'Seller').count }
+            .reverse
+            .first(quantity)
+            .as_json(only: %i[id title photo name type_profile])
     end
 
     # Services #5 products_by_created_at, Enmachs
     def self.products_by_created_at(params)
+      quantity = params[:quantity] || 10
+      Product.order('created_at DESC')
+             .first(quantity)
+             .as_json(only: %i[id name])
+      # byebug
     end
 
     # Services #6 products_by_wishes, Enmachs
     def self.products_by_wishes(params)
+      quantity = params[:quantity] || 10
+      Product.all.sort_by{ |product| product.wishes.count }
+             .reverse
+             .first(quantity)
+             .as_json(only: %i[id name])
+      # byebug
     end
 
     # --------------------------------------------------------------------------
@@ -58,6 +78,10 @@ module Home
       categories
     end
 
-  end
+    # private
 
+    # def quantity
+    #   params[:quantity] || 10
+    # end
+  end
 end
