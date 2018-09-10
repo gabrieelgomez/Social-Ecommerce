@@ -92,6 +92,13 @@ Rails.application.routes.draw do
       end
       # Search routes - end
 
+      # Services routes
+      namespace :services do
+        get '/home', to: 'home#home'
+
+      end
+      # Services routes - end
+
       # --- Categories Products routes
       namespace :profiles do
 
