@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180904182548) do
+ActiveRecord::Schema.define(version: 20180907205721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,26 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.datetime "updated_at", null: false
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "contact_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "country"
+    t.text "comments"
+    t.string "phone"
+    t.bigint "profile_id"
+    t.bigint "contact_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_type_id"], name: "index_contacts_on_contact_type_id"
+    t.index ["profile_id"], name: "index_contacts_on_profile_id"
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -160,14 +180,14 @@ ActiveRecord::Schema.define(version: 20180904182548) do
   end
 
   create_table "job_offers", force: :cascade do |t|
-    t.string "photo"
-    t.string "charge"
-    t.string "location"
-    t.string "salary"
-    t.integer "day_rutine_type"
-    t.integer "job_type"
-    t.text "details"
-    t.string "status"
+    t.string "photo", default: ""
+    t.string "charge", default: ""
+    t.string "location", default: ""
+    t.string "salary", default: ""
+    t.integer "day_rutine_type", default: 0
+    t.integer "job_type", default: 0
+    t.text "details", default: ""
+    t.string "status", default: ""
     t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -300,6 +320,13 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id"
+  end
+
+  create_table "policy_terms", force: :cascade do |t|
+    t.text "tems"
+    t.string "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -614,6 +641,8 @@ ActiveRecord::Schema.define(version: 20180904182548) do
 
   add_foreign_key "answer_wishes", "profiles"
   add_foreign_key "answer_wishes", "sended_wishes"
+  add_foreign_key "contacts", "contact_types"
+  add_foreign_key "contacts", "profiles"
   add_foreign_key "custom_fields_items", "custom_fields"
   add_foreign_key "custom_fields_items", "items"
   add_foreign_key "custom_fields_products", "custom_fields"
