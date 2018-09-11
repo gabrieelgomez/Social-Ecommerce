@@ -3,7 +3,7 @@ module Api::V1
     # before_action :build_json, only: :filters_search
 
     def global_search
-      @array = SearchService.deep_search(params)
+      @array = Search::SearchService.deep_search(params)
       @total = @array
       @result = Kaminari.paginate_array(@array).page(params[:page]).per(params[:per_page])
       render json: {
@@ -13,7 +13,7 @@ module Api::V1
     end
 
     def filters_search
-      @array = LookForService.search(params)
+      @array = LookFor::GeneralService.search(params)
       @total = @array[0]
       build_json
       @result = Kaminari.paginate_array(@array[0]).page(params[:page]).per(params[:per_page])
@@ -25,7 +25,7 @@ module Api::V1
     end
 
     def locations_response
-      @result = LookForService.locations
+      @result = LookFor::GeneralService.locations
       render json: {
         cities: @result.first,
         countries: @result.second
