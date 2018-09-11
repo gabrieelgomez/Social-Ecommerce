@@ -1,7 +1,5 @@
 module Api::V1
   class PolicyTerms::PolicyTermsController < ApiController
-    before_action :authenticate_v1_user!
-    before_action :verify_superadmin_rol
 
     private
 

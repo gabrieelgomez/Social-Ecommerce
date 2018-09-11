@@ -1,5 +1,7 @@
 module Api::V1::PolicyTerms
   class UpdateController < PolicyTermsController
+    before_action :authenticate_v1_user!, only: %i[update]
+    before_action :verify_superadmin_rol, only: %i[update]
     before_action :set_policy_term, only: %i[update]
 
     def update
