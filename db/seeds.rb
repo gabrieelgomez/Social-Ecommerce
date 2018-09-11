@@ -665,4 +665,10 @@ else
   puts superadmin.errors
 end
 
-Profile.all.map{|profile| profile.create_locations}
+Profile.all.map(&:create_locations)
+
+policy = PolicyTerm.new(
+  terms: '',
+  file: ''
+)
+puts 'Policy Term created' if policy.save

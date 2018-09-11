@@ -101,9 +101,7 @@ class Profile < ApplicationRecord
   # ----------------------------------
 
 
-  # ----------------------------------
-  # Overwriting Methods
-  #Metodo para buscar todos los usuarios que siguen a un perfil
+  # Metodo para buscar todos los usuarios que siguen a un perfil
   def followers_by_type_profile(follower_type, profile, options={})
     follows = follower_type.constantize.
       joins(:follows).
