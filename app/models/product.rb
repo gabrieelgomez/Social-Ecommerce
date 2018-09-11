@@ -4,7 +4,6 @@ class Product < ApplicationRecord
   attr_accessor :document_data
 
   serialize :states_codes
-
   # Callbacks
   after_create :create_notify
   before_save :create_profile, :create_categories, :create_locations

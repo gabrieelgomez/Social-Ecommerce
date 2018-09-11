@@ -6,6 +6,7 @@ module Api::V1::Independents
 
     def update
       if @independent.update(general_params(:independent))
+        @independent.schedule.update(params[:schedule]) if params[:schedule]
         render json: @independent, status: 200
       else
         render json: @independent.errors,

@@ -8,7 +8,9 @@ module Api::V1::Pymes
 
     # Public methods
     def index
-      render json: Pyme.all, status: 200
+      render json: Pyme.all,
+             fields: fields(:pymes),
+             status: 200
     end
 
     def show

@@ -8,7 +8,9 @@ module Api::V1::Independents
 
     # Public methods
     def index
-      render json: Independent.all, status: 200
+      render json: Independent.all,
+             fields: fields(:independents),
+             status: 200
     end
 
     def show

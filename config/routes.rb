@@ -46,6 +46,14 @@ Rails.application.routes.draw do
       draw :shopping_carts
       # Shopping car - end
 
+      # Contacts routes
+      draw :contacts
+      # Contacts routes - end
+
+      # Contact Types routes
+      draw :contact_types
+      # Contact Types routes - end
+
       # Concerns routes
       draw :concerns
       # Concerns routes - end
@@ -73,15 +81,23 @@ Rails.application.routes.draw do
         get '/locations/response', to: 'search#locations_response'
 
         # Routes Services
-          get '/services/profiles', to: 'services_profiles#service_profile'
-          get '/services/profiles/by_products_status', to: 'services_profiles#service_by_products_status'
-          get '/services/products', to: 'services_products#service_product'
-          get '/services/suggest', to: 'services#suggest_query'
-          get '/services/filters_by_cat', to: 'services#filters_by_cat'
+        get '/services/suggest', to: 'services_profiles#suggest_query'
+        get '/services/profiles', to: 'services_profiles#service_profile'
+        get '/services/profiles/by_products_status', to: 'services_profiles#service_by_products_status'
+        get '/services/profiles/by_products_nested_categories', to: 'services_profiles#profiles_by_cat_nested_products'
+        get '/services/products', to: 'services_products#service_product'
+        get '/services/filters_by_cat', to: 'services#filters_by_cat'
         # End Routes Services
 
       end
       # Search routes - end
+
+      # Services routes
+      namespace :services do
+        get '/home', to: 'home#home'
+
+      end
+      # Services routes - end
 
       # --- Categories Products routes
       namespace :profiles do

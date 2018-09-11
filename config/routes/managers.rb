@@ -11,5 +11,9 @@ namespace :managers do
   post '/profiles/:profile_id/:censorship', to: 'profiles#censorship'
 
   post '/send_diffusion', to: 'users#diffusion'
+end
 
+namespace :policy_terms do
+  get '/show', to: 'show#show'
+  put '/update', to: 'update#update'
 end

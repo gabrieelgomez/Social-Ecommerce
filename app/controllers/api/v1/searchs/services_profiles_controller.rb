@@ -38,5 +38,18 @@ module Api::V1::Searchs
       service_profile(profiles)
     end
 
+    def profiles_by_cat_nested_products
+      # Endpoint de profiles por productos asociados a una categoria
+      # y ordenarlos de mayor a menor
+      category = params[:category].to_i || 999999
+      @result = Profile.all.select{|profile|
+        profile.products.map{|product|
+          product.category_ids.include?(category)
+        }.include?(true)
+      }
+
+      render json: @result, status: 200
+    end
+
   end
 end

@@ -71,6 +71,26 @@ ActiveRecord::Schema.define(version: 20180823183714) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "contact_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "country"
+    t.text "comments"
+    t.string "phone"
+    t.bigint "profile_id"
+    t.bigint "contact_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_type_id"], name: "index_contacts_on_contact_type_id"
+    t.index ["profile_id"], name: "index_contacts_on_profile_id"
+  end
+
   create_table "conversations", force: :cascade do |t|
     t.string "recipientable_type"
     t.bigint "recipientable_id"
@@ -160,16 +180,18 @@ ActiveRecord::Schema.define(version: 20180823183714) do
   end
 
   create_table "job_offers", force: :cascade do |t|
-    t.string "photo"
-    t.string "charge"
-    t.string "location"
-    t.string "salary"
-    t.integer "day_rutine_type"
-    t.integer "job_type"
-    t.text "details"
-    t.string "status"
+    t.string "photo", default: ""
+    t.string "charge", default: ""
+    t.string "location", default: ""
+    t.string "salary", default: ""
+    t.integer "day_rutine_type", default: 0
+    t.integer "job_type", default: 0
+    t.text "details", default: ""
+    t.string "status", default: ""
+    t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_job_offers_on_profile_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -300,6 +322,13 @@ ActiveRecord::Schema.define(version: 20180823183714) do
     t.index ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id"
   end
 
+  create_table "policy_terms", force: :cascade do |t|
+    t.text "tems"
+    t.string "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text "content"
     t.string "postable_type"
@@ -307,6 +336,23 @@ ActiveRecord::Schema.define(version: 20180823183714) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
+  end
+
+  create_table "postulations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "job_offer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_offer_id"], name: "index_postulations_on_job_offer_id"
+    t.index ["user_id"], name: "index_postulations_on_user_id"
+  end
+
+  create_table "postulations_questions", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "postulation_id"
+    t.string "answer"
+    t.index ["postulation_id"], name: "index_postulations_questions_on_postulation_id"
+    t.index ["question_id"], name: "index_postulations_questions_on_question_id"
   end
 
   create_table "price_ranges", force: :cascade do |t|
@@ -388,9 +434,19 @@ ActiveRecord::Schema.define(version: 20180823183714) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "q_options", force: :cascade do |t|
+    t.string "name"
+    t.integer "position"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_q_options_on_question_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.text "title"
     t.text "description"
+    t.string "q_type"
     t.integer "position"
     t.bigint "job_offer_id"
     t.datetime "created_at", null: false
@@ -585,6 +641,8 @@ ActiveRecord::Schema.define(version: 20180823183714) do
 
   add_foreign_key "answer_wishes", "profiles"
   add_foreign_key "answer_wishes", "sended_wishes"
+  add_foreign_key "contacts", "contact_types"
+  add_foreign_key "contacts", "profiles"
   add_foreign_key "custom_fields_items", "custom_fields"
   add_foreign_key "custom_fields_items", "items"
   add_foreign_key "custom_fields_products", "custom_fields"
@@ -593,12 +651,18 @@ ActiveRecord::Schema.define(version: 20180823183714) do
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "items_options", "items"
   add_foreign_key "items_options", "options"
+  add_foreign_key "job_offers", "profiles"
   add_foreign_key "membership_conversations", "conversations"
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
   add_foreign_key "options_products", "options"
   add_foreign_key "options_products", "products"
+  add_foreign_key "postulations", "job_offers"
+  add_foreign_key "postulations", "users"
+  add_foreign_key "postulations_questions", "postulations"
+  add_foreign_key "postulations_questions", "questions"
   add_foreign_key "price_ranges", "products"
+  add_foreign_key "q_options", "questions"
   add_foreign_key "questions", "job_offers"
   add_foreign_key "rates", "users"
   add_foreign_key "saved_offers", "offers"
