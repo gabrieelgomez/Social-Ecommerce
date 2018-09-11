@@ -3,7 +3,7 @@ module Home
   class HomeService
     # Services #2 independents_by_created_at, Enmachs
     def self.independents(params)
-      quantity = params[:quantity] || 10
+      quantity = params[:quantity].to_i || 10
       Independent.order(created_at: :desc)
                  .first(quantity)
                  .as_json(only: %i[id title photo name type_profile])
@@ -11,7 +11,7 @@ module Home
 
     # Services #3 sellers_by_followers, Enmachs
     def self.sellers(params)
-      quantity = params[:quantity] || 10
+      quantity = params[:quantity].to_i || 10
       Seller.all.sort_by{ |seller| seller.followers_by_type_profile('User', 'Seller').count }
             .reverse
             .first(quantity)
@@ -20,7 +20,7 @@ module Home
 
     # Services #5 products_by_created_at, Enmachs
     def self.products_by_created_at(params)
-      quantity = params[:quantity] || 10
+      quantity = params[:quantity].to_i || 10
       Product.order(created_at: :desc)
              .first(quantity)
              .as_json(only: %i[id name])
@@ -28,7 +28,7 @@ module Home
 
     # Services #6 products_by_wishes, Enmachs
     def self.products_by_wishes(params)
-      quantity = params[:quantity] || 10
+      quantity = params[:quantity].to_i || 10
       Product.all.sort_by{ |product| product.wishes.count }
              .reverse
              .first(quantity)
@@ -39,7 +39,7 @@ module Home
 
     # Services #1 profiles_by_created_products, GabrielGomez
     def self.profiles(params)
-      quantity = params[:quantity] || 10
+      quantity = params[:quantity].to_i || 10
       Pyme.all.sort_by{ |profile| (profile.products.map(&:status)-[false]).count }
               .reverse
               .first(quantity)
