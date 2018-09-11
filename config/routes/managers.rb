@@ -14,5 +14,6 @@ namespace :managers do
 end
 
 namespace :policy_terms do
+  get '/show', to: 'show#show'
   put '/update', to: 'update#update'
 end
