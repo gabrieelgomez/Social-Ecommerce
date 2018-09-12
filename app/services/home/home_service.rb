@@ -24,7 +24,8 @@ module Home
       Product.order(created_at: :desc)
              .first(quantity)
              .as_json(
-               only: %i[id name price created_at]
+               only: %i[id name price created_at],
+               methods: %i[owner]
              )
       # byebug
     end

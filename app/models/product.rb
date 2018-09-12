@@ -42,6 +42,14 @@ class Product < ApplicationRecord
     }
   end
 
+  def owner
+    {
+      id:           productable.id,
+      name:         productable.name,
+      type_profile: productable.type_profile
+    }
+  end
+
   def create_locations
     self.states_codes   = []
     self.countries_codes = []
