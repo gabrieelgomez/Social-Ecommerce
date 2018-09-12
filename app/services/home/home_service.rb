@@ -55,6 +55,8 @@ module Home
     def self.categories
       Category.all
               .select { |cat| cat.products.count.positive? }
+              .sort_by(&:products_count)
+              .reverse
               .as_json(
                 only: %i[id name],
                 methods: %i[products_count]
