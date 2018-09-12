@@ -23,7 +23,7 @@ module Home
       quantity = params[:quantity].to_i || 10
       Product.order(created_at: :desc)
              .first(quantity)
-             .as_json(only: %i[id name created_at])
+             .as_json(only: %i[id name price created_at])
       # byebug
     end
 
@@ -33,7 +33,7 @@ module Home
       Product.all.sort_by{ |product| product.wishes.count }
              .reverse
              .first(quantity)
-             .as_json(only: %i[id name created_at])
+             .as_json(only: %i[id name price created_at])
       # byebug
     end
 
