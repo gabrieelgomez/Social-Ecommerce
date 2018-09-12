@@ -3,6 +3,7 @@ module Api::V1::Searchs
 
     # Services Profile: Ultimos profiles, cantidad y por tipo de profile
     def service_profile(objects = nil)
+      quantity      = params[:quantity].to_i || 10
       case objects
         when nil
           ids = Profile.last(quantity).map(&:id)
@@ -11,9 +12,9 @@ module Api::V1::Searchs
       end
 
       # Params
-      quantity      = params[:quantity].to_i || 10
       type_profiles = params[:type_profile].try(:split, '-').try(:map, &:capitalize) || []
       prominent     = params[:prominent] || nil
+      # Falta que se filtren por categoria
 
       # Search Service
       profiles = Profile.where(id:ids)

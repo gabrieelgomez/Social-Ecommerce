@@ -1,4 +1,4 @@
-class Filter
+class FilterService
 
   # Filters by profiles
   def self.type_profiles(objects)
