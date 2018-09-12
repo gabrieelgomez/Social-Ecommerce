@@ -14,4 +14,4 @@
 !/tmp/.keep
 .env
 .byebug_history
-/public/uploads
+/public/uploads/product
