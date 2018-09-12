@@ -80,39 +80,39 @@ class FilterService
   # Filter by Countries
   def self.countries(objects)
     @countries = []
-    # countries = objects.collect{|object| object.countries_codes}.flatten.uniq
-    # cities    = objects.collect{|object| object.states_codes.flatten}.flatten.uniq
-    # countries.each do |country|
-    #   total_country = 0
-    #   objects.map{ |object| total_country+=1 if object.countries_codes.include?(country)}
-    #   unless total_country.zero?
-    #     @countries.push(
-    #       country_name: CS.get[country.to_sym],
-    #       country_code: country,
-    #       total: total_country,
-    #       cities: set_cities(country, cities, objects)
-    #     )
-    #   end
-    # end
-    #
-    # @countries
+    countries = objects.collect{|object| object.countries_codes}.flatten.uniq
+    cities    = objects.collect{|object| object.states_codes.flatten}.flatten.uniq
+    countries.each do |country|
+      total_country = 0
+      objects.map{ |object| total_country+=1 if object.countries_codes.include?(country)}
+      unless total_country.zero?
+        @countries.push(
+          country_name: CS.get[country.to_sym],
+          country_code: country,
+          total: total_country,
+          cities: set_cities(country, cities, objects)
+        )
+      end
+    end
+
+    @countries
   end
 
   def self.set_cities(country, cities_array, objects)
     @cities = []
-    # cities_array.each do |city|
-    #   next if city.eql?(country)
-    #   total_cities = 0
-    #   objects.map{ |object| total_cities+=1 if object.states_codes.flatten.include?(city)}
-    #   unless total_cities.zero?
-    #     @cities.push(
-    #       city_name: city.capitalize,
-    #       city_code: city,
-    #       total: total_cities
-    #     )
-    #   end
-    # end
-    # @cities
+    cities_array.each do |city|
+      next if city.eql?(country)
+      total_cities = 0
+      objects.map{ |object| total_cities+=1 if object.states_codes.flatten.include?(city)}
+      unless total_cities.zero?
+        @cities.push(
+          city_name: city.capitalize,
+          city_code: city,
+          total: total_cities
+        )
+      end
+    end
+    @cities
   end
 
   # End Filters by Countries
