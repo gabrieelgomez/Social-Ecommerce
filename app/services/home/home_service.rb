@@ -50,7 +50,12 @@ module Home
 
     # Services #4 categories_listing_by_products, GabrielGomez
     def self.categories
-      Category.all.select{|cat| cat.products.count > 0}
+      Category.all
+              .select { |cat| cat.products.positive? }
+              .as_json(
+                only: %i[id name],
+                methods: %i[products_count]
+              )
     end
 
     # Services #7 categories_by_profiles_nested_products, GabrielGomez

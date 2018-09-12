@@ -22,4 +22,8 @@ class Category < ApplicationRecord
     self.by_profiles.sort_by{|profile| profile.products_categories(self.id)}
   end
 
+  def products_count
+    products.count
+  end
+
 end
