@@ -50,6 +50,10 @@ class Product < ApplicationRecord
     }
   end
 
+  def wish
+    nil
+  end
+
   def create_locations
     self.states_codes   = []
     self.countries_codes = []

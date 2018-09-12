@@ -25,7 +25,7 @@ module Home
              .first(quantity)
              .as_json(
                only: %i[id name price created_at],
-               methods: %i[owner]
+               methods: %i[owner wish]
              )
       # byebug
     end
