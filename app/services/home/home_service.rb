@@ -23,7 +23,9 @@ module Home
       quantity = params[:quantity].to_i || 10
       Product.order(created_at: :desc)
              .first(quantity)
-             .as_json(only: %i[id name price created_at])
+             .as_json(
+               only: %i[id name price created_at]
+             )
       # byebug
     end
 
@@ -51,7 +53,7 @@ module Home
     # Services #4 categories_listing_by_products, GabrielGomez
     def self.categories
       Category.all
-              .select { |cat| cat.products.positive? }
+              .select { |cat| cat.products.count.positive? }
               .as_json(
                 only: %i[id name],
                 methods: %i[products_count]
