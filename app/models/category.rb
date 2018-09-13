@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-
+  # mount_base64_uploader :cover, ImageUploader
   # Relations
   has_and_belongs_to_many :pymes
   has_and_belongs_to_many :profiles

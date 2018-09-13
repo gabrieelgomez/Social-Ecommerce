@@ -419,7 +419,10 @@ categories = [
 ]
 
 categories.each_with_index do |category, i|
-  categoria = Category.create(name: category[:name])
+  categoria = Category.create(
+    name: category[:name],
+    cover: Faker::Company.logo
+  )
   category[:subcategories].each_with_index do |subcat, i|
     Subcategory.create(name: subcat, category: categoria)
   end

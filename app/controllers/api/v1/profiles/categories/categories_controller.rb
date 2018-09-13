@@ -12,7 +12,7 @@ module Api::V1::Profiles
     private
 
     def category_params
-      params.require(:categories).permit(:name)
+      params.require(:categories).permit(:cover, :name)
     end
 
     def set_category
