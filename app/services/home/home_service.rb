@@ -45,10 +45,10 @@ module Home
     # Services #1 profiles_by_created_products, GabrielGomez
     def self.profiles(params)
       quantity = params[:quantity].to_i || 10
-      Pyme.all.sort_by{ |profile| (profile.products.map(&:status)-[false]).count }
-              .reverse
-              .first(quantity)
-              .as_json(only: %i[id title photo name type_profile], methods: %i[category_ids follow])
+      Pyme.all.sort_by { |profile| (profile.products.map(&:status)-[false]).count }
+          .reverse
+          .first(quantity)
+          .as_json(only: %i[id title photo name type_profile], methods: %i[category_ids follow])
     end
 
     # Services #4 categories_listing_by_products, GabrielGomez

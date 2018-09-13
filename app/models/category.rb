@@ -25,5 +25,4 @@ class Category < ApplicationRecord
   def products_count
     products.count
   end
-
 end
