@@ -58,7 +58,7 @@ module Home
               .sort_by(&:products_count)
               .reverse
               .as_json(
-                only: %i[id name],
+                only: %i[id name cover],
                 methods: %i[products_count]
               )
     end
@@ -69,6 +69,7 @@ module Home
         {
           category_id: category.id,
           category_name: category.name,
+          category_cover: category.cover,
           profiles: category.by_sorting_profiles_products
                             .reverse
                             .take(6)

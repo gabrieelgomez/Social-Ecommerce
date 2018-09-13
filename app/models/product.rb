@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
 
-  mount_base64_uploader :cover, ImageUploader
+  # mount_base64_uploader :cover, ImageUploader
   attr_accessor :document_data
 
   serialize :states_codes
