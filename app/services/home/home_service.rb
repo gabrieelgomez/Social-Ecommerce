@@ -5,6 +5,7 @@ module Home
     def self.independents(params)
       quantity = params[:quantity].to_i || 10
       Independent.order(created_at: :desc)
+                 .reject{|i| i.photo.blank?}
                  .first(quantity)
                  .as_json(only: %i[id title photo name type_profile created_at], methods: %i[category_ids follow])
     end
@@ -12,7 +13,9 @@ module Home
     # Services #3 sellers_by_followers, Enmachs
     def self.sellers(params)
       quantity = params[:quantity].to_i || 10
-      Seller.all.sort_by{ |seller| seller.followers_by_type_profile('User', 'Seller').count }
+      Seller.all
+            .reject{|i| i.photo.blank?}
+            .sort_by{ |seller| seller.followers_by_type_profile('User', 'Seller').count }
             .reverse
             .first(quantity)
             .as_json(only: %i[id title photo name type_profile created_at], methods: %i[category_ids follow])
@@ -22,22 +25,23 @@ module Home
     def self.products_by_created_at(params)
       quantity = params[:quantity].to_i || 10
       Product.order(created_at: :desc)
+             .reject{|i| i.cover.url.blank?}
              .first(quantity)
              .as_json(
                only: %i[id cover name price created_at],
                methods: %i[owner wish]
              )
-      # byebug
     end
 
     # Services #6 products_by_wishes, Enmachs
     def self.products_by_wishes(params)
       quantity = params[:quantity].to_i || 10
-      Product.all.sort_by{ |product| product.wishes.count }
+      Product.all
+             .reject{|i| i.cover.url.blank?}
+             .sort_by{ |product| product.wishes.count }
              .reverse
              .first(quantity)
              .as_json(only: %i[id cover name price created_at])
-      # byebug
     end
 
     # --------------------------------------------------------------------------
@@ -45,7 +49,9 @@ module Home
     # Services #1 profiles_by_created_products, GabrielGomez
     def self.profiles(params)
       quantity = params[:quantity].to_i || 10
-      Pyme.all.sort_by { |profile| (profile.products.map(&:status)-[false]).count }
+      Pyme.all
+          .reject{|i| i.photo.blank?}
+          .sort_by { |profile| (profile.products.map(&:status)-[false]).count }
           .reverse
           .first(quantity)
           .as_json(only: %i[id title photo name type_profile], methods: %i[category_ids follow])
@@ -67,9 +73,8 @@ module Home
     def self.categories_by_profiles_nested_products
       categories =  Category.all.collect{ |category|
         {
-          category_id: category.id,
-          category_name: category.name,
-          category_cover: category.cover,
+          id:       category.id,
+          name:     category.name,
           profiles: category.by_sorting_profiles_products
                             .reverse
                             .take(6)
