@@ -8,7 +8,7 @@ class Location < ApplicationRecord
   # geocoded_by :address
   # after_validation :geocode
 
-  validates :latitude, :longitude, uniqueness: true
+  # validates :latitude, :longitude, uniqueness: true
 
   before_save :create_geocode
 

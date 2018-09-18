@@ -19,6 +19,7 @@ module Api::V1::Chat::Conversations
     def set_senderable
       conv = params[:conversation]
       return @senderable = current_v1_user if conv[:senderable_type].nil?
+
       model = conv[:senderable_type].downcase.pluralize.to_sym
       @senderable = custom_find {
         current_v1_user.try(model).find conv[:senderable_id]

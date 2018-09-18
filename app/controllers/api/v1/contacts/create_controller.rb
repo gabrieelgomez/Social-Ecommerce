@@ -2,6 +2,7 @@ module Api::V1::Contacts
   class CreateController < ContactsController
     # before_action :set_postable, only: %i[create]
     before_action :set_profile, only: %i[create]
+    before_action :set_contact_type, only: %i[create]
 
     def create
       @contact = Contact.new(contact_params)
