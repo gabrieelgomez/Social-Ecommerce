@@ -7,5 +7,15 @@ module Api::V1
       @locatable = @locatable_type.find_by(user: current_v1_user,
                                            id: params[:locatable_id])
     end
+
+    def location_params
+      params.require(:location)
+            .permit(:address, :longitude, :latitude)
+            .merge(locatable: @locatable)
+    end
+
+    def set_location
+      @location = @locatable.locations.find(params[:location_id])
+    end
   end
 end
