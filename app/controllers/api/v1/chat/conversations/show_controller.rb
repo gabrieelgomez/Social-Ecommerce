@@ -4,7 +4,7 @@ module Api::V1::Chat::Conversations
       @user = current_v1_user
       convs = @user.profiles.map do |prof|
         prof.as_json.merge(
-          conversations: Conversation.user_conversations(prof).select{|conv| conv.membership?(prod)}
+          conversations: Conversation.user_conversations(prof).select{|conv| conv.membership?(prof)}
                                      .as_json(
                                        only: [:id, :type_messages],
                                        methods: [
