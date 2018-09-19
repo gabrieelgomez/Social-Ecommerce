@@ -16,8 +16,8 @@ module Api::V1::Searchs
                         .ransack(brand_cont: brand).result
 
       # Result
-      @result = products.uniq.as_json(only: [:id, :type_profile, :name, :price, :cover, :created_at, :updated_at, :states_codes, :countries_codes],
-                                       methods: [:category_ids, :subcategory_ids, :links])
+      @result = products.uniq.as_json(only: %i[id type_profile name price cover],
+                                       methods: %i[category_ids subcategory_ids links])
 
       render json: @result, status: 200
     end
