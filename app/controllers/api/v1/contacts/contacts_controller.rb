@@ -7,6 +7,8 @@ module Api::V1
       params.require(:contact).permit(
         :name, :email, :contact_type_id, :comments,
         :phone, :country, :profile_id
+      ).merge(
+        contact_type: @contact_type
       )
     end
 
@@ -18,7 +20,7 @@ module Api::V1
 
     def set_contact_type
       @contact_type = custom_find {
-        ContactType.find(params[:contact_type_id])
+        ContactType.find(params[:contact][:contact_type_id])
       }
     end
   end
