@@ -20,7 +20,7 @@ module Api::V1
 
     def set_contact_type
       @contact_type = custom_find {
-        ContactType.find(params[:contact_type_id])
+        ContactType.find(params[:contact][:contact_type_id])
       }
     end
   end

@@ -7,6 +7,8 @@ module Api::V1::Contacts
     def create
       @contact = Contact.new(contact_params)
       # @contact.profile = @profile
+      # @contact.contact_type = @contact_type
+      # byebug
       if @contact.save
         render json: @contact, status: 200
       else
