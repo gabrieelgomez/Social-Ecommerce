@@ -7,8 +7,6 @@ module Api::V1
       params.require(:contact).permit(
         :name, :email, :contact_type_id, :comments,
         :phone, :country, :profile_id
-      ).merge(
-        contact_type: @contact_type
       )
     end
 
