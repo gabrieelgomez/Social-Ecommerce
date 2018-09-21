@@ -5,7 +5,7 @@ module Api::V1::Searchs
     def filters_by_cat
       # Params
       category = params[:category].to_i
-      quantity      = params[:quantity].to_i || 10
+      quantity      = params[:quantity] || 99999999
 
       # Search service
       category = Category.find(category) rescue nil
@@ -19,11 +19,11 @@ module Api::V1::Searchs
                          .as_json(only: %i[id title photo name type_profile], methods: %i[category_ids])
 
       if params[:type_search].eql?('products')
-        @result = products.take(quantity)
+        @result = products.take(quantity.to_i)
       elsif params[:type_search].eql?('profiles')
-        @result = profiles.take(quantity)
+        @result = profiles.take(quantity.to_i)
       elsif params[:type_search].nil?
-        @result = products.take(quantity) + profiles.take(quantity)
+        @result = products.take(quantity.to_i) + profiles.take(quantity.to_i)
       end
 
       render json: @result, status: 200
