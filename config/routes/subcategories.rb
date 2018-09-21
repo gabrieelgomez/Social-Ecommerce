@@ -8,3 +8,9 @@ namespace :products do
     delete '/:subcategory_id/destroy', to: 'action#destroy'
   end
 end
+
+scope module: 'products' do
+  namespace :subcategories do
+    get '/:subcategory_id/products', to: 'show#subcat_products'
+  end
+end
