@@ -2,20 +2,26 @@ module Api::V1::ShoppingCarts
   class CotizationController < ShoppingCartsController
     before_action :set_shopping_cart, only: %i[quote_it]
     before_action :set_profile, only: %i[quote_it]
+    # before_action :set_items, only: %i[quote_it]
 
 
     def quote_it
       conv = Conversation.get(@profile, current_v1_user, 'cotization')
-      # conv.update(type_messages: 'cotization')
-      conv.messages.create(
+      msg = conv.messages.new(
         body: set_cotization_message,
         messageable: current_v1_user
       )
+      QuotingService.simple_quote(msg, params[:items])
       render json: conv, status: 200
-      # byebug
     end
 
     private
+
+    def set_items
+      @items = params[:items].map do |item|
+        Item.find item
+      end
+    end
 
     def set_cotization_message
       main_text = "El usuario #{current_v1_user.email} desea cotizar contigo los siguientes productos: \n"
