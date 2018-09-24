@@ -73,15 +73,25 @@ categories = [
   {
     name: "Servicios",
     subcategories: [
+      "Arquitecto",
+      "Asesoras / Limpiezas de hogas",
       "Belleza",
+      "Cerrajero",
+      "Chofer",
       "Clases,Cursos y Capacitaciones",
+      "Corredor de Propiedades",
+      "Electricista",
       "Fiestas y Eventos",
+      "Gásfiter",
       "Hogar",
+      "Jardinero",
+      "Maestro / Constructor",
       "Mantenimiento de Vehículos",
       "Profesionales",
       "Recreación y Ocio",
       "Servicio Técnico",
       "Servicios de Traslado",
+      "Técnico de Electrodomésticos",
       "Viajes y Turismo"
     ]
   },

@@ -1,6 +1,8 @@
 class Rate < ApplicationRecord
+  acts_as_commentable
   belongs_to :user
   belongs_to :rateable, polymorphic: true
+  has_many :comments, as: :commentable
   after_save :score_rateable_up
 
   validates :score, numericality: { less_than_or_equal_to: 5,  greater_than_or_equal_to: 1}

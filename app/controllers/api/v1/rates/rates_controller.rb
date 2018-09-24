@@ -4,7 +4,17 @@ module Api::V1
     before_action :set_rateable
 
     def set_raiting_user_profile
-      render json: @rateable.rates.map(&:user), status: 200
+      @rates = []
+      @rateable.rates.map{ |rate|
+        @rates.push(
+          rate_id: rate.id,
+          type: rate.rateable_type,
+          score: rate.score,
+          user: rate.user.email,
+          comments: rate.root_comments
+        )
+      }
+      render json: @rates, status: 200
     end
 
     private
