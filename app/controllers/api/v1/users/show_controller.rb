@@ -15,7 +15,8 @@ module Api::V1::Users
 
     def countries
       @countries = CS.countries
-      render json: { countries: @countries }, status: 200
+      result = @countries.map{ |key, value| { code: key, name: value } }
+      render json: { countries: result }, status: 200
     end
 
     def profile
