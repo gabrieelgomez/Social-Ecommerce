@@ -4,6 +4,7 @@ module Api::V1
     before_action :set_rateable
 
     def set_raiting_user_profile
+      # Root
       @rates = []
       @rateable.rates.map{ |rate|
         @rates.push(
