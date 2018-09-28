@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # match '*path', :controller => 'application', :action => 'handle_options_request', :via => [:get, :post, :options]
   namespace :v1 do
     mount_devise_token_auth_for 'User', at: 'auth'
@@ -67,6 +68,10 @@ Rails.application.routes.draw do
       # Location routes
       draw :locations
       # Location routes - end
+
+      # Customer Management
+      draw :customer_managements
+      # Customer Management - end
 
       # Geolocation route
       namespace :geolocation do

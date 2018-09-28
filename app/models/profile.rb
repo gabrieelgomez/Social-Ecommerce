@@ -6,11 +6,13 @@ class Profile < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
   # attr_accessor :type_profile
+  after_create :create_crm
   after_create :create_social_account_and_schedule
   before_save :set_url#, :create_locations
 
   # Relations
   belongs_to  :user
+  has_one     :customer_management, dependent: :destroy
   has_one     :seller
   has_many    :posts, as: :postable
   has_one     :social_account
@@ -42,6 +44,11 @@ class Profile < ApplicationRecord
     end
   end
 
+  # Create custome_management after profile creation
+  def create_crm
+    build_customer_management
+  end
+  # ------------
 
   # Method by used services (#7) home
   def products_categories(id)

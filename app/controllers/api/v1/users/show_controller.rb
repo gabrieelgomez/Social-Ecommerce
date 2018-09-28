@@ -15,7 +15,7 @@ module Api::V1::Users
 
     def countries
       @countries = CS.countries
-      result = @countries.map{ |key, value| { code: key, name: value } }
+      result = @countries.map { |key, value| { code: key, name: value } }
       render json: { countries: result }, status: 200
     end
 

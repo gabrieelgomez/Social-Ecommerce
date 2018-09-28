@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180907205721) do
+ActiveRecord::Schema.define(version: 20180927162603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(version: 20180907205721) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.string "cover", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "cover", default: "", null: false
   end
 
   create_table "categories_products", id: false, force: :cascade do |t|
@@ -127,6 +127,14 @@ ActiveRecord::Schema.define(version: 20180907205721) do
     t.bigint "product_id"
     t.index ["custom_field_id"], name: "index_custom_fields_products_on_custom_field_id"
     t.index ["product_id"], name: "index_custom_fields_products_on_product_id"
+  end
+
+  create_table "customer_managements", force: :cascade do |t|
+    t.bigint "profile_id"
+    t.string "state", default: "inactive"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_customer_managements_on_profile_id"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -620,6 +628,7 @@ ActiveRecord::Schema.define(version: 20180907205721) do
   add_foreign_key "custom_fields_items", "items"
   add_foreign_key "custom_fields_products", "custom_fields"
   add_foreign_key "custom_fields_products", "products"
+  add_foreign_key "customer_managements", "profiles"
   add_foreign_key "items", "products"
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "items_options", "items"
