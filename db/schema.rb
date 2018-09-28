@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20180927162603) do
 
   create_table "customer_managements", force: :cascade do |t|
     t.bigint "profile_id"
-    t.string "state", default: "inactive"
+    t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_customer_managements_on_profile_id"
