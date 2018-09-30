@@ -1,6 +1,7 @@
 class CustomerManagement < ApplicationRecord
   include AASM
   belongs_to :profile
+  has_many :clients, as: :ownerable
 
   aasm :state, column: :state do
     state :inactive, initial: true

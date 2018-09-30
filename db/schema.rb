@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180927162603) do
+ActiveRecord::Schema.define(version: 20180930190430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,21 @@ ActiveRecord::Schema.define(version: 20180927162603) do
     t.index ["profile_id"], name: "index_categories_profiles_on_profile_id"
     t.index ["pyme_id"], name: "index_categories_profiles_on_pyme_id"
     t.index ["seller_id"], name: "index_categories_profiles_on_seller_id"
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "clientable_type"
+    t.bigint "clientable_id"
+    t.string "ownerable_type"
+    t.bigint "ownerable_id"
+    t.string "name", default: ""
+    t.string "email", default: ""
+    t.string "avatar", default: ""
+    t.integer "created_by", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clientable_type", "clientable_id"], name: "index_clients_on_clientable_type_and_clientable_id"
+    t.index ["ownerable_type", "ownerable_id"], name: "index_clients_on_ownerable_type_and_ownerable_id"
   end
 
   create_table "comments", force: :cascade do |t|

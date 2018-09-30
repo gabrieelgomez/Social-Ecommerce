@@ -73,6 +73,10 @@ Rails.application.routes.draw do
       draw :customer_managements
       # Customer Management - end
 
+      # Clients
+      draw :clients
+      # Clients - end
+
       # Geolocation route
       namespace :geolocation do
         post '/look_for', to: 'gps#profiles_per_categories'
