@@ -6,6 +6,7 @@ module Api::V1::Clients
 
     def create
       @client = Client.new(client_params)
+      @client.created_by = 3
       if @client.save
         render json: @client, status: 200
       else
@@ -30,7 +31,7 @@ module Api::V1::Clients
 
       render json: {
         errors: [
-          "You are not authorized to this action."
+          'You are not authorized to this action.'
         ]
       }, status: 401
     end

@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(version: 20180930190430) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.string "cover", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "cover", default: "", null: false
   end
 
   create_table "categories_products", id: false, force: :cascade do |t|
@@ -62,8 +62,12 @@ ActiveRecord::Schema.define(version: 20180930190430) do
     t.string "ownerable_type"
     t.bigint "ownerable_id"
     t.string "name", default: ""
+    t.string "lastname", default: ""
     t.string "email", default: ""
     t.string "avatar", default: ""
+    t.string "dni", default: ""
+    t.string "phone", default: ""
+    t.text "description", default: ""
     t.integer "created_by", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

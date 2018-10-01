@@ -5,8 +5,9 @@ module Api::V1::CustomerManagements
 
     def show
       render json: @profile.customer_management,
-            #  serializer: ShowSerializer,
-             status: 200
+             include: params[:include],
+             fields:  fields(:customer_management),
+             status:  200
     end
   end
 end

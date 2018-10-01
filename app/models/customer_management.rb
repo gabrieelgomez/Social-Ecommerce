@@ -22,7 +22,3 @@ class CustomerManagement < ApplicationRecord
     inactivate!
   end
 end
-
-# Mercantil
-# 0412 653 4999
-# 22 605 034
