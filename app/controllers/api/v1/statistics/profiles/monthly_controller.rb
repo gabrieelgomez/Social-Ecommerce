@@ -19,44 +19,20 @@ module Api::V1::Statistics::Profiles
 
     private
 
-    def quantity_cotization_messages(initial, date) # case cotizations
-      @profile.cotizations.date_between(initial, date.strftime('%Y-%m-%d')).count
-    end
-
-    def quantity_products_wishes(initial, date) # case wishes
-      current_v1_user.wishes.products.date_between(initial, date.strftime('%Y-%m-%d')).count
-    end
-
-    def quantity_products_offers(initial, date) # case offers
-      Offer.where(id: @profile.product_ids).date_between(initial, date.strftime('%Y-%m-%d')).count
-    end
-
-    def quantity_users_rates(initial, date) # case rates
-      @profile.rates.date_between(initial, date.strftime('%Y-%m-%d')).count
-    end
-
-    def quantity_conversations(initial, date) # case conversations
-      @profile.conversations.date_between(initial, date.strftime('%Y-%m-%d')).count
-    end
-
-    def quantity_followers(initial, date) # case followers
-      @profile.followers_by_type_profile('User', model_name).ransack(created_at_gteq: params[:start_followers], created_at_lteq: params[:end_followers]).result.count
-    end
-
     def switch_module(date)
       case params[:module]
         when 'cotizations'
-          quantity_cotization_messages(params[:initial], date+1)
+          quantity_cotization_messages(params[:initial], (date+1).strftime('%Y-%m-%d'))
         when 'wishes'
-          quantity_products_wishes(params[:initial], date+1)
+          quantity_products_wishes(params[:initial], (date+1).strftime('%Y-%m-%d'))
         when 'offers'
-          quantity_products_offers(params[:initial], date+1)
+          quantity_products_offers(params[:initial], (date+1).strftime('%Y-%m-%d'))
         when 'rates'
-          quantity_users_rates(params[:initial], date+1)
+          quantity_users_rates(params[:initial], (date+1).strftime('%Y-%m-%d'))
         when 'conversations'
-          quantity_conversations(params[:initial], date+1)
+          quantity_conversations(params[:initial], (date+1).strftime('%Y-%m-%d'))
       end
-    end
+    end # End case
 
   end
 end
