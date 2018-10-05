@@ -234,9 +234,13 @@ Rails.application.routes.draw do
       draw :managers
       # --- Managers route - end
 
-      # --- Managers route
+      # --- Managers Profiles route
       draw :managers_profiles
-      # --- Managers route - end
+      # --- Managers Profiles route - end
+
+      # --- Statistics route
+      draw :statistics
+      # --- Statistics route - end
 
     end
   end

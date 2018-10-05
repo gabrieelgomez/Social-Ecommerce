@@ -10,6 +10,13 @@ class Profile < ApplicationRecord
   after_create :create_social_account_and_schedule
   before_save :set_url#, :create_locations
 
+  # scope :cotizations do
+  #   # where(senderable: current_user).or(where(recipientable: current_user))
+  #   byebug
+  # end
+
+  # scope :cotizations, joins(:conversations).where(type_messages: 'cotizations')
+
   # Relations
   belongs_to  :user
   has_one     :customer_management, dependent: :destroy
@@ -49,6 +56,10 @@ class Profile < ApplicationRecord
     build_customer_management
   end
   # ------------
+
+  def cotizations
+    conversations.where(type_messages: 'cotizations')
+  end
 
   # Method by used services (#7) home
   def products_categories(id)
