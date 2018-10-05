@@ -1,5 +1,5 @@
 module Api::V1::Statistics::Profiles
-  class ActionsController < ProfilesController
+  class GeneralController < ProfilesController
     before_action :set_my_profile, only: %i[statistics]
 
     def statistics
