@@ -8,6 +8,7 @@ class Product < ApplicationRecord
   before_save :create_type_profile, :create_category_ids, :create_locations
   after_save :set_change_price, if: :price_changed?
   acts_as_commentable
+  acts_as_paranoid
   acts_as_taggable_on :tags
   has_many :price_ranges
   has_and_belongs_to_many :custom_fields
