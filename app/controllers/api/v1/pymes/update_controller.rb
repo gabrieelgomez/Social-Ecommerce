@@ -7,6 +7,7 @@ module Api::V1::Pymes
     def update
       # title_will_change if @
       if @pyme.update(general_params(:pyme))
+        @pyme.schedule.update(params[:schedule]) if params[:schedule]
         render json: @pyme, status: 200
       else
         render json: @pyme.errors, status: 500

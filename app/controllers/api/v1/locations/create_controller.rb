@@ -11,13 +11,5 @@ module Api::V1::Locations
         render json: @location.errors, status: 500
       end
     end
-
-    private
-
-    def location_params
-      params.require(:location)
-            .permit(:address, :longitude, :latitude)
-            .merge(locatable: @locatable)
-    end
   end
 end

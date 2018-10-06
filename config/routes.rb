@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # match '*path', :controller => 'application', :action => 'handle_options_request', :via => [:get, :post, :options]
   namespace :v1 do
     mount_devise_token_auth_for 'User', at: 'auth'
@@ -46,6 +47,14 @@ Rails.application.routes.draw do
       draw :shopping_carts
       # Shopping car - end
 
+      # Contacts routes
+      draw :contacts
+      # Contacts routes - end
+
+      # Contact Types routes
+      draw :contact_types
+      # Contact Types routes - end
+
       # Concerns routes
       draw :concerns
       # Concerns routes - end
@@ -60,6 +69,14 @@ Rails.application.routes.draw do
       draw :locations
       # Location routes - end
 
+      # Customer Management
+      draw :customer_managements
+      # Customer Management - end
+
+      # Clients
+      draw :clients
+      # Clients - end
+
       # Geolocation route
       namespace :geolocation do
         post '/look_for', to: 'gps#profiles_per_categories'
@@ -73,20 +90,29 @@ Rails.application.routes.draw do
         get '/locations/response', to: 'search#locations_response'
 
         # Routes Services
-          get '/services/suggest', to: 'services_profiles#suggest_query'
-          get '/services/profiles', to: 'services_profiles#service_profile'
-          get '/services/profiles/by_products_status', to: 'services_profiles#service_by_products_status'
-          get '/services/products', to: 'services_products#service_product'
-          get '/services/filters_by_cat', to: 'services#filters_by_cat'
+        get '/services/suggest', to: 'services_profiles#suggest_query'
+        get '/services/profiles', to: 'services_profiles#service_profile'
+        get '/services/profiles/by_products_status', to: 'services_profiles#service_by_products_status'
+        get '/services/profiles/by_products_nested_categories', to: 'services_profiles#profiles_by_cat_nested_products'
+        get '/services/products', to: 'services_products#service_product'
+        get '/services/filters_by_cat', to: 'services#filters_by_cat'
         # End Routes Services
 
       end
       # Search routes - end
 
+      # Services routes
+      namespace :services do
+        get '/home', to: 'home#home'
+
+      end
+      # Services routes - end
+
       # --- Categories Products routes
       namespace :profiles do
-
+        get '/:profile_id/cotizations', to: 'show#profile_cotizations'
         get '/all', to: 'profiles#all_profiles'
+        get '/:profile_id/products_prominent', to: 'profiles#products_prominent'
 
         namespace :categories do
           post '/', to: 'actions#create'
@@ -94,6 +120,7 @@ Rails.application.routes.draw do
           get '/:category_id', to: 'show#show'
           put '/:category_id/update', to: 'actions#update'
           delete '/:category_id/destroy', to: 'actions#destroy'
+          get '/products/active', to: 'categories#set_categories_products'
         end
 
       end
@@ -149,9 +176,14 @@ Rails.application.routes.draw do
       # --- Job Offers
       draw :job_offers
       # --- Job Offers - end
+      namespace :products do
+        get '/sort_by_wishes', to: 'show#sorting_by'
+      end
 
       # --- Product routes and related to them
       scope '/:type_profile/:profile_id' do
+
+
         # Product routes
         draw :products
         # Product routes - end
@@ -206,9 +238,13 @@ Rails.application.routes.draw do
       draw :managers
       # --- Managers route - end
 
-      # --- Managers route
+      # --- Managers Profiles route
       draw :managers_profiles
-      # --- Managers route - end
+      # --- Managers Profiles route - end
+
+      # --- Statistics route
+      draw :statistics
+      # --- Statistics route - end
 
     end
   end

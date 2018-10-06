@@ -16,7 +16,7 @@ module Api::V1::ShoppingCarts
       if @item.save
         render json: @shopping_cart, status: 200
       else
-        render json: @shopping_cart.errors, status: 500
+        render json: @item.errors, status: 500
       end
     end
   end

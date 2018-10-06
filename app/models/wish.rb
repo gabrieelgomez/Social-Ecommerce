@@ -11,6 +11,8 @@ class Wish < ApplicationRecord
   # Soft delete
   acts_as_paranoid
 
+  scope :products, -> {where(wisheable_type: 'Product')}
+
   # aasm column: 'sent' do
   #   state :true, :false
   #   # state :low, initial: true

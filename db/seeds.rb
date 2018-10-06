@@ -73,15 +73,25 @@ categories = [
   {
     name: "Servicios",
     subcategories: [
+      "Arquitecto",
+      "Asesoras / Limpiezas de hogas",
       "Belleza",
+      "Cerrajero",
+      "Chofer",
       "Clases,Cursos y Capacitaciones",
+      "Corredor de Propiedades",
+      "Electricista",
       "Fiestas y Eventos",
+      "Gásfiter",
       "Hogar",
+      "Jardinero",
+      "Maestro / Constructor",
       "Mantenimiento de Vehículos",
       "Profesionales",
       "Recreación y Ocio",
       "Servicio Técnico",
       "Servicios de Traslado",
+      "Técnico de Electrodomésticos",
       "Viajes y Turismo"
     ]
   },
@@ -419,7 +429,10 @@ categories = [
 ]
 
 categories.each_with_index do |category, i|
-  categoria = Category.create(name: category[:name])
+  categoria = Category.create(
+    name: category[:name],
+    cover: Faker::Company.logo
+  )
   category[:subcategories].each_with_index do |subcat, i|
     Subcategory.create(name: subcat, category: categoria)
   end
@@ -427,36 +440,36 @@ end
 
 coordenates = [
   {
-    lat: 11.7000583,
-    long: -70.2054399
-  },
-  {
-    lat: 11.6908227,
-    long: -70.1890812
-  },
-  {
-    lat: 11.6840798,
-    long: -70.1811031
+    lat: 11.6848844,
+    long: -70.1757356
   },
   {
     lat: 11.6580284,
-    long: -70.2076755
+    long: -70.2076809
   },
   {
-    lat: 11.6903822,
-    long: -70.211555
+    lat: 10.4816737,
+    long: -66.8696957
   },
   {
-    lat: 11.6905949,
-    long: -70.1944855
+    lat: 10.1834451,
+    long: -67.5868927
   },
   {
-    lat: 11.6627642,
-    long: -70.2221431
+    lat: 10.1555041,
+    long: -64.7005056
   },
   {
-    lat: 11.6567257,
-    long: -70.1990896
+    lat: 10.1974482,
+    long: -64.6717522
+  },
+  {
+    lat: -33.3347846,
+    long: -70.7145694
+  },
+  {
+    lat: -33.4411643,
+    long: -70.621836
   },
 ]
 
@@ -518,6 +531,7 @@ options_products = [
         name: Faker::SiliconValley.invention,
         cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: pyme,
+        prominent: [true, false].sample,
         price: Faker::Number.between(100, 10000),
         subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
       )
@@ -569,6 +583,7 @@ options_products = [
         name: Faker::Job.field,
         cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: independent,
+        prominent: [true, false].sample,
         price: Faker::Number.between(100, 10000),
         subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
       )
@@ -622,6 +637,7 @@ options_products = [
       name: Faker::Job.field,
       cover: Rails.root.join('spec/support/product_cover.jpg').open,
       productable: seller,
+      prominent: [true, false].sample,
       price: Faker::Number.between(100, 10000),
       subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
 
@@ -662,4 +678,13 @@ else
   puts superadmin.errors
 end
 
-Profile.all.map{|profile| profile.create_locations}
+Profile.all.map(&:create_locations)
+
+deal_type = DealType.create(name: 'cotization')
+puts "Deal type #{deal_type.name} created"
+
+policy = PolicyTerm.new(
+  terms: '',
+  file: ''
+)
+puts 'Policy Term created' if policy.save

@@ -1,6 +1,6 @@
 module Api::V1
   class Comments::CommentsController < ApiController
-    before_action :authenticate_v1_user!
+    before_action :authenticate_v1_user!, except: %i[index show]
     before_action :set_comment, only: %i[show update destroy]
     include ::Api::V1::Concerns::ModelModulation
 

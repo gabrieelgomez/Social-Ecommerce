@@ -1,12 +1,27 @@
 module Api::V1
   class Rates::RatesController < ApiController
     include Concerns::ModelModulation
+    before_action :set_rateable
+
+    def set_raiting_user_profile
+      # Root
+      @rates = []
+      @rateable.rates.map{ |rate|
+        @rates.push(
+          rate_id: rate.id,
+          type: rate.rateable_type,
+          score: rate.score,
+          user: rate.user.email,
+          comments: rate.root_comments
+        )
+      }
+      render json: @rates, status: 200
+    end
 
     private
 
     def set_rateable
-      @rateable = custom_find { 
-        params[:rateable_type].modelarize.find params[:rateable_id]
+      @rateable = custom_find { params[:rateable_type].modelarize.find params[:rateable_id]
       }
     end
 

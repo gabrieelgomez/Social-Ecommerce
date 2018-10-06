@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180904182548) do
+ActiveRecord::Schema.define(version: 20181005235507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20180904182548) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.string "cover", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -55,6 +56,25 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.index ["seller_id"], name: "index_categories_profiles_on_seller_id"
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.string "clientable_type"
+    t.bigint "clientable_id"
+    t.string "ownerable_type"
+    t.bigint "ownerable_id"
+    t.string "name", default: ""
+    t.string "lastname", default: ""
+    t.string "email", default: ""
+    t.string "avatar", default: ""
+    t.string "dni", default: ""
+    t.string "phone", default: ""
+    t.text "description", default: ""
+    t.integer "created_by", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clientable_type", "clientable_id"], name: "index_clients_on_clientable_type_and_clientable_id"
+    t.index ["ownerable_type", "ownerable_id"], name: "index_clients_on_ownerable_type_and_ownerable_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.integer "commentable_id"
     t.string "commentable_type"
@@ -71,6 +91,26 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "contact_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "country"
+    t.text "comments"
+    t.string "phone"
+    t.bigint "profile_id"
+    t.bigint "contact_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_type_id"], name: "index_contacts_on_contact_type_id"
+    t.index ["profile_id"], name: "index_contacts_on_profile_id"
+  end
+
   create_table "conversations", force: :cascade do |t|
     t.string "recipientable_type"
     t.bigint "recipientable_id"
@@ -81,6 +121,25 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.datetime "updated_at", null: false
     t.index ["recipientable_type", "recipientable_id"], name: "index_conversations_on_recipientable_type_and_recipientable_id"
     t.index ["senderable_type", "senderable_id"], name: "index_conversations_on_senderable_type_and_senderable_id"
+  end
+
+  create_table "cotizations", force: :cascade do |t|
+    t.string "cotizable_type"
+    t.bigint "cotizable_id"
+    t.bigint "client_id"
+    t.integer "deal_type_id"
+    t.float "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_cotizations_on_client_id"
+    t.index ["cotizable_type", "cotizable_id"], name: "index_cotizations_on_cotizable_type_and_cotizable_id"
+  end
+
+  create_table "cotizations_items", force: :cascade do |t|
+    t.bigint "cotization_id"
+    t.bigint "item_id"
+    t.index ["cotization_id"], name: "index_cotizations_items_on_cotization_id"
+    t.index ["item_id"], name: "index_cotizations_items_on_item_id"
   end
 
   create_table "custom_fields", force: :cascade do |t|
@@ -106,6 +165,20 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.bigint "product_id"
     t.index ["custom_field_id"], name: "index_custom_fields_products_on_custom_field_id"
     t.index ["product_id"], name: "index_custom_fields_products_on_product_id"
+  end
+
+  create_table "customer_managements", force: :cascade do |t|
+    t.bigint "profile_id"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_customer_managements_on_profile_id"
+  end
+
+  create_table "deal_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "documents", force: :cascade do |t|
@@ -148,6 +221,7 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.bigint "shopping_cart_id"
     t.json "option_values", default: {}
     t.integer "quantity", default: 1, null: false
+    t.datetime "deleted_at"
     t.index ["product_id"], name: "index_items_on_product_id"
     t.index ["shopping_cart_id"], name: "index_items_on_shopping_cart_id"
   end
@@ -171,11 +245,10 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_job_offers_on_profile_id"
   end
 
   create_table "locations", force: :cascade do |t|
-    t.string "address"
+    t.text "address"
     t.float "latitude"
     t.float "longitude"
     t.string "state"
@@ -302,6 +375,13 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.index ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id"
   end
 
+  create_table "policy_terms", force: :cascade do |t|
+    t.text "terms", default: "", null: false
+    t.string "file", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text "content"
     t.string "postable_type"
@@ -309,23 +389,6 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
-  end
-
-  create_table "postulations", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "job_offer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["job_offer_id"], name: "index_postulations_on_job_offer_id"
-    t.index ["user_id"], name: "index_postulations_on_user_id"
-  end
-
-  create_table "postulations_questions", force: :cascade do |t|
-    t.bigint "question_id"
-    t.bigint "postulation_id"
-    t.string "answer"
-    t.index ["postulation_id"], name: "index_postulations_questions_on_postulation_id"
-    t.index ["question_id"], name: "index_postulations_questions_on_question_id"
   end
 
   create_table "price_ranges", force: :cascade do |t|
@@ -363,6 +426,7 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.string "type_profile"
     t.jsonb "states_codes"
     t.jsonb "countries_codes"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["productable_id", "productable_type"], name: "index_products_on_productable_id_and_productable_type"
@@ -407,19 +471,9 @@ ActiveRecord::Schema.define(version: 20180904182548) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "q_options", force: :cascade do |t|
-    t.string "name"
-    t.integer "position"
-    t.bigint "question_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_q_options_on_question_id"
-  end
-
   create_table "questions", force: :cascade do |t|
     t.text "title"
     t.text "description"
-    t.string "q_type"
     t.integer "position"
     t.bigint "job_offer_id"
     t.datetime "created_at", null: false
@@ -614,26 +668,26 @@ ActiveRecord::Schema.define(version: 20180904182548) do
 
   add_foreign_key "answer_wishes", "profiles"
   add_foreign_key "answer_wishes", "sended_wishes"
+  add_foreign_key "contacts", "contact_types"
+  add_foreign_key "contacts", "profiles"
+  add_foreign_key "cotizations", "clients"
+  add_foreign_key "cotizations_items", "cotizations"
+  add_foreign_key "cotizations_items", "items"
   add_foreign_key "custom_fields_items", "custom_fields"
   add_foreign_key "custom_fields_items", "items"
   add_foreign_key "custom_fields_products", "custom_fields"
   add_foreign_key "custom_fields_products", "products"
+  add_foreign_key "customer_managements", "profiles"
   add_foreign_key "items", "products"
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "items_options", "items"
   add_foreign_key "items_options", "options"
-  add_foreign_key "job_offers", "profiles"
   add_foreign_key "membership_conversations", "conversations"
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
   add_foreign_key "options_products", "options"
   add_foreign_key "options_products", "products"
-  add_foreign_key "postulations", "job_offers"
-  add_foreign_key "postulations", "users"
-  add_foreign_key "postulations_questions", "postulations"
-  add_foreign_key "postulations_questions", "questions"
   add_foreign_key "price_ranges", "products"
-  add_foreign_key "q_options", "questions"
   add_foreign_key "questions", "job_offers"
   add_foreign_key "rates", "users"
   add_foreign_key "saved_offers", "offers"

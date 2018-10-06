@@ -4,6 +4,7 @@ class Conversation < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :membership_conversations, dependent: :destroy
   after_create :assign_conversation_membership
+  after_create :create_crm_client, if: :between_client_and_profile?
 
   # validates :senderable_id, uniqueness: {
   #   scope: %i[senderable_type recipientable_id]
@@ -15,13 +16,13 @@ class Conversation < ApplicationRecord
     scope: %i[senderable_id senderable_type recipientable_id recipientable_type]
   }
 
-  scope :between, -> (sender, recipient) do
+  scope :between, ->(sender, recipient) do
     where(senderable: sender, recipientable: recipient).or(
       where(senderable: recipient, recipientable: sender)
     )
   end
 
-  scope :user_conversations, -> (current_user) do
+  scope :user_conversations, ->(current_user) do
     where(senderable: current_user).or(where(recipientable: current_user))
   end
 
@@ -29,26 +30,36 @@ class Conversation < ApplicationRecord
     membership_conversations.where(memberable: member).exists?
   end
 
-  # def member?(member)
-  #   selection = select do |conv|
-  #     conv.membership?(member).exists?
-  #   end
-  #   selection
-  # end
+  def create_crm_client
+    profile = senderable.is_a?(Profile) ? senderable : recipientable
+    user = senderable.is_a?(User) ? senderable : recipientable
+    CreatedByService.build_client(
+      profile.customer_management,
+      user,
+      type_messages
+    )
+  end
+
+  def between_client_and_profile?
+    (senderable.is_a?(Profile) && recipientable.is_a?(User)) ||
+      (senderable.is_a?(User) && recipientable.is_a?(Profile))
+  end
 
   def sender
     return senderable.as_json(methods: [:type_profile]) if senderable.is_a? Profile
+
     senderable.as_json
   end
 
   def recipient
     return recipientable.as_json(methods: [:type_profile]) if recipientable.is_a? Profile
+
     recipientable.as_json
   end
 
   def self.get(sender, recipient, type_conv=nil)
     conversations = between(sender, recipient)
-    if sender.is_a? User and recipient.is_a? User
+    if sender.is_a?(User) && recipient.is_a?(User)
       type_messages = 'user'
     elsif type_conv == 'cotization'
       type_messages = 'cotization'
@@ -78,7 +89,6 @@ class Conversation < ApplicationRecord
   end
 
   def assign_conversation_membership
-    # byebug
     MembershipConversation.create(conversation: self, memberable: recipientable)
     MembershipConversation.create(conversation: self, memberable: senderable)
   end

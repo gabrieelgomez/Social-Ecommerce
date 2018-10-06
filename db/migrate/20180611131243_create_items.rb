@@ -7,6 +7,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
       # t.references :option, foreign_key: true
       t.json :option_values, default: {}
       t.integer :quantity, default: 1, null: false
+      t.datetime :deleted_at
     end
   end
 end

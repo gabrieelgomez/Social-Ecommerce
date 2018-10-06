@@ -1,7 +1,7 @@
 module Api::V1::Products
   class ShowController < ProductsController
     before_action :authenticate_v1_user!, only: %i[show_own]
-    before_action :public_productable, only: %i[show index]
+    before_action :public_productable, only: %i[show index wished_ones]
     before_action :set_product, only: %i[show]
     def index
       if @productable.respond_to? :products
@@ -42,6 +42,17 @@ module Api::V1::Products
 
     def all
       render json: Product.all, status: 200
+    end
+
+    def wished_ones
+      @wished_products = @productable.products.select(&:wished?)
+      render json: @wished_products, status: 200
+    end
+
+    def sorting_by
+      @sorted_by_wishes = Product.sorter_by_wish(params[:order])
+      render json: @sorted_by_wishes, status: 200
+      # Product.all
     end
   end
 end

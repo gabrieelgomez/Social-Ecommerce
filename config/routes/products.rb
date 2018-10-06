@@ -8,5 +8,10 @@ namespace :products do
   put '/:id/update', to: 'action#update'
 end
 
+scope module: 'products' do
+  get '/wished_products', to: 'show#wished_ones'
+end
+
+
 # resources :products, only: [:create, :update], controller: 'products/action'
 # resources :products, only: [:index, :show], controller: 'products/show'

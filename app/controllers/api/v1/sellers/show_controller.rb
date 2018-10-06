@@ -7,7 +7,10 @@ module Api::V1::Sellers
 
     # Public methods
     def index
-      render json: Seller.all, status: 200
+      render json: Seller.all,
+             each_serializer: IndexSerializer,
+             fields: fields(:sellers),
+             status: 200
     end
 
     def show

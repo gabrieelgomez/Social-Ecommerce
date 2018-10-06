@@ -1,15 +1,14 @@
 class Product < ApplicationRecord
-
   mount_base64_uploader :cover, ImageUploader
   attr_accessor :document_data
 
   serialize :states_codes
-
   # Callbacks
   after_create :create_notify
-  before_save :create_profile, :create_categories, :create_locations
+  before_save :create_type_profile, :create_category_ids, :create_locations
   after_save :set_change_price, if: :price_changed?
   acts_as_commentable
+  acts_as_paranoid
   acts_as_taggable_on :tags
   has_many :price_ranges
   has_and_belongs_to_many :custom_fields
@@ -43,6 +42,18 @@ class Product < ApplicationRecord
     }
   end
 
+  def owner
+    {
+      id:           productable.id,
+      name:         productable.name,
+      type_profile: productable.type_profile
+    }
+  end
+
+  def wish
+    nil
+  end
+
   def create_locations
     self.states_codes   = []
     self.countries_codes = []
@@ -52,11 +63,11 @@ class Product < ApplicationRecord
     end
   end
 
-  def create_profile
+  def create_type_profile
     self.type_profile = self.productable.type_profile.downcase
   end
 
-  def create_categories
+  def create_category_ids
     self.category_ids = self.subcategories.try(:collect, &:category_id).uniq#.map &:to_s
   end
 
@@ -94,4 +105,14 @@ class Product < ApplicationRecord
     end
   end
 
+  # True or false if a product is wished
+  def wished?
+    !wishes.empty?
+  end
+
+  def self.sorter_by_wish(priority)
+    result = all.sort_by { |prof| prof.wishes.size }
+    return result if priority == 'low_to_high'
+    result.reverse
+  end
 end
