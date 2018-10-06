@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
   has_many :membership_conversations, as: :memberable
   has_one  :shopping_cart
   has_many :posts, as: :postable
+  has_many :cotizations
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
   # Callbacks

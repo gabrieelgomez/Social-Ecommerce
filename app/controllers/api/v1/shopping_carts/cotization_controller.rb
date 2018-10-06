@@ -1,25 +1,36 @@
 module Api::V1::ShoppingCarts
   class CotizationController < ShoppingCartsController
     before_action :set_shopping_cart, only: %i[quote_it]
-    before_action :set_profile, only: %i[quote_it]
-    # before_action :set_items, only: %i[quote_it]
+    before_action :set_profile,       only: %i[quote_it]
+    before_action :set_conversation,  only: %i[quote_it]
+    before_action :set_client,        only: %i[quote_it]
 
 
     def quote_it
-      conv = Conversation.get(@profile, current_v1_user, 'cotization')
-      msg = conv.messages.new(
+      # conv = Conversation.get(@profile, current_v1_user, 'cotization')
+      msg = @conversation.messages.new(
         body: set_cotization_message,
         messageable: current_v1_user
       )
-      QuotingService.simple_quote(msg, params[:items])
-      render json: conv, status: 200
+      QuotingService.handle_quote(@profile, @client, msg, params[:items])
+      render json: @conversation, status: 200
     end
 
     private
 
+    def set_conversation
+      @conversation = Conversation.get(@profile, current_v1_user, 'cotization')
+    end
+
+    def set_client
+      @client = custom_find do
+        Client.find_by!(clientable: current_v1_user)
+      end
+    end
+
     def set_items
       @items = params[:items].map do |item|
-        Item.find item
+        Item.find(item)
       end
     end
 

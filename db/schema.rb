@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180930190430) do
+ActiveRecord::Schema.define(version: 20181005235507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,25 @@ ActiveRecord::Schema.define(version: 20180930190430) do
     t.index ["senderable_type", "senderable_id"], name: "index_conversations_on_senderable_type_and_senderable_id"
   end
 
+  create_table "cotizations", force: :cascade do |t|
+    t.string "cotizable_type"
+    t.bigint "cotizable_id"
+    t.bigint "client_id"
+    t.integer "deal_type_id"
+    t.float "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_cotizations_on_client_id"
+    t.index ["cotizable_type", "cotizable_id"], name: "index_cotizations_on_cotizable_type_and_cotizable_id"
+  end
+
+  create_table "cotizations_items", force: :cascade do |t|
+    t.bigint "cotization_id"
+    t.bigint "item_id"
+    t.index ["cotization_id"], name: "index_cotizations_items_on_cotization_id"
+    t.index ["item_id"], name: "index_cotizations_items_on_item_id"
+  end
+
   create_table "custom_fields", force: :cascade do |t|
     t.string "name"
     t.string "value"
@@ -154,6 +173,12 @@ ActiveRecord::Schema.define(version: 20180930190430) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_customer_managements_on_profile_id"
+  end
+
+  create_table "deal_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "documents", force: :cascade do |t|
@@ -400,6 +425,7 @@ ActiveRecord::Schema.define(version: 20180930190430) do
     t.string "type_profile"
     t.jsonb "states_codes"
     t.jsonb "countries_codes"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["productable_id", "productable_type"], name: "index_products_on_productable_id_and_productable_type"
@@ -643,6 +669,9 @@ ActiveRecord::Schema.define(version: 20180930190430) do
   add_foreign_key "answer_wishes", "sended_wishes"
   add_foreign_key "contacts", "contact_types"
   add_foreign_key "contacts", "profiles"
+  add_foreign_key "cotizations", "clients"
+  add_foreign_key "cotizations_items", "cotizations"
+  add_foreign_key "cotizations_items", "items"
   add_foreign_key "custom_fields_items", "custom_fields"
   add_foreign_key "custom_fields_items", "items"
   add_foreign_key "custom_fields_products", "custom_fields"
