@@ -110,7 +110,7 @@ Rails.application.routes.draw do
 
       # --- Categories Products routes
       namespace :profiles do
-
+        get '/:profile_id/cotizations', to: 'show#profile_cotizations'
         get '/all', to: 'profiles#all_profiles'
         get '/:profile_id/products_prominent', to: 'profiles#products_prominent'
 

@@ -680,6 +680,9 @@ end
 
 Profile.all.map(&:create_locations)
 
+deal_type = DealType.create(name: 'cotization')
+puts "Deal type #{deal_type.name} created"
+
 policy = PolicyTerm.new(
   terms: '',
   file: ''

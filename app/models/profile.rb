@@ -20,6 +20,7 @@ class Profile < ApplicationRecord
   has_many    :rates, as: :rateable
   has_and_belongs_to_many :categories
   has_many :locations, as: :locatable
+  has_many :cotizations, as: :cotizable
   has_many :wishes, as: :wisheable
   has_many :sended_wishes
   has_many :answer_wishes
@@ -50,9 +51,18 @@ class Profile < ApplicationRecord
   end
   # ------------
 
+  # Short way to call customer_management relations
+  def crm
+    customer_management
+  end
+
+  def clients
+    crm.clients
+  end
+
   # Method by used services (#7) home
   def products_categories(id)
-    self.products.select{|product| product.category_ids.include?(id) }.count
+    self.products.select { |product| product.category_ids.include?(id) }.count
   end
   # ------------
 
@@ -60,7 +70,8 @@ class Profile < ApplicationRecord
   # Method by used GPS services/model
   def products_locations(var_bool, product_ids)
     return custom_json(product_ids) if var_bool
-    self.products.as_json(only: [:id, :name, :price, :images])
+
+    self.products.as_json(only: %i[id name price images])
   end
   # ------------
 
