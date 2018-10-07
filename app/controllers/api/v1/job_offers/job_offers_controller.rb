@@ -18,7 +18,7 @@ module Api::V1
     end
 
     # Setting a job offer of a specific profile
-    def set_job_offers_profile
+    def set_job_offers_of_profile
       @job_offer = custom_find do
         @profile.job_offers.find(params[:job_offer_id])
       end
@@ -31,8 +31,8 @@ module Api::V1
       end
     end
 
+    # Set profile
     def set_profile
-      # byebug
       @profile = custom_find do
         Profile.find(params[:profile_id])
       end

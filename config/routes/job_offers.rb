@@ -3,7 +3,7 @@ namespace :job_offers do
   get '/:job_offer_id', to: 'show#show'
 end
 
-scope '/:type_profile/:profile_id' do
+scope '/profiles/:profile_id' do
   namespace :job_offers do
     get '/', to: 'show#index_per_profile'
     post '/create', to: 'create#create'

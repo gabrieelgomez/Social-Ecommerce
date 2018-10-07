@@ -1,6 +1,6 @@
 module Api::V1::JobOffers
   class CreateController < JobOffersController
-    before_action :authenticate_v1_user!, only: %i[create]
+    before_action :authenticate_v1_user!,    only: %i[create]
     before_action :set_current_user_profile, only: %i[create]
 
     def create

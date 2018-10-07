@@ -130,9 +130,17 @@ Rails.application.routes.draw do
       draw :comments
       # --- Comments route - end
 
+      # --- Job Offers
+      draw :job_offers
+      # --- Job Offers - end
+
       # --- Questions route
       draw :questions
       # --- Questions route - end
+
+      # --- QOptions
+      draw :q_options
+      # --- QOptions - end
 
       # --- Profiles route
       scope module: 'profiles' do
@@ -173,9 +181,6 @@ Rails.application.routes.draw do
 
       draw :saved_offers
 
-      # --- Job Offers
-      draw :job_offers
-      # --- Job Offers - end
       namespace :products do
         get '/sort_by_wishes', to: 'show#sorting_by'
       end

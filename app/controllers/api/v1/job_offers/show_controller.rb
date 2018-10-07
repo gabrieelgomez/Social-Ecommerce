@@ -1,6 +1,6 @@
 module Api::V1::JobOffers
   class ShowController < JobOffersController
-    before_action :set_profile, only: %i[index_per_profile]
+    before_action :set_profile,   only: %i[index_per_profile]
     before_action :set_job_offer, only: %i[show]
 
     def index
