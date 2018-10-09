@@ -1,13 +1,23 @@
 class CommentSerializer < ActiveModel::Serializer
   attributes :id, :commentable_id, :commentable_type, :title, :body,
-             :subject, :user_id, :parent_id, :lft, :rgt, :parents
+              :subject, :parent_id, :lft, :rgt, :user, :childrens
 
-  def parents
+  def childrens
     comment = self.object
     profile = comment.commentable_type.constantize.find(comment.commentable_id)
-    if comment.has_children?
-      comment.children
-    end
+    comment.children.as_json(
+      except: %i[title subject],
+        include: {
+          user: {
+            only: %i[id email name nickname avatar]
+          }
+        }
+      ) if comment.has_children?
+  end
+
+  def user
+    comment = self.object
+    comment.user.as_json(only: %i[id email name nickname avatar])
   end
 
 end
