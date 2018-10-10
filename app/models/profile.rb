@@ -46,6 +46,13 @@ class Profile < ApplicationRecord
     %w[Pyme Independent Seller]
   end
 
+  def change_type(valid_type)
+    return unless self.class.type_profile.include?(valid_type)
+
+    update(type_profile: valid_type.capitalize)
+    self
+  end
+
   def validate_seller
     unless User.find(self.user_id).seller.nil? && self.type_profile.downcase.eql?('seller')
       errors.add(:type_profile, 'El usuario ya tiene un perfil seller')
@@ -65,6 +72,11 @@ class Profile < ApplicationRecord
   def crm
     customer_management
   end
+
+  # Fecha de nacimiento: 16 de Octubre de 1997
+  # Teléfono: 0412 966 4338
+  # Estado Civil: Soltero
+  # # de hijos: 0
 
   def clients
     crm.clients
