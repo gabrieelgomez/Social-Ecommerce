@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20181005235507) do
     t.string "title"
     t.text "body"
     t.string "subject"
+    t.boolean "body_update"
     t.integer "user_id", null: false
     t.integer "parent_id"
     t.integer "lft"

@@ -1,6 +1,8 @@
 class Comment < ActiveRecord::Base
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
 
+  before_save :set_change_body, if: :body_changed? #:saved_change_to_body?
+
   validates :body, :commentable_id, :commentable_type, :user, presence: true
 
   # NOTE: install the acts_as_votable plugin if you
@@ -20,12 +22,17 @@ class Comment < ActiveRecord::Base
       :commentable_id   => obj.id,
       :commentable_type => obj.class.name,
       :body             => comment,
-      :user_id          => user_id
+      :user_id          => user_id,
+      :body_update      => false
   end
 
   #helper method to check if a comment has children
   def has_children?
     self.children.any?
+  end
+
+  def set_change_body
+    self.body_update = true
   end
 
   # Helper class method to lookup all comments assigned

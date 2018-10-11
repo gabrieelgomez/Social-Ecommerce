@@ -1,6 +1,6 @@
 class CommentSerializer < ActiveModel::Serializer
   attributes :id, :commentable_id, :commentable_type, :title, :body,
-              :subject, :parent_id, :lft, :rgt, :user, :childrens
+              :subject, :parent_id, :lft, :rgt, :created_at, :updated_at, :body_update, :user, :childrens
 
   def childrens
     comment = self.object
@@ -19,4 +19,5 @@ class CommentSerializer < ActiveModel::Serializer
     comment = self.object
     comment.user.as_json(only: %i[id email name nickname avatar])
   end
+
 end
