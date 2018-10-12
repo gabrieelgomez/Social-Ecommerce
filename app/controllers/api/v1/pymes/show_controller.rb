@@ -14,10 +14,13 @@ module Api::V1::Pymes
     end
 
     def show
-      render json: @pyme,
-            #  serializer: ::Pymes::ShowSerializer,
-            #  scope: {fields: params[:fields]},
-             status: 200
+      # render json: @pyme,
+      #        include: params[:include].try(:split, ','),
+      #        # include: ['posts.postable'],
+      #        serializer: ::Pymes::ShowSerializer,
+      #        scope: { fields: params[:fields] },
+      #        status: 200
+      render json: @pyme, status: 200
     end
 
     def own_pymes

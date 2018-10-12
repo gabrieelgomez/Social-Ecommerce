@@ -113,6 +113,21 @@ Rails.application.routes.draw do
       draw :comments
       # --- Comments route - end
 
+      # --- Job Offers
+      draw :job_offers
+      # --- Job Offers - end
+
+      # --- Questions route
+      draw :questions
+      # --- Questions route - end
+
+      # --- QOptions
+      draw :q_options
+      # --- QOptions - end
+
+      # --- Postulations
+      draw :postulations
+      # --- Postulations - end
 
       # --- Profiles route
       draw :profiles
