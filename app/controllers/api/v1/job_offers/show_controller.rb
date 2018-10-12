@@ -1,7 +1,7 @@
 module Api::V1::JobOffers
   class ShowController < JobOffersController
     before_action :set_profile,   only: %i[index_per_profile]
-    before_action :set_job_offer, only: %i[show]
+    before_action :set_job_offer, only: %i[show complete_job_offer]
 
     def index
       @job_offers = JobOffer.all
@@ -15,6 +15,12 @@ module Api::V1::JobOffers
     def index_per_profile
       @job_offers = @profile.job_offers
       render json: @job_offers, status: 200
+    end
+
+    def complete_job_offer
+      render json: @job_offer,
+             serializer: CompleteStructureSerializer,
+             status: 200
     end
   end
 end

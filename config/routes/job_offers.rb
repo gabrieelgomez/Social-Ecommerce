@@ -1,6 +1,7 @@
 namespace :job_offers do
   get '/', to: 'show#index'
   get '/:job_offer_id', to: 'show#show'
+  get '/complete/:job_offer_id', to: 'show#complete_job_offer'
 end
 
 scope '/profiles/:profile_id' do

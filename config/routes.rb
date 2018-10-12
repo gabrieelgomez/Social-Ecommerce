@@ -142,6 +142,10 @@ Rails.application.routes.draw do
       draw :q_options
       # --- QOptions - end
 
+      # --- Postulations
+      draw :postulations
+      # --- Postulations - end
+
       # --- Profiles route
       scope module: 'profiles' do
         scope '/:type_profile' do
