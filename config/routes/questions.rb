@@ -1,6 +1,6 @@
-resources :profiles do
-  resources :job_offers, module: :job_offers do
-    nested do
+scope '/profiles/:profile_id' do
+  namespace :job_offers do
+    scope '/:job_offer_id' do
       scope '/questions', module: :questions do
         get     '/', to: 'show#index'
         get     '/:question_id', to: 'show#show'
