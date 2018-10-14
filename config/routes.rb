@@ -16,6 +16,10 @@ Rails.application.routes.draw do
       draw :posts
       # --- Posts routes - end
 
+      # --- Advertise
+      draw :advertises
+      # --- Advertise - end
+
       # Routes for custom reset password
       scope module: 'users' do
         post 'auth/password/reset', to: 'password_reset#reset'

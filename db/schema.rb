@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181005235507) do
+ActiveRecord::Schema.define(version: 20181014014601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "advertises", force: :cascade do |t|
+    t.text "advertisable_type", default: [], array: true
+    t.string "cover", default: ""
+    t.text "images", default: [], array: true
+    t.string "status", default: "", null: false
+    t.integer "creator_id", null: false
+    t.bigint "seen_count", default: 0, null: false
+    t.jsonb "clicked_count", default: []
+    t.float "budget", default: 1.0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_advertises_on_creator_id"
+  end
 
   create_table "answer_wishes", force: :cascade do |t|
     t.bigint "profile_id"
@@ -81,7 +95,6 @@ ActiveRecord::Schema.define(version: 20181005235507) do
     t.string "title"
     t.text "body"
     t.string "subject"
-    t.boolean "body_update"
     t.integer "user_id", null: false
     t.integer "parent_id"
     t.integer "lft"
