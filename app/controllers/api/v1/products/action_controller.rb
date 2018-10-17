@@ -68,7 +68,7 @@ module Api::V1::Products
       end
     end
 
-    # PUT /v1/pymes/:profile_id/products/product_id/update
+    # PUT /v1/pymes/:profile_id/products/product_id/update/status
     def update_status
       if @product.update(status: params[:status]) #update status
         render json: @product.as_json(only: %i[id type name status]), status: 200
