@@ -6,6 +6,7 @@ namespace :products do
   put '/:id/destroy', to: 'action#destroy'
   post '/', to: 'action#create'
   put '/:id/update', to: 'action#update'
+  put '/:id/update/status', to: 'action#update_status'
 end
 
 scope module: 'products' do
