@@ -688,3 +688,7 @@ policy = PolicyTerm.new(
   file: ''
 )
 puts 'Policy Term created' if policy.save
+
+
+# Wallets
+Coin.create(name: 'Wave', acronym: 'wave',symbol: '£')

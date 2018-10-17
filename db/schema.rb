@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181005235507) do
+ActiveRecord::Schema.define(version: 20181016175649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,14 @@ ActiveRecord::Schema.define(version: 20181005235507) do
     t.datetime "updated_at", null: false
     t.index ["clientable_type", "clientable_id"], name: "index_clients_on_clientable_type_and_clientable_id"
     t.index ["ownerable_type", "ownerable_id"], name: "index_clients_on_ownerable_type_and_ownerable_id"
+  end
+
+  create_table "coins", force: :cascade do |t|
+    t.string "name"
+    t.string "acronym"
+    t.text "symbol"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -235,18 +243,16 @@ ActiveRecord::Schema.define(version: 20181005235507) do
   end
 
   create_table "job_offers", force: :cascade do |t|
-    t.string "photo", default: ""
-    t.string "charge", default: ""
-    t.string "location", default: ""
-    t.string "salary", default: ""
-    t.integer "day_rutine_type", default: 0
-    t.integer "job_type", default: 0
-    t.text "details", default: ""
-    t.string "status", default: ""
-    t.bigint "profile_id"
+    t.string "photo"
+    t.string "charge"
+    t.string "location"
+    t.string "salary"
+    t.integer "day_rutine_type"
+    t.integer "job_type"
+    t.text "details"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_job_offers_on_profile_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -500,9 +506,8 @@ ActiveRecord::Schema.define(version: 20181005235507) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.text "title", null: false
-    t.text "description", default: "", null: false
-    t.integer "q_type", default: 0
+    t.text "title"
+    t.text "description"
     t.integer "position"
     t.bigint "job_offer_id"
     t.datetime "created_at", null: false
@@ -677,6 +682,17 @@ ActiveRecord::Schema.define(version: 20181005235507) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "wallets", force: :cascade do |t|
+    t.text "token"
+    t.float "balance"
+    t.bigint "user_id"
+    t.bigint "coin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coin_id"], name: "index_wallets_on_coin_id"
+    t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
   create_table "wishes", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name", default: ""
@@ -711,7 +727,6 @@ ActiveRecord::Schema.define(version: 20181005235507) do
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "items_options", "items"
   add_foreign_key "items_options", "options"
-  add_foreign_key "job_offers", "profiles"
   add_foreign_key "membership_conversations", "conversations"
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
@@ -731,5 +746,7 @@ ActiveRecord::Schema.define(version: 20181005235507) do
   add_foreign_key "sended_wishes", "users"
   add_foreign_key "sended_wishes", "wishes"
   add_foreign_key "shopping_carts", "users"
+  add_foreign_key "wallets", "coins"
+  add_foreign_key "wallets", "users"
   add_foreign_key "wishes", "users"
 end

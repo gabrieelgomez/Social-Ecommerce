@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   validates :email, :nickname, uniqueness: true
   validates :email, email_format: { message: 'Invalid email' }
 
+  after_create :create_wallet
+
   # Helper para permitir que el modelo pueda ser seguido por otros modelos
   acts_as_followable
   # Helper para permitir que el modelo pueda seguir a otros modelos
@@ -35,6 +37,7 @@ class User < ActiveRecord::Base
   # Seller
   has_one  :seller, -> { where(type_profile: 'Seller') },
            class_name: 'Profile'
+  has_many :wallets
   has_many :profiles
   has_many :offers
   has_many :rates, as: :rateable
@@ -52,6 +55,20 @@ class User < ActiveRecord::Base
   # Callbacks
   after_create :create_shopping_cart
   before_save  :set_url
+
+  # Methods by generate wallet default coin wave
+  def create_wallet
+    Wallet.create(
+      token: SecureRandom.hex(12),
+      balance: 10,
+      user: self,
+      coin_id: 1
+    )
+  end
+
+  def create_default_wallets
+    Wallet.create(token: SecureRandom.hex(12), balance: 10, user_id: self.id, coin_id: 1) if self.wallets.blank? && Wallet.between(self.id,1).blank?
+  end
 
   # Metodo para seguir Profiles by users
   def follow_profile(followable, profile)
