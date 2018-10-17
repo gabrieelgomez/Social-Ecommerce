@@ -70,7 +70,7 @@ module Api::V1::Products
 
     # PUT /v1/pymes/:profile_id/products/product_id/update
     def update_status
-      if @product.update(status: params[:status])
+      if @product.update(status: params[:status]) #update status
         render json: @product.as_json(only: %i[id type name status]), status: 200
       else
         render json: @product.errors,
