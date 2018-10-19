@@ -37,7 +37,6 @@ class User < ActiveRecord::Base
   # Seller
   has_one  :seller, -> { where(type_profile: 'Seller') },
            class_name: 'Profile'
-  has_many :wallets
   has_many :profiles
   has_many :offers
   has_many :rates, as: :rateable
@@ -50,6 +49,8 @@ class User < ActiveRecord::Base
   has_one  :shopping_cart
   has_many :posts, as: :postable
   has_many :cotizations
+  has_many :wallets
+  has_many :transactions
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
   # Callbacks
@@ -66,6 +67,7 @@ class User < ActiveRecord::Base
     )
   end
 
+  # Metodo para crear wallets a usuarios existentes antes del modulo
   def create_default_wallets
     Wallet.create(token: SecureRandom.hex(12), balance: 10, user_id: self.id, coin_id: 1) if self.wallets.blank? && Wallet.between(self.id,1).blank?
   end

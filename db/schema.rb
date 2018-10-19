@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181016175649) do
+ActiveRecord::Schema.define(version: 20181019183300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -633,6 +633,21 @@ ActiveRecord::Schema.define(version: 20181016175649) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.float "amount"
+    t.text "reference"
+    t.string "type_transfer"
+    t.string "status"
+    t.bigint "coin_id"
+    t.bigint "user_id"
+    t.bigint "wallet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coin_id"], name: "index_transactions_on_coin_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+    t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -746,6 +761,9 @@ ActiveRecord::Schema.define(version: 20181016175649) do
   add_foreign_key "sended_wishes", "users"
   add_foreign_key "sended_wishes", "wishes"
   add_foreign_key "shopping_carts", "users"
+  add_foreign_key "transactions", "coins"
+  add_foreign_key "transactions", "users"
+  add_foreign_key "transactions", "wallets"
   add_foreign_key "wallets", "coins"
   add_foreign_key "wallets", "users"
   add_foreign_key "wishes", "users"
