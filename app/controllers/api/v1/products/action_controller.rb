@@ -3,7 +3,7 @@ module Api::V1::Products
     before_action :authenticate_v1_user!
     before_action :current_user_productable
     before_action :validate_password, only: %i[destroy]
-    before_action :set_product, only: %i[destroy update]
+    before_action :set_product, only: %i[destroy update update_status]
 
 
     def create
@@ -62,6 +62,16 @@ module Api::V1::Products
 
       if @product.update(product_params)
         render json: @product, status: 200
+      else
+        render json: @product.errors,
+               status: 500
+      end
+    end
+
+    # PUT /v1/pymes/:profile_id/products/product_id/update/status
+    def update_status
+      if @product.update(status: params[:status]) #update status
+        render json: @product.as_json(only: %i[id type name status]), status: 200
       else
         render json: @product.errors,
                status: 500
