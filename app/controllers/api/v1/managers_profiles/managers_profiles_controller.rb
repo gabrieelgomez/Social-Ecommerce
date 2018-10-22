@@ -43,7 +43,7 @@ module Api::V1
     end
 
     def search_profile(object)
-      Profile.find(object.resource_id).as_json(only: [:id, :title, :type_profile])
+      Profile.find(object.resource_id).as_json(only: [:id, :title, :slug, :type_profile])
     end
 
     def search_profile_roles

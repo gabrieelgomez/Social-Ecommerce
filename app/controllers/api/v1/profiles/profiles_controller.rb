@@ -4,7 +4,7 @@ module Api::V1
     before_action :set_profile, only: [:products_prominent]
 
     def all_profiles
-      @result = Profile.all.uniq.as_json(only: [:id, :title, :photo, :created_at, :updated_at, :type_profile], methods: :category_ids)
+      @result = Profile.all.uniq.as_json(only: [:id, :title, :slug, :photo, :created_at, :updated_at, :type_profile], methods: :category_ids)
       render json: @result, status: 200
     end
 

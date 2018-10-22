@@ -7,7 +7,7 @@ module Home
       Independent.order(created_at: :desc)
                  .reject{|i| i.photo.blank?}
                  .first(quantity)
-                 .as_json(only: %i[id title photo name type_profile created_at], methods: %i[category_ids follow])
+                 .as_json(only: %i[id title slug photo name type_profile created_at], methods: %i[category_ids follow])
     end
 
     # Services #3 sellers_by_followers, Enmachs
@@ -18,7 +18,7 @@ module Home
             .sort_by{ |seller| seller.followers_by_type_profile('User', 'Seller').count }
             .reverse
             .first(quantity)
-            .as_json(only: %i[id title photo name type_profile created_at], methods: %i[category_ids follow])
+            .as_json(only: %i[id title slug photo name type_profile created_at], methods: %i[category_ids follow])
     end
 
     # Services #5 products_by_created_at, Enmachs
@@ -54,7 +54,7 @@ module Home
           .sort_by { |profile| (profile.products.map(&:status)-[false]).count }
           .reverse
           .first(quantity)
-          .as_json(only: %i[id title photo name type_profile], methods: %i[category_ids follow])
+          .as_json(only: %i[id title slug photo name type_profile], methods: %i[category_ids follow])
     end
 
     # Services #4 categories_listing_by_products, GabrielGomez
@@ -78,7 +78,7 @@ module Home
           profiles: category.by_sorting_profiles_products
                             .reverse
                             .take(6)
-                            .as_json(only: %i[id title photo name type_profile], methods: %i[category_ids follow])
+                            .as_json(only: %i[id title slug photo name type_profile], methods: %i[category_ids follow])
         }
       }.uniq
     end

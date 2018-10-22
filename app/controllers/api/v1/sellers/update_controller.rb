@@ -8,6 +8,7 @@ module Api::V1::Sellers
 
     def update
       if @seller.update(general_params(:seller))
+        @seller.update(slug: params[:seller][:slug].parameterize) if params[:seller][:slug]
         @seller.schedule.update(params[:schedule]) if params[:schedule]
         render json: @seller, status: 200
       else

@@ -27,7 +27,7 @@ module Api::V1::Profiles
     private
 
     def profile_params
-      params.require(:profile).permit(:user_id, :title, :name, :type_profile,
+      params.require(:profile).permit(:user_id, :title, :slug, :name, :type_profile,
                                       :email, :banner, :photo, :launched, :phone,
                                       :url, :address, :vision, :mission, :description,
                                       :web, :profile, :experience, :country, :validation,

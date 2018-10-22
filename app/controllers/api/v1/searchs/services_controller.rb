@@ -16,7 +16,7 @@ module Api::V1::Searchs
 
       profiles = category.by_profiles
                          .uniq
-                         .as_json(only: %i[id title photo name type_profile], methods: %i[category_ids])
+                         .as_json(only: %i[id title slug photo name type_profile], methods: %i[category_ids])
 
       if params[:type_search].eql?('products')
         @result = products.take(quantity.to_i)

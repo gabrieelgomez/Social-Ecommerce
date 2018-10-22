@@ -5,6 +5,7 @@ class Profile < ApplicationRecord
   # Friendly ID
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
+
   # attr_accessor :type_profile
   after_create :create_crm
   after_create :create_social_account_and_schedule
@@ -36,8 +37,9 @@ class Profile < ApplicationRecord
 
   # Validations
   # validate    :validate_seller, on: :create
-  validates   :user_id, numericality: true
-  validates   :user_id, :title, :category_ids, presence: true
+  validates :slug, uniqueness: true
+  validates :user_id, numericality: true
+  validates :user_id, :title, :category_ids, presence: true
 
   # delegate :pymes, :independents, :sellers, to: :profiles
   self.inheritance_column = :type_profile
@@ -102,7 +104,7 @@ class Profile < ApplicationRecord
   # Method by used Search services/model
   def self.short_ransack(categories, search)
     ransack(categories_id_in: categories).result
-    .ransack(name_or_description_or_title_cont: search).result
+    .ransack(name_or_description_or_title_cont_or_slug_cont: search).result
   end
   # ------------
 

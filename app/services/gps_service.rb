@@ -84,6 +84,7 @@ class GpsService
                 banner: profile.banner,
                 photo: profile.photo,
                 title: profile.title,
+                slug: profile.slug,
                 products: profile.products_locations(var_bool, product_ids)
               ]
             ).uniq

@@ -17,7 +17,7 @@ module Api::V1
     end
 
     def general_params(object)
-      params.require(object).permit(:user_id, :title, :name, :type_profile,
+      params.require(object).permit(:user_id, :title, :name, :slug, :type_profile,
                                     :email, :banner, :photo, :launched,
                                     :phone,:url, :address, :vision, :mission,
                                     :description,:web, :profile, :experience,

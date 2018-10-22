@@ -8,7 +8,7 @@ module Api::V1
     end
 
     def seller_params
-      params.permit(:user_id, :title, :name)
+      params.permit(:user_id, :title, :slug, :name)
     end
 
     def set_my_seller

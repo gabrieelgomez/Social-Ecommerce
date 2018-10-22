@@ -488,6 +488,7 @@ ActiveRecord::Schema.define(version: 20181005235507) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_profiles_on_slug", unique: true
   end
 
   create_table "q_options", force: :cascade do |t|

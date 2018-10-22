@@ -23,7 +23,7 @@ module Api::V1::Searchs
 
 
       # Result
-      @result = profiles.uniq.as_json(only: [:id, :title, :photo, :prominent, :created_at, :updated_at, :type_profile], methods: :category_ids)
+      @result = profiles.uniq.as_json(only: %i[id title slug photo prominent created_at updated_at type_profile], methods: :category_ids)
 
       render json: @result, status: 200
     end
