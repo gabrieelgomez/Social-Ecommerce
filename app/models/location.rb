@@ -19,6 +19,7 @@ class Location < ApplicationRecord
     self.state_code   = results.first.state_code.parameterize
     self.country      = results.first.country
     self.country_code = results.first.country_code
+    puts self.address
     save!
   end
 end
