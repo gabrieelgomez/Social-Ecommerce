@@ -428,6 +428,8 @@ categories = [
   }
 ]
 
+['Queja', 'Reclamo', 'Publicidad'].each{|name| ContactType.create(name: name)}
+
 categories.each_with_index do |category, i|
   categoria = Category.create(
     name: category[:name],
