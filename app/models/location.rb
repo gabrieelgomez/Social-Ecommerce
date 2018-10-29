@@ -10,7 +10,7 @@ class Location < ApplicationRecord
 
   # validates :latitude, :longitude, uniqueness: true
 
-  before_save :create_geocode
+  # before_save :create_geocode
 
   def create_geocode
     results = Geocoder.search([self.latitude, self.longitude])
