@@ -42,11 +42,16 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
 
       ## User Info
       t.string :name
+      t.string :lastname
+      t.string :banner
       t.string :nickname
       t.string :avatar
       t.string :email
+      t.string :phone_one
+      t.string :phone_two
       t.string :url, default: ''
       t.string :slug
+      t.text   :description
       t.boolean :censured, default: false
       t.string :dni
       t.datetime :birth_date
