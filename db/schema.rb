@@ -16,6 +16,20 @@ ActiveRecord::Schema.define(version: 20181030190909) do
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
+  create_table "advertises", force: :cascade do |t|
+    t.text "advertisable_type", default: [], array: true
+    t.string "cover", default: ""
+    t.text "images", default: [], array: true
+    t.string "status", default: "", null: false
+    t.integer "creator_id", null: false
+    t.bigint "seen_count", default: 0, null: false
+    t.jsonb "clicked_count", default: []
+    t.float "budget", default: 1.0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_advertises_on_creator_id"
+  end
+
   create_table "answer_wishes", force: :cascade do |t|
     t.bigint "profile_id"
     t.bigint "sended_wish_id"
@@ -90,7 +104,6 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.string "title"
     t.text "body"
     t.string "subject"
-    t.boolean "body_update"
     t.integer "user_id", null: false
     t.integer "parent_id"
     t.integer "lft"
