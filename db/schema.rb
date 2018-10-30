@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181005235507) do
+ActiveRecord::Schema.define(version: 20181030190909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "answer_wishes", force: :cascade do |t|
     t.bigint "profile_id"
@@ -189,6 +190,24 @@ ActiveRecord::Schema.define(version: 20181005235507) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id"
+  end
+
+  create_table "educational_descriptions", force: :cascade do |t|
+    t.string "institution"
+    t.string "degree"
+    t.text "academic_discipline"
+    t.string "note"
+    t.text "activities_groups"
+    t.string "start_date"
+    t.string "end_date"
+    t.boolean "current"
+    t.text "description"
+    t.jsonb "files"
+    t.string "educationable_type"
+    t.bigint "educationable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["educationable_type", "educationable_id"], name: "educationable_id"
   end
 
   create_table "follows", force: :cascade do |t|

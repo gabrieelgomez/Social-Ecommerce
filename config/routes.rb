@@ -222,7 +222,7 @@ Rails.application.routes.draw do
       # --- Statistics route - end
 
       # --- EducationalDescriptions route
-      # draw :educational_descriptions
+      draw :educational_descriptions
       # --- EducationalDescriptions route - end
 
     end

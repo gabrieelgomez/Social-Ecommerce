@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   # mount_uploader :avatar, ImageUploader
   mount_base64_uploader :avatar, ImageUploader
+  mount_base64_uploader :banner, ImageUploader
+
 
   validates :email, :nickname, uniqueness: true
   validates :email, email_format: { message: 'Invalid email' }

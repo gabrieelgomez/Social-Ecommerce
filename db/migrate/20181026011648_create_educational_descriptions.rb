@@ -11,7 +11,7 @@ class CreateEducationalDescriptions < ActiveRecord::Migration[5.1]
       t.boolean :current
       t.text :description
       t.jsonb :files
-      t.references :educationable, polymorphic: true, index: true
+      t.references :educationable, polymorphic: true, index: {name: 'educationable_id'}
 
       t.timestamps
     end
