@@ -691,5 +691,7 @@ policy = PolicyTerm.new(
 )
 puts 'Policy Term created' if policy.save
 
+# Wallets
+Coin.create(name: 'Wave', acronym: 'wave',symbol: '£')
 
 %i[Consulta Publicidad Reclamo].each{|x| ContactType.create(name: x) }

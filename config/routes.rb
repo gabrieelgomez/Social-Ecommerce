@@ -221,6 +221,10 @@ Rails.application.routes.draw do
       draw :statistics
       # --- Statistics route - end
 
+      # --- Wallets route
+      draw :wallets
+      # --- Wallets route - end
+
       # --- EducationalDescriptions route
       draw :educational_descriptions
       # --- EducationalDescriptions route - end
