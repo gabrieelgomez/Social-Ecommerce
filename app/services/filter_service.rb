@@ -80,11 +80,11 @@ class FilterService
   # Filter by Countries
   def self.countries(objects)
     @countries = []
-    countries = objects.collect{|object| object.countries_codes}.flatten.uniq
-    cities    = objects.collect{|object| object.states_codes.flatten}.flatten.uniq
+    countries = objects.collect{|object| object.countries_codes}.flatten.uniq.compact
+    cities    = objects.collect{|object| object.states_codes}.flatten.uniq.compact
     countries.each do |country|
       total_country = 0
-      objects.map{ |object| total_country+=1 if object.countries_codes.include?(country)}
+      objects.map{ |object| total_country+=1 if object.countries_codes.to_a.include?(country)}.compact.last
       unless total_country.zero?
         @countries.push(
           country_name: CS.get[country.to_sym],
@@ -103,7 +103,7 @@ class FilterService
     cities_array.each do |city|
       next if city.eql?(country)
       total_cities = 0
-      objects.map{ |object| total_cities+=1 if object.states_codes.flatten.include?(city)}
+      objects.map{ |object| total_cities+=1 if object.states_codes.to_a.flatten.include?(city)}
       unless total_cities.zero?
         @cities.push(
           city_name: city.capitalize,
