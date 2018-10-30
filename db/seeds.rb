@@ -690,3 +690,6 @@ policy = PolicyTerm.new(
   file: ''
 )
 puts 'Policy Term created' if policy.save
+
+
+%i[Consulta Publicidad Reclamo].each{|x| ContactType.create(name: x) }

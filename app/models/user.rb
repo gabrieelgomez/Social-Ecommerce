@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   # mount_uploader :avatar, ImageUploader
   mount_base64_uploader :avatar, ImageUploader
+  mount_base64_uploader :banner, ImageUploader
+
 
   validates :email, :nickname, uniqueness: true
   validates :email, email_format: { message: 'Invalid email' }
@@ -47,6 +49,8 @@ class User < ActiveRecord::Base
   has_one  :shopping_cart
   has_many :posts, as: :postable
   has_many :cotizations
+  has_many :educational_descriptions, as: :educationable, dependent: :delete_all
+
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
   # Callbacks
