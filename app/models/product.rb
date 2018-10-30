@@ -33,6 +33,10 @@ class Product < ApplicationRecord
   #   sType.classify.constantize.to_s
   # end
 
+  ransacker :name, type: :string do
+    Arel.sql("unaccent(\"name\")")
+  end
+
   # Methods by filters and searchs
   def links
     profile_id = self.productable.id

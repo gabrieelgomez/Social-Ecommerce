@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181005235507) do
+ActiveRecord::Schema.define(version: 20181030190909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "answer_wishes", force: :cascade do |t|
     t.bigint "profile_id"

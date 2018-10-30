@@ -41,6 +41,10 @@ class Profile < ApplicationRecord
   validates :user_id, numericality: true
   validates :user_id, :title, :category_ids, presence: true
 
+  ransacker :title, type: :string do
+    Arel.sql("unaccent(\"title\")")
+  end
+
   # delegate :pymes, :independents, :sellers, to: :profiles
   self.inheritance_column = :type_profile
 
