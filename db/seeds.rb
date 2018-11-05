@@ -680,18 +680,22 @@ else
   puts superadmin.errors
 end
 
+# Profiles Locations
 Profile.all.map(&:create_locations)
+puts 'Profile locations updated'
 
+# DealType
 deal_type = DealType.create(name: 'cotization')
 puts "Deal type #{deal_type.name} created"
 
-policy = PolicyTerm.new(
-  terms: '',
-  file: ''
-)
+# PolicyTerm
+policy = PolicyTerm.new( terms: '', file: '' )
 puts 'Policy Term created' if policy.save
 
 # Wallets
 Coin.create(name: 'Wave', acronym: 'wave',symbol: '£')
+puts 'Coin wave and wallets created created'
 
+# ContactType
 %i[Consulta Publicidad Reclamo].each{|x| ContactType.create(name: x) }
+puts 'Contacts Types Consulta, Publicidad, Reclamo created'

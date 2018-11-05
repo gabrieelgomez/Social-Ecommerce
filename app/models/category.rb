@@ -7,8 +7,11 @@ class Category < ApplicationRecord
   has_and_belongs_to_many :sellers
   has_and_belongs_to_many :products
 
-
   has_many :subcategories
+
+  ransacker :name, type: :string do
+    Arel.sql("unaccent(\"name\")")
+  end
 
   def by_profiles
     pymes        = self.pymes

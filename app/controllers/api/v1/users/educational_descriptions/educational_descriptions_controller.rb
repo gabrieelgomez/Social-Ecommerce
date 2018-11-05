@@ -52,7 +52,7 @@ module Api::V1::Users
     end
 
     def educational_description_params
-      params.require(:educational_description).permit(:institution, :degree, :academic_discipline, :note, :activities_groups, :start_date, :end_date, :current, :description, files: [])
+      params.require(:educational_description).permit(:institution, :degree, :half_coins, :all_coins, :academic_discipline, :note, :activities_groups, :start_date, :end_date, :current, :description, files: [])
     end
 
   end

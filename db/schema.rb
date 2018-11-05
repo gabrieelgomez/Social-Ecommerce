@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.string "title"
     t.text "body"
     t.string "subject"
+    t.boolean "body_update"
     t.integer "user_id", null: false
     t.integer "parent_id"
     t.integer "lft"
@@ -224,6 +225,8 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.boolean "current"
     t.text "description"
     t.jsonb "files"
+    t.boolean "all_coins", default: false
+    t.boolean "half_coins", default: false
     t.string "educationable_type"
     t.bigint "educationable_id"
     t.datetime "created_at", null: false
@@ -275,16 +278,18 @@ ActiveRecord::Schema.define(version: 20181030190909) do
   end
 
   create_table "job_offers", force: :cascade do |t|
-    t.string "photo"
-    t.string "charge"
-    t.string "location"
-    t.string "salary"
-    t.integer "day_rutine_type"
-    t.integer "job_type"
-    t.text "details"
-    t.string "status"
+    t.string "photo", default: ""
+    t.string "charge", default: ""
+    t.string "location", default: ""
+    t.string "salary", default: ""
+    t.integer "day_rutine_type", default: 0
+    t.integer "job_type", default: 0
+    t.text "details", default: ""
+    t.string "status", default: ""
+    t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_job_offers_on_profile_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -539,8 +544,9 @@ ActiveRecord::Schema.define(version: 20181030190909) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.text "title"
-    t.text "description"
+    t.text "title", null: false
+    t.text "description", default: "", null: false
+    t.integer "q_type", default: 0
     t.integer "position"
     t.bigint "job_offer_id"
     t.datetime "created_at", null: false
@@ -703,11 +709,16 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.integer "read_notification_count"
     t.integer "unread_notification_count"
     t.string "name"
+    t.string "lastname"
+    t.string "banner"
     t.string "nickname"
     t.string "avatar"
     t.string "email"
+    t.string "phone_one"
+    t.string "phone_two"
     t.string "url", default: ""
     t.string "slug"
+    t.text "description"
     t.boolean "censured", default: false
     t.string "dni"
     t.datetime "birth_date"
@@ -775,6 +786,7 @@ ActiveRecord::Schema.define(version: 20181030190909) do
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "items_options", "items"
   add_foreign_key "items_options", "options"
+  add_foreign_key "job_offers", "profiles"
   add_foreign_key "membership_conversations", "conversations"
   add_foreign_key "messages", "conversations"
   add_foreign_key "offers", "users"
