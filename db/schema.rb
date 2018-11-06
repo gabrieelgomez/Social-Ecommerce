@@ -129,12 +129,14 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.string "cotizable_type"
     t.bigint "cotizable_id"
     t.bigint "client_id"
+    t.bigint "user_id_id"
     t.integer "deal_type_id"
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_cotizations_on_client_id"
     t.index ["cotizable_type", "cotizable_id"], name: "index_cotizations_on_cotizable_type_and_cotizable_id"
+    t.index ["user_id_id"], name: "index_cotizations_on_user_id_id"
   end
 
   create_table "cotizations_items", force: :cascade do |t|
