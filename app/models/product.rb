@@ -1,15 +1,19 @@
 class Product < ApplicationRecord
   mount_base64_uploader :cover, ImageUploader
   attr_accessor :document_data
-
   serialize :states_codes
   # Callbacks
-  after_create :create_notify
-  before_save :create_type_profile, :create_category_ids, :create_locations
-  after_save :set_change_price, if: :price_changed?
-  acts_as_commentable
-  acts_as_paranoid
-  acts_as_taggable_on :tags
+    acts_as_commentable
+    acts_as_paranoid
+    acts_as_taggable_on :tags
+    # Notifications
+    after_create :create_notify_new_product
+    after_save :create_notify_change_price, if: :price_changed?
+
+    # Others
+    before_save :create_type_profile, :create_category_ids, :create_locations
+
+  # Relationships
   has_many :price_ranges
   has_and_belongs_to_many :custom_fields
   has_and_belongs_to_many :options
@@ -86,7 +90,7 @@ class Product < ApplicationRecord
   # End Methods by filters and searchs
 
 
-  def create_notify
+  def create_notify_new_product
     model_name = self.productable.type_profile.capitalize
     followers = self.productable.followers_by_type_profile('User', model_name)
     return if followers.nil?
@@ -97,7 +101,7 @@ class Product < ApplicationRecord
     end
   end
 
-  def set_change_price
+  def create_notify_change_price
     return if price_before_last_save.nil?
     if price < price_before_last_save
       whishes = self.wishes
