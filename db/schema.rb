@@ -360,6 +360,8 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.boolean "read", default: false, null: false
     t.string "type"
     t.text "metadata"
+    t.string "image"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "subscription_id"

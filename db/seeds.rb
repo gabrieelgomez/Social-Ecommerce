@@ -494,10 +494,18 @@ options_products = [
   user = User.create(
     name: Faker::Name.unique.name,
     email: Faker::Internet.unique.free_email,
-    password: 12345678,
-    password_confirmation: 12345678,
+    password: '12345678',
+    password_confirmation: '12345678',
     nickname: Faker::Internet.unique.user_name
   )
+
+  coord = Faker::Number.between(0, 7)
+  location = Location.create(
+    latitude: coordenates[coord][:lat],
+    longitude: coordenates[coord][:long],
+    locatable: user
+  )
+
   puts user.email
   # Fin Creacion de un Usuario
 
@@ -679,6 +687,21 @@ if superadmin.save
 else
   puts superadmin.errors
 end
+
+user_dev = User.new(
+  name: 'Gabriel A. Gómez',
+  email: 'gagg1707@gmail.com',
+  password: '12345678',
+  password_confirmation: '12345678',
+  nickname: 'snowden0'
+)
+user_dev.save!
+coord = Faker::Number.between(0, 7)
+location = Location.create(
+  latitude: coordenates[coord][:lat],
+  longitude: coordenates[coord][:long],
+  locatable: user_dev
+)
 
 # Profiles Locations
 Profile.all.map(&:create_locations)

@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   has_many :educational_descriptions, as: :educationable, dependent: :delete_all
   has_many :wallets
   has_many :transactions
-
+  has_many :locations, as: :locatable
 
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
