@@ -16,6 +16,10 @@ Rails.application.routes.draw do
       draw :posts
       # --- Posts routes - end
 
+      # --- Advertise
+      # draw :advertises
+      # --- Advertise - end
+
       # Routes for custom reset password
       scope module: 'users' do
         post 'auth/password/reset', to: 'password_reset#reset'
@@ -153,6 +157,7 @@ Rails.application.routes.draw do
 
       namespace :products do
         get '/sort_by_wishes', to: 'show#sorting_by'
+        put '/:id/status', to: 'action#status'
       end
 
       # --- Product routes and related to them
@@ -220,6 +225,14 @@ Rails.application.routes.draw do
       # --- Statistics route
       draw :statistics
       # --- Statistics route - end
+
+      # # --- Wallets route
+      # draw :wallets
+      # # --- Wallets route - end
+      #
+      # # --- EducationalDescriptions route
+      # draw :educational_descriptions
+      # # --- EducationalDescriptions route - end
 
     end
   end
