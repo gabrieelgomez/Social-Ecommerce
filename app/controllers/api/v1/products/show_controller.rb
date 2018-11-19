@@ -3,6 +3,10 @@ module Api::V1::Products
     before_action :authenticate_v1_user!, only: %i[show_own]
     before_action :public_productable, only: %i[show index wished_ones]
     before_action :set_product, only: %i[show]
+
+    include ::Api::V1::Concerns::ProductSearch
+    include ::Api::V1::Concerns::ModelModulation
+
     def index
       if @productable.respond_to? :products
         render json: @productable.products
