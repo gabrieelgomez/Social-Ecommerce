@@ -12,7 +12,7 @@ module Api::V1::Notifications
           metadata: {title: params[:body]},
           image: params[:image],
           url: params[:url],
-          category: 'admin',
+          category: 'admin_notification',
           target: current_v1_user)
 
         render json: @notification, status: 200
@@ -20,7 +20,7 @@ module Api::V1::Notifications
     end
 
     def show
-      @notifications = Notification.where(category: 'admin')
+      @notifications = Notification.where(category: 'admin_notification')
       render json: @notifications, status: 200
     end
 

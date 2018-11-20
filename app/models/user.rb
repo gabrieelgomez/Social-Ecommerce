@@ -62,6 +62,27 @@ class User < ActiveRecord::Base
     Cotization.select{|x| x.client.clientable_id == self.id}
   end
 
+  def search_in? array, location_code
+    (self.try(location_code).flatten & array).any?
+  end
+
+  def countries_codes
+    codes = []
+    locations.collect do |location|
+      codes.push(location.country_code)
+    end
+    codes
+  end
+
+  def states_codes
+    codes = []
+    locations.collect do |location|
+      codes.push([location.country_code, location.state_code])
+    end
+    codes
+  end
+
+
   # Callbacks
   after_create :create_shopping_cart
   before_save  :set_url

@@ -494,6 +494,8 @@ options_products = [
   user = User.create(
     name: Faker::Name.unique.name,
     email: Faker::Internet.unique.free_email,
+    age: Faker::Number.between(18, 40),
+    gender: ['male', 'female'].sample,
     password: '12345678',
     password_confirmation: '12345678',
     nickname: Faker::Internet.unique.user_name

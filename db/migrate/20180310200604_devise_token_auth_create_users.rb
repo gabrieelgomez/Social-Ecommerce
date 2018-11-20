@@ -55,6 +55,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
       t.boolean :censured, default: false
       t.string :dni
       t.datetime :birth_date
+      t.integer  :age
       t.string :gender
       t.string :country
 

@@ -5,7 +5,7 @@ namespace :notifications do
     post 'create', to: 'admin#create'
     get 'show', to: 'admin#show'
     delete '/:notification_id/destroy', to: 'admin#destroy'
-    get 'users', to: 'users#filter_users'
+    post 'send_notifications/:notification_id', to: 'users#send_notifications'
   end
 
 

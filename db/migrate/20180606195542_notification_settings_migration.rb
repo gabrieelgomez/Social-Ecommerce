@@ -12,6 +12,10 @@ class NotificationSettingsMigration < ActiveRecord::Migration[5.1]
 
             t.text :settings
             t.jsonb :category_settings, default: {
+                                                  admin: {
+                                                    app: true,
+                                                    email: false
+                                                  },
                                                   conversation: {
                                                     app: true,
                                                     email: false
