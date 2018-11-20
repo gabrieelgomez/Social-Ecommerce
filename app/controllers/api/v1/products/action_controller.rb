@@ -5,6 +5,8 @@ module Api::V1::Products
     before_action :validate_password, only: %i[destroy]
     before_action :set_product, only: %i[destroy update update_status status]
 
+    include ::Api::V1::Concerns::ProductSearch
+    include ::Api::V1::Concerns::ModelModulation
 
     def create
       @product = @productable.products.new(product_params)
@@ -70,12 +72,12 @@ module Api::V1::Products
 
     # PUT /v1/pymes/:profile_id/products/product_id/update/status
     def update_status
-      if @product.update(status: params[:status]) #update status
-        render json: @product.as_json(only: %i[id type name status]), status: 200
-      else
-        render json: @product.errors,
-               status: 500
-      end
+      # if @product.update(status: params[:status]) #update status
+      #   render json: @product.as_json(only: %i[id type name status]), status: 200
+      # else
+      #   render json: @product.errors,
+      #          status: 500
+      # end
     end
 
     # PUT /v1/products/:id/status

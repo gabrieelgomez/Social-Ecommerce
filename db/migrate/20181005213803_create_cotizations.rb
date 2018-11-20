@@ -5,6 +5,7 @@ class CreateCotizations < ActiveRecord::Migration[5.1]
       t.references :client, foreign_key: true
       t.integer :deal_type_id
       t.float :price
+      t.boolean :status, default: true
 
       t.timestamps
     end

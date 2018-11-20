@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
 
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
+  def cotizations
+    Cotization.select{|x| x.client.clientable_id == self.id}
+  end
+
   # Callbacks
   after_create :create_shopping_cart
   before_save  :set_url

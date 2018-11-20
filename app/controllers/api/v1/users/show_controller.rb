@@ -9,7 +9,7 @@ module Api::V1::Users
 
     # GET /v1/users/{id}
     def show
-      @user = custom_find { User.find(params[:id]) }
+      @user = User.find(params[:id])
       render json: @user
     end
 

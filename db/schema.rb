@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.bigint "client_id"
     t.integer "deal_type_id"
     t.float "price"
+    t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_cotizations_on_client_id"
