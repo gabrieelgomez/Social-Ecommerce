@@ -158,6 +158,7 @@ Rails.application.routes.draw do
       namespace :products do
         get '/sort_by_wishes', to: 'show#sorting_by'
         put '/:id/status', to: 'products#status'
+        get '/:id/wished', to: 'products#wished'
       end
 
       # --- Product routes and related to them
