@@ -428,18 +428,6 @@ categories = [
   }
 ]
 
-['Queja', 'Reclamo', 'Publicidad'].each{|name| ContactType.create(name: name)}
-
-categories.each_with_index do |category, i|
-  categoria = Category.create(
-    name: category[:name],
-    cover: Faker::Company.logo
-  )
-  category[:subcategories].each_with_index do |subcat, i|
-    Subcategory.create(name: subcat, category: categoria)
-  end
-end
-
 coordenates = [
   {
     lat: 11.6848844,
@@ -486,6 +474,22 @@ options_products = [
   }
 ]
 
+# ContactType
+['Queja', 'Reclamo', 'Publicidad'].each{|name| ContactType.create(name: name)}
+
+# Wallets
+Coin.create(name: 'Wave', acronym: 'wave',symbol: '£')
+puts 'Coin wave and wallets created'
+
+categories.each_with_index do |category, i|
+  categoria = Category.create(
+    name: category[:name],
+    cover: Faker::Company.logo
+  )
+  category[:subcategories].each_with_index do |subcat, i|
+    Subcategory.create(name: subcat, category: categoria)
+  end
+end
 
 # Recorrido para crear Usuarios, Profiles y Productos
 10.times do |i|
@@ -716,11 +720,3 @@ puts "Deal type #{deal_type.name} created"
 # PolicyTerm
 policy = PolicyTerm.new( terms: '', file: '' )
 puts 'Policy Term created' if policy.save
-
-# Wallets
-Coin.create(name: 'Wave', acronym: 'wave',symbol: '£')
-puts 'Coin wave and wallets created created'
-
-# ContactType
-%i[Consulta Publicidad Reclamo].each{|x| ContactType.create(name: x) }
-puts 'Contacts Types Consulta, Publicidad, Reclamo created'

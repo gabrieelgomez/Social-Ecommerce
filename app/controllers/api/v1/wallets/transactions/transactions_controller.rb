@@ -4,7 +4,12 @@ module Api::V1::Wallets
 
 
 		def wallet_transactions
-			render json: @wallet.transactions, status: 200
+			if current_v1_user.email != 'bigwave.admin@gmail.com'
+        render json: {errors: 'Access Denied'}, status: 200
+      else
+        @wallet = Wallet.find(params[:wallet_id])
+				render json: @wallet.transactions, status: 200
+			end
 		end
 
     private
