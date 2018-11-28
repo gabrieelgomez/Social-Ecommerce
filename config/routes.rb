@@ -235,6 +235,9 @@ Rails.application.routes.draw do
       # draw :educational_descriptions
       # # --- EducationalDescriptions route - end
 
+      # Travel routes engine
+      mount Intranet::Engine, at: '/', as: 'intranet'
+
     end
   end
 end
