@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     intranet (0.1.0)
-      rails (~> 5.1.6)
+      rails (= 5.1.6)
 
 GEM
   remote: https://rubygems.org/

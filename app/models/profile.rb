@@ -35,6 +35,9 @@ class Profile < ApplicationRecord
   has_many :job_offers
   has_many :contacts, dependent: :destroy
 
+  # Decorators Intranet
+  has_one :intranet, class_name: 'Intranet::Intranet', dependent: :destroy
+
   # Validations
   # validate    :validate_seller, on: :create
   validates :slug, uniqueness: true
