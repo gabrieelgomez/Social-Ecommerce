@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181129141243) do
+ActiveRecord::Schema.define(version: 20181207161701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,18 @@ ActiveRecord::Schema.define(version: 20181129141243) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "intranet_groups", force: :cascade do |t|
+    t.string "title"
+    t.text "subtitle"
+    t.text "description"
+    t.string "banner"
+    t.string "cover"
+    t.bigint "intranet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["intranet_id"], name: "index_intranet_groups_on_intranet_id"
+  end
+
   create_table "intranet_intranets", force: :cascade do |t|
     t.string "title"
     t.boolean "status", default: false
@@ -268,6 +280,19 @@ ActiveRecord::Schema.define(version: 20181129141243) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_intranet_intranets_on_profile_id"
+  end
+
+  create_table "intranet_memberships", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "group_id"
+    t.bigint "intranet_id"
+    t.bigint "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_intranet_memberships_on_group_id"
+    t.index ["intranet_id"], name: "index_intranet_memberships_on_intranet_id"
+    t.index ["profile_id"], name: "index_intranet_memberships_on_profile_id"
+    t.index ["user_id"], name: "index_intranet_memberships_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
