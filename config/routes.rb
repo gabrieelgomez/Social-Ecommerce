@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       # --- Posts routes - end
 
       # --- Advertise
-      # draw :advertises
+      draw :advertises
       # --- Advertise - end
 
       # Routes for custom reset password
@@ -227,13 +227,13 @@ Rails.application.routes.draw do
       draw :statistics
       # --- Statistics route - end
 
-      # # --- Wallets route
-      # draw :wallets
-      # # --- Wallets route - end
-      #
-      # # --- EducationalDescriptions route
-      # draw :educational_descriptions
-      # # --- EducationalDescriptions route - end
+      # --- Wallets route
+      draw :wallets
+      # --- Wallets route - end
+
+      # --- EducationalDescriptions route
+      draw :educational_descriptions
+      # --- EducationalDescriptions route - end
 
       # Travel routes engine
       mount Intranet::Engine, at: '/', as: 'intranet'

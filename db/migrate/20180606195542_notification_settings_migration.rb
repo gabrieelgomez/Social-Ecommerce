@@ -12,6 +12,22 @@ class NotificationSettingsMigration < ActiveRecord::Migration[5.1]
 
             t.text :settings
             t.jsonb :category_settings, default: {
+                                                  admin: {
+                                                    app: true,
+                                                    email: false
+                                                  },
+                                                  conversation: {
+                                                    app: true,
+                                                    email: false
+                                                  },
+                                                  comment: {
+                                                    app: true,
+                                                    email: false
+                                                  },
+                                                  cotization: {
+                                                    app: true,
+                                                    email: false
+                                                  },
                                                   follow: {
                                                     app: true,
                                                     email: false
@@ -20,7 +36,15 @@ class NotificationSettingsMigration < ActiveRecord::Migration[5.1]
                                                     app: true,
                                                     email: false
                                                   },
+                                                  post: {
+                                                    app: true,
+                                                    email: false
+                                                  },
                                                   product: {
+                                                    app: true,
+                                                    email: false
+                                                  },
+                                                  profile: {
                                                     app: true,
                                                     email: false
                                                   },

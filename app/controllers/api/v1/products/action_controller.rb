@@ -3,7 +3,7 @@ module Api::V1::Products
     before_action :authenticate_v1_user!
     before_action :current_user_productable
     before_action :validate_password, only: %i[destroy]
-    before_action :set_product, only: %i[destroy update update_status]
+    before_action :set_product, only: %i[destroy update update_status status]
 
     include ::Api::V1::Concerns::ProductSearch
     include ::Api::V1::Concerns::ModelModulation
@@ -78,6 +78,16 @@ module Api::V1::Products
       #   render json: @product.errors,
       #          status: 500
       # end
+    end
+
+    # PUT /v1/products/:id/status
+    def status
+      if @product.update(status: !@product.status) #update status
+        render json: @product.as_json(only: %i[id type name status]), status: 200
+      else
+        render json: @product.errors,
+               status: 500
+      end
     end
 
     def destroy

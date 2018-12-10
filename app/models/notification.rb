@@ -1,5 +1,7 @@
 class Notification < NotificationHandler::Notification
 
+  mount_base64_uploader :image, ImageUploader
+
   def self.create_notify_models(recipient, sender, type, message)
     type_category = nil
     settings = recipient.notification_setting.category_settings

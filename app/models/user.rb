@@ -13,9 +13,13 @@ class User < ActiveRecord::Base
 
   # mount_uploader :avatar, ImageUploader
   mount_base64_uploader :avatar, ImageUploader
+  mount_base64_uploader :banner, ImageUploader
+
 
   validates :email, :nickname, uniqueness: true
   validates :email, email_format: { message: 'Invalid email' }
+
+  after_create :create_wallet
 
   # Helper para permitir que el modelo pueda ser seguido por otros modelos
   acts_as_followable
@@ -46,16 +50,57 @@ class User < ActiveRecord::Base
   has_many :membership_conversations, as: :memberable
   has_one  :shopping_cart
   has_many :posts, as: :postable
-  # has_many :cotizations
+  has_many :cotizations
+  has_many :educational_descriptions, as: :educationable, dependent: :delete_all
+  has_many :wallets
+  has_many :transactions
+  has_many :locations, as: :locatable
+
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
   def cotizations
     Cotization.select{|x| x.client.clientable_id == self.id}
   end
 
+  def search_in? array, location_code
+    (self.try(location_code).flatten & array).any?
+  end
+
+  def countries_codes
+    codes = []
+    locations.collect do |location|
+      codes.push(location.country_code)
+    end
+    codes
+  end
+
+  def states_codes
+    codes = []
+    locations.collect do |location|
+      codes.push([location.country_code, location.state_code])
+    end
+    codes
+  end
+
+
   # Callbacks
   after_create :create_shopping_cart
   before_save  :set_url
+
+  # Methods by generate wallet default coin wave
+  def create_wallet
+    Wallet.create(
+      token: SecureRandom.hex(12),
+      balance: 10,
+      user: self,
+      coin_id: 1
+    )
+  end
+
+  # Metodo para crear wallets a usuarios existentes antes del modulo
+  def create_default_wallets
+    Wallet.create(token: SecureRandom.hex(12), balance: 10, user_id: self.id, coin_id: 1) if self.wallets.blank? && Wallet.between(self.id,1).blank?
+  end
 
   # Metodo para seguir Profiles by users
   def follow_profile(followable, profile)

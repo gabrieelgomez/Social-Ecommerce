@@ -1,16 +1,12 @@
 namespace :notifications do
 
-  # # --- Users Following routes
-  # namespace :users do
-  #   #Crear seguidor
-  #   get '/follow/:user_id', to: 'action#create_follow'
-  #   #Listar todos los seguidores de current_v1_user
-  #   get '/all/notifications', to: 'action#notifications'
-  #   #Listar los que sigue current_v1_user
-  #   get '/all/following', to: 'action#following'
-  #   #Dejar de seguir un usuario a partir de current_v1_user
-  #   post '/stop/unfollow', to: 'action#unfollow'
-  # end
+  # # ---Notifications Admin
+  namespace :admin do
+    post 'create', to: 'admin#create'
+    get 'show', to: 'admin#show'
+    delete '/:notification_id/destroy', to: 'admin#destroy'
+    post 'send_notifications/:notification_id', to: 'users#send_notifications'
+  end
 
 
   #Listar todas las notificaciones leídas o no leidas de current_v1_user
