@@ -1,5 +1,5 @@
 class Follow < ActiveRecord::Base
-  after_create :create_notify
+  after_create :create_notify_new_follow
 
   extend ActsAsFollower::FollowerLib
   extend ActsAsFollower::FollowScopes
@@ -30,12 +30,13 @@ class Follow < ActiveRecord::Base
     'hello world'
   end
 
-  def create_notify
-    recipient = self.followable.user
-    sender    = self.follower
-    message   = "#{self.follower.name} ha seguido tu perfil #{self.followable.title}"
+  def create_notify_new_follow
+    recipient = followable
+    sender    = follower
+    message   = "#{sender.name} ha seguido tu perfil #{recipient.title}"
+    return if sender == recipient.user
     #Method for create_notify, in order is recipient, sender, type, message
-    Notification.create_notify_models(recipient, sender, 'follow', message)
+    Notification.create_notify_models(recipient.user, sender, 'follow', message)
   end
 
 end

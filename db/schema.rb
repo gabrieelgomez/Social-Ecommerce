@@ -16,6 +16,20 @@ ActiveRecord::Schema.define(version: 20181030190909) do
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
+  create_table "advertises", force: :cascade do |t|
+    t.text "advertisable_type", default: [], array: true
+    t.string "cover", default: ""
+    t.text "images", default: [], array: true
+    t.string "status", default: "", null: false
+    t.integer "creator_id", null: false
+    t.bigint "seen_count", default: 0, null: false
+    t.jsonb "clicked_count", default: []
+    t.float "budget", default: 1.0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_advertises_on_creator_id"
+  end
+
   create_table "answer_wishes", force: :cascade do |t|
     t.bigint "profile_id"
     t.bigint "sended_wish_id"
@@ -74,6 +88,14 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.datetime "updated_at", null: false
     t.index ["clientable_type", "clientable_id"], name: "index_clients_on_clientable_type_and_clientable_id"
     t.index ["ownerable_type", "ownerable_id"], name: "index_clients_on_ownerable_type_and_ownerable_id"
+  end
+
+  create_table "coins", force: :cascade do |t|
+    t.string "name"
+    t.string "acronym"
+    t.text "symbol"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -193,6 +215,26 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id"
   end
 
+  create_table "educational_descriptions", force: :cascade do |t|
+    t.string "institution"
+    t.string "degree"
+    t.text "academic_discipline"
+    t.string "note"
+    t.text "activities_groups"
+    t.string "start_date"
+    t.string "end_date"
+    t.boolean "current"
+    t.text "description"
+    t.jsonb "files"
+    t.boolean "all_coins", default: false
+    t.boolean "half_coins", default: false
+    t.string "educationable_type"
+    t.bigint "educationable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["educationable_type", "educationable_id"], name: "educationable_id"
+  end
+
   create_table "follows", force: :cascade do |t|
     t.string "followable_type", null: false
     t.bigint "followable_id", null: false
@@ -293,7 +335,7 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.bigint "subscription_id"
     t.string "status"
     t.text "settings"
-    t.jsonb "category_settings", default: {"wish"=>{"app"=>true, "email"=>false}, "offer"=>{"app"=>true, "email"=>false}, "follow"=>{"app"=>true, "email"=>false}, "product"=>{"app"=>true, "email"=>false}}
+    t.jsonb "category_settings", default: {"post"=>{"app"=>true, "email"=>false}, "wish"=>{"app"=>true, "email"=>false}, "admin"=>{"app"=>true, "email"=>false}, "offer"=>{"app"=>true, "email"=>false}, "follow"=>{"app"=>true, "email"=>false}, "comment"=>{"app"=>true, "email"=>false}, "product"=>{"app"=>true, "email"=>false}, "profile"=>{"app"=>true, "email"=>false}, "cotization"=>{"app"=>true, "email"=>false}, "conversation"=>{"app"=>true, "email"=>false}}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["object_type", "object_id"], name: "idx_settings_object_type_object_id"
@@ -319,6 +361,8 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.boolean "read", default: false, null: false
     t.string "type"
     t.text "metadata"
+    t.string "image"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "subscription_id"
@@ -631,6 +675,21 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.float "amount"
+    t.text "reference"
+    t.string "type_transfer"
+    t.string "status"
+    t.bigint "coin_id"
+    t.bigint "user_id"
+    t.bigint "wallet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coin_id"], name: "index_transactions_on_coin_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+    t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -653,14 +712,20 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.integer "read_notification_count"
     t.integer "unread_notification_count"
     t.string "name"
+    t.string "lastname"
+    t.string "banner"
     t.string "nickname"
     t.string "avatar"
     t.string "email"
+    t.string "phone_one"
+    t.string "phone_two"
     t.string "url", default: ""
     t.string "slug"
+    t.text "description"
     t.boolean "censured", default: false
     t.string "dni"
     t.datetime "birth_date"
+    t.integer "age"
     t.string "gender"
     t.string "country"
     t.json "tokens"
@@ -678,6 +743,17 @@ ActiveRecord::Schema.define(version: 20181030190909) do
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
+  end
+
+  create_table "wallets", force: :cascade do |t|
+    t.text "token"
+    t.float "balance"
+    t.bigint "user_id"
+    t.bigint "coin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coin_id"], name: "index_wallets_on_coin_id"
+    t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
   create_table "wishes", force: :cascade do |t|
@@ -734,5 +810,10 @@ ActiveRecord::Schema.define(version: 20181030190909) do
   add_foreign_key "sended_wishes", "users"
   add_foreign_key "sended_wishes", "wishes"
   add_foreign_key "shopping_carts", "users"
+  add_foreign_key "transactions", "coins"
+  add_foreign_key "transactions", "users"
+  add_foreign_key "transactions", "wallets"
+  add_foreign_key "wallets", "coins"
+  add_foreign_key "wallets", "users"
   add_foreign_key "wishes", "users"
 end

@@ -2,6 +2,7 @@ class Comment < ActiveRecord::Base
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
 
   before_save :set_change_body, if: :body_changed? #:saved_change_to_body?
+  after_create :create_notify_new_comment
 
   validates :body, :commentable_id, :commentable_type, :user, presence: true
 
@@ -33,6 +34,25 @@ class Comment < ActiveRecord::Base
 
   def set_change_body
     self.body_update = true unless body_was.nil?
+  end
+
+  def create_notify_new_comment
+    recipient = commentable
+    sender    = user
+
+    case commentable.class.to_s
+      when 'Pyme' || 'Seller' || 'Independent'
+        return if sender == recipient.user
+        recipient = recipient.user
+        message   = "#{sender.name} ha comentado tu perfil #{recipient.title}"
+      when 'Post'
+        message   = "#{sender.name} ha comentado tu publicación #{recipient.content.truncate(40)}"
+        recipient = recipient.postable
+        users = commentable.comments.map(&:user).map(&:id)
+        return if sender == recipient || users.include?(sender.id)
+    end # End case
+
+    Notification.create_notify_models(recipient, sender, 'comment', message) if message
   end
 
   # Helper class method to lookup all comments assigned

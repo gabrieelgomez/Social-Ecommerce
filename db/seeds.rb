@@ -428,18 +428,6 @@ categories = [
   }
 ]
 
-['Queja', 'Reclamo', 'Publicidad'].each{|name| ContactType.create(name: name)}
-
-categories.each_with_index do |category, i|
-  categoria = Category.create(
-    name: category[:name],
-    cover: Faker::Company.logo
-  )
-  category[:subcategories].each_with_index do |subcat, i|
-    Subcategory.create(name: subcat, category: categoria)
-  end
-end
-
 coordenates = [
   {
     lat: 11.6848844,
@@ -486,6 +474,22 @@ options_products = [
   }
 ]
 
+# ContactType
+['Queja', 'Reclamo', 'Publicidad'].each{|name| ContactType.create(name: name)}
+
+# Wallets
+Coin.create(name: 'Wave', acronym: 'wave',symbol: '£')
+puts 'Coin wave and wallets created'
+
+categories.each_with_index do |category, i|
+  categoria = Category.create(
+    name: category[:name],
+    cover: Faker::Company.logo
+  )
+  category[:subcategories].each_with_index do |subcat, i|
+    Subcategory.create(name: subcat, category: categoria)
+  end
+end
 
 # Recorrido para crear Usuarios, Profiles y Productos
 10.times do |i|
@@ -494,10 +498,20 @@ options_products = [
   user = User.create(
     name: Faker::Name.unique.name,
     email: Faker::Internet.unique.free_email,
-    password: 12345678,
-    password_confirmation: 12345678,
+    age: Faker::Number.between(18, 40),
+    gender: ['male', 'female'].sample,
+    password: '12345678',
+    password_confirmation: '12345678',
     nickname: Faker::Internet.unique.user_name
   )
+
+  coord = Faker::Number.between(0, 7)
+  location = Location.create(
+    latitude: coordenates[coord][:lat],
+    longitude: coordenates[coord][:long],
+    locatable: user
+  )
+
   puts user.email
   # Fin Creacion de un Usuario
 
@@ -680,13 +694,29 @@ else
   puts superadmin.errors
 end
 
-Profile.all.map(&:create_locations)
+user_dev = User.new(
+  name: 'Gabriel A. Gómez',
+  email: 'gagg1707@gmail.com',
+  password: '12345678',
+  password_confirmation: '12345678',
+  nickname: 'snowden0'
+)
+user_dev.save!
+coord = Faker::Number.between(0, 7)
+location = Location.create(
+  latitude: coordenates[coord][:lat],
+  longitude: coordenates[coord][:long],
+  locatable: user_dev
+)
 
+# Profiles Locations
+Profile.all.map(&:create_locations)
+puts 'Profile locations updated'
+
+# DealType
 deal_type = DealType.create(name: 'cotization')
 puts "Deal type #{deal_type.name} created"
 
-policy = PolicyTerm.new(
-  terms: '',
-  file: ''
-)
+# PolicyTerm
+policy = PolicyTerm.new( terms: '', file: '' )
 puts 'Policy Term created' if policy.save
