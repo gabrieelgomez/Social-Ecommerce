@@ -9,9 +9,11 @@ module ApplicationCable
     protected
 
     def find_verified_user
-      uid = params[:uid]
-      token = params[:token]
-      client_id = params[:client]
+      params = request.query_parameters()
+
+      uid = params[:uid] || params['uid']
+      token = params[:token] || params['token']
+      client_id = params[:client] || params['client']
 
       user = User.find_by_uid(uid)
 
