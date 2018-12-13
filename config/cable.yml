@@ -1,0 +1,11 @@
+development:
+  adapter: async
+
+test:
+  adapter: test
+
+production:
+  adapter: async
+  # url: redis://localhost:6379
+  # adapter: redis
+  # channel_prefix: bigwave_api_production
