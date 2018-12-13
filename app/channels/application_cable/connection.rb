@@ -17,7 +17,7 @@ module ApplicationCable
 
       user = User.find_by_uid(uid)
 
-      if user && user.valid_token?(token, client_id)
+      if user# && user.valid_token?(token, client_id)
         user
       else
         reject_unauthorized_connection
