@@ -8,7 +8,7 @@ class Notification < NotificationHandler::Notification
     settings.each{|c| type_category = c if c[0].eql?(type)}
 
     if type_category.second['app']
-      recipient.notify category: type, metadata: {
+      notification = recipient.notify category: type, metadata: {
         title: message
       }
     end
@@ -18,6 +18,7 @@ class Notification < NotificationHandler::Notification
       # notification.push :CustomPusher, option_one: 'value_two'
     end
 
+    return notification
   end
 
 end
