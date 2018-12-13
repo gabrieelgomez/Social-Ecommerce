@@ -11,7 +11,13 @@ class Message < ApplicationRecord
     recipient = conversation.recipientable.user
     sender    = conversation.senderable
     message   = "Tienes un nuevo mensaje de #{sender.name}"
-    Notification.create_notify_models(recipient, sender, 'conversation', message)
+    notification = Notification.create_notify_models(recipient, sender, 'conversation', message)
+
+    ActionCable.server.broadcast(
+      "notifications-#{recipient.id}",
+      message: message,
+      notification_id: notification.id
+    )
   end
 
   def create_notify_new_cotization_message
@@ -19,7 +25,13 @@ class Message < ApplicationRecord
     recipient = conversation.senderable.user
     sender    = conversation.recipientable
     message   = "#{sender.name} ha respondido a su cotización"
-    Notification.create_notify_models(recipient, sender, 'cotization', message)
+    notification = Notification.create_notify_models(recipient, sender, 'cotization', message)
+
+    ActionCable.server.broadcast(
+      "notifications-#{recipient.id}",
+      message: message,
+      notification_id: notification.id
+    )
   end
 
 end

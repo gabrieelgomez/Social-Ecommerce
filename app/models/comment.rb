@@ -64,7 +64,7 @@ class Comment < ActiveRecord::Base
     ActionCable.server.broadcast(
       "notifications-#{recipient.id}",
       message: message,
-      notification_id: notification_id
+      notification_id: notification.id
     )
 
   end

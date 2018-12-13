@@ -17,8 +17,17 @@ class Offer < ApplicationRecord
     return if followers.nil?
     message = "#{profile.title} ha creado la oferta #{offer.title}"
     followers.each do |follower|
+      recipient = follower
+      sender    = offer.user
       #Method for create_notify, in order is recipient, sender, type, message
-      Notification.create_notify_models(follower, offer.user, 'offer', message)
+      notification = Notification.create_notify_models(recipient, sender, 'offer', message)
+
+      ActionCable.server.broadcast(
+        "notifications-#{recipient.id}",
+        message: message,
+        notification_id: notification.id
+      )
+
     end
   end
 end

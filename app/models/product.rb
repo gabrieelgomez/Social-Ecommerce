@@ -107,8 +107,17 @@ class Product < ApplicationRecord
       whishes = self.wishes
       message = "#{self.name} ha bajado el precio de #{price_before_last_save} a #{price}"
       whishes.each do |wish|
+        recipient = wish.user
+        sender = self
         #Method for create_notify, in order is recipient, sender, type, message
-        Notification.create_notify_models(wish.user, self, 'product', message)
+        notification = Notification.create_notify_models(recipient, sender, 'product', message)
+
+        ActionCable.server.broadcast(
+          "notifications-#{recipient.id}",
+          message: message,
+          notification_id: notification.id
+        )
+
       end
     end
   end
