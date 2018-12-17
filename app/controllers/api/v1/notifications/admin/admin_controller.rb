@@ -41,3 +41,5 @@ module Api::V1::Notifications
 
 	end
 end
+
+# Notification.create!(metadata: {title: 'Saludos Armando, un mensaje desde BigwaveAdmin'}, image: nil, url: nil, category: 'conversation', target: user)
