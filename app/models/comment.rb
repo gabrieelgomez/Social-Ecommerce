@@ -61,12 +61,15 @@ class Comment < ActiveRecord::Base
 
     notification = Notification.create_notify_models(recipient, sender, 'comment', message) if message
 
+    # ActionCable.server.broadcast(
+    #   "notifications-#{recipient.id}",
+    #   message: message,
+    #   notification_id: notification.id
+    # )
     ActionCable.server.broadcast(
       "notifications-#{recipient.id}",
-      message: message,
-      notification_id: notification.id
+      data: notification.as_json
     )
-
   end
 
   # Helper class method to lookup all comments assigned

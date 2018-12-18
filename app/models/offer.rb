@@ -22,12 +22,15 @@ class Offer < ApplicationRecord
       #Method for create_notify, in order is recipient, sender, type, message
       notification = Notification.create_notify_models(recipient, sender, 'offer', message)
 
+      # ActionCable.server.broadcast(
+      #   "notifications-#{recipient.id}",
+      #   message: message,
+      #   notification_id: notification.id
+      # )
       ActionCable.server.broadcast(
         "notifications-#{recipient.id}",
-        message: message,
-        notification_id: notification.id
+        data: notification
       )
-
     end
   end
 end
