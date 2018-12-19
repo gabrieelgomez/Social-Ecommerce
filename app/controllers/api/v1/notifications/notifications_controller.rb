@@ -4,6 +4,23 @@ module Api::V1
     before_action :all_notifications, only: [:all]
     before_action :set_notification, only: [:mark_notification]
 
+    def notification_marking
+      ids = params[:notifications_ids].try(:split, '-').try(:map, &:to_i)
+      notifications = current_v1_user.notifications.where(id: ids)
+
+      notifications.each do |notification|
+        case params[:mark]
+          when 'read'
+          notification.update(read: true)
+          when 'unread'
+          notification.update(read: false)
+          else
+          nil
+        end
+      end
+      render json: notifications, status: 200
+    end
+
     private
 
     def all_notifications
