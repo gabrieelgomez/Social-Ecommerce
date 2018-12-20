@@ -10,7 +10,7 @@ class Message < ApplicationRecord
     return unless messageable == conversation.senderable && conversation.messages.count == 1 && conversation.type_messages != 'cotization'
     recipient = conversation.recipientable.user
     sender    = conversation.senderable
-    message   = "Tienes un nuevo mensaje de #{sender.name}"
+    message   = "Tienes un nuevo mensaje de *#{sender.name}*"
     notification = Notification.create_notify_models(recipient, sender, 'conversation', message)
 
     # ActionCable.server.broadcast(
@@ -28,7 +28,7 @@ class Message < ApplicationRecord
     return if messageable == conversation.senderable || conversation.type_messages != 'cotization'
     recipient = conversation.senderable.user
     sender    = conversation.recipientable
-    message   = "#{sender.name} ha respondido a su cotización"
+    message   = "*#{sender.name}* ha respondido a su cotización"
     notification = Notification.create_notify_models(recipient, sender, 'cotization', message)
 
     # ActionCable.server.broadcast(

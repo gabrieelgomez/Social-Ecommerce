@@ -105,7 +105,7 @@ class Product < ApplicationRecord
     return if price_before_last_save.nil?
     if price < price_before_last_save
       whishes = self.wishes
-      message = "#{self.name} ha bajado el precio de #{price_before_last_save} a #{price}"
+      message = "*#{self.name}* ha bajado el precio de *#{price_before_last_save}* a *#{price}*"
       whishes.each do |wish|
         recipient = wish.user
         sender = self

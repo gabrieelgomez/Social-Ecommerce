@@ -15,7 +15,7 @@ class Offer < ApplicationRecord
     model_name = profile.type_profile.capitalize
     followers = profile.followers_by_type_profile('User', model_name)
     return if followers.nil?
-    message = "#{profile.title} ha creado la oferta #{offer.title}"
+    message = "*#{profile.title}* ha creado la oferta *#{offer.title}*"
     followers.each do |follower|
       recipient = follower
       sender    = offer.user
