@@ -42,34 +42,24 @@ class Comment < ActiveRecord::Base
     case commentable.class.to_s
       when 'Pyme'
         return if sender == recipient.user
-        message   = "*#{sender.name}* ha comentado tu perfil *#{recipient.title}*"
+        message   = "<strong>#{sender.name}</strong> ha comentado tu perfil <strong>#{recipient.title}</strong>"
         recipient = recipient.user
       when 'Seller'
         return if sender == recipient.user
-        message   = "*#{sender.name}* ha comentado tu perfil *#{recipient.title}*"
+        message   = "<strong>#{sender.name}</strong> ha comentado tu perfil <strong>#{recipient.title}</strong>"
         recipient = recipient.user
       when 'Independent'
         return if sender == recipient.user
-        message   = "*#{sender.name}* ha comentado tu perfil *#{recipient.title}*"
+        message   = "<strong>#{sender.name}</strong> ha comentado tu perfil <strong>#{recipient.title}</strong>"
         recipient = recipient.user
       when 'Post'
-        message   = "*#{sender.name}* ha comentado tu publicación *#{recipient.content.truncate(40)}*"
+        message   = "<strong>#{sender.name}</strong> ha comentado tu publicación <strong>#{recipient.content.truncate(40)}</strong>"
         recipient = recipient.postable
         users = commentable.comments.map(&:user).map(&:id)
         return if sender == recipient || users.include?(sender.id)
     end # End case
 
-    notification = Notification.create_notify_models(recipient, sender, 'comment', message) if message
-
-    # ActionCable.server.broadcast(
-    #   "notifications-#{recipient.id}",
-    #   message: message,
-    #   notification_id: notification.id
-    # )
-    ActionCable.server.broadcast(
-      "notifications-#{recipient.id}",
-      data: notification.as_json
-    )
+    Notification.create_notify_models(recipient, sender, 'comment', message) if message
   end
 
   # Helper class method to lookup all comments assigned

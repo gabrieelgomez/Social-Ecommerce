@@ -18,7 +18,12 @@ class Notification < NotificationHandler::Notification
       # notification.push :CustomPusher, option_one: 'value_two'
     end
 
-    return notification
+    ActionCable.server.broadcast(
+      "notifications-#{recipient.id}",
+      data: notification.as_json
+    )
+
+    notification
   end
 
 end
