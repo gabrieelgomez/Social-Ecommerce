@@ -521,12 +521,12 @@ end
     # Pyme
     pyme = Pyme.create(
       # type_profile: 'pyme',
-      title: Faker::SiliconValley.company,
-      name: Faker::SiliconValley.character,
-      email: Faker::SiliconValley.email,
+      title: Faker::TvShows::SiliconValley.company,
+      name: Faker::TvShows::SiliconValley.character,
+      email: Faker::TvShows::SiliconValley.email,
       photo: Faker::Company.logo,
       phone: Faker::Company.duns_number,
-      url: Faker::SiliconValley.url,
+      url: Faker::TvShows::SiliconValley.url,
       address: Faker::Address.city,
       category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
       prominent: [true, false].sample,
@@ -544,7 +544,7 @@ end
     3.times do
       product = Product.create(
         status: [true, false].sample,
-        name: Faker::SiliconValley.invention,
+        name: Faker::TvShows::SiliconValley.invention,
         cover: Rails.root.join('spec/support/product_cover.jpg').open,
         productable: pyme,
         prominent: [true, false].sample,
@@ -626,7 +626,7 @@ end
   # Creacion de 1 Usuario Seller
   seller = Seller.create(
     # type_profile: 'seller',
-    title: Faker::SiliconValley.unique.app,
+    title: Faker::TvShows::SiliconValley.unique.app,
     name: Faker::Name.name,
     email: Faker::Internet.safe_email,
     photo: Faker::Company.logo,
