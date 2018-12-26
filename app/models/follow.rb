@@ -33,7 +33,7 @@ class Follow < ActiveRecord::Base
   def create_notify_new_follow
     recipient = followable
     sender    = follower
-    message   = "#{sender.name} ha seguido tu perfil #{recipient.title}"
+    message   = "<strong>#{sender.name}</strong> ha seguido tu perfil <strong>#{recipient.title}</strong>"
     return if sender == recipient.user
     #Method for create_notify, in order is recipient, sender, type, message
     Notification.create_notify_models(recipient.user, sender, 'follow', message)

@@ -39,14 +39,21 @@ class Comment < ActiveRecord::Base
   def create_notify_new_comment
     recipient = commentable
     sender    = user
-
     case commentable.class.to_s
-      when 'Pyme' || 'Seller' || 'Independent'
+      when 'Pyme'
         return if sender == recipient.user
+        message   = "<strong>#{sender.name}</strong> ha comentado tu perfil <strong>#{recipient.title}</strong>"
         recipient = recipient.user
-        message   = "#{sender.name} ha comentado tu perfil #{recipient.title}"
+      when 'Seller'
+        return if sender == recipient.user
+        message   = "<strong>#{sender.name}</strong> ha comentado tu perfil <strong>#{recipient.title}</strong>"
+        recipient = recipient.user
+      when 'Independent'
+        return if sender == recipient.user
+        message   = "<strong>#{sender.name}</strong> ha comentado tu perfil <strong>#{recipient.title}</strong>"
+        recipient = recipient.user
       when 'Post'
-        message   = "#{sender.name} ha comentado tu publicación #{recipient.content.truncate(40)}"
+        message   = "<strong>#{sender.name}</strong> ha comentado tu publicación <strong>#{recipient.content.truncate(40)}</strong>"
         recipient = recipient.postable
         users = commentable.comments.map(&:user).map(&:id)
         return if sender == recipient || users.include?(sender.id)

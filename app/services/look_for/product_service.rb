@@ -16,6 +16,11 @@ module LookFor
       filter_profile_by_products   = FilterService.type_profiles(products_by_q)
       filter_cat_by_products       = FilterService.categories(products_by_q)
       filter_country_by_products   = FilterService.countries(products_by_q)
+
+      filter_profile_by_products   = FilterService.type_profiles(products_by_filters)
+      filter_cat_by_products       = FilterService.categories(products_by_filters)
+      filter_country_by_products   = FilterService.countries(products_by_filters)
+
       #End by filter search
 
       products_by_filters = products_by_filters.uniq.as_json(only: %i[id type_profile name price cover created_at updated_at states_codes countries_codes], methods: %i[category_ids subcategory_ids links])

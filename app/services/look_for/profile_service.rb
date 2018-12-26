@@ -11,7 +11,7 @@ module LookFor
       filter_country_by_products   = FilterService.countries(profiles[0])
 
       #End by filter search
-      profiles[1] = profiles[1].uniq.as_json(only: %i[id title photo created_at updated_at type_profile], methods: :category_ids)
+      profiles[1] = profiles[1].uniq.as_json(only: %i[id title slug photo created_at updated_at type_profile], methods: :category_ids)
       return profiles[1], filter_profile_by_profiles, filter_cat_by_profiles, filter_country_by_products
     end
 

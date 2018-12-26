@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  # ActionCable route
+  mount ActionCable.server => '/cable'
+
   # match '*path', :controller => 'application', :action => 'handle_options_request', :via => [:get, :post, :options]
   namespace :v1 do
     mount_devise_token_auth_for 'User', at: 'auth'
@@ -27,8 +30,6 @@ Rails.application.routes.draw do
       end
 
       # Rutas para métodos del controlador API
-      # ActionCable route
-      mount ActionCable.server => '/cable'
 
       # Chat module
       scope module: 'chat' do

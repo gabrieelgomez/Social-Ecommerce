@@ -311,6 +311,7 @@ DEPENDENCIES
   rack-cors
   rails (= 5.1.6)
   ransack (~> 1.8, >= 1.8.8)
+  redis (~> 4.0)
   rolify (= 5.2)
   rspec-rails
   spring

@@ -105,10 +105,12 @@ class Product < ApplicationRecord
     return if price_before_last_save.nil?
     if price < price_before_last_save
       whishes = self.wishes
-      message = "#{self.name} ha bajado el precio de #{price_before_last_save} a #{price}"
+      message = "<strong>#{self.name}</strong> ha bajado el precio de <strong>#{price_before_last_save}</strong> a <strong>#{price}</strong>"
       whishes.each do |wish|
+        recipient = wish.user
+        sender = self
         #Method for create_notify, in order is recipient, sender, type, message
-        Notification.create_notify_models(wish.user, self, 'product', message)
+        Notification.create_notify_models(recipient, sender, 'product', message)
       end
     end
   end
