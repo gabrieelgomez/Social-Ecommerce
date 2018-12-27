@@ -18,13 +18,15 @@ module Api::V1
           nil
         end
       end
-      render json: notifications.sort{|x| x.id}.as_json.reverse, status: 200
+      # render json: notifications.sort{|x| x.id}.as_json.reverse, status: 200
+      render json: notifications.order(id: :asc), status: 200
     end
 
     private
 
     def all_notifications
-      @notifications = current_v1_user.notifications.sort{|x| x.id}.as_json.reverse
+      # @notifications = current_v1_user.notifications.sort{|x| x.id}.as_json.reverse
+      @notifications = current_v1_user.notifications.order(id: :asc)
     end
 
     def set_notification
