@@ -3,19 +3,7 @@ module Api::V1::Intranet
 		before_action :intranets, only: %i[set_intranet]
 		before_action :set_intranet, only: %i[set_groups]
 
-
 		private
-
-		# Callbacks by intranets, Set intranet by profile current_user
-		def set_intranets
-			ids = current_v1_user.profiles.map(&:intranet).compact.map(&:id)
-			@intranets = Intranet::Intranet.where(id: ids)
-		end
-
-		def set_intranet
-			@intranet = @intranets.find(params[:intranet_id])
-		end
-
 		# Callbacks by groups, Set groups by profile current_user
 		def set_groups
 			@groups = @intranet.groups

@@ -6,6 +6,10 @@ module Intranet
     has_many :memberships
     has_many :users, through: :groups
 
+    # Relationships trello
+    has_many :boards
+    has_many :cards
+
     belongs_to :profile
   end
 end

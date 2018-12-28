@@ -15,9 +15,53 @@ Rails.application.routes.draw do
 
             # Boards
               namespace :boards do
+                get '/', to: 'show#index'
+                get '/:board_id', to: 'show#show'
                 get '/create', to: 'create#create'
+                put '/:board_id/update', to: 'update#update'
+                delete '/:board_id/destroy', to: 'destroy#destroy'
               end
             # Boards - end
+
+            # Lists
+              namespace :lists do
+                get '/', to: 'show#index'
+                get '/:list_id', to: 'show#show'
+                get '/create', to: 'create#create'
+                put '/:list_id/update', to: 'update#update'
+                delete '/:list_id/destroy', to: 'destroy#destroy'
+              end
+            # Lists - end
+
+            # Cards
+              namespace :cards do
+                get '/', to: 'show#index'
+                get '/:card_id', to: 'show#show'
+                get '/create', to: 'create#create'
+                put '/:card_id/update', to: 'update#update'
+                delete '/:card_id/destroy', to: 'destroy#destroy'
+              end
+            # Cards - end
+
+            # checklists
+              namespace :checklists do
+                get '/', to: 'show#index'
+                get '/:checklist_id', to: 'show#show'
+                get '/create', to: 'create#create'
+                put '/:checklist_id/update', to: 'update#update'
+                delete '/:checklist_id/destroy', to: 'destroy#destroy'
+              end
+            # checklists - end
+
+            # Tasks
+              namespace :tasks do
+                get '/', to: 'show#index'
+                get '/:task_id', to: 'show#show'
+                get '/create', to: 'create#create'
+                put '/:task_id/update', to: 'update#update'
+                delete '/:task_id/destroy', to: 'destroy#destroy'
+              end
+            # Tasks - end
 
             # Groups
               namespace :groups do
@@ -48,12 +92,6 @@ Rails.application.routes.draw do
                 get '/create', to: 'create#create'
               end
             # Resources - end
-
-            # Tasks
-              namespace :tasks do
-                get '/create', to: 'create#create'
-              end
-            # Tasks - end
 
           end
           # Scope intranet_id
