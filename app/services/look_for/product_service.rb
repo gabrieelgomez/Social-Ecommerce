@@ -23,7 +23,7 @@ module LookFor
 
       #End by filter search
 
-      products_by_filters = products_by_filters.uniq.as_json(only: %i[id type_profile name title stock price cover created_at updated_at states_codes countries_codes], methods: %i[category_ids subcategory_ids links])
+      products_by_filters = products_by_filters.uniq.as_json(only: %i[id type_profile name stock price cover created_at updated_at states_codes countries_codes], methods: %i[productable category_ids subcategory_ids links])
 
       return products_by_filters, filter_profile_by_products, filter_cat_by_products, filter_country_by_products
 
