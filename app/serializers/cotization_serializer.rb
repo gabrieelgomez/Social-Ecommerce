@@ -1,6 +1,6 @@
 class CotizationSerializer < ActiveModel::Serializer
-  attributes :id, :price
+  attributes :id, :price, :stage, :status, :deal_type, :cotizable, :client
 
-  belongs_to :cotizable, polymorphic: true
-  belongs_to :user
+  # belongs_to :cotizable, polymorphic: true
+  # belongs_to :user
 end

@@ -113,6 +113,9 @@ Rails.application.routes.draw do
       end
       # Services routes - end
 
+      # --- Comments route
+      draw :cotizations
+      # --- Comments route - end
 
       # --- Comments route
       draw :comments
