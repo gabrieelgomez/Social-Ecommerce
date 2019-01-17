@@ -24,9 +24,18 @@ module Api::V1
     def set_postable
       pms = params[:post]
       return @postable = current_v1_user if pms[:postable_id].nil?
-      @postable = custom_find do
-        current_v1_user.profiles.find pms[:postable_id]
+
+      if pms[:postable_type] == 'Intranet::Intranet'
+        ids = current_v1_user.profiles.map(&:intranet).compact.map(&:id)
+        @postable = custom_find do
+          Intranet::Intranet.where(id: ids).find pms[:postable_id]
+        end
+      else
+        @postable = custom_find do
+          current_v1_user.profiles.find pms[:postable_id]
+        end
       end
+
     end
   end
 end

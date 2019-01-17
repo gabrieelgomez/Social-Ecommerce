@@ -261,6 +261,105 @@ ActiveRecord::Schema.define(version: 20190117141432) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "intranet_boards", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "intranet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["intranet_id"], name: "index_intranet_boards_on_intranet_id"
+  end
+
+  create_table "intranet_cards", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.bigint "date_start"
+    t.bigint "date_end"
+    t.jsonb "files"
+    t.boolean "store"
+    t.bigint "intranet_id"
+    t.bigint "board_id"
+    t.bigint "list_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_intranet_cards_on_board_id"
+    t.index ["intranet_id"], name: "index_intranet_cards_on_intranet_id"
+    t.index ["list_id"], name: "index_intranet_cards_on_list_id"
+  end
+
+  create_table "intranet_cards_users", force: :cascade do |t|
+    t.bigint "card_id"
+    t.bigint "user_id"
+    t.index ["card_id"], name: "index_intranet_cards_users_on_card_id"
+    t.index ["user_id"], name: "index_intranet_cards_users_on_user_id"
+  end
+
+  create_table "intranet_checklists", force: :cascade do |t|
+    t.string "title"
+    t.bigint "date_start"
+    t.bigint "date_end"
+    t.bigint "card_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_intranet_checklists_on_card_id"
+  end
+
+  create_table "intranet_groups", force: :cascade do |t|
+    t.string "title"
+    t.text "subtitle"
+    t.text "description"
+    t.string "banner"
+    t.string "cover"
+    t.bigint "intranet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["intranet_id"], name: "index_intranet_groups_on_intranet_id"
+  end
+
+  create_table "intranet_intranets", force: :cascade do |t|
+    t.string "title"
+    t.boolean "status", default: false
+    t.bigint "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_intranet_intranets_on_profile_id"
+  end
+
+  create_table "intranet_lists", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.text "date_start"
+    t.text "date_end"
+    t.jsonb "files"
+    t.boolean "store"
+    t.bigint "board_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_intranet_lists_on_board_id"
+  end
+
+  create_table "intranet_memberships", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "group_id"
+    t.bigint "intranet_id"
+    t.bigint "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_intranet_memberships_on_group_id"
+    t.index ["intranet_id"], name: "index_intranet_memberships_on_intranet_id"
+    t.index ["profile_id"], name: "index_intranet_memberships_on_profile_id"
+    t.index ["user_id"], name: "index_intranet_memberships_on_user_id"
+  end
+
+  create_table "intranet_tasks", force: :cascade do |t|
+    t.string "title"
+    t.boolean "completed"
+    t.bigint "checklist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checklist_id"], name: "index_intranet_tasks_on_checklist_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.bigint "product_id"
     t.bigint "shopping_cart_id"
@@ -786,6 +885,7 @@ ActiveRecord::Schema.define(version: 20190117141432) do
   add_foreign_key "custom_fields_products", "custom_fields"
   add_foreign_key "custom_fields_products", "products"
   add_foreign_key "customer_managements", "profiles"
+  add_foreign_key "intranet_intranets", "profiles"
   add_foreign_key "items", "products"
   add_foreign_key "items", "shopping_carts"
   add_foreign_key "items_options", "items"

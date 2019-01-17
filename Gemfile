@@ -8,7 +8,7 @@ end
 gem 'dotenv-rails', groups: [:development, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.5'
+gem 'rails', '5.1.6'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
@@ -46,6 +46,9 @@ gem 'city-state', '~> 0.0.13'
 # Devise for authentication
 gem 'devise_token_auth'
 gem 'omniauth'
+
+# Decorators
+gem 'draper'
 
 # Friendly ids to route
 gem 'friendly_id', '5.2.4'
@@ -110,3 +113,6 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+#---- Intranet ----
+gem 'intranet', path: 'plugins/intranet'
