@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190117141432) do
+ActiveRecord::Schema.define(version: 20190117203945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -853,6 +853,36 @@ ActiveRecord::Schema.define(version: 20190117141432) do
     t.datetime "updated_at", null: false
     t.index ["coin_id"], name: "index_wallets_on_coin_id"
     t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
+  create_table "wave_educational_teachers", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.string "email"
+    t.json "country"
+    t.string "banner"
+    t.string "photo"
+    t.float "score"
+    t.boolean "prominent"
+    t.string "launched"
+    t.string "phone"
+    t.string "url"
+    t.text "address"
+    t.string "vision"
+    t.string "mission"
+    t.text "description"
+    t.string "web"
+    t.json "profile"
+    t.text "experience"
+    t.string "validation"
+    t.string "slug"
+    t.jsonb "states_codes"
+    t.jsonb "countries_codes"
+    t.boolean "censured", default: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_wave_educational_teachers_on_slug", unique: true
   end
 
   create_table "wishes", force: :cascade do |t|

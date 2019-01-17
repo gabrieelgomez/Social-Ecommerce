@@ -27,6 +27,12 @@ PATH
     intranet (0.1.0)
       rails (= 5.1.6)
 
+PATH
+  remote: plugins/wave_educational
+  specs:
+    wave_educational (0.1.0)
+      rails (~> 5.1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -321,9 +327,10 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   validates_email_format_of
+  wave_educational!
 
 RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.16.2
+   1.16.6

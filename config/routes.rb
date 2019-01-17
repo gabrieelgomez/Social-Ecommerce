@@ -239,6 +239,9 @@ Rails.application.routes.draw do
       # Travel routes engine
       mount Intranet::Engine, at: '/', as: 'intranet'
 
+      # Travel routes engine
+      mount WaveEducational::Engine, at: '/', as: 'wave_educational'
+
     end
   end
 end
