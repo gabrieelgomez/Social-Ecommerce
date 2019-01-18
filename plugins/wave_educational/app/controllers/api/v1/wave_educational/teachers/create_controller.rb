@@ -11,14 +11,6 @@ module Api::V1::WaveEducational::Teachers
                status: 500
       end
     end
-
-    private
-
-    def teacher_params
-      params.require(:teacher).permit(:user_id, :slug, :name, :type_teacher,
-                                      :email, :banner, :photo, :launched, :phone,
-                                      :url, :address, :vision, :mission, :description,
-                                      :web, :teacher, :experience, :country, :validation)
-    end
+    
   end
 end
