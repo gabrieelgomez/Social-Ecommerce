@@ -30,6 +30,7 @@ class Product < ApplicationRecord
 
   # Validations
   validates :name, :price, :subcategory_ids, presence: true
+  validates_numericality_of :stock, greater_than_or_equal_to: 0
 
   # scope :public_productable, -> (model_name, profile_id, type_profile) {
   # }
@@ -121,7 +122,7 @@ class Product < ApplicationRecord
   end
 
   def self.sorter_by_wish(priority)
-    result = all.sort_by { |prof| prof.wishes.size }
+    result = all.where.not(stock:0).sort_by { |prof| prof.wishes.size }
     return result if priority == 'low_to_high'
     result.reverse
   end

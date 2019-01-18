@@ -54,7 +54,12 @@ module Api::V1::Products
     end
 
     def sorting_by
+      states        = params[:states_codes].try(:split, '-').try(:map, &:to_s)
+      countries     = params[:countries_codes].try(:split, '-').try(:map, &:to_s)
       @sorted_by_wishes = Product.sorter_by_wish(params[:order])
+      @sorted_by_wishes = @sorted_by_wishes.select{|product| product.search_in?(states, :states_codes)} if states
+      @sorted_by_wishes = @sorted_by_wishes.select{|product| product.search_in?(countries, :countries_codes)} if countries
+
       render json: @sorted_by_wishes, status: 200
       # Product.all
     end
