@@ -1,7 +1,10 @@
 module WaveEducational
   class Teacher < ApplicationRecord
 
-    # Relations
+    # Relations Engine
+    has_many :courses
+
+    # Core App
     belongs_to :user
     has_many :messages, as: :messageable
     has_many :conversations, as: :senderable

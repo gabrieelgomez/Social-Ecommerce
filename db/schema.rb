@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190117203945) do
+ActiveRecord::Schema.define(version: 20190118235859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -853,6 +853,23 @@ ActiveRecord::Schema.define(version: 20190117203945) do
     t.datetime "updated_at", null: false
     t.index ["coin_id"], name: "index_wallets_on_coin_id"
     t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
+  create_table "wave_educational_courses", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "lasted_update"
+    t.string "language"
+    t.string "status"
+    t.boolean "private", default: false
+    t.boolean "published", default: false
+    t.string "price"
+    t.text "requeriments"
+    t.string "category"
+    t.bigint "teacher_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["teacher_id"], name: "index_wave_educational_courses_on_teacher_id"
   end
 
   create_table "wave_educational_teachers", force: :cascade do |t|
