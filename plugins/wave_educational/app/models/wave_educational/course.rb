@@ -3,6 +3,7 @@ module WaveEducational
 
     # Relations Engine
     belongs_to :teacher
-    
+    has_many :sections
+
   end
 end

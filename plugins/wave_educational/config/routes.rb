@@ -28,6 +28,33 @@ Rails.application.routes.draw do
 
           end
           # Teachers CRUD
+
+
+          # Sections CRUD
+          scope '/courses/:course_id' do
+            namespace :sections do
+              post '/create', to: 'create#create'
+              get '/:section_id', to: 'show#show'
+              get '/', to: 'show#index'
+              put '/:section_id/update', to: 'update#update'
+              delete '/:section_id/destroy', to: 'destroy#destroy'
+
+              # Classes CRUD
+              scope '/:section_id' do
+                namespace :classes do
+                  post '/create', to: 'create#create'
+                  get '/:class_id', to: 'show#show'
+                  get '/', to: 'show#index'
+                  put '/:class_id/update', to: 'update#update'
+                  delete '/:class_id/destroy', to: 'destroy#destroy'
+                end
+              end
+              # Classes CRUD
+
+            end
+            # Sections CRUD
+          end
+
         end
       end
     end
