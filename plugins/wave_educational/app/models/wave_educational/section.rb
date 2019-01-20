@@ -3,5 +3,6 @@ module WaveEducational
     # Relations Engine
     belongs_to :course
     has_many :classes
+    has_many :exams, as: :examenable
   end
 end

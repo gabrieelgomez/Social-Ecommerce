@@ -12,6 +12,7 @@ class CreateWaveEducationalCourses < ActiveRecord::Migration[5.1]
       t.text :requeriments
       t.string :category
       t.belongs_to :teacher
+      t.datetime   :deleted_at
       t.timestamps
     end
   end

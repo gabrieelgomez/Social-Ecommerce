@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190119231035) do
+ActiveRecord::Schema.define(version: 20190120214014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -884,6 +884,16 @@ ActiveRecord::Schema.define(version: 20190119231035) do
     t.index ["teacher_id"], name: "index_wave_educational_courses_on_teacher_id"
   end
 
+  create_table "wave_educational_exams", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "examenable_id"
+    t.string "examenable_type"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "wave_educational_sections", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -923,6 +933,21 @@ ActiveRecord::Schema.define(version: 20190119231035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_wave_educational_teachers_on_slug", unique: true
+  end
+
+  create_table "wave_educational_type_questions", force: :cascade do |t|
+    t.string "title"
+    t.string "question_type"
+    t.text "description"
+    t.text "question"
+    t.text "open_answer"
+    t.json "alternative_answer"
+    t.boolean "boolean_answer"
+    t.bigint "exam_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_wave_educational_type_questions_on_exam_id"
   end
 
   create_table "wishes", force: :cascade do |t|

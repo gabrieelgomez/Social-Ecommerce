@@ -6,6 +6,7 @@ class CreateWaveEducationalSections < ActiveRecord::Migration[5.1]
       t.string :status, default: ''
       t.boolean :published, default: false
       t.belongs_to :course
+      t.datetime   :deleted_at
 
       t.timestamps
     end
