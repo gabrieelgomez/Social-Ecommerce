@@ -118,3 +118,5 @@ gem 'redis', '~> 4.0'
 gem 'intranet', path: 'plugins/intranet'
 #---- WaveEducational ----
 gem 'wave_educational', path: 'plugins/wave_educational'
+#---- WaveWork ----
+gem 'wave_work', path: 'plugins/wave_work'

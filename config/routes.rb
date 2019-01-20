@@ -239,11 +239,14 @@ Rails.application.routes.draw do
       draw :educational_descriptions
       # --- EducationalDescriptions route - end
 
-      # Travel routes engine
+      # Intranet routes engine
       mount Intranet::Engine, at: '/', as: 'intranet'
 
-      # Travel routes engine
+      # WaveEducational routes engine
       mount WaveEducational::Engine, at: '/', as: 'wave_educational'
+
+      # WaveWork routes engine
+      mount WaveWork::Engine, at: '/', as: 'wave_work'
 
     end
   end
