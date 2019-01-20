@@ -156,6 +156,11 @@ ActiveRecord::Schema.define(version: 20190120214014) do
     t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stage", default: "received"
+    t.string "details", default: ""
+    t.string "token", default: ""
+    t.string "currency", default: "usd"
+    t.text "address", default: ""
     t.index ["client_id"], name: "index_cotizations_on_client_id"
     t.index ["cotizable_type", "cotizable_id"], name: "index_cotizations_on_cotizable_type_and_cotizable_id"
   end

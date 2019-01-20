@@ -475,7 +475,7 @@ options_products = [
 ]
 
 # ContactType
-['Queja', 'Reclamo', 'Publicidad'].each{|name| ContactType.create(name: name)}
+['Consulta', 'Reclamo', 'Publicidad'].each{|name| ContactType.create(name: name)}
 
 # Wallets
 Coin.create(name: 'Wave', acronym: 'wave',symbol: '£')
