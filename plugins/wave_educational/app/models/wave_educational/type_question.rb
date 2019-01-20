@@ -2,6 +2,6 @@ module WaveEducational
   class TypeQuestion < ApplicationRecord
     belongs_to :exam
 
-    # self.inheritance_column = :type
+    validates_inclusion_of :stage, :in => %w(open boolean alternative)
   end
 end
