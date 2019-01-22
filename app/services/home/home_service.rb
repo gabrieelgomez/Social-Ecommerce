@@ -28,7 +28,7 @@ module Home
              .reject{|i| i.cover.url.blank?}
              .first(quantity)
              .as_json(
-               only: %i[id cover name price created_at],
+               only: %i[id cover name price links created_at],
                methods: %i[owner wish]
              )
     end
