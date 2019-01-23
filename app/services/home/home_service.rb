@@ -28,8 +28,8 @@ module Home
              .reject{|i| i.cover.url.blank?}
              .first(quantity)
              .as_json(
-               only: %i[id cover name price links created_at],
-               methods: %i[owner wish]
+               only: %i[id cover name price created_at],
+               methods: %i[owner wish links]
              )
     end
 
@@ -41,7 +41,9 @@ module Home
              .sort_by{ |product| product.wishes.count }
              .reverse
              .first(quantity)
-             .as_json(only: %i[id cover name price created_at])
+             .as_json(only: %i[id cover name price created_at],
+               methods: %i[owner wish links]
+             )
     end
 
     # --------------------------------------------------------------------------
