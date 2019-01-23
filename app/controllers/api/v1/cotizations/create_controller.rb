@@ -1,5 +1,5 @@
-module Api::V1::Cotization
-  class CreateController < CotizationController
+module Api::V1::Cotizations
+  class CreateController < CotizationsController
 
     def create
     end
