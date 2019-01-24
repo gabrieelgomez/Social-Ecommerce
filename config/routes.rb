@@ -243,7 +243,7 @@ Rails.application.routes.draw do
       mount Intranet::Engine, at: '/', as: 'intranet'
 
       # WaveEducational routes engine
-      # mount WaveEducational::Engine, at: '/', as: 'wave_educational'
+      mount WaveEducational::Engine, at: '/', as: 'wave_educational'
 
       # WaveWork routes engine
       mount WaveWork::Engine, at: '/', as: 'wave_work'
