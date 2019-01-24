@@ -27,6 +27,18 @@ PATH
     intranet (0.1.0)
       rails (= 5.1.6)
 
+PATH
+  remote: plugins/wave_educational
+  specs:
+    wave_educational (0.1.0)
+      rails (~> 5.1.6)
+
+PATH
+  remote: plugins/wave_work
+  specs:
+    wave_work (0.1.0)
+      rails (~> 5.1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -321,6 +333,8 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   validates_email_format_of
+  wave_educational!
+  wave_work!
 
 RUBY VERSION
    ruby 2.3.1p112
