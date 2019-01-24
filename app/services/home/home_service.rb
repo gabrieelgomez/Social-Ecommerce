@@ -29,7 +29,7 @@ module Home
              .first(quantity)
              .as_json(
                only: %i[id cover name price created_at],
-               methods: %i[owner wish links]
+               methods: %i[owner wish links url_get]
              )
     end
 
@@ -42,7 +42,7 @@ module Home
              .reverse
              .first(quantity)
              .as_json(only: %i[id cover name price created_at],
-               methods: %i[owner wish links]
+               methods: %i[owner wish links url_get]
              )
     end
 

@@ -12,7 +12,7 @@ module Api::V1::Searchs
 
       products = category.products
                          .uniq
-                         .as_json(only: %i[id type_profile name price cover], methods: %i[category_ids subcategory_ids links])
+                         .as_json(only: %i[id type_profile name price cover], methods: %i[category_ids subcategory_ids links url_get])
 
       profiles = category.by_profiles
                          .uniq
@@ -37,7 +37,7 @@ module Api::V1::Searchs
       @shuffle = Category.find(categories_products).map{|category| category.products.sample(5)}
                          .flatten
                          .uniq
-                         .as_json(only: %i[id type_profile name price cover], methods: %i[category_ids subcategory_ids links])
+                         .as_json(only: %i[id type_profile name price cover], methods: %i[category_ids subcategory_ids links url_get])
 
       if @shuffle.nil?
         # @shuffle = Category.find(categories_profiles).map{|category|

@@ -17,7 +17,7 @@ module Api::V1::Searchs
 
       # Result
       @result = products.uniq.as_json(only: %i[id type_profile name price cover],
-                                       methods: %i[category_ids subcategory_ids links])
+                                       methods: %i[category_ids subcategory_ids links url_get])
 
       render json: @result, status: 200
     end

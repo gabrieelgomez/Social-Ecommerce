@@ -44,12 +44,22 @@ class Product < ApplicationRecord
 
   # Methods by filters and searchs
   def links
-    profile_id = self.productable.id
-    type_profile = self.type_profile.pluralize
+    profile_id = productable.id
+    type_profile = type_profile.pluralize
     @link = {
-      self: "#{type_profile}/#{profile_id}/products/#{self.id}"
+      self: "#{type_profile}/#{profile_id}/products/#{id}"
     }
   end
+
+  # Methods by filters and searchs
+  def url_get
+    profile_id = productable.id
+    type_profile = type_profile.pluralize
+    @link = {
+      url: "#{type_profile}/#{profile_id}/products/#{id}"
+    }
+  end
+
 
   def owner
     {
