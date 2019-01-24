@@ -47,7 +47,7 @@ class Product < ApplicationRecord
     profile_id = productable.id
     type_profile = type_profile.pluralize
     @link = {
-      self: "#{type_profile}/#{profile_id}/products/#{id}"
+      self: "/#{type_profile}/#{profile_id}/products/#{id}"
     }
   end
 
@@ -56,7 +56,7 @@ class Product < ApplicationRecord
     profile_id = productable.id
     type_profile = type_profile.pluralize
     @link = {
-      url: "#{type_profile}/#{profile_id}/products/#{id}"
+      url: "/#{type_profile}/#{profile_id}/products/#{id}"
     }
   end
 
