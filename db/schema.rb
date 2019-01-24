@@ -867,6 +867,7 @@ ActiveRecord::Schema.define(version: 20190120214014) do
     t.string "status", default: ""
     t.boolean "published", default: false
     t.bigint "section_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_wave_educational_classes_on_section_id"
@@ -884,6 +885,7 @@ ActiveRecord::Schema.define(version: 20190120214014) do
     t.text "requeriments"
     t.string "category"
     t.bigint "teacher_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["teacher_id"], name: "index_wave_educational_courses_on_teacher_id"
@@ -905,6 +907,7 @@ ActiveRecord::Schema.define(version: 20190120214014) do
     t.string "status", default: ""
     t.boolean "published", default: false
     t.bigint "course_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_wave_educational_sections_on_course_id"
