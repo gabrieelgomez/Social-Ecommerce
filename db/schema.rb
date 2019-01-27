@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190127185425) do
+ActiveRecord::Schema.define(version: 20190127200344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -963,6 +963,26 @@ ActiveRecord::Schema.define(version: 20190127185425) do
     t.jsonb "subareas"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "wave_work_job_offers", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.string "country"
+    t.string "state"
+    t.text "address"
+    t.integer "vacancies"
+    t.boolean "copy_cv", default: false
+    t.bigint "profile_id"
+    t.bigint "area_id"
+    t.bigint "type_hierarchy_id"
+    t.bigint "type_job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["area_id"], name: "index_wave_work_job_offers_on_area_id"
+    t.index ["profile_id"], name: "index_wave_work_job_offers_on_profile_id"
+    t.index ["type_hierarchy_id"], name: "index_wave_work_job_offers_on_type_hierarchy_id"
+    t.index ["type_job_id"], name: "index_wave_work_job_offers_on_type_job_id"
   end
 
   create_table "wave_work_type_hierarchies", force: :cascade do |t|

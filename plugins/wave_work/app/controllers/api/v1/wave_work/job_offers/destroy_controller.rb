@@ -1,12 +1,13 @@
-module Api::V1::WaveWork::Areas
-  class DestroyController < AreasController
-    before_action :set_area, only: %i[destroy]
+module Api::V1::WaveWork::JobOffers
+  class DestroyController < JobOffersController
+    # before_action :set_job_offer, only: %i[destroy]
+    before_action :set_job_offers_of_profile, only: %i[destroy]
 
     def destroy
-      if @area.destroy
-        render json: @area, status: 200
+      if @job_offer.destroy
+        render json: @job_offer, status: 200
       else
-        render json: @area.errors,
+        render json: @job_offer.errors,
                status: 500
       end
     end

@@ -1,13 +1,12 @@
-module Api::V1::WaveWork::Areas
-  class CreateController < AreasController
+module Api::V1::WaveWork::JobOffers
+  class CreateController < JobOffersController
 
     def create
-      @area = WaveWork::Area.new(area_params)
-      if @area.save
-        render json: @area, status: 201
+      @job_offer = @profile.job_offers.new(job_offer_params)
+      if @job_offer.save
+        render json: @job_offer, status: 200
       else
-        render json: @area.errors,
-               status: 500
+        render json: @job_offer.errors, status: 500
       end
     end
 

@@ -6,6 +6,22 @@ Rails.application.routes.draw do
       # WaveEducational
         namespace :wave_work do
 
+          # JobOffers CRUD
+          namespace :job_offers do
+            get '/', to: 'show#index'
+          end
+
+          scope '/profile/:profile_id' do
+            namespace :job_offers do
+              post '/create', to: 'create#create'
+              get '/:job_offer_id', to: 'show#show'
+              get '/', to: 'show#index_per_profile'
+              put '/:job_offer_id/update', to: 'update#update'
+              delete '/:job_offer_id/destroy', to: 'destroy#destroy'
+            end
+          end
+          # JobOffers CRUD
+
           # Areas CRUD
           namespace :areas do
             post '/create', to: 'create#create'
