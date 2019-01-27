@@ -1,5 +1,5 @@
 class WaveEducational::ExamSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :type_examenable, :examenable, :type_questions
+  attributes :id, :title, :description, :type_examenable, :examenable, :type_questions, :created_at, :updated_at
 
   def type_examenable
     object.examenable.class.to_s
