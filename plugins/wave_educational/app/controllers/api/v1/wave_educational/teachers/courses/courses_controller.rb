@@ -13,7 +13,7 @@ module Api::V1::WaveEducational::Teachers
 
     def course_params
       params.require(:course).permit(:name, :description, :lasted_update, :status,
-                                      :private, :published, :price, :requeriments, :category)
+                                      :private, :published, :price, :requirements, :category)
     end
 
   end

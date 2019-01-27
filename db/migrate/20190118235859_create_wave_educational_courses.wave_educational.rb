@@ -9,7 +9,7 @@ class CreateWaveEducationalCourses < ActiveRecord::Migration[5.1]
       t.boolean :private, default: false
       t.boolean :published, default: false
       t.string :price
-      t.text :requeriments
+      t.text :requirements
       t.string :category
       t.belongs_to :teacher
       t.datetime   :deleted_at

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190127211902) do
+ActiveRecord::Schema.define(version: 20190127214531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -882,7 +882,7 @@ ActiveRecord::Schema.define(version: 20190127211902) do
     t.boolean "private", default: false
     t.boolean "published", default: false
     t.string "price"
-    t.text "requeriments"
+    t.text "requirements"
     t.string "category"
     t.bigint "teacher_id"
     t.datetime "deleted_at"
@@ -993,6 +993,24 @@ ActiveRecord::Schema.define(version: 20190127211902) do
     t.index ["profile_id"], name: "index_wave_work_job_offers_on_profile_id"
     t.index ["type_hierarchy_id"], name: "index_wave_work_job_offers_on_type_hierarchy_id"
     t.index ["type_job_id"], name: "index_wave_work_job_offers_on_type_job_id"
+  end
+
+  create_table "wave_work_requirements", force: :cascade do |t|
+    t.string "title"
+    t.jsonb "sex"
+    t.integer "start_age", default: 0
+    t.integer "end_age", default: 0
+    t.text "address"
+    t.integer "minimal_experience", default: 0
+    t.jsonb "languages"
+    t.jsonb "education_level"
+    t.float "start_salary", default: 0.0
+    t.float "end_salary", default: 0.0
+    t.boolean "request_salary", default: false
+    t.bigint "job_offer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_offer_id"], name: "index_wave_work_requirements_on_job_offer_id"
   end
 
   create_table "wave_work_type_hierarchies", force: :cascade do |t|

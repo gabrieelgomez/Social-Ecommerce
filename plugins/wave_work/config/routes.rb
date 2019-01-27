@@ -22,6 +22,22 @@ Rails.application.routes.draw do
           end
           # JobOffers CRUD
 
+          # Requirements CRUD
+          namespace :requirements do
+            get '/', to: 'show#index'
+          end
+
+          scope '/job_offer/:job_offer_id' do
+            namespace :requirements do
+              post '/create', to: 'create#create'
+              get '/:requirement_id', to: 'show#show'
+              get '/', to: 'show#index_per_job_offer'
+              put '/:requirement_id/update', to: 'update#update'
+              delete '/:requirement_id/destroy', to: 'destroy#destroy'
+            end
+          end
+          # Requirements CRUD
+
           # Areas CRUD
           namespace :areas do
             post '/create', to: 'create#create'

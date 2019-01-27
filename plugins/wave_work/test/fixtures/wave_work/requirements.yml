@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sex: MyString
+  start_age: 1
+  end_age: 1
+  address: MyText
+  minimal_experience: 1
+  languages: 
+  education_level: 
+  start_salary: 1.5
+  end_salary: 1.5
+  request_salary: false
+  job_offer: one
+
+two:
+  sex: MyString
+  start_age: 1
+  end_age: 1
+  address: MyText
+  minimal_experience: 1
+  languages: 
+  education_level: 
+  start_salary: 1.5
+  end_salary: 1.5
+  request_salary: false
+  job_offer: two
