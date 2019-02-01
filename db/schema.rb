@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190127214531) do
+ActiveRecord::Schema.define(version: 20190201182019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -720,6 +720,8 @@ ActiveRecord::Schema.define(version: 20190127214531) do
     t.string "state", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "data_stringfy", default: ""
+    t.jsonb "data_json", default: {}
     t.index ["user_id"], name: "index_shopping_carts_on_user_id"
   end
 
@@ -882,7 +884,7 @@ ActiveRecord::Schema.define(version: 20190127214531) do
     t.boolean "private", default: false
     t.boolean "published", default: false
     t.string "price"
-    t.text "requirements"
+    t.text "requeriments"
     t.string "category"
     t.bigint "teacher_id"
     t.datetime "deleted_at"
