@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   mount_base64_uploader :cover, ImageUploader
   attr_accessor :document_data
+  cattr_accessor :current_user
   serialize :states_codes
   # Callbacks
     acts_as_commentable
@@ -60,6 +61,10 @@ class Product < ApplicationRecord
     }
   end
 
+  def is_wished_by_user
+    wished = false
+    wished = current_user.wishes.pluck(:wisheable_id).include?(id) if current_user
+  end
 
   def owner
     {

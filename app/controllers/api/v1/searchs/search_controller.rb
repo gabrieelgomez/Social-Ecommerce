@@ -13,6 +13,7 @@ module Api::V1
     end
 
     def filters_search
+      Product.current_user = current_v1_user
       @array = LookFor::GeneralService.search(params)
       @total = @array[0]
       build_json
