@@ -67,8 +67,8 @@ Rails.application.routes.draw do
           # Exams CRUD
 
           # TypeQuestions CRUD
-            namespace :exams do
-              scope '/:exam_id' do
+          namespace :exams do
+            scope '/:exam_id' do
               namespace :type_questions do
                 post '/create', to: 'create#create'
                 get '/:type_question_id', to: 'show#show'
@@ -79,6 +79,22 @@ Rails.application.routes.draw do
             end
           end
           # TypeQuestions CRUD
+
+          # CourseMemberships CRUD
+          scope '/courses/:course_id' do
+
+            namespace :course_memberships do
+              post '/create', to: 'create#create'
+              get '/my_subscription', to: 'show#show'
+              get '/students', to: 'show#students'
+              put '/:course_membership_id/annulled_by_student', to: 'update#annulled'
+              put '/:course_membership_id/locked_by_teacher', to: 'update#locked'
+            end
+          end
+          namespace :course_memberships do
+            get '/', to: 'show#my_subscriptions'
+          end
+          # CourseMemberships CRUD
 
 
         end

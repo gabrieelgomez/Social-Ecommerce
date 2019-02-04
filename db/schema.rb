@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190201182019) do
+ActiveRecord::Schema.define(version: 20190204160755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -875,6 +875,19 @@ ActiveRecord::Schema.define(version: 20190201182019) do
     t.index ["section_id"], name: "index_wave_educational_classes_on_section_id"
   end
 
+  create_table "wave_educational_course_memberships", force: :cascade do |t|
+    t.boolean "locked_by_teacher", default: false
+    t.boolean "annulled_by_user", default: false
+    t.string "status", default: ""
+    t.boolean "subscribed", default: true
+    t.bigint "user_id"
+    t.bigint "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_wave_educational_course_memberships_on_course_id"
+    t.index ["user_id"], name: "index_wave_educational_course_memberships_on_user_id"
+  end
+
   create_table "wave_educational_courses", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -913,6 +926,28 @@ ActiveRecord::Schema.define(version: 20190201182019) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_wave_educational_sections_on_course_id"
+  end
+
+  create_table "wave_educational_students", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "banner"
+    t.string "photo"
+    t.boolean "prominent"
+    t.string "phone"
+    t.string "url"
+    t.text "address"
+    t.text "description"
+    t.string "web"
+    t.string "slug"
+    t.jsonb "states_codes"
+    t.jsonb "countries_codes"
+    t.boolean "censured", default: false
+    t.integer "user_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_wave_educational_students_on_slug", unique: true
   end
 
   create_table "wave_educational_teachers", force: :cascade do |t|

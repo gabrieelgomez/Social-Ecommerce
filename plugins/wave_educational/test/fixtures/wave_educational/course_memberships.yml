@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  locked_by_teacher: false
+  annulled_by_user: false
+  status: MyString
+  subscribed: false
+  user: one
+  course: one
+
+two:
+  locked_by_teacher: false
+  annulled_by_user: false
+  status: MyString
+  subscribed: false
+  user: two
+  course: two

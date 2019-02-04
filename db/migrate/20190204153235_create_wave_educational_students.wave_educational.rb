@@ -1,6 +1,6 @@
-class CreateWaveEducationalTeachers < ActiveRecord::Migration[5.1]
+class CreateWaveEducationalStudents < ActiveRecord::Migration[5.1]
   def change
-    create_table :wave_educational_teachers do |t|
+    create_table :wave_educational_students do |t|
       t.string :name
       t.string  :email
       t.string  :banner
@@ -20,6 +20,6 @@ class CreateWaveEducationalTeachers < ActiveRecord::Migration[5.1]
       t.datetime :deleted_at
       t.timestamps
     end
-    add_index :wave_educational_teachers, :slug, unique: true
+    add_index :wave_educational_students, :slug, unique: true
   end
 end

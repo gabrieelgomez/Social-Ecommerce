@@ -11,5 +11,11 @@ module Intranet
     has_many :cards
 
     belongs_to :profile
+
+    # Validations
+    validates :profile_id, uniqueness: {
+      message: 'already has a intranet'
+    }
+
   end
 end
