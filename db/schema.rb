@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190204160755) do
+ActiveRecord::Schema.define(version: 20190204175821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1075,6 +1075,32 @@ ActiveRecord::Schema.define(version: 20190204160755) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["exam_id"], name: "index_wave_work_type_questions_on_exam_id"
+  end
+
+  create_table "wave_work_workers", force: :cascade do |t|
+    t.string "name"
+    t.string "banner"
+    t.string "nickname"
+    t.string "avatar"
+    t.string "email"
+    t.string "phone"
+    t.text "address"
+    t.string "web"
+    t.string "url", default: ""
+    t.string "slug"
+    t.text "description"
+    t.boolean "censured", default: false
+    t.string "dni"
+    t.datetime "birth_date"
+    t.integer "age"
+    t.string "gender"
+    t.jsonb "states_codes"
+    t.jsonb "countries_codes"
+    t.integer "user_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_wave_work_workers_on_slug", unique: true
   end
 
   create_table "wishes", force: :cascade do |t|

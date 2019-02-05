@@ -8,7 +8,7 @@ class SellerSerializer < ProfileSerializer
           'subcategories' => {
             only: [:id, :name]
           }
-        ]
+        ], methods: %i[url_get]
       ).merge(
         categories: product.productable.categories
       )
