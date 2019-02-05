@@ -19,5 +19,16 @@ module Api::V1::ShoppingCarts
         Notification.create_notify_models(cotizable.user, client.clientable, 'cotization', message)
       end
     end
+
+    def set_message(current_user, shopping_cart, item)
+      main_text = "El usuario #{current_user.email} desea cotizar contigo los siguientes productos: \n"
+      real_item = shopping_cart.items.find(item.id)
+      main_text += "\n - #{real_item.product.name}: #{real_item.product.price} x #{real_item.quantity} \n"
+      real_item.option_values.map do |key, opt|
+        main_text += "\t - #{real_item.options.find(key).name}: #{opt} \n"
+      end
+      main_text
+    end
+
   end
 end
