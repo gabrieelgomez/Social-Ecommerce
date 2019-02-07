@@ -7,7 +7,7 @@ class WishSerializer < ActiveModel::Serializer
     if wisheable.is_a?(Product)
       object.wisheable.as_json.merge({
         productable_url: wisheable.productable.url,
-        wisheable_url: wisheable.productable.url + "/products/#{wisheable.id}"
+        url_get: wisheable.productable.url + "/products/#{wisheable.id}"
       })
     elsif wisheable.is_a?(Profile)
       object.wisheable.as_json
