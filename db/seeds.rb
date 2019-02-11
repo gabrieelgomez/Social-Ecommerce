@@ -548,6 +548,7 @@ end
         productable: pyme,
         prominent: [true, false].sample,
         price: Faker::Number.between(100, 10000),
+        stock: rand(10..70),
         subcategory_ids: [pyme.categories.first.subcategories.pluck(:id).sample, pyme.categories.last.subcategories.pluck(:id).sample],
       )
 
@@ -599,6 +600,7 @@ end
         productable: independent,
         prominent: [true, false].sample,
         price: Faker::Number.between(100, 10000),
+        stock: rand(10..70),
         subcategory_ids: [independent.categories.first.subcategories.pluck(:id).sample, independent.categories.last.subcategories.pluck(:id).sample],
       )
 
@@ -652,6 +654,7 @@ end
       productable: seller,
       prominent: [true, false].sample,
       price: Faker::Number.between(100, 10000),
+      stock: rand(10..70),
       subcategory_ids: [seller.categories.first.subcategories.pluck(:id).sample, seller.categories.last.subcategories.pluck(:id).sample],
 
     )

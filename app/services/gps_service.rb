@@ -60,7 +60,7 @@ class GpsService
 
   # Evaluate coincidence with params and profile names
   def self.eval_q(prof, q)
-    prof.name.downcase.include?(q) || prof.title.downcase.include?(q)
+    prof.title.downcase.include?(q) #prof.name.downcase.include?(q) || 
   end
 
 
