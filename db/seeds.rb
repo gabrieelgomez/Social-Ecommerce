@@ -470,7 +470,7 @@ options_products = [
   },
   {
     name: 'Colores',
-    values: ['Rojo', 'Verde', 'Azul', 'XL']
+    values: ['Rojo', 'Verde', 'Azul', 'Magenta']
   }
 ]
 
@@ -522,13 +522,12 @@ end
     pyme = Pyme.create(
       # type_profile: 'pyme',
       title: Faker::TvShows::SiliconValley.company,
-      name: Faker::TvShows::SiliconValley.character,
       email: Faker::TvShows::SiliconValley.email,
       photo: Faker::Company.logo,
       phone: Faker::Company.duns_number,
       url: Faker::TvShows::SiliconValley.url,
       address: Faker::Address.city,
-      category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
+      category_ids: [Category.pluck(:id).sample, Category.pluck(:id).sample],
       prominent: [true, false].sample,
       user: user
     )
@@ -549,7 +548,7 @@ end
         productable: pyme,
         prominent: [true, false].sample,
         price: Faker::Number.between(100, 10000),
-        subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
+        subcategory_ids: [pyme.categories.first.subcategories.pluck(:id).sample, pyme.categories.last.subcategories.pluck(:id).sample],
       )
 
       CustomField.create(
@@ -574,13 +573,12 @@ end
     independent = Independent.create(
       # type_profile: 'independent',
       title: Faker::Job.unique.title,
-      name: Faker::Name.name,
       email: Faker::Internet.safe_email,
       photo: Faker::Company.logo,
       phone: Faker::PhoneNumber.cell_phone,
       url: Faker::Internet.url,
       address: Faker::Address.state,
-      category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
+      category_ids: [Category.pluck(:id).sample, Category.pluck(:id).sample],
       prominent: [true, false].sample,
       user: user
     )
@@ -601,7 +599,7 @@ end
         productable: independent,
         prominent: [true, false].sample,
         price: Faker::Number.between(100, 10000),
-        subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
+        subcategory_ids: [independent.categories.first.subcategories.pluck(:id).sample, independent.categories.last.subcategories.pluck(:id).sample],
       )
 
       CustomField.create(
@@ -627,13 +625,12 @@ end
   seller = Seller.create(
     # type_profile: 'seller',
     title: Faker::TvShows::SiliconValley.unique.app,
-    name: Faker::Name.name,
     email: Faker::Internet.safe_email,
     photo: Faker::Company.logo,
     phone: Faker::PhoneNumber.cell_phone,
     url: Faker::Internet.url,
     address: Faker::Address.state,
-    category_ids: [Faker::Number.between(1, 10),Faker::Number.between(1, 10)].uniq,
+    category_ids: [Category.pluck(:id).sample, Category.pluck(:id).sample],
     prominent: [true, false].sample,
     user: user
   )
@@ -655,7 +652,7 @@ end
       productable: seller,
       prominent: [true, false].sample,
       price: Faker::Number.between(100, 10000),
-      subcategory_ids: [Faker::Number.between(1, 356), Faker::Number.between(1, 356), Faker::Number.between(1, 356)].uniq,
+      subcategory_ids: [seller.categories.first.subcategories.pluck(:id).sample, seller.categories.last.subcategories.pluck(:id).sample],
 
     )
 

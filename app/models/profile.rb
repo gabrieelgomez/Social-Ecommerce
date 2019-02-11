@@ -108,7 +108,7 @@ class Profile < ApplicationRecord
   # Method by used Search services/model
   def self.short_ransack(categories, search)
     ransack(categories_id_in: categories).result
-    .ransack(name_or_description_or_title_cont_or_slug_cont: search).result
+    .ransack(description_or_title_cont_or_slug_cont: search).result
   end
   # ------------
 

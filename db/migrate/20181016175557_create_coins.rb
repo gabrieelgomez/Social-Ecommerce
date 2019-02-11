@@ -3,7 +3,7 @@ class CreateCoins < ActiveRecord::Migration[5.1]
     create_table :coins do |t|
       t.string :name
       t.string :acronym
-      t.text :symbol
+      t.text   :symbol
 
       t.timestamps
     end

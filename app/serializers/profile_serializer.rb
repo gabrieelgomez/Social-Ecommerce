@@ -1,5 +1,5 @@
 class ProfileSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :type_profile, :title, :slug, :name, :score,
+  attributes :id, :user_id, :type_profile, :title, :slug, :score,
              :email, :banner, :photo, :launched, :phone, :url, :address,
              :vision, :mission, :description, :web, :profile, :experience,
              :validation, :censured, :social_account, :categories, :locations,

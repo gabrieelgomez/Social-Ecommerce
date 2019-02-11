@@ -1,7 +1,7 @@
 class CreateWaveEducationalStudents < ActiveRecord::Migration[5.1]
   def change
     create_table :wave_educational_students do |t|
-      t.string :name
+      t.string  :name
       t.string  :email
       t.string  :banner
       t.string  :photo

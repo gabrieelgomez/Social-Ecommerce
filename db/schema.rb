@@ -154,13 +154,14 @@ ActiveRecord::Schema.define(version: 20190204175821) do
     t.integer "deal_type_id"
     t.float "price"
     t.boolean "status", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "stage", default: "received"
+    t.string "stage", default: "sent"
     t.string "details", default: ""
     t.string "token", default: ""
     t.string "currency", default: "usd"
     t.text "address", default: ""
+    t.text "text", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_cotizations_on_client_id"
     t.index ["cotizable_type", "cotizable_id"], name: "index_cotizations_on_cotizable_type_and_cotizable_id"
   end
@@ -613,7 +614,6 @@ ActiveRecord::Schema.define(version: 20190204175821) do
     t.integer "user_id"
     t.string "type_profile", null: false
     t.string "title"
-    t.string "name"
     t.string "email"
     t.json "country"
     t.string "banner"
@@ -718,10 +718,10 @@ ActiveRecord::Schema.define(version: 20190204175821) do
     t.bigint "user_id", null: false
     t.string "code", null: false
     t.string "state", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.text "data_stringfy", default: ""
     t.jsonb "data_json", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_shopping_carts_on_user_id"
   end
 
@@ -897,7 +897,7 @@ ActiveRecord::Schema.define(version: 20190204175821) do
     t.boolean "private", default: false
     t.boolean "published", default: false
     t.string "price"
-    t.text "requeriments"
+    t.text "requirements"
     t.string "category"
     t.bigint "teacher_id"
     t.datetime "deleted_at"
@@ -952,28 +952,20 @@ ActiveRecord::Schema.define(version: 20190204175821) do
 
   create_table "wave_educational_teachers", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id"
     t.string "email"
-    t.json "country"
     t.string "banner"
     t.string "photo"
-    t.float "score"
     t.boolean "prominent"
-    t.string "launched"
     t.string "phone"
     t.string "url"
     t.text "address"
-    t.string "vision"
-    t.string "mission"
     t.text "description"
     t.string "web"
-    t.json "profile"
-    t.text "experience"
-    t.string "validation"
     t.string "slug"
     t.jsonb "states_codes"
     t.jsonb "countries_codes"
     t.boolean "censured", default: false
+    t.integer "user_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

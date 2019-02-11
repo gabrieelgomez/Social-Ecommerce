@@ -11,7 +11,7 @@ User.class_eval do
   def create_worker
     # Create Student
     return if self.worker
-    worker = WaveWork::Student.create(
+    worker = WaveWork::Worker.create(
       name: name,
       email: email,
       user: self

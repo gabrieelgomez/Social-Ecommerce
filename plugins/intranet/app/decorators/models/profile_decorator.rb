@@ -9,20 +9,20 @@ Profile.class_eval do
   def create_intranet
     # Create Intranet
     intranet = Intranet::Intranet.create(
-      title: "#{name} :: Intranet",
+      title: "#{title} :: Intranet",
       profile: self
     )
 
     # Create Board
     board = intranet.boards.new(
-      name: "#{name} :: Board",
+      name: "#{title} :: Board",
       description: "Description :: Intranet::Board"
     )
     board.save
 
     # Create Lists
     list = board.lists.new(
-      title: "#{name} :: List",
+      title: "#{title} :: List",
       description: "Description :: Intranet::List",
       date_start: "27/12/2018",
       date_end: "31/12/2018",
@@ -33,7 +33,7 @@ Profile.class_eval do
 
     # Create Cards
     card = list.cards.new(
-      title: "#{name} :: Card",
+      title: "#{title} :: Card",
       description: "Description :: Intranet::Card",
       date_start: 56498741256,
       date_end: 56498741256,
@@ -46,7 +46,7 @@ Profile.class_eval do
 
     # Create Checklist
     checklist = card.checklists.new(
-      title: "#{name} :: Checklist",
+      title: "#{title} :: Checklist",
       date_start: 56498741256,
       date_end: 56498741256
     )
@@ -54,7 +54,7 @@ Profile.class_eval do
 
     # Create Tasks
     task = checklist.tasks.new(
-      title: "#{name} :: Task",
+      title: "#{title} :: Task",
       completed: [true, false].sample
     )
     task.save

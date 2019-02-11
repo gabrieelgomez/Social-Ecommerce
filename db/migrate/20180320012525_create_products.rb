@@ -18,8 +18,6 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.boolean :prominent
       t.string  :service_type
       t.boolean :virtual_product
-      # t.integer :productable_id
-      # t.string :productable_type
       t.float      :stock, default: 0
       t.boolean    :status, default: true
       t.string     :num_ref, default: ''
