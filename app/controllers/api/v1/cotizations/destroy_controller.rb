@@ -3,12 +3,12 @@ module Api::V1::Cotizations
   class DestroyController < CotizationsController
 
     def destroy
-      # if @cotization.destroy
-      #   render json: @cotization, status: 200
-      # else
-      #   render json: @cotization.errors,
-      #          status: 500
-      # end
+      if @cotization.destroy
+        render json: @cotization, status: 200
+      else
+        render json: @cotization.errors,
+               status: 500
+      end
     end
 
   end
