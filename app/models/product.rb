@@ -69,7 +69,7 @@ class Product < ApplicationRecord
   def owner
     {
       id:           productable.id,
-      name:         productable.name,
+      title:        productable.title,
       type_profile: productable.type_profile
     }
   end
