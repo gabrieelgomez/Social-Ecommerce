@@ -35,21 +35,21 @@ class ConversationChannel < ApplicationCable::Channel
 
   def current_user_conversations
     @user = current_user
-    convs = @user.profiles.map do |prof|
-      prof.as_json.merge(
-        conversations: Conversation.user_conversations(prof).select{|conv| conv.membership?(prof)}
-                                   .as_json(
-                                     only: [:id, :type_messages],
-                                     methods: [
-                                       :sender,
-                                       :recipient
-                                     ],
-                                     include: [
-                                       :messages
-                                     ]
-                                   )
-      )
-    end
+    # convs = @user.profiles.map do |prof|
+    #   prof.as_json.merge(
+    #     conversations: Conversation.user_conversations(prof).select{|conv| conv.membership?(prof)}
+    #                                .as_json(
+    #                                  only: [:id, :type_messages],
+    #                                  methods: [
+    #                                    :sender,
+    #                                    :recipient
+    #                                  ],
+    #                                  include: [
+    #                                    :messages
+    #                                  ]
+    #                                )
+    #   )
+    # end
     @conversations = Conversation.user_conversations(@user).select{|conv| conv.membership?(@user)}.as_json(
       only: [
         :id, :type_messages
@@ -59,9 +59,9 @@ class ConversationChannel < ApplicationCable::Channel
         :messages
       ]
     )
-    .push(
-      profiles: convs || []
-    )
+    # .push(
+    #   profiles: convs || []
+    # )
 
     ActionCable.server.broadcast(
       "conversations-#{current_user.id}",

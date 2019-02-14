@@ -1,4 +1,6 @@
 class Conversation < ApplicationRecord
+  cattr_accessor :current_user
+
   belongs_to :senderable, polymorphic: true
   belongs_to :recipientable, polymorphic: true
   has_many :messages, dependent: :destroy
@@ -20,6 +22,10 @@ class Conversation < ApplicationRecord
     where(senderable: sender, recipientable: recipient).or(
       where(senderable: recipient, recipientable: sender)
     )
+  end
+
+  scope :user_conversations, ->(current_user) do
+    where(senderable: current_user).or(where(recipientable: current_user))
   end
 
   scope :user_conversations, ->(current_user) do
@@ -55,6 +61,33 @@ class Conversation < ApplicationRecord
     return recipientable.as_json(methods: [:type_profile]) if recipientable.is_a? Profile
 
     recipientable.as_json
+  end
+
+  def type_conversation
+    type_messages
+  end
+
+  def sender_user
+    byebug
+    # if current_user.id == senderable.id
+    #   return @sender = senderable.as_json(methods: [:type_profile]) if senderable.is_a? Profile
+    #   @sender = senderable.as_json
+    # else
+    #   return @sender = recipientable.as_json(methods: [:type_profile]) if recipientable.is_a? Profile
+    #   @sender = recipientable.as_json
+    # end
+    # @sender
+  end
+
+  def receptor_user
+    # if current_user.id == recipientable.id
+    #   return @recepentable = recipientable.as_json(methods: [:type_profile]) if recipientable.is_a? Profile
+    #   @recepentable = recipientable.as_json
+    # else
+    #   return @recepentable = senderable.as_json(methods: [:type_profile]) if senderable.is_a? Profile
+    #   @recepentable = senderable.as_json
+    # end
+    # @recepentable
   end
 
   def self.get(sender, recipient, type_conv=nil)
