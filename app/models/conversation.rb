@@ -1,4 +1,6 @@
 class Conversation < ApplicationRecord
+  cattr_accessor :current_user
+
   belongs_to :senderable, polymorphic: true
   belongs_to :recipientable, polymorphic: true
   has_many :messages, dependent: :destroy
@@ -20,6 +22,10 @@ class Conversation < ApplicationRecord
     where(senderable: sender, recipientable: recipient).or(
       where(senderable: recipient, recipientable: sender)
     )
+  end
+
+  scope :user_conversations, ->(current_user) do
+    where(senderable: current_user).or(where(recipientable: current_user))
   end
 
   scope :user_conversations, ->(current_user) do
@@ -55,6 +61,32 @@ class Conversation < ApplicationRecord
     return recipientable.as_json(methods: [:type_profile]) if recipientable.is_a? Profile
 
     recipientable.as_json
+  end
+
+  def type_conversation
+    type_messages
+  end
+
+  def sender_messageable
+    current_user.as_json(only: [:id, :name], methods: [:type])
+  end
+
+  def receptor_messageable
+    set_entity
+  end
+
+  def set_entity
+    if senderable.id != current_user.id && senderable.class.to_s != 'User'
+      return senderable.as_json(only: [:id], methods: [:type, :name]) if senderable.is_a? Profile
+      senderable.as_json
+    elsif recipientable.id != current_user.id && recipientable.class.to_s != 'User'
+      return recipientable.as_json(only: [:id], methods: [:type, :name]) if recipientable.is_a? Profile
+      recipientable.as_json
+    elsif senderable.id != current_user.id && senderable.class.to_s == 'User'
+      senderable.as_json(only: [:id, :name], methods: [:type])
+    elsif recipientable.id != current_user.id && recipientable.class.to_s == 'User'
+      recipientable.as_json(only: [:id, :name], methods: [:type])
+    end
   end
 
   def self.get(sender, recipient, type_conv=nil)

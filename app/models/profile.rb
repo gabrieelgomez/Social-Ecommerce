@@ -145,6 +145,14 @@ class Profile < ApplicationRecord
   def custom_json(product_ids)
     self.products.select{|product| product_ids.include?(product.id)}.as_json(only: [:id, :name, :price, :images])
   end
+
+  def name
+    title
+  end
+
+  def type
+    'Profile'
+  end
   # ----------------------------------
 
 
