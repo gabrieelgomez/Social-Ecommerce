@@ -153,6 +153,11 @@ class Profile < ApplicationRecord
   def type
     'Profile'
   end
+
+  def custom_avatar
+    photo
+  end
+
   # ----------------------------------
 
 

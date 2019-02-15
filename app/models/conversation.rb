@@ -28,10 +28,6 @@ class Conversation < ApplicationRecord
     where(senderable: current_user).or(where(recipientable: current_user))
   end
 
-  scope :user_conversations, ->(current_user) do
-    where(senderable: current_user).or(where(recipientable: current_user))
-  end
-
   def membership?(member)
     membership_conversations.where(memberable: member).exists?
   end
@@ -68,7 +64,8 @@ class Conversation < ApplicationRecord
   end
 
   def sender_messageable
-    current_user.as_json(only: [:id, :name], methods: [:type])
+    return current_user.as_json(only: [:id], methods: [:type, :name, :custom_avatar]) if current_user.is_a? Profile
+    current_user.as_json(only: [:id, :name], methods: [:type, :custom_avatar])
   end
 
   def receptor_messageable
@@ -77,15 +74,15 @@ class Conversation < ApplicationRecord
 
   def set_entity
     if senderable.id != current_user.id && senderable.class.to_s != 'User'
-      return senderable.as_json(only: [:id], methods: [:type, :name]) if senderable.is_a? Profile
-      senderable.as_json
+      return senderable.as_json(only: [:id], methods: [:type, :name, :custom_avatar]) if senderable.is_a? Profile
+      senderable.as_json(only: [:id, :name], methods: [:type, :custom_avatar])
     elsif recipientable.id != current_user.id && recipientable.class.to_s != 'User'
-      return recipientable.as_json(only: [:id], methods: [:type, :name]) if recipientable.is_a? Profile
-      recipientable.as_json
+      return recipientable.as_json(only: [:id], methods: [:type, :name, :custom_avatar]) if recipientable.is_a? Profile
+      recipientable.as_json(only: [:id, :name], methods: [:type, :custom_avatar])
     elsif senderable.id != current_user.id && senderable.class.to_s == 'User'
-      senderable.as_json(only: [:id, :name], methods: [:type])
+      senderable.as_json(only: [:id, :name], methods: [:type, :custom_avatar])
     elsif recipientable.id != current_user.id && recipientable.class.to_s == 'User'
-      recipientable.as_json(only: [:id, :name], methods: [:type])
+      recipientable.as_json(only: [:id, :name], methods: [:type, :custom_avatar])
     end
   end
 

@@ -32,14 +32,26 @@ module Api::V1::Chat::Conversations
     end
 
     def own_profiles_conversations
-      @user = current_v1_user
-      convs = @user.profiles.map do |prof|
-        prof.as_json.merge(
-          conversations: Conversation.user_conversations(prof).select{|conv| conv.membership?(@user)}
-                                     .as_json(include: [:messages])
+      @user          = current_v1_user
+      ids            = params[:profile_ids].try(:split, '-').try(:map, &:to_i)
+      @profiles      = @user.profiles.where(id: ids)
+      @profiles      = @user.profiles if @profiles.empty?
+
+      @conversations = @profiles.map do |prof|
+        Conversation.current_user = prof
+        prof.as_json(only: [:id], methods: [:type, :name]).merge(
+          conversations: prof.conversations.as_json(
+            only: [
+              :id
+            ], methods: [
+              :type_conversation, :sender_messageable, :receptor_messageable
+            ], include: [
+              :messages
+            ]
+          )
         )
       end
-      render json: convs
+      render json: @conversations
     end
   end
 end

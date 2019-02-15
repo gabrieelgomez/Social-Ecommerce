@@ -67,12 +67,23 @@ class ConversationChannel < ApplicationCable::Channel
     )
   end
 
-  def own_profiles_conversations
+  def own_profiles_conversations(data=nil)
     @user = current_user
-    @conversations = @user.profiles.map do |prof|
-      prof.as_json.merge(
-        conversations: Conversation.user_conversations(prof).select{|conv| conv.membership?(@user)}
-                                   .as_json(include: [:messages])
+    ids   = data['profile_ids'].try(:split, '-').try(:map, &:to_i)
+    @profiles = @user.profiles.where(id: ids)
+    @profiles = @user.profiles if @profiles.empty?
+    @conversations = @profiles.map do |prof|
+      Conversation.current_user = prof
+      prof.as_json(only: [:id], methods: [:type, :name]).merge(
+        conversations: prof.conversations.as_json(
+          only: [
+            :id
+          ], methods: [
+            :type_conversation, :sender_messageable, :receptor_messageable
+          ], include: [
+            :messages
+          ]
+        )
       )
     end
 

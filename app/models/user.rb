@@ -150,6 +150,10 @@ class User < ActiveRecord::Base
     'User'
   end
 
+  def custom_avatar
+    avatar.url
+  end
+
   def map_suggest(type)
     self.wishes.map{|wish| wish.wisheable.category_ids if wish.wisheable_type == type}.flatten.uniq.reject!(&:nil?)
   end
