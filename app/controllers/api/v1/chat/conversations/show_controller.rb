@@ -3,20 +3,29 @@ module Api::V1::Chat::Conversations
     def current_user_conversations
       Conversation.current_user = current_v1_user
       @user = current_v1_user
-
-      @user_conversations = Conversation.user_conversations(@user).select{|conv| conv.membership?(@user)}.as_json(
+      @contizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
         only: [
           :id
         ], methods: [
-          :type_conversation, :sender_user, :receptor_user
+          :type_conversation, :sender_messageable, :receptor_messageable
+        ], include: [
+          :messages
+        ]
+      )
+
+      @users_chats = Conversation.user_conversations(@user).where.not(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
+        only: [
+          :id
+        ], methods: [
+          :type_conversation, :sender_messageable, :receptor_messageable
         ], include: [
           :messages
         ]
       )
 
       @conversations = {
-        user_conversations: @user_conversations,
-        cotizations_conversations: nil
+        user_conversations: @users_chats,
+        cotizations_conversations: @contizations
       }
 
       render json: @conversations

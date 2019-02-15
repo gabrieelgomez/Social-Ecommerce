@@ -67,27 +67,26 @@ class Conversation < ApplicationRecord
     type_messages
   end
 
-  def sender_user
-    byebug
-    # if current_user.id == senderable.id
-    #   return @sender = senderable.as_json(methods: [:type_profile]) if senderable.is_a? Profile
-    #   @sender = senderable.as_json
-    # else
-    #   return @sender = recipientable.as_json(methods: [:type_profile]) if recipientable.is_a? Profile
-    #   @sender = recipientable.as_json
-    # end
-    # @sender
+  def sender_messageable
+    current_user.as_json(only: [:id, :name], methods: [:type])
   end
 
-  def receptor_user
-    # if current_user.id == recipientable.id
-    #   return @recepentable = recipientable.as_json(methods: [:type_profile]) if recipientable.is_a? Profile
-    #   @recepentable = recipientable.as_json
-    # else
-    #   return @recepentable = senderable.as_json(methods: [:type_profile]) if senderable.is_a? Profile
-    #   @recepentable = senderable.as_json
-    # end
-    # @recepentable
+  def receptor_messageable
+    set_entity
+  end
+
+  def set_entity
+    if senderable.id != current_user.id && senderable.class.to_s != 'User'
+      return senderable.as_json(only: [:id], methods: [:type, :name]) if senderable.is_a? Profile
+      senderable.as_json
+    elsif recipientable.id != current_user.id && recipientable.class.to_s != 'User'
+      return recipientable.as_json(only: [:id], methods: [:type, :name]) if recipientable.is_a? Profile
+      recipientable.as_json
+    elsif senderable.id != current_user.id && senderable.class.to_s == 'User'
+      senderable.as_json(only: [:id, :name], methods: [:type])
+    elsif recipientable.id != current_user.id && recipientable.class.to_s == 'User'
+      recipientable.as_json(only: [:id, :name], methods: [:type])
+    end
   end
 
   def self.get(sender, recipient, type_conv=nil)
