@@ -109,7 +109,7 @@ Rails.application.routes.draw do
       # Services routes
       namespace :services do
         get '/home', to: 'home#home'
-
+        get '/products_by_filters', to: 'services#products_filters'
       end
       # Services routes - end
 
