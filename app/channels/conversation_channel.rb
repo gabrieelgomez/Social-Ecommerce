@@ -1,7 +1,6 @@
 class ConversationChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
-    # comment
     stream_from "conversations-#{current_user.id}"
   end
 
@@ -11,7 +10,7 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def create_message(request_data)
-    @message = JSON.parse(request_data)
+    @message = request_data['message']
     set_messageable
     @conversation = Conversation.user_conversations(@messageable).find message['conversation_id']
 
@@ -70,8 +69,7 @@ class ConversationChannel < ApplicationCable::Channel
 
   def own_profiles_conversations(request_data=nil)
     @user = current_user
-    ids   = JSON.parse(request_data)
-    ids   = ids['profile_ids'].try(:split, '-').try(:map, &:to_i)
+    ids   = request_data['profile_ids'].try(:split, '-').try(:map, &:to_i)
     @profiles = @user.profiles.where(id: ids)
     @profiles = @user.profiles if @profiles.empty?
     @conversations = @profiles.map do |prof|
@@ -96,24 +94,29 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def update_cotization(request_data)
-    cotization = JSON.parse(request_data)
-    @cotization = Cotization.find cotization['cotization_id']
+    puts request_data
+    puts '******************'
+    puts request_data['data']
+    puts '******************'
+    uno_test = JSON.parse resquest_data['data']
+    puts uno_test
+    # @cotization = Cotization.find cotization['cotization_id']
 
-    if @cotization.update(cotization['stage'])
-      ActionCable.server.broadcast(
-        "conversations-#{current_user.id}",
-        cotization: @cotization
-      )
-    else
-      ActionCable.server.broadcast(
-        "conversations-#{current_user.id}",
-        cotization: @cotization.errors
-      )
-    end
+    # if @cotization.update(cotization['stage'])
+    #   ActionCable.server.broadcast(
+    #     "conversations-#{current_user.id}",
+    #     cotization: @cotization
+    #   )
+    # else
+    #   ActionCable.server.broadcast(
+    #     "conversations-#{current_user.id}",
+    #     cotization: @cotization.errors
+    #   )
+    # end
   end
 
   def destroy_cotization(request_data)
-    cotization = JSON.parse(request_data)
+    cotization = request_data['cotization']
     @cotization = Cotization.find cotization['cotization_id']
 
     if @cotization.destroy
