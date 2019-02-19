@@ -1,6 +1,7 @@
 class ConversationChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
+    # comment
     stream_from "conversations-#{current_user.id}"
   end
 
