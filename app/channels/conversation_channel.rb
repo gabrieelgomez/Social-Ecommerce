@@ -9,8 +9,8 @@ class ConversationChannel < ApplicationCable::Channel
     stop_all_streams
   end
 
-  def create_message(data)
-    @message = data['message']
+  def create_message(request_data)
+    @message = request_data['message']
     set_messageable
     @conversation = Conversation.user_conversations(@messageable).find message['conversation_id']
 
@@ -67,9 +67,9 @@ class ConversationChannel < ApplicationCable::Channel
     )
   end
 
-  def own_profiles_conversations(data=nil)
+  def own_profiles_conversations(request_data=nil)
     @user = current_user
-    ids   = data['profile_ids'].try(:split, '-').try(:map, &:to_i)
+    ids   = request_data['profile_ids'].try(:split, '-').try(:map, &:to_i)
     @profiles = @user.profiles.where(id: ids)
     @profiles = @user.profiles if @profiles.empty?
     @conversations = @profiles.map do |prof|
@@ -93,8 +93,8 @@ class ConversationChannel < ApplicationCable::Channel
     )
   end
 
-  def update_cotization(data)
-    cotization = data['cotization']
+  def update_cotization(request_data)
+    cotization = request_data['cotization']
     @cotization = Cotization.find cotization['cotization_id']
 
     if @cotization.update(cotization['stage'])
@@ -110,8 +110,8 @@ class ConversationChannel < ApplicationCable::Channel
     end
   end
 
-  def destroy_cotization(data)
-    cotization = data['cotization']
+  def destroy_cotization(request_data)
+    cotization = request_data['cotization']
     @cotization = Cotization.find cotization['cotization_id']
 
     if @cotization.destroy
