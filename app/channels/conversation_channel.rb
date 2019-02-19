@@ -10,7 +10,7 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def create_message(request_data)
-    @message = request_data['message']
+    @message = request_data
     set_messageable
     @conversation = Conversation.user_conversations(@messageable).find message['conversation_id']
 
@@ -94,7 +94,7 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def update_cotization(request_data)
-    cotization = request_data['cotization']
+    cotization = request_data
     @cotization = Cotization.find cotization['cotization_id']
 
     if @cotization.update(cotization['stage'])
@@ -111,7 +111,7 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def destroy_cotization(request_data)
-    cotization = request_data['cotization']
+    cotization = request_data
     @cotization = Cotization.find cotization['cotization_id']
 
     if @cotization.destroy
