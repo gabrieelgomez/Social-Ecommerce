@@ -100,11 +100,14 @@ class ConversationChannel < ApplicationCable::Channel
     if @cotization.update(cotization['stage'])
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
+        status_transaction: 'success',
+        status_cotization: @cotization.stage,
         cotization: @cotization
       )
     else
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
+        status_transaction: 'failed',
         cotization: @cotization.errors
       )
     end
@@ -117,11 +120,14 @@ class ConversationChannel < ApplicationCable::Channel
     if @cotization.destroy
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
+        status_transaction: 'success',
+        status_cotization: @cotization.stage,
         cotization: @cotization
       )
     else
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
+        status_transaction: 'failed',
         cotization: @cotization.errors
       )
     end
