@@ -12,7 +12,12 @@ module Api::V1::Searchs
 
       products = category.products
                          .uniq
-                         .as_json(only: %i[id type_profile name price cover], methods: %i[category_ids subcategory_ids links url_get])
+                         .as_json(only: %i[id type_profile name price cover stock], methods: %i[category_ids subcategory_ids links url_get],
+                           include: {
+                            productable: {
+                              only: %i[id title type_profile]
+                            }
+                         })
 
       profiles = category.by_profiles
                          .uniq
