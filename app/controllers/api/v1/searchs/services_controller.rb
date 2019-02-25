@@ -21,6 +21,8 @@ module Api::V1::Searchs
 
       profiles = category.by_profiles
                          .uniq
+                         .sort_by{|profile| profile.products.count}
+                         .reverse
                          .as_json(only: %i[id title slug photo name type_profile], methods: %i[category_ids])
 
       if params[:type_search].eql?('products')
