@@ -8,4 +8,8 @@ class Subcategory < ApplicationRecord
     Arel.sql("unaccent(\"name\")")
   end
 
+  def products_charged
+    products.count
+  end
+
 end
