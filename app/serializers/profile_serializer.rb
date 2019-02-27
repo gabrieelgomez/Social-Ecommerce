@@ -4,7 +4,7 @@ class ProfileSerializer < ActiveModel::Serializer
              :vision, :mission, :description, :web, :profile, :experience,
              :validation, :censured, :social_account, :categories, :locations,
              :options, :custom_fields
-  # attributes *Profile.column_name
+
   def categories
     object.categories.map{ |category| object_categories(category)}
   end
@@ -15,18 +15,8 @@ class ProfileSerializer < ActiveModel::Serializer
     @categories = {
       id: category.id,
       name: category.name,
-      subcategories: category.subcategories.select{|subcategory| subcategory.products.count.positive? }
-                                  .as_json(
-                                    only: %i[id name],
-                                    methods: %i[products_charged]
-                                  )
+      subcategories: category.subcategories_with_products
     }
   end
-
-  # def subcategories
-  #   object.subcategories.select{|subcategory|
-  #     subcategory.products.count.positive?
-  #   }.as_json(only: %i[id name category_id], methods: %i[products_charged])
-  # end
 
 end

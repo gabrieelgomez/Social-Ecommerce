@@ -87,7 +87,7 @@ class FilterService
       objects.map{ |object| total_country+=1 if object.countries_codes.to_a.include?(country)}.compact.last
       unless total_country.zero?
         @countries.push(
-          country_name: CS.get[country.to_sym],
+          country_name: CS.get[country.upcase.to_sym],
           country_code: country,
           total: total_country,
           cities: set_cities(country, cities, objects)

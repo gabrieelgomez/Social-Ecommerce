@@ -12,4 +12,8 @@ class Subcategory < ApplicationRecord
     products.count
   end
 
+  def has_product?
+    products_charged.positive?
+  end
+
 end

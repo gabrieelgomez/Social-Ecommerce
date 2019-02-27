@@ -28,4 +28,13 @@ class Category < ApplicationRecord
   def products_count
     products.count
   end
+
+  def subcategories_with_products
+    subcategories.select(&:has_product?)
+                .as_json(
+                  only: %i[id name],
+                  methods: %i[products_charged]
+                )
+  end
+
 end
