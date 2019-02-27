@@ -74,7 +74,7 @@ categories = [
     name: "Servicios",
     subcategories: [
       "Arquitecto",
-      "Asesoras / Limpiezas de hogas",
+      "Asesoras / Limpiezas de hogar",
       "Belleza",
       "Cerrajero",
       "Chofer",

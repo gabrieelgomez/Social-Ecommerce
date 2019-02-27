@@ -15,7 +15,7 @@ module Api::V1::Searchs
                          .as_json(only: %i[id type_profile name price cover stock], methods: %i[category_ids subcategory_ids links url_get],
                            include: {
                             productable: {
-                              only: %i[id title type_profile]
+                              only: %i[id title type_profile slug url]
                             }
                          })
 

@@ -6,13 +6,27 @@ class ProfileSerializer < ActiveModel::Serializer
              :options, :custom_fields
   # attributes *Profile.column_name
   def categories
-    object.categories.as_json(
-      only: %i[id name],
-      include: [
-        subcategories: {
-          only: %i[id name]
-        }
-      ]
-    )
+    object.categories.map{ |category| object_categories(category)}
   end
+
+  private
+
+  def object_categories(category)
+    @categories = {
+      id: category.id,
+      name: category.name,
+      subcategories: category.subcategories.select{|subcategory| subcategory.products.count.positive? }
+                                  .as_json(
+                                    only: %i[id name],
+                                    methods: %i[products_charged]
+                                  )
+    }
+  end
+
+  # def subcategories
+  #   object.subcategories.select{|subcategory|
+  #     subcategory.products.count.positive?
+  #   }.as_json(only: %i[id name category_id], methods: %i[products_charged])
+  # end
+
 end
