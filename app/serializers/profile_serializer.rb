@@ -2,20 +2,27 @@ class ProfileSerializer < ActiveModel::Serializer
   attributes :id, :user_id, :type_profile, :title, :slug, :score,
              :email, :banner, :photo, :launched, :phone, :url, :address,
              :vision, :mission, :description, :web, :profile, :experience,
-             :validation, :censured, :social_account, :categories, :locations,
-             :options, :custom_fields
+             :validation, :censured, :social_account, :categories, :subcategories,
+             :locations, :options, :custom_fields
 
-  def categories
-    object.categories.map{ |category| object_categories(category)}
-  end
+   def categories
+     object.categories.as_json(
+       only: %i[id name]
+     )
+   end
+
+   def subcategories
+     ids = object.products.collect{|product| product.subcategories.pluck(:id)}.flatten.sort
+     Subcategory.where(id: ids).map{|subcategory| object_subcategories(subcategory, ids)}
+   end
 
   private
 
-  def object_categories(category)
-    @categories = {
-      id: category.id,
-      name: category.name,
-      subcategories: category.subcategories_with_products
+  def object_subcategories(subcategory, ids)
+    @subcategories = {
+      id: subcategory.id,
+      name: subcategory.name,
+      product_charged: ids.count(subcategory.id)
     }
   end
 

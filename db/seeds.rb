@@ -18,7 +18,7 @@ categories = [
       "Aviones: recambios y acces.",
       "Barcos: recambios y accesorios",
       "Buggies: accesorios",
-      "Coche: Hi-Fi, GPS y tecnología",
+      "Coche: Wi-Fi, GPS y tecnología",
       "Coches de época: piezas",
       "Coches: accesorios",
       "Coches: llantas y neumáticos",
