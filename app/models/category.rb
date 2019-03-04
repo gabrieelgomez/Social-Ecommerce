@@ -13,6 +13,54 @@ class Category < ApplicationRecord
     Arel.sql("unaccent(\"name\")")
   end
 
+  ### Methods filters_by_cat, services controller
+  def self.search_by_products(category, products, states, countries)
+    products = category.products
+                       .uniq
+    products = Product.search_by_countries_states(products, states, countries) if countries || states
+
+    products.as_json(only: %i[id type_profile name price cover stock],
+                     methods: %i[category_ids subcategory_ids links url_get countries_codes states_codes],
+                     include: {
+                       productable: {
+                         only: %i[id title type_profile slug url]
+                       }
+                   })
+  end
+
+  def self.search_by_profiles(category, profiles, states, countries)
+    profiles = category.by_profiles
+                       .uniq
+    profiles = Profile.search_by_countries_states(profiles, states, countries) if countries || states
+
+    profiles.sort_by{|profile| profile.products.count}
+            .reverse
+            .as_json(only: %i[id title slug photo name type_profile countries_codes states_codes], methods: %i[category_ids])
+  end
+
+
+  ### Methods suggest_query, services controller
+  def self.suggest_query(objects, quantity=5, type_search)
+    return suggest_by_products if type_search == 'products'
+    suggest_by_profiles
+  end
+
+  def suggest_by_products
+    self.find(categories_products).map{|category| category.products.sample(quantity)}
+                                  .flatten
+                                  .uniq
+                                  .as_json(only: %i[id type_profile name price cover], methods: %i[category_ids subcategory_ids links url_get])
+  end
+
+  def suggest_by_profiles
+    self.find(categories_profiles).map{|category| category.by_profiles.sample(quantity)}
+                                  .flatten
+                                  .uniq
+                                  .as_json(only: %i[id title photo name type_profile prominent], methods: %i[category_ids])
+  end
+
+
+  ## Instacies methods
   def by_profiles
     pymes        = self.pymes
     sellers      = self.sellers

@@ -103,6 +103,13 @@ class Product < ApplicationRecord
     # self.try(location_code).included_in?(array)
     (self.try(location_code).flatten & array).any?
   end
+
+  def self.search_by_countries_states(products, states, countries)
+    products = products.select{|product| product.search_in?(states, :states_codes)} if states
+    products = products.select{|product| product.search_in?(countries, :countries_codes)} if countries
+    return products
+  end
+
   # End Methods by filters and searchs
 
 

@@ -129,6 +129,17 @@ class Profile < ApplicationRecord
     end
     self.update(states_codes: self.states_codes, countries_codes: self.countries_codes)
   end
+
+  def search_in? array, location_code
+    # self.try(location_code).included_in?(array)
+    (self.try(location_code).flatten & array).any?
+  end
+
+  def self.search_by_countries_states(profiles, states, countries)
+    profiles = profiles.select{|profile| profile.search_in?(states, :states_codes)} if states
+    profiles = profiles.select{|profile| profile.search_in?(countries, :countries_codes)} if countries
+    return profiles
+  end
   # ----------------------------------
 
 

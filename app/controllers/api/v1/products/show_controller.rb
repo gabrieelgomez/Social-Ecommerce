@@ -9,7 +9,13 @@ module Api::V1::Products
 
     def index
       if @productable.respond_to? :products
-        render json: @productable.products
+        states        = params[:states_codes].try(:split, '-').try(:map, &:to_s)
+        countries     = params[:countries_codes].try(:split, '-').try(:map, &:to_s)
+
+        @products = @productable.products
+        @products = Product.search_by_countries_states(@products, states, countries) if countries || states
+
+        render json: @products
       else
         render json: { data: [], errors: 'No products found' }, status: 402
       end

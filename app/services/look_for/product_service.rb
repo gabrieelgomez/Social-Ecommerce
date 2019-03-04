@@ -3,14 +3,19 @@ module LookFor
   class ProductService
 
     def self.custom_method(search, profiles, categories, subcategories, states, countries)
-      products_by_q = Product.ransack(name_cont: search).result.where.not(stock:0)
+      products_by_q = Product.ransack(name_cont: search)
+                             .result
+                             .where.not(stock:0)
       products_by_filters = products_by_q.ransack(type_profile_in: profiles).result
 
       prod_ids = products_by_filters.map(&:id)
-      products_by_filters = Product.where(id: prod_ids).ransack(categories_id_in: categories).result.ransack(subcategories_id_in: subcategories).result
+      products_by_filters = Product.where(id: prod_ids)
+                                   .ransack(categories_id_in: categories)
+                                   .result
+                                   .ransack(subcategories_id_in: subcategories)
+                                   .result
 
-      products_by_filters = products_by_filters.select{|product| product.search_in?(states, :states_codes)} if states
-      products_by_filters = products_by_filters.select{|product| product.search_in?(countries, :countries_codes)} if countries
+      products_by_filters = Product.search_by_countries_states(products_by_filters, states, countries) if countries || states
 
       #By filters search
       filter_profile_by_products   = FilterService.type_profiles(products_by_q)

@@ -6,30 +6,21 @@ module Api::V1::Searchs
       # Params
       category = params[:category].to_i
       quantity      = params[:quantity] || 99999999
+      states        = params[:states_codes].try(:split, '-').try(:map, &:to_s)
+      countries     = params[:countries_codes].try(:split, '-').try(:map, &:to_s)
 
       # Search service
       category = Category.find(category) rescue nil
 
-      products = category.products
-                         .uniq
-                         .as_json(only: %i[id type_profile name price cover stock], methods: %i[category_ids subcategory_ids links url_get],
-                           include: {
-                            productable: {
-                              only: %i[id title type_profile slug url]
-                            }
-                         })
+      products = Category.search_by_products(category, products, states, countries)
 
-      profiles = category.by_profiles
-                         .uniq
-                         .sort_by{|profile| profile.products.count}
-                         .reverse
-                         .as_json(only: %i[id title slug photo name type_profile], methods: %i[category_ids])
+      profiles = Category.search_by_profiles(category, profiles, states, countries)
 
       if params[:type_search].eql?('products')
         @result = products.take(quantity.to_i)
       elsif params[:type_search].eql?('profiles')
         @result = profiles.take(quantity.to_i)
-      elsif params[:type_search].nil?
+      elsif params[:type_search].empty?
         @result = products.take(quantity.to_i) + profiles.take(quantity.to_i)
       end
 
@@ -41,18 +32,10 @@ module Api::V1::Searchs
       categories_profiles = current_v1_user.map_suggest('Profile')
 
       return nil if categories_products.nil? or categories_profiles.nil?
-      @shuffle = Category.find(categories_products).map{|category| category.products.sample(5)}
-                         .flatten
-                         .uniq
-                         .as_json(only: %i[id type_profile name price cover], methods: %i[category_ids subcategory_ids links url_get])
+      @shuffle = Category.suggest_query(categories_products, quantity, 'products')
 
       if @shuffle.nil?
-        # @shuffle = Category.find(categories_profiles).map{|category|
-        #   category.pymes.sample(2) + category.sellers.sample(2) + category.independents.sample(2)}
-        @shuffle = Category.find(categories_profiles).map{|category| category.by_profiles.sample(2)}
-                           .flatten
-                           .uniq
-                           .as_json(only: %i[id title photo name type_profile prominent], methods: %i[category_ids])
+        @shuffle = Category.suggest_query(categories_profiles, quantity, 'profiles')
       end
 
       render json: @shuffle, status: 200
