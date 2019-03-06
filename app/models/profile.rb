@@ -131,6 +131,7 @@ class Profile < ApplicationRecord
   end
 
   def search_in? array, location_code
+    return if self.try(location_code).nil?
     # self.try(location_code).included_in?(array)
     (self.try(location_code).flatten & array).any?
   end
