@@ -5,11 +5,19 @@ module Api::V1::Locations
 
     def create
       @location = Location.new(location_params)
+      set_prominent_location
       if @location.save
         render json: @location, status: 200
       else
         render json: @location.errors, status: 500
       end
     end
+
+    private
+
+    def set_prominent_location
+      @location.prominent = true if @locatable.locations.where(prominent: true).count.zero?
+    end
+
   end
 end
