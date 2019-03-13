@@ -15,8 +15,21 @@ module Api::V1::Profiles
     def create
       @profile = model_name.new(profile_params)
       @profile.user = current_v1_user
-      # @profile.category_ids = params[:profile][:category_ids]
-      if @profile.save
+
+      latitude  = params[:profile][:locations][:latitude]
+      longitude = params[:profile][:locations][:longitude]
+      title_location = params[:profile][:locations][:title]
+
+      if latitude.nil? || longitude.nil?
+        render json: [errors: 'Location must exist minimum one'], status: 201
+      elsif @profile.save
+        Location.create(
+          latitude: latitude,
+          longitude: longitude,
+          title: title_location,
+          prominent: true,
+          locatable: @profile
+        )
         render json: @profile, status: 201
       else
         render json: @profile.errors,

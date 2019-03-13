@@ -41,6 +41,22 @@ class Profile < ApplicationRecord
   validates :user_id, numericality: true
   validates :user_id, :title, :category_ids, presence: true
 
+  validate :create_location, on: :update
+
+  def create_location
+    case self.locations.count
+      when nil
+        errors.add(:location_prominent, 'Location must exist minimum one')
+      else
+        prominents = self.locations.where(prominent: true).count
+        if prominents.zero?
+          errors.add(:location_prominent, 'Location should be prominent minimum one')
+        elsif prominents > 1
+          errors.add(:location_prominent, 'Location should be prominent one')
+        end
+    end
+  end
+
   ransacker :title, type: :string do
     Arel.sql("unaccent(\"title\")")
   end

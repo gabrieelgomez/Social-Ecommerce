@@ -536,6 +536,7 @@ end
     location = Location.create(
       latitude: coordenates[coord][:lat],
       longitude: coordenates[coord][:long],
+      prominent: true,
       locatable: pyme
     )
     puts pyme.title
@@ -587,6 +588,7 @@ end
     location = Location.create(
       latitude: coordenates[coord][:lat],
       longitude: coordenates[coord][:long],
+      prominent: true,
       locatable: independent
     )
     puts independent.title
@@ -641,6 +643,7 @@ end
   location = Location.create(
     latitude: coordenates[coord][:lat],
     longitude: coordenates[coord][:long],
+    prominent: true,
     locatable: seller
   )
   puts seller.title

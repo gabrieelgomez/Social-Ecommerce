@@ -9,6 +9,7 @@ class CreateLocations < ActiveRecord::Migration[5.1]
       t.string :state_code
       t.string :country
       t.string :country_code
+      t.boolean :prominent, default: false
       t.jsonb  :metadata
       t.references :locatable, polymorphic: true
 

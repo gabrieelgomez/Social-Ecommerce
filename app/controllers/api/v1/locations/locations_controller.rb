@@ -10,7 +10,7 @@ module Api::V1
 
     def location_params
       params.require(:location)
-            .permit(:address, :longitude, :latitude)
+            .permit(:longitude, :latitude, :title)
             .merge(locatable: @locatable)
     end
 

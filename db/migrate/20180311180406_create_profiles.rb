@@ -27,6 +27,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.jsonb    :countries_codes
       t.boolean  :censured, default: false
       t.string   :slug
+      t.integer  :location_prominent, default: false
       t.datetime :deleted_at
       t.timestamps
     end

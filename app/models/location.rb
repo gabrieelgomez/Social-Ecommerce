@@ -10,16 +10,22 @@ class Location < ApplicationRecord
 
   # validates :latitude, :longitude, uniqueness: true
 
-  before_save :create_geocode
+  # before_save :create_geocode
+  validate :create_geocode
 
   def create_geocode
-    results = Geocoder.search([self.latitude, self.longitude])
-    self.address      = results.first.address
-    self.state        = results.first.state
-    self.state_code   = results.first.state_code.parameterize
-    self.country      = results.first.country
-    self.country_code = results.first.country_code
-    puts self.address
-    # save!
+    return unless metadata.blank?
+    results = Geocoder.search([latitude, longitude])
+    if results.first.data['error'] == 'Unable to geocode'
+      errors.add(:address, 'Unable to geocode')
+    else
+      address      = results.first.address
+      state        = results.first.state
+      state_code   = results.first.state_code.parameterize
+      country      = results.first.country
+      country_code = results.first.country_code
+      metadata     = results.first.data
+      puts address
+    end
   end
 end
