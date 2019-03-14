@@ -40,11 +40,10 @@ module Api::V1::Profiles
     private
 
     def profile_params
-      params.require(:profile).permit(:user_id, :title, :slug, :type_profile,
-                                      :email, :banner, :photo, :launched, :phone,
-                                      :url, :address, :vision, :mission, :description,
-                                      :web, :profile, :experience, :country, :validation,
-                                      category_ids: [])
+      params.require(object).permit(:title, :slug, :email, :banner, :photo,
+                                    :launched, :phone, :address, :vision,
+                                    :mission, :description, :web, :experience,
+                                    category_ids: [])
     end
   end
 end
