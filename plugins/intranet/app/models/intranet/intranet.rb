@@ -9,6 +9,7 @@ module Intranet
     # Relationships trello
     has_many :boards
     has_many :cards
+    has_one  :inventory_control
 
     belongs_to :profile
 

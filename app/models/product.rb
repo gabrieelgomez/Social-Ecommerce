@@ -79,12 +79,15 @@ class Product < ApplicationRecord
   end
 
   def create_locations
-    self.states_codes   = []
-    self.countries_codes = []
-    self.productable.locations.collect do |location|
-      self.countries_codes.push(location.country_code)
-      self.states_codes.push([location.country_code, location.state_code])
-    end
+    # self.states_codes   = []
+    # self.countries_codes = []
+    # self.productable.locations.collect do |location|
+    #   self.countries_codes.push(location.country_code)
+    #   self.states_codes.push([location.country_code, location.state_code])
+    # end
+    location = productable.locations.first
+    self.countries_codes.push(location.country_code)
+    self.states_codes.push([location.country_code, location.state_code])
   end
 
   def create_type_profile
