@@ -36,7 +36,7 @@ class ConversationChannel < ApplicationCable::Channel
   def current_user_conversations
     Conversation.current_user = current_user
     @user = current_user
-    @contizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
+    @cotizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
       only: [
         :id
       ], methods: [
@@ -58,7 +58,7 @@ class ConversationChannel < ApplicationCable::Channel
 
     @conversations = {
       user_conversations: @users_chats,
-      cotizations_conversations: @contizations
+      cotizations_conversations: @cotizations
     }
 
     ActionCable.server.broadcast(
