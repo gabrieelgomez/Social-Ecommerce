@@ -73,7 +73,7 @@ class ConversationChannel < ApplicationCable::Channel
     @profiles = @user.profiles.where(id: ids)
     @profiles = @user.profiles if @profiles.empty?
 
-    @profiles = @profiles.map do |profile|
+    @profiles_conversations = @profiles.map do |profile|
       Conversation.current_user = profile
 
       @users_chats = Conversation.user_conversations(profile).where.not(type_messages: 'cotization').select{|conv| conv.membership?(profile)}.as_json(
@@ -97,16 +97,15 @@ class ConversationChannel < ApplicationCable::Channel
       )
 
       @conversations = {
-        profile: profile,
+        profile: profile.as_json(only: %i[id title email photo type_profile]),
         user_conversations: @users_chats,
         cotizations_conversations: @cotizations_chats
       }
-
     end
 
     ActionCable.server.broadcast(
       "conversations-#{current_user.id}",
-      conversations: @profiles
+      conversations: @profiles_conversations
     )
   end
 
