@@ -37,21 +37,37 @@ module Api::V1::Chat::Conversations
       @profiles      = @user.profiles.where(id: ids)
       @profiles      = @user.profiles if @profiles.empty?
 
-      @conversations = @profiles.map do |prof|
-        Conversation.current_user = prof
-        prof.as_json(only: [:id], methods: [:type, :name]).merge(
-          conversations: prof.conversations.as_json(
-            only: [
-              :id
-            ], methods: [
-              :type_conversation, :sender_messageable, :receptor_messageable
-            ], include: [
-              :messages
-            ]
-          )
+      @profiles_conversations = @profiles.map do |profile|
+        Conversation.current_user = profile
+
+        @users_chats = Conversation.user_conversations(profile).where.not(type_messages: 'cotization').select{|conv| conv.membership?(profile)}.as_json(
+          only: [
+            :id
+          ], methods: [
+            :type_conversation, :sender_messageable, :receptor_messageable
+          ], include: [
+            :messages
+          ]
         )
+
+        @cotizations_chats = Conversation.user_conversations(profile).where(type_messages: 'cotization').select{|conv| conv.membership?(profile)}.as_json(
+          only: [
+            :id
+          ], methods: [
+            :type_conversation, :sender_messageable, :receptor_messageable
+          ], include: [
+            :messages
+          ]
+        )
+
+        @conversations = {
+          profile: profile.as_json(only: %i[id title email photo type_profile]),
+          user_conversations: @users_chats,
+          cotizations_conversations: @cotizations_chats
+        }
+
       end
-      render json: @conversations
+      render json: @profiles_conversations
     end
   end
 end
