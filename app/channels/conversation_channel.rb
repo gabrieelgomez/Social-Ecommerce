@@ -68,10 +68,11 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def own_profiles_conversations(data=nil)
-    @user = current_user
-    ids   = data['profile_ids'].try(:split, '-').try(:map, &:to_i)
-    @profiles = @user.profiles.where(id: ids)
-    @profiles = @user.profiles if @profiles.empty?
+    @user   = current_user
+    # ids     = data['profile_ids'].try(:split, '-').try(:map, &:to_i)
+    # @profiles = @user.profiles.where(id: ids)
+    # @profiles = @user.profiles if @profiles.empty?
+    @profiles = @user.profiles
 
     @profiles_conversations = @profiles.map do |profile|
       Conversation.current_user = profile
@@ -105,7 +106,7 @@ class ConversationChannel < ApplicationCable::Channel
 
     ActionCable.server.broadcast(
       "conversations-#{current_user.id}",
-      conversations: @profiles_conversations
+      profiles_conversations: @profiles_conversations
     )
   end
 

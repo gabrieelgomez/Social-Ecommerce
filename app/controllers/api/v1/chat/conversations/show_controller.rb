@@ -65,7 +65,6 @@ module Api::V1::Chat::Conversations
           user_conversations: @users_chats,
           cotizations_conversations: @cotizations_chats
         }
-
       end
       render json: @profiles_conversations
     end
