@@ -36,9 +36,9 @@ class ConversationChannel < ApplicationCable::Channel
   def current_user_conversations
     Conversation.current_user = current_user
     @user = current_user
-    @cotizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
+    @user_cotizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
       only: [
-        :id
+        :id, :open
       ], methods: [
         :type_conversation, :sender_messageable, :receptor_messageable
       ], include: [
@@ -48,7 +48,7 @@ class ConversationChannel < ApplicationCable::Channel
 
     @users_chats = Conversation.user_conversations(@user).where.not(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
       only: [
-        :id
+        :id, :open
       ], methods: [
         :type_conversation, :sender_messageable, :receptor_messageable
       ], include: [
@@ -56,9 +56,12 @@ class ConversationChannel < ApplicationCable::Channel
       ]
     )
 
+      @cotizations = Cotization.ransack(clientable_id: 13).result.as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
+
     @conversations = {
       user_conversations: @users_chats,
-      cotizations_conversations: @cotizations
+      cotizations_conversations: @user_cotizations,
+      cotizations: @cotizations
     }
 
     ActionCable.server.broadcast(
@@ -71,7 +74,8 @@ class ConversationChannel < ApplicationCable::Channel
     @user   = current_user
     # ids     = data['profile_ids'].try(:split, '-').try(:map, &:to_i)
     # @profiles = @user.profiles.where(id: ids)
-    # @profiles = @user.profiles if @profiles.empty?
+    @profiles = @user.profiles.find(data['profile_id'])
+    @profiles = @user.profiles if @profiles.blank?
     @profiles = @user.profiles
 
     @profiles_conversations = @profiles.map do |profile|
@@ -79,7 +83,7 @@ class ConversationChannel < ApplicationCable::Channel
 
       @users_chats = Conversation.user_conversations(profile).where.not(type_messages: 'cotization').select{|conv| conv.membership?(profile)}.as_json(
         only: [
-          :id
+          :id, :open
         ], methods: [
           :type_conversation, :sender_messageable, :receptor_messageable
         ], include: [
@@ -89,7 +93,7 @@ class ConversationChannel < ApplicationCable::Channel
 
       @cotizations_chats = Conversation.user_conversations(profile).where(type_messages: 'cotization').select{|conv| conv.membership?(profile)}.as_json(
         only: [
-          :id
+          :id, :open
         ], methods: [
           :type_conversation, :sender_messageable, :receptor_messageable
         ], include: [
@@ -97,10 +101,13 @@ class ConversationChannel < ApplicationCable::Channel
         ]
       )
 
+        @cotizations = Cotization.where(cotizable_id: profile.id).as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
+
       @conversations = {
         profile: profile.as_json(only: %i[id title email photo type_profile]),
         user_conversations: @users_chats,
-        cotizations_conversations: @cotizations_chats
+        cotizations_conversations: @cotizations_chats,
+        cotizations: @cotizations
       }
     end
 
