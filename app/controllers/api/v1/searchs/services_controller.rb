@@ -8,13 +8,14 @@ module Api::V1::Searchs
       quantity      = params[:quantity] || 99999999
       states        = params[:states_codes].try(:split, '-').try(:map, &:to_s)
       countries     = params[:countries_codes].try(:split, '-').try(:map, &:to_s)
+      type_profiles = params[:type_profile].try(:split, '-').try(:map, &:capitalize) || []
 
       # Search service
       category = Category.find(category) rescue nil
 
       products = Category.search_by_products(category, products, states, countries)
 
-      profiles = Category.search_by_profiles(category, profiles, states, countries)
+      profiles = Category.search_by_profiles(category, profiles, type_profiles, states, countries)
 
       if params[:type_search].eql?('products')
         @result = products.take(quantity.to_i)

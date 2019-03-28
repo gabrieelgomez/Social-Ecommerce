@@ -28,9 +28,9 @@ class Category < ApplicationRecord
                    })
   end
 
-  def self.search_by_profiles(category, profiles, states, countries)
+  def self.search_by_profiles(category, profiles, type_profiles, states, countries)
     profiles = category.by_profiles
-                       .uniq
+    profiles = profiles.ransack(type_profile_in: type_profiles).result
     profiles = Profile.search_by_countries_states(profiles, states, countries) if countries || states
 
     profiles.sort_by{|profile| profile.products.count}
@@ -65,7 +65,7 @@ class Category < ApplicationRecord
     pymes        = self.pymes
     sellers      = self.sellers
     independents = self.independents
-    ids = pymes.to_a.concat(sellers.to_a).concat(independents.to_a).map(&:id)
+    ids = pymes.to_a.concat(sellers.to_a).concat(independents.to_a).map(&:id).uniq
     Profile.where(id:ids)
   end
 
