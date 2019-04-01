@@ -5,6 +5,7 @@ class Conversation < ApplicationRecord
   belongs_to :recipientable, polymorphic: true
   has_many :messages, dependent: :destroy
   has_many :membership_conversations, dependent: :destroy
+  has_one :cotization
   after_create :assign_conversation_membership
   after_create :create_crm_client, if: :between_client_and_profile?
 
@@ -16,7 +17,7 @@ class Conversation < ApplicationRecord
 
   validates :type_messages, uniqueness: {
     scope: %i[senderable_id senderable_type recipientable_id recipientable_type]
-  }
+  }, unless: :present_cotization?
 
   scope :between, ->(sender, recipient) do
     where(senderable: sender, recipientable: recipient).or(
@@ -45,6 +46,10 @@ class Conversation < ApplicationRecord
   def between_client_and_profile?
     (senderable.is_a?(Profile) && recipientable.is_a?(User)) ||
       (senderable.is_a?(User) && recipientable.is_a?(Profile))
+  end
+
+  def present_cotization?
+    type_messages == 'cotization'
   end
 
   def sender
@@ -97,6 +102,11 @@ class Conversation < ApplicationRecord
     elsif sender.has_role? :superadmin or recipient.has_role? :superadmin
       type_messages = 'manager'
     end
+
+    # if type_messages == 'cotization'
+    #   return create(senderable: sender, recipientable: recipient, type_messages: type_messages)
+    # end
+
     conversation = conversations.find_by(type_messages: type_messages)
     return conversation if conversation.present?
 

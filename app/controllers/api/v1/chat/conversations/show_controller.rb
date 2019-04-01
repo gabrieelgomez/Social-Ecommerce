@@ -9,7 +9,7 @@ module Api::V1::Chat::Conversations
         ], methods: [
           :type_conversation, :sender_messageable, :receptor_messageable
         ], include: [
-          :messages
+          :messages, :cotization
         ]
       )
 
@@ -23,12 +23,12 @@ module Api::V1::Chat::Conversations
         ]
       )
 
-      @cotizations = Cotization.ransack(clientable_id: 13).result.as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
+      # @cotizations = Cotization.ransack(clientable_id: 13).result.as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
 
       @conversations = {
         user_conversations: @users_chats,
-        cotizations_conversations: @user_cotizations,
-        cotizations: @cotizations
+        cotizations_conversations: @user_cotizations
+        # cotizations: @cotizations
       }
 
       render json: @conversations
@@ -59,17 +59,17 @@ module Api::V1::Chat::Conversations
           ], methods: [
             :type_conversation, :sender_messageable, :receptor_messageable
           ], include: [
-            :messages
+            :messages, :cotization
           ]
         )
 
-        @cotizations = Cotization.where(cotizable_id: profile.id).as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
+        # @cotizations = Cotization.where(cotizable_id: profile.id).as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
 
         @conversations = {
           profile: profile.as_json(only: %i[id title email photo type_profile]),
           user_conversations: @users_chats,
-          cotizations_conversations: @cotizations_chats,
-          cotizations: @cotizations
+          cotizations_conversations: @cotizations_chats
+          # cotizations: @cotizations
         }
       end
       render json: @profiles_conversations

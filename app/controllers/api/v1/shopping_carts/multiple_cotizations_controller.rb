@@ -41,7 +41,8 @@ module Api::V1::ShoppingCarts
           items << item.id
         end # Each by per item product of cotization
 
-        conversation  = Conversation.get(profile, current_v1_user, 'cotization')
+        # conversation  = Conversation.get(profile, current_v1_user, 'cotization')
+        conversation  = Conversation.create(senderable: current_v1_user, recipientable: profile, type_messages: 'cotization')
         client        = Client.find_by!(clientable: current_v1_user)
 
         msg = conversation.messages.new(
@@ -50,7 +51,7 @@ module Api::V1::ShoppingCarts
         )
         logger.debug msg.inspect
         logger.debug "---------------------------------------------"
-        Api::V1::ShoppingCarts::QuotingService.handle_quote(profile, client, msg, items, current_v1_user)
+        Api::V1::ShoppingCarts::QuotingService.handle_quote(profile, client, msg, items, current_v1_user, conversation)
         @conversations << conversation
 
       end # Each by per cotization profile

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190325133824) do
+ActiveRecord::Schema.define(version: 20190401174638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,7 +163,9 @@ ActiveRecord::Schema.define(version: 20190325133824) do
     t.text "text", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "conversation_id"
     t.index ["client_id"], name: "index_cotizations_on_client_id"
+    t.index ["conversation_id"], name: "index_cotizations_on_conversation_id"
     t.index ["cotizable_type", "cotizable_id"], name: "index_cotizations_on_cotizable_type_and_cotizable_id"
   end
 
@@ -1123,6 +1125,7 @@ ActiveRecord::Schema.define(version: 20190325133824) do
   add_foreign_key "contacts", "contact_types"
   add_foreign_key "contacts", "profiles"
   add_foreign_key "cotizations", "clients"
+  add_foreign_key "cotizations", "conversations"
   add_foreign_key "cotizations_items", "cotizations"
   add_foreign_key "cotizations_items", "items"
   add_foreign_key "custom_fields_items", "custom_fields"
