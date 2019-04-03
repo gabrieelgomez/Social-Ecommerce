@@ -51,6 +51,13 @@ module Api::V1::ShoppingCarts
         )
         logger.debug msg.inspect
         logger.debug "---------------------------------------------"
+
+        logger.debug "---------------------------------------------"
+        logger.debug "---------------------------------------------"
+        logger.debug "---------------------------------------------"
+        logger.debug conversation.inspect
+        logger.debug "---------------------------------------------"
+
         Api::V1::ShoppingCarts::QuotingService.handle_quote(profile, client, msg, items, current_v1_user, conversation)
         @conversations << conversation
 
