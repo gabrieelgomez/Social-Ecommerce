@@ -157,6 +157,14 @@ class Profile < ApplicationRecord
     profiles = profiles.select{|profile| profile.search_in?(countries, :countries_codes)} if countries
     return profiles
   end
+
+  def countries_codes
+    self.locations.map(&:country_code).uniq
+  end
+
+  def states_codes
+    self.locations.map(&:state_code).uniq
+  end
   # ----------------------------------
 
 
