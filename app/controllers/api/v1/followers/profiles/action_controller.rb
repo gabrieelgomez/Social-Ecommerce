@@ -23,7 +23,10 @@ module Api::V1::Followers::Profiles
 
     # Listar todos los perfiles que un Usuario sigue
     def following
-      @following = current_v1_user.follow_by_profile(model_name.to_s)
+      categories  = params[:categories].try(:split, '-').try(:map, &:to_i)
+      ids = current_v1_user.follow_by_profile(model_name.to_s).pluck(:id)
+      @following = model_name.where(id: ids)
+      @following = @following.ransack(categories_id_in: categories).result
       render json: @following, status: 200
     end
   end
