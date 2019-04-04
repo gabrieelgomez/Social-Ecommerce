@@ -4,16 +4,16 @@ module LookFor
     def self.search(params)
 
       search        = params[:q] || nil
-      profiles      = params[:profiles].try(:split, '-')
+      type_profile  = params[:type_profile].try(:split, '-')
       categories    = params[:categories].try(:split, '-').try(:map, &:to_i)
       subcategories = params[:subcategories].try(:split, '-').try(:map, &:to_i)
-      states        = params[:states_codes].try(:split, '-').try(:map, &:to_s)
-      countries     = params[:countries_codes].try(:split, '-').try(:map, &:to_s)
+      states        = params[:states_codes].try(:split, '-').try(:map, &:to_s).try(:map, &:downcase)
+      countries     = params[:countries_codes].try(:split, '-').try(:map, &:to_s).try(:map, &:downcase)
 
       if params[:type_search].eql?('products')
-        ProductService.custom_method(search, profiles, categories, subcategories, states, countries)
+        ProductService.custom_method(search, type_profile, categories, subcategories, states, countries)
       elsif params[:type_search].eql?('profiles')
-        ProfileService.custom_method(search, profiles, categories, subcategories, states, countries)
+        ProfileService.custom_method(search, type_profile, categories, subcategories, states, countries)
       end
 
     end
