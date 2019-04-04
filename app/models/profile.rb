@@ -163,7 +163,11 @@ class Profile < ApplicationRecord
   end
 
   def states_codes
-    self.locations.map(&:state_code).uniq
+    codes = []
+    self.locations.collect do |location|
+      codes.push([location.country_code, location.state_code])
+    end
+    codes.uniq
   end
   # ----------------------------------
 
