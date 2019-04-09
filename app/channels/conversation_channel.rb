@@ -120,6 +120,8 @@ class ConversationChannel < ApplicationCable::Channel
   def update_cotization(data)
     cotization = data['cotization']
     @cotization = Cotization.find cotization['cotization_id'].to_i
+    logger.debug @cotization
+    logger.debug '-------------------------------------'
 
     if @cotization.update(cotization['stage'])
       ActionCable.server.broadcast(

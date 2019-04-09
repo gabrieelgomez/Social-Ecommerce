@@ -7,7 +7,7 @@ class CreateCotizations < ActiveRecord::Migration[5.1]
       t.integer    :deal_type_id
       t.float      :price
       t.boolean    :status, default: true
-      t.string     :stage, default: 'sent'
+      t.string     :stage, default: 'received'
       t.string     :details, default: ''
       t.string     :token, default: ''
       t.string     :currency, default: 'usd'
