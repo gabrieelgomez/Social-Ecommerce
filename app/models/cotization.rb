@@ -11,4 +11,17 @@ class Cotization < ApplicationRecord
     client.clientable
   end
 
+  def details
+    data = []
+    self.items.each do |item|
+      data.push(
+        product_id: item.product_id,
+        name: item.product.name,
+        options_values: item.option_values,
+        quantity: item.quantity
+      )
+    end
+    data
+  end
+
 end
