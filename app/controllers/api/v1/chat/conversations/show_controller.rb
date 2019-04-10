@@ -8,9 +8,15 @@ module Api::V1::Chat::Conversations
           :id, :open
         ], methods: [
           :type_conversation, :sender_messageable, :receptor_messageable
-        ], include: [
-          :messages, :cotization
-        ]
+        ],
+          include: {
+            messages:{
+              only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
+            },
+            cotization: {
+              only: %i[id cotizable_type cotizable_id client_id price status stage details token currency address text created_at conversation_id]
+            }
+          }
       )
 
       @users_chats = Conversation.user_conversations(@user).where.not(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(

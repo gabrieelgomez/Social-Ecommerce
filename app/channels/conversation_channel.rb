@@ -118,10 +118,19 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def update_cotization(data)
-    cotization = data['cotization']
+    cotization = data
     @cotization = Cotization.find cotization['cotization_id'].to_i
     logger.debug @cotization
-    logger.debug '-------------------------------------'
+    puts '-------------------------------------'
+    puts '-------------------------------------'
+    puts '-------------------------------------'
+    puts '-------------------------------------'
+    puts '-------------------------------------'
+    puts '-------------------------------------'
+    puts '-------------------------------------'
+    puts '-------------------------------------'
+    puts '-------------------------------------'
+    puts '-------------------------------------'
 
     if @cotization.update(cotization['stage'])
       ActionCable.server.broadcast(
@@ -140,8 +149,8 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def destroy_cotization(data)
-    cotization  = data['cotization']
-    @cotization = Cotization.find cotization['cotization_id'].to_id
+    cotization  = data
+    @cotization = Cotization.find cotization['cotization_id'].to_i
 
     if @cotization.destroy
       ActionCable.server.broadcast(
