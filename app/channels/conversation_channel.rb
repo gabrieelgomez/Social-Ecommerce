@@ -133,24 +133,12 @@ class ConversationChannel < ApplicationCable::Channel
 
   def update_cotization(data)
     cotization = data
-    @cotization = Cotization.find cotization['cotization_id'].to_i
-    logger.debug @cotization
-    puts '-------------------------------------'
-    puts '-------------------------------------'
-    puts '-------------------------------------'
-    puts '-------------------------------------'
-    puts '-------------------------------------'
-    puts '-------------------------------------'
-    puts '-------------------------------------'
-    puts '-------------------------------------'
-    puts '-------------------------------------'
-    puts '-------------------------------------'
-
-    if @cotization.update(cotization['stage'])
+    @cotization = Cotization.where(id: cotization['cotization_id'].to_i)
+    if @cotization.update(stage: cotization['stage'])
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
         status_transaction: 'success',
-        status_cotization: @cotization.stage,
+        status_cotization: cotization['stage'],
         cotization: @cotization
       )
     else
@@ -164,13 +152,12 @@ class ConversationChannel < ApplicationCable::Channel
 
   def destroy_cotization(data)
     cotization  = data
-    @cotization = Cotization.find cotization['cotization_id'].to_i
-
+    @cotization = Cotization.where(id: cotization['cotization_id'].to_i)
     if @cotization.destroy
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
-        status_transaction: 'success',
-        status_cotization: @cotization.stage,
+        status_transaction: 'success destroy',
+        status_cotization: cotization['stage'],
         cotization: @cotization
       )
     else
