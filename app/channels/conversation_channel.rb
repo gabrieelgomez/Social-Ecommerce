@@ -81,7 +81,6 @@ class ConversationChannel < ApplicationCable::Channel
     @user   = current_user
     @profiles = @user.profiles.where(id: data['profile_ids'])
     @profiles = @user.profiles if @profiles.blank?
-    @profiles = @user.profiles
 
     @profiles_conversations = @profiles.map do |profile|
       Conversation.current_user = profile
