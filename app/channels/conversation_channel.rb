@@ -77,11 +77,9 @@ class ConversationChannel < ApplicationCable::Channel
     )
   end
 
-  def own_profiles_conversations(data=nil)
+  def own_profiles_conversations(data)
     @user   = current_user
-    # ids     = data['profile_ids'].try(:split, '-').try(:map, &:to_i)
-    # @profiles = @user.profiles.where(id: ids)
-    @profiles = @user.profiles.find(data['profile_id'])
+    @profiles = @user.profiles.where(id: data['profile_ids'])
     @profiles = @user.profiles if @profiles.blank?
     @profiles = @user.profiles
 
