@@ -66,14 +66,18 @@ class ConversationChannel < ApplicationCable::Channel
       # @cotizations = Cotization.ransack(clientable_id: 13).result.as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
 
     @conversations = {
-      user_conversations: @users_chats,
-      cotizations_conversations: @user_cotizations
-      # cotizations: @cotizations
+      type: 'current_user_conversations',
+      body: {
+        conversations: {
+          user_conversations: @users_chats,
+          cotizations_conversations: @user_cotizations
+        }
+      }
     }
 
     ActionCable.server.broadcast(
       "conversations-#{current_user.id}",
-      conversations: @conversations
+      data: @conversations
     )
   end
 
@@ -124,19 +128,47 @@ class ConversationChannel < ApplicationCable::Channel
 
     ActionCable.server.broadcast(
       "conversations-#{current_user.id}",
-      profiles_conversations: @profiles_conversations
+      data: {
+        type: 'own_profile_conversations',
+        body: {
+          profile_conversations: @conversations
+        }
+      }
     )
   end
 
   def update_cotization(data)
     cotization = data
     @cotization = Cotization.where(id: cotization['cotization_id'].to_i)
+
     if @cotization.update(stage: cotization['stage'])
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
-        status_transaction: 'success',
-        status_cotization: cotization['stage'],
-        cotization: @cotization
+        data: {
+          type: 'update_cotization',
+          body: {
+            status_transaction: 'success',
+            status_cotization: cotization['stage'],
+            cotization: @cotization,
+            conversation: @cotization.conversation.as_json(
+              only: [
+                :id, :open
+              ], methods: [
+                :type_conversation, :sender_messageable, :receptor_messageable
+              ],
+                include: {
+                  messages:{
+                    only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
+                  },
+                  cotization: {
+                    only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
+                    methods: [:details]
+                  }
+                }
+            )
+          }
+        }
+
       )
     else
       ActionCable.server.broadcast(
@@ -148,20 +180,20 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def destroy_cotization(data)
-    cotization  = data
-    @cotization = Cotization.where(id: cotization['cotization_id'].to_i)
-    if @cotization.destroy
+    conversation  = data
+    @conversation = Conversation.where(id: conversation['conversation_id'].to_i)
+    if @conversation.destroy
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
         status_transaction: 'success destroy',
-        status_cotization: cotization['stage'],
-        cotization: @cotization
+        status_conversation: conversation['stage'],
+        conversation: @conversation
       )
     else
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
         status_transaction: 'failed',
-        cotization: @cotization.errors
+        conversation: @conversation.errors
       )
     end
   end
