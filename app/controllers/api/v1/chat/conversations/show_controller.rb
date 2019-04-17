@@ -93,6 +93,13 @@ module Api::V1::Chat::Conversations
         @conversations << chat
       end
 
+      @profiles_conversations = {
+        type: 'own_profile_conversations',
+        body: {
+          profile_conversations: @conversations.uniq
+        }
+      }
+
       render json: @profiles_conversations
     end
   end
