@@ -5,9 +5,10 @@ class Conversation < ApplicationRecord
   belongs_to :recipientable, polymorphic: true
   has_many :messages, dependent: :destroy
   has_many :membership_conversations, dependent: :destroy
-  has_one :cotization
+  has_one :cotization, dependent: :destroy
   after_create :assign_conversation_membership
   after_create :create_crm_client, if: :between_client_and_profile?
+  after_create :send_notify_cable
 
   # validates :senderable_id, uniqueness: {
   #   scope: %i[senderable_type recipientable_id]
@@ -31,6 +32,32 @@ class Conversation < ApplicationRecord
 
   def membership?(member)
     membership_conversations.where(memberable: member).exists?
+  end
+
+  def send_notify_cable
+    if senderable_type == 'User'
+      ActionCable.server.broadcast(
+        "notifications-#{senderable.id}",
+        type: 'new_conversation',
+        body: self
+      )
+      ActionCable.server.broadcast(
+        "notifications-#{recipientable.user.id}",
+        type: 'new_conversation',
+        body: self
+      )
+    else
+      ActionCable.server.broadcast(
+        "notifications-#{senderable.user.id}",
+        type: 'new_conversation',
+        body: self
+      )
+      ActionCable.server.broadcast(
+        "notifications-#{recipientable.id}",
+        type: 'new_conversation',
+        body: self
+      )
+    end
   end
 
   def create_crm_client
