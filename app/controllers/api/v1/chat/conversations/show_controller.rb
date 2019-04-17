@@ -3,7 +3,7 @@ module Api::V1::Chat::Conversations
     def current_user_conversations
       Conversation.current_user = current_v1_user
       @user = current_v1_user
-      @user_cotizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
+      @user_cotizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(@user)}.as_json(
         only: [
           :id, :open
         ], methods: [
@@ -20,7 +20,7 @@ module Api::V1::Chat::Conversations
           }
       )
 
-      @users_chats = Conversation.user_conversations(@user).where.not(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
+      @users_chats = Conversation.user_conversations(@user).where.not(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(@user)}.as_json(
         only: [
           :id, :open
         ], methods: [
@@ -33,9 +33,13 @@ module Api::V1::Chat::Conversations
       # @cotizations = Cotization.ransack(clientable_id: 13).result.as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
 
       @conversations = {
-        user_conversations: @users_chats,
-        cotizations_conversations: @user_cotizations
-        # cotizations: @cotizations
+        type: 'current_user_conversations',
+        body: {
+          conversations: {
+            user_conversations: @users_chats,
+            cotizations_conversations: @user_cotizations
+          }
+        }
       }
 
       render json: @conversations
@@ -45,12 +49,13 @@ module Api::V1::Chat::Conversations
       @user          = current_v1_user
       ids            = params[:profile_ids].try(:split, '-').try(:map, &:to_i)
       @profiles      = @user.profiles.where(id: ids)
-      @profiles      = @user.profiles if @profiles.empty?
+      @profiles      = @user.profiles if @profiles.blank?
+      @conversations = []
 
       @profiles_conversations = @profiles.map do |profile|
         Conversation.current_user = profile
 
-        @users_chats = Conversation.user_conversations(profile).where.not(type_messages: 'cotization').select{|conv| conv.membership?(profile)}.as_json(
+        @users_chats = Conversation.user_conversations(profile).where.not(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(profile)}.as_json(
           only: [
             :id, :open
           ], methods: [
@@ -60,7 +65,7 @@ module Api::V1::Chat::Conversations
           ]
         )
 
-        @cotizations_chats = Conversation.user_conversations(profile).where(type_messages: 'cotization').select{|conv| conv.membership?(profile)}.as_json(
+        @cotizations_chats = Conversation.user_conversations(profile).where(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(profile)}.as_json(
           only: [
             :id, :open
           ], methods: [
@@ -77,15 +82,17 @@ module Api::V1::Chat::Conversations
             }
         )
 
-        # @cotizations = Cotization.where(cotizable_id: profile.id).as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
+          # @cotizations = Cotization.where(cotizable_id: profile.id).as_json(only: %i[id stage status items], methods: %i[cotizable_id clientable], include: %i[items])
 
-        @conversations = {
+        chat = {
           profile: profile.as_json(only: %i[id title email photo type_profile]),
           user_conversations: @users_chats,
           cotizations_conversations: @cotizations_chats
           # cotizations: @cotizations
         }
+        @conversations << chat
       end
+
       render json: @profiles_conversations
     end
   end

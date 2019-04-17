@@ -37,7 +37,7 @@ class ConversationChannel < ApplicationCable::Channel
   def current_user_conversations
     Conversation.current_user = current_user
     @user = current_user
-    @user_cotizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
+    @user_cotizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(@user)}.as_json(
       only: [
         :id, :open
       ], methods: [
@@ -54,7 +54,7 @@ class ConversationChannel < ApplicationCable::Channel
         }
     )
 
-    @users_chats = Conversation.user_conversations(@user).where.not(type_messages: 'cotization').select{|conv| conv.membership?(@user)}.as_json(
+    @users_chats = Conversation.user_conversations(@user).where.not(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(@user)}.as_json(
       only: [
         :id, :open
       ], methods: [
@@ -88,7 +88,7 @@ class ConversationChannel < ApplicationCable::Channel
     @profiles_conversations = @profiles.map do |profile|
       Conversation.current_user = profile
 
-      @users_chats = Conversation.user_conversations(profile).where.not(type_messages: 'cotization').select{|conv| conv.membership?(profile)}.as_json(
+      @users_chats = Conversation.user_conversations(profile).where.not(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(profile)}.as_json(
         only: [
           :id, :open
         ], methods: [
@@ -98,7 +98,7 @@ class ConversationChannel < ApplicationCable::Channel
         ]
       )
 
-      @cotizations_chats = Conversation.user_conversations(profile).where(type_messages: 'cotization').select{|conv| conv.membership?(profile)}.as_json(
+      @cotizations_chats = Conversation.user_conversations(profile).where(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(profile)}.as_json(
         only: [
           :id, :open
         ], methods: [
