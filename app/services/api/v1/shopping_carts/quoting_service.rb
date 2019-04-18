@@ -6,6 +6,7 @@ module Api::V1::ShoppingCarts
         cotizable: cotizable, # profile
         client: client, # user
         item_ids: items, # items or products
+        stage: 'received',
         deal_type: DealType.first, # unknow
         conversation: conversation
       )

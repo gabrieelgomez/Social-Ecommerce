@@ -140,8 +140,8 @@ class ConversationChannel < ApplicationCable::Channel
     @cotization = Cotization.where(id: cotization['cotization_id'].to_i).first
 
     if @cotization.update(stage: cotization['stage'])
-      ActionCable.server.broadcast(
-        "conversations-#{current_user.id}",
+      Conversation.current_user = current_user
+      @data = {
         type: 'update_cotization',
         body: {
           status_transaction: 'success',
@@ -164,6 +164,15 @@ class ConversationChannel < ApplicationCable::Channel
               }
           )
         }
+      }
+
+      ActionCable.server.broadcast(
+        "conversations-#{@cotization.cotizable.user.id}",
+        @data
+      )
+      ActionCable.server.broadcast(
+        "conversations-#{@cotization.client.clientable.id}",
+        @data
       )
     else
       ActionCable.server.broadcast(
@@ -178,13 +187,40 @@ class ConversationChannel < ApplicationCable::Channel
     conversation  = data
     @conversation = Conversation.where(id: conversation['conversation_id'].to_i).first
     if @conversation.destroy
-      ActionCable.server.broadcast(
-        "conversations-#{current_user.id}",
+      Conversation.current_user = current_user
+
+      @conversation = @conversation.as_json(
+        only: [
+          :id, :open
+        ], methods: [
+          :type_conversation, :sender_messageable, :receptor_messageable
+        ],
+          include: {
+            messages:{
+              only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
+            },
+            cotization: {
+              only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
+              methods: [:details]
+            }
+          }
+      )
+
+      @data = {
         type: "destroy_conversation",
         body: {
           conversation: @conversation,
           status_transaction: 'destroy successfull'
         }
+      }
+      
+      ActionCable.server.broadcast(
+        "conversations-#{current_user.id}",
+        @data
+      )
+      ActionCable.server.broadcast(
+        "conversations-#{@conversation['receptor_messageable']['id']}",
+        @data
       )
     else
       ActionCable.server.broadcast(

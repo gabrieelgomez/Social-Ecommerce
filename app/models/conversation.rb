@@ -37,23 +37,23 @@ class Conversation < ApplicationRecord
   def send_notify_cable
     if senderable_type == 'User'
       ActionCable.server.broadcast(
-        "notifications-#{senderable.id}",
+        "conversations-#{senderable.id}",
         type: 'new_conversation',
         body: self
       )
       ActionCable.server.broadcast(
-        "notifications-#{recipientable.user.id}",
+        "conversations-#{recipientable.user.id}",
         type: 'new_conversation',
         body: self
       )
     else
       ActionCable.server.broadcast(
-        "notifications-#{senderable.user.id}",
+        "conversations-#{senderable.user.id}",
         type: 'new_conversation',
         body: self
       )
       ActionCable.server.broadcast(
-        "notifications-#{recipientable.id}",
+        "conversations-#{recipientable.id}",
         type: 'new_conversation',
         body: self
       )

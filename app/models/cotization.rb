@@ -6,7 +6,7 @@ class Cotization < ApplicationRecord
   has_and_belongs_to_many :items, -> { with_deleted }
   after_create :send_notify_cable
 
-  validates_inclusion_of :stage, :in => %w(sent received answered sold lost)
+  validates_inclusion_of :stage, :in => %w(received answered sold lost)
 
   def clientable
     client.clientable
@@ -27,12 +27,12 @@ class Cotization < ApplicationRecord
 
   def send_notify_cable
     ActionCable.server.broadcast(
-      "notifications-#{cotizable.user.id}",
+      "conversations-#{cotizable.user.id}",
       type: 'new_cotization',
       body: self
     )
     ActionCable.server.broadcast(
-      "notifications-#{client.clientable.id}",
+      "conversations-#{client.clientable.id}",
       type: 'new_cotization',
       body: self
     )
