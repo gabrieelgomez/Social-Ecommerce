@@ -12,7 +12,7 @@ module Api::V1::Wishes
         products = Product.where(id: ids)
                           .ransack(categories_id_in: categories)
                           .result
-        @wishes  = current_v1_user.wishes.where(id: products.pluck(:id))
+        @wishes  = current_v1_user.wishes.where(wisheable_id: products.pluck(:id))
       end
 
       render json: @wishes, status: 200
