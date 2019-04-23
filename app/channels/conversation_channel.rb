@@ -33,7 +33,6 @@ class ConversationChannel < ApplicationCable::Channel
     @messageable = current_user.try(model).find @message['messageable_id']
   end
 
-
   def current_user_conversations
     Conversation.current_user = current_user
     @user = current_user
@@ -41,7 +40,7 @@ class ConversationChannel < ApplicationCable::Channel
       only: [
         :id, :open
       ], methods: [
-        :type_conversation, :sender_messageable, :receptor_messageable
+        :type_conversation, :open, :sender_messageable, :receptor_messageable
       ],
         include: {
           messages:{
@@ -58,7 +57,7 @@ class ConversationChannel < ApplicationCable::Channel
       only: [
         :id, :open
       ], methods: [
-        :type_conversation, :sender_messageable, :receptor_messageable
+        :type_conversation, :open, :sender_messageable, :receptor_messageable
       ], include: [
         :messages
       ]
@@ -92,7 +91,7 @@ class ConversationChannel < ApplicationCable::Channel
         only: [
           :id, :open
         ], methods: [
-          :type_conversation, :sender_messageable, :receptor_messageable
+          :type_conversation, :open, :sender_messageable, :receptor_messageable
         ], include: [
           :messages
         ]
@@ -102,7 +101,7 @@ class ConversationChannel < ApplicationCable::Channel
         only: [
           :id, :open
         ], methods: [
-          :type_conversation, :sender_messageable, :receptor_messageable
+          :type_conversation, :open, :sender_messageable, :receptor_messageable
         ],
           include: {
             messages:{
@@ -135,6 +134,30 @@ class ConversationChannel < ApplicationCable::Channel
     )
   end
 
+  def update_open_conversation(data)
+    Conversation.current_user = current_user
+    conversation  = data
+    @conversation = current_user.conversations.where(id: conversation['conversation_id'].to_i).first
+    @memberhip    = @conversation.own_membership
+    if @memberhip.toggle(:open).save
+
+      ActionCable.server.broadcast(
+        "conversations-#{current_user.id}",
+        type: 'update_open_conversation',
+        body: {
+          id: @conversation.id
+          open: @memberhip.open
+        }
+      )
+    else
+      ActionCable.server.broadcast(
+        "conversations-#{current_user.id}",
+        status_transaction: 'failed',
+        conversation: @conversation.errors
+      )
+    end
+  end
+
   def update_cotization(data)
     cotization = data
     @cotization = Cotization.where(id: cotization['cotization_id'].to_i).first
@@ -151,7 +174,7 @@ class ConversationChannel < ApplicationCable::Channel
             only: [
               :id, :open
             ], methods: [
-              :type_conversation, :sender_messageable, :receptor_messageable
+              :type_conversation, :open, :sender_messageable, :receptor_messageable
             ],
               include: {
                 messages:{
@@ -193,7 +216,7 @@ class ConversationChannel < ApplicationCable::Channel
         only: [
           :id, :open
         ], methods: [
-          :type_conversation, :sender_messageable, :receptor_messageable
+          :type_conversation, :open, :sender_messageable, :receptor_messageable
         ],
           include: {
             messages:{
@@ -213,7 +236,7 @@ class ConversationChannel < ApplicationCable::Channel
           status_transaction: 'destroy successfull'
         }
       }
-      
+
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
         @data

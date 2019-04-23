@@ -7,7 +7,7 @@ module Api::V1::Chat::Conversations
         only: [
           :id, :open
         ], methods: [
-          :type_conversation, :sender_messageable, :receptor_messageable
+          :type_conversation, :open, :sender_messageable, :receptor_messageable
         ],
           include: {
             messages:{
@@ -24,7 +24,7 @@ module Api::V1::Chat::Conversations
         only: [
           :id, :open
         ], methods: [
-          :type_conversation, :sender_messageable, :receptor_messageable
+          :type_conversation, :open, :sender_messageable, :receptor_messageable
         ], include: [
           :messages
         ]
@@ -59,7 +59,7 @@ module Api::V1::Chat::Conversations
           only: [
             :id, :open
           ], methods: [
-            :type_conversation, :sender_messageable, :receptor_messageable
+            :type_conversation, :open, :sender_messageable, :receptor_messageable
           ], include: [
             :messages
           ]
@@ -69,7 +69,7 @@ module Api::V1::Chat::Conversations
           only: [
             :id, :open
           ], methods: [
-            :type_conversation, :sender_messageable, :receptor_messageable
+            :type_conversation, :open, :sender_messageable, :receptor_messageable
           ],
             include: {
               messages:{

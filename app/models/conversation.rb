@@ -91,6 +91,18 @@ class Conversation < ApplicationRecord
     recipientable.as_json
   end
 
+  def open
+    memberable_type = current_user.class.to_s
+    memberable_id   = current_user.id
+    self.membership_conversations.where(memberable_type: memberable_type, memberable_id: memberable_id).first.open
+  end
+
+  def own_membership
+    memberable_type = current_user.class.to_s
+    memberable_id   = current_user.id
+    self.membership_conversations.where(memberable_type: memberable_type, memberable_id: memberable_id).first
+  end
+
   def type_conversation
     type_messages
   end

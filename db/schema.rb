@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190401174638) do
+ActiveRecord::Schema.define(version: 20190423155902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -423,6 +423,7 @@ ActiveRecord::Schema.define(version: 20190401174638) do
     t.bigint "conversation_id"
     t.string "memberable_type", null: false
     t.integer "memberable_id", null: false
+    t.boolean "open", default: false
     t.index ["conversation_id"], name: "index_membership_conversations_on_conversation_id"
   end
 
