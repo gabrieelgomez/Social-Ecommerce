@@ -145,7 +145,7 @@ class ConversationChannel < ApplicationCable::Channel
         "conversations-#{current_user.id}",
         type: 'update_open_conversation',
         body: {
-          id: @conversation.id
+          id: @conversation.id,
           open: @memberhip.open
         }
       )
