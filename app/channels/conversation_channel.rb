@@ -38,7 +38,7 @@ class ConversationChannel < ApplicationCable::Channel
     @user = current_user
     @user_cotizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(@user)}.as_json(
       only: [
-        :id, :open
+        :id
       ], methods: [
         :type_conversation, :open, :sender_messageable, :receptor_messageable
       ],
@@ -55,7 +55,7 @@ class ConversationChannel < ApplicationCable::Channel
 
     @users_chats = Conversation.user_conversations(@user).where.not(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(@user)}.as_json(
       only: [
-        :id, :open
+        :id
       ], methods: [
         :type_conversation, :open, :sender_messageable, :receptor_messageable
       ], include: [
@@ -89,7 +89,7 @@ class ConversationChannel < ApplicationCable::Channel
 
       @users_chats = Conversation.user_conversations(profile).where.not(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(profile)}.as_json(
         only: [
-          :id, :open
+          :id
         ], methods: [
           :type_conversation, :open, :sender_messageable, :receptor_messageable
         ], include: [
@@ -99,7 +99,7 @@ class ConversationChannel < ApplicationCable::Channel
 
       @cotizations_chats = Conversation.user_conversations(profile).where(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(profile)}.as_json(
         only: [
-          :id, :open
+          :id
         ], methods: [
           :type_conversation, :open, :sender_messageable, :receptor_messageable
         ],
@@ -172,7 +172,7 @@ class ConversationChannel < ApplicationCable::Channel
           cotization: @cotization,
           conversation: @cotization.conversation.as_json(
             only: [
-              :id, :open
+              :id
             ], methods: [
               :type_conversation, :open, :sender_messageable, :receptor_messageable
             ],
@@ -214,7 +214,7 @@ class ConversationChannel < ApplicationCable::Channel
 
       @conversation = @conversation.as_json(
         only: [
-          :id, :open
+          :id
         ], methods: [
           :type_conversation, :open, :sender_messageable, :receptor_messageable
         ],

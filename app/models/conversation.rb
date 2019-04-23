@@ -94,6 +94,7 @@ class Conversation < ApplicationRecord
   def open
     memberable_type = current_user.class.to_s
     memberable_id   = current_user.id
+    memberable_type = 'Profile' if memberable_type == 'Pyme' || memberable_type == 'Seller' || memberable_type == 'Independent'
     self.membership_conversations.where(memberable_type: memberable_type, memberable_id: memberable_id).first.open
   end
 
