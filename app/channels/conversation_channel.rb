@@ -2,6 +2,8 @@ class ConversationChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
     stream_from "conversations-#{current_user.id}"
+    logger.debug "---------------------------------------------"
+    logger.debug "subscribed"
   end
 
   def unsubscribed
@@ -10,6 +12,8 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def create_message(data)
+    logger.debug "---------------------------------------------"
+    logger.debug "create_message"
     @message = data
     set_messageable
     @conversation = Conversation.user_conversations(@messageable).find @message['conversation_id']
@@ -29,6 +33,8 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def current_user_conversations
+    logger.debug "---------------------------------------------"
+    logger.debug "current_user_conversations"
     Conversation.current_user = current_user
     @user = current_user
     @user_cotizations = Conversation.user_conversations(@user).where(type_messages: 'cotization').order(updated_at: :desc).select{|conv| conv.membership?(@user)}.as_json(
@@ -73,6 +79,8 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def own_profiles_conversations(data)
+    logger.debug "---------------------------------------------"
+    logger.debug "own_profiles_conversations"
     @user   = current_user
     @profiles = @user.profiles.where(id: data['profile_ids'])
     @profiles = @user.profiles if @profiles.blank?
@@ -130,6 +138,8 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def get_all_open_chats
+    logger.debug "---------------------------------------------"
+    logger.debug "get_all_open_chats"
     Conversation.current_user = current_user
     @user = current_user
     # .select{|conv| conv.membership?(@user)}
@@ -180,11 +190,13 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def update_open_conversation(data)
+    logger.debug "---------------------------------------------"
+    logger.debug "update_open_conversation"
     Conversation.current_user = current_user
     conversation  = data
     @conversation = current_user.conversations.where(id: conversation['conversation_id'].to_i).first
     @membership    = @conversation.own_membership
-    if @membership.update(open: conversation['open']).save
+    if @membership.update(open: conversation['open'])
 
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
@@ -204,6 +216,8 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def update_cotization(data)
+    logger.debug "---------------------------------------------"
+    logger.debug "update_cotization"
     cotization = data
     @cotization = Cotization.where(id: cotization['cotization_id'].to_i).first
 
@@ -252,6 +266,8 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def destroy_conversation(data)
+    logger.debug "---------------------------------------------"
+    logger.debug "destroy_conversation"
     conversation  = data
     @conversation = Conversation.where(id: conversation['conversation_id'].to_i).first
     if @conversation.destroy
