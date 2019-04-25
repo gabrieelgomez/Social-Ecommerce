@@ -169,12 +169,12 @@ class ConversationChannel < ApplicationCable::Channel
       @conversations << chat
     end
     @profiles_conversations = @profiles_conversations.flatten.uniq
-
+    @conversations = @user_chats.concat(@profiles_conversations)
     ActionCable.server.broadcast(
       "conversations-#{current_user.id}",
       type: 'get_all_open_chats',
       body: {
-        @user_chats.concat(@profiles_conversations)
+        @conversations
       }
     )
   end
