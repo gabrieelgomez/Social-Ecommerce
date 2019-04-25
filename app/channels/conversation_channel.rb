@@ -134,19 +134,69 @@ class ConversationChannel < ApplicationCable::Channel
     )
   end
 
+  def get_all_open_chats
+    Conversation.current_user = current_user
+    @user = current_user
+    # .select{|conv| conv.membership?(@user)}
+    @user_chats = Conversation.user_conversations(@user).includes(:membership_conversations).where(membership_conversations: {open: true, memberable: @user}).order(updated_at: :desc).as_json(
+      only: [
+        :id
+      ], methods: [
+        :type_conversation, :open, :sender_messageable, :receptor_messageable
+      ],
+        include: {
+          messages:{
+            only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
+          }
+        }
+    )
+
+    @profiles = @user.profiles
+    @conversations = []
+    @profiles_conversations = @profiles.map do |profile|
+      Conversation.current_user = profile
+      chat = Conversation.user_conversations(profile).includes(:membership_conversations).where(membership_conversations: {open: true, memberable_type: 'Profile', memberable_id: profile.id}).order(updated_at: :desc).as_json(
+        only: [
+          :id
+        ], methods: [
+          :type_conversation, :open, :sender_messageable, :receptor_messageable
+        ],
+          include: {
+            messages:{
+              only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
+            },
+            cotization: {
+              only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
+              methods: [:details]
+            }
+          }
+      )
+      @conversations << chat
+    end
+    @profiles_conversations = @profiles_conversations.flatten.uniq
+
+    ActionCable.server.broadcast(
+      "conversations-#{current_user.id}",
+      type: 'get_all_open_chats',
+      body: {
+        @user_chats.concat @profiles_conversations
+      }
+    )
+  end
+
   def update_open_conversation(data)
     Conversation.current_user = current_user
     conversation  = data
     @conversation = current_user.conversations.where(id: conversation['conversation_id'].to_i).first
-    @memberhip    = @conversation.own_membership
-    if @memberhip.toggle(:open).save
+    @membership    = @conversation.own_membership
+    if @membership.update(open: conversation['open']).save
 
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
         type: 'update_open_conversation',
         body: {
           id: @conversation.id,
-          open: @memberhip.open
+          open: @membership.open
         }
       )
     else
