@@ -35,6 +35,7 @@ class Conversation < ApplicationRecord
   end
 
   def send_notify_cable
+    return if type_conversation = 'cotization'
     if senderable_type == 'User'
       ActionCable.server.broadcast(
         "conversations-#{senderable.id}",

@@ -17,13 +17,8 @@ class ConversationChannel < ApplicationCable::Channel
     message = Message.create(
       body: @message['body'],
       conversation_id: @conversation.id,
-      messageable_id: @messageable.id
-    )
-
-    ActionCable.server.broadcast(
-      "conversations-#{current_user.id}",
-      type: 'message',
-      body: message.as_json
+      messageable_id: @messageable.id,
+      messageable_type_id: @message['messageable_type']
     )
   end
 

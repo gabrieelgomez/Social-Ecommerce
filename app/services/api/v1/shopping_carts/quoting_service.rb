@@ -24,11 +24,6 @@ module Api::V1::ShoppingCarts
               :messages, :cotization
             ]
           )
-
-          ActionCable.server.broadcast(
-            "conversations-#{current_user.id}",
-            conversation: @conversation
-          )
         end
 
         # Create Notify, recipient, sender, type, message
