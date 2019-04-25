@@ -174,7 +174,7 @@ class ConversationChannel < ApplicationCable::Channel
       "conversations-#{current_user.id}",
       type: 'get_all_open_chats',
       body: {
-        @user_chats.concat @profiles_conversations
+        @user_chats.concat(@profiles_conversations)
       }
     )
   end
