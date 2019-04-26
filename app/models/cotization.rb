@@ -26,15 +26,71 @@ class Cotization < ApplicationRecord
   end
 
   def send_notify_cable
-    ActionCable.server.broadcast(
-      "conversations-#{cotizable.user.id}",
+    set_cotizable
+    set_clientable
+  end
+
+  def set_cotizable
+    Conversation.current_user = cotizable.user
+    @data = {
       type: 'new_cotization',
-      body: self
+      body: {
+        cotization: self,
+        conversation: self.conversation.as_json(
+          only: [
+            :id
+          ], methods: [
+            :type_conversation, :open, :sender_messageable, :receptor_messageable
+          ],
+            include: {
+              messages:{
+                only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
+              },
+              cotization: {
+                only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
+                methods: [:details]
+              }
+            }
+        )
+      }
+    }
+
+    ActionCable.server.broadcast(
+      "conversations-#{self.cotizable.user.id}",
+      @data
     )
-    ActionCable.server.broadcast(
-      "conversations-#{client.clientable.id}",
+  end
+
+  def set_clientable
+    Conversation.current_user = client.clientable
+    @data = {
       type: 'new_cotization',
-      body: self
+      body: {
+        status_transaction: 'success',
+        status_cotization: @data['stage'],
+        cotization: self,
+        conversation: self.conversation.as_json(
+          only: [
+            :id
+          ], methods: [
+            :type_conversation, :open, :sender_messageable, :receptor_messageable
+          ],
+            include: {
+              messages:{
+                only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
+              },
+              cotization: {
+                only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
+                methods: [:details]
+              }
+            }
+        )
+      }
+    }
+
+    ActionCable.server.broadcast(
+      "conversations-#{self.client.clientable.id}",
+      @data
     )
   end
 
