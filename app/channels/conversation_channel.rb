@@ -192,11 +192,12 @@ class ConversationChannel < ApplicationCable::Channel
   def update_open_conversation(data)
     logger.debug "---------------------------------------------"
     logger.debug "update_open_conversation"
-    Conversation.current_user = current_user
-    conversation  = data
-    @conversation = current_user.conversations.where(id: conversation['conversation_id'].to_i).first
+    @current_user = current_user
+    @data  = data
+    Conversation.current_user = set_currentable
+    @conversation = current_user.conversations.where(id: @data['conversation_id'].to_i).first
     @membership    = @conversation.own_membership
-    if @membership.update(open: conversation['open'])
+    if @membership.update(open: @data['open'])
 
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
@@ -218,16 +219,17 @@ class ConversationChannel < ApplicationCable::Channel
   def update_cotization(data)
     logger.debug "---------------------------------------------"
     logger.debug "update_cotization"
-    cotization = data
-    @cotization = Cotization.where(id: cotization['cotization_id'].to_i).first
+    @current_user = current_user
+    @data  = data
+    @cotization = Cotization.where(id: @data['cotization_id'].to_i).first
 
-    if @cotization.update(stage: cotization['stage'])
-      Conversation.current_user = current_user
+    if @cotization.update(stage: @data['stage'])
+      Conversation.current_user = set_currentable
       @data = {
         type: 'update_cotization',
         body: {
           status_transaction: 'success',
-          status_cotization: cotization['stage'],
+          status_cotization: @data['stage'],
           cotization: @cotization,
           conversation: @cotization.conversation.as_json(
             only: [
@@ -268,10 +270,11 @@ class ConversationChannel < ApplicationCable::Channel
   def destroy_conversation(data)
     logger.debug "---------------------------------------------"
     logger.debug "destroy_conversation"
-    conversation  = data
-    @conversation = Conversation.where(id: conversation['conversation_id'].to_i).first
+    @current_user = current_user
+    @data  = data
+    @conversation = Conversation.where(id: @data['conversation_id'].to_i).first
     if @conversation.destroy
-      Conversation.current_user = current_user
+      Conversation.current_user = set_currentable
 
       @conversation = @conversation.as_json(
         only: [
@@ -313,6 +316,11 @@ class ConversationChannel < ApplicationCable::Channel
         conversation: @conversation.errors
       )
     end
+  end
+
+  def set_currentable
+    return @current_user if @data['currentale_id'].blank?
+    @current_user = Profile.where(@data['currentale_id']).first
   end
 
 end
