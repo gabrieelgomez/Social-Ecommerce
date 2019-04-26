@@ -319,7 +319,6 @@ class ConversationChannel < ApplicationCable::Channel
   end
 
   def set_currentable
-    byebug
     return @current_user if @data['currentable_id'].blank?
     @current_user = Profile.where(id: @data['currentable_id']).first
   end
