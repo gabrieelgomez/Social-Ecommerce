@@ -31,7 +31,7 @@ class Cotization < ApplicationRecord
   end
 
   def set_cotizable
-    Conversation.current_user = cotizable.user
+    Conversation.current_user = cotizable
     @data = {
       type: 'new_cotization',
       body: {

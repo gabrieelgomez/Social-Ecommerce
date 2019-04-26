@@ -195,7 +195,7 @@ class ConversationChannel < ApplicationCable::Channel
     @current_user = current_user
     @data  = data
     Conversation.current_user = set_currentable
-    @conversation = current_user.conversations.where(id: @data['conversation_id'].to_i).first
+    @conversation = Conversation.user_conversations(@current_user).where(id: @data['conversation_id'].to_i).first
     @membership    = @conversation.own_membership
     if @membership.update(open: @data['open'])
 
@@ -273,30 +273,29 @@ class ConversationChannel < ApplicationCable::Channel
     @current_user = current_user
     @data  = data
     @conversation = Conversation.where(id: @data['conversation_id'].to_i).first
-    if @conversation.destroy
-      Conversation.current_user = set_currentable
-
-      @conversation = @conversation.as_json(
-        only: [
-          :id
-        ], methods: [
-          :type_conversation, :open, :sender_messageable, :receptor_messageable
-        ],
-          include: {
-            messages:{
-              only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
-            },
-            cotization: {
-              only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
-              methods: [:details]
-            }
+    Conversation.current_user = set_currentable
+    @before_conversation = @conversation.as_json(
+      only: [
+        :id
+      ], methods: [
+        :type_conversation, :open, :sender_messageable, :receptor_messageable
+      ],
+        include: {
+          messages:{
+            only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
+          },
+          cotization: {
+            only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
+            methods: [:details]
           }
-      )
+        }
+    )
 
+    if @conversation.destroy
       @data = {
         type: "destroy_conversation",
         body: {
-          conversation: @conversation,
+          conversation: @before_conversation,
           status_transaction: 'destroy successfull'
         }
       }
@@ -306,14 +305,14 @@ class ConversationChannel < ApplicationCable::Channel
         @data
       )
       ActionCable.server.broadcast(
-        "conversations-#{@conversation['receptor_messageable']['id']}",
+        "conversations-#{@before_conversation['receptor_messageable']['id']}",
         @data
       )
     else
       ActionCable.server.broadcast(
         "conversations-#{current_user.id}",
         status_transaction: 'failed',
-        conversation: @conversation.errors
+        conversation: @before_conversation.errors
       )
     end
   end
