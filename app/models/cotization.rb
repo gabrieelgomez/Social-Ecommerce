@@ -5,6 +5,9 @@ class Cotization < ApplicationRecord
   belongs_to :deal_type
   has_and_belongs_to_many :items, -> { with_deleted }
   after_create :send_notify_cable
+  after_update :send_changes
+
+  accepts_nested_attributes_for :items
 
   validates_inclusion_of :stage, :in => %w(received answered sold lost)
 
@@ -24,6 +27,36 @@ class Cotization < ApplicationRecord
       )
     end
     data
+  end
+
+  def products
+    self.items.collect{|item| item.product}
+  end
+
+  def send_changes
+    @data = {
+      type: 'changed_cotization',
+      body: {
+        cotization: self.as_json(
+          only: [
+            :id, :price, :currency, :stage, :status, :created_at, :updated_at
+          ], methods: [
+            :details, :clientable, :cotizable, :products
+          ]
+        ),
+        conversation_id: self.conversation.id
+      }
+    }
+    ActionCable.server.broadcast(
+      "conversations-#{self.cotizable.user.id}",
+      @data
+    )
+
+    ActionCable.server.broadcast(
+      "conversations-#{self.client.clientable.id}",
+      @data
+    )
+
   end
 
   def send_notify_cable
