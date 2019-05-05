@@ -16,6 +16,7 @@ class Cotization < ApplicationRecord
     data = []
     self.items.each do |item|
       data.push(
+        item_id: item.id,
         product_id: item.product_id,
         name: item.product.name,
         options_values: item.option_values,
