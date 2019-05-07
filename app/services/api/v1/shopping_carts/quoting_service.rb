@@ -11,7 +11,7 @@ module Api::V1::ShoppingCarts
         conversation: conversation
       )
       ActiveRecord::Base.transaction do
-        Item.destroy(items)
+        # Item.destroy(items)
 
         if message.save! && cotization.save!
           Conversation.current_user = current_user

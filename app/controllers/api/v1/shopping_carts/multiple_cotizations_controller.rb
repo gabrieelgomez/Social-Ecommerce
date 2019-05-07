@@ -25,15 +25,15 @@ module Api::V1::ShoppingCarts
             productable_op_ids.include? op_id
           end
 
-          option_values = item[:option_values].select do |key, val|
-            option_ids.include?(key.to_i) &&
-              Option.find(key.to_i).values.map(&:downcase).include?(val.downcase)
-          end
+          # option_values = item[:option_values].select do |key, val|
+          #   option_ids.include?(key.to_i) &&
+          #     Option.find(key.to_i).values.map(&:downcase).include?(val.downcase)
+          # end
 
           item = shopping_cart.items.new(product_id: product.id,
                                            custom_field_ids: custom_field_ids,
                                            option_ids: option_ids,
-                                           option_values: option_values,
+                                           option_values: JSON.parse(item[:option_values].to_json),
                                            quantity: item[:quantity])
           item.save
           logger.debug item.inspect
@@ -71,8 +71,10 @@ module Api::V1::ShoppingCarts
       items.map do |item|
         real_item = shopping_cart.items.find(item)
         main_text += "\n - #{real_item.product.name}: #{real_item.product.price} x #{real_item.quantity} \n"
-        real_item.option_values.map do |key, opt|
-          main_text += "\t - #{real_item.options.find(key).name}: #{opt} \n"
+        real_item.option_values.map do |option|
+          key = option.keys.first
+          value = option.values.first
+          main_text += "\t - #{real_item.options.find(key).name}: #{value} \n"
         end
       end
       main_text
