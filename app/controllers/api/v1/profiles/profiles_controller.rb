@@ -13,6 +13,12 @@ module Api::V1
       render json: @result, status: 200
     end
 
+    def own_profile
+      @profile = current_v1_user.profiles.where(id: params[:profile_id]).first
+      @profile.nil? ? @result = false : @result = true
+      render json: @result, status: 200
+    end
+
     private
 
     def set_profile

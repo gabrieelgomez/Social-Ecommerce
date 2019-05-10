@@ -23,6 +23,7 @@ namespace :profiles do
   get '/:profile_id/cotizations', to: 'show#profile_cotizations'
   get '/all', to: 'profiles#all_profiles'
   get '/:profile_id/products_prominent', to: 'profiles#products_prominent'
+  get '/:profile_id/own_profile', to: 'profiles#own_profile'
 
   put '/:profile_id/change_profile_type', to: 'update#change_type_profile'
 
