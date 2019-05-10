@@ -1,12 +1,13 @@
 module Api::V1::ShoppingCarts
   class QuotingService
 
-    def self.handle_quote(cotizable, client, message, items, current_user, conversation)
+    def self.handle_quote(cotizable, client, message, items, current_user, conversation, price)
       cotization = Cotization.new(
         cotizable: cotizable, # profile
         client: client, # user
         item_ids: items, # items or products
         stage: 'received',
+        price: price,
         deal_type: DealType.first, # unknow
         conversation: conversation
       )

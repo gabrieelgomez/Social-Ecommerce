@@ -55,8 +55,7 @@ module Api::V1::ShoppingCarts
         logger.debug "---------------------------------------------"
         logger.debug conversation.inspect
         logger.debug "---------------------------------------------"
-
-        Api::V1::ShoppingCarts::QuotingService.handle_quote(profile, client, msg, items, current_v1_user, conversation)
+        Api::V1::ShoppingCarts::QuotingService.handle_quote(profile, client, msg, items, current_v1_user, conversation, cotization[:price])
         @conversations << conversation
 
       end # Each by per cotization profile

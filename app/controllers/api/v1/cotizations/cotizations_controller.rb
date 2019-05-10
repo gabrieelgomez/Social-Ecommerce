@@ -11,7 +11,7 @@ module Api::V1
     end
 
     def cotization_params
-      params.require(:cotization).permit(:stage)
+      params.require(:cotization).permit(:stage, :price)
     end
   end
 end
