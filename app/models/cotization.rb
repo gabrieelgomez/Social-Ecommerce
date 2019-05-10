@@ -38,15 +38,13 @@ class Cotization < ApplicationRecord
       type: 'changed_cotization',
       body: {
         cotization: self.as_json(
-          only: [
-            :id, :price, :currency, :stage, :status, :created_at, :updated_at
-          ], methods: [
-            :details, :clientable, :cotizable, :products
-          ]
+          only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
+          methods: [:details]
         ),
         conversation_id: self.conversation.id
       }
     }
+    
     ActionCable.server.broadcast(
       "conversations-#{self.cotizable.user.id}",
       @data
