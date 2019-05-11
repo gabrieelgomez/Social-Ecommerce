@@ -84,7 +84,7 @@ Rails.application.configure do
 
   # Mailer configuration
   config.action_mailer.default_url_options = {
-    host: 'http://bigwave-api.herokuapp.com'
+    host: 'http://localhost:3000'
   }
   # config.action_mailer.perform_deliveries = true
   # config.action_mailer.default charset: 'utf-8'

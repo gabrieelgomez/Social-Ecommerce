@@ -18,18 +18,24 @@ class ConversationChannel < ApplicationCable::Channel
     set_messageable
     @conversation = Conversation.user_conversations(@messageable).find @message['conversation_id']
 
-    message = Message.create(
-      body: @message['body'],
-      conversation_id: @conversation.id,
-      messageable_id: @messageable.id,
-      messageable_type_id: @message['messageable_type']
-    )
+    if @conversation
+      Message.create(
+        body: @message['body'],
+        conversation_id: @conversation.id,
+        messageable_id: @message['messageable_id'],
+        messageable_type: @message['messageable_type']
+      )
+    else
+      ActionCable.server.broadcast(
+        "conversations-#{user.id}",
+        errors: 'Ha ocurrido un error al crear el mensaje.'
+      )
+    end
   end
 
   def set_messageable
-    return @messageable = current_user if @message['messageable_id'].nil?
-    model = @message['messageable_type'].downcase.pluralize.to_sym
-    @messageable = current_user.try(model).find @message['messageable_id']
+    return @messageable = User.where(id: @message['messageable_id']).first if @message['messageable_type'] == 'User'
+    @messageable = Profile.where(id: @message['messageable_id']).first
   end
 
   def current_user_conversations
