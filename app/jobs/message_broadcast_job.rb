@@ -20,9 +20,9 @@ class MessageBroadcastJob < ApplicationJob
     )
   end
 
-  def broadcast_to_recipient(user, message)
+  def broadcast_to_recipient(recipientable, message)
     ActionCable.server.broadcast(
-      "conversations-#{user.id}",
+      "conversations-#{recipientable.is_a?(User) ? recipientable.id : recipientable.user.id}",
       type: 'new_message',
       body: message.as_json(only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at])
     )
