@@ -47,12 +47,9 @@ class ConversationChannel < ApplicationCable::Channel
       only: [
         :id
       ], methods: [
-        :type_conversation, :open, :sender_messageable, :receptor_messageable
+        :type_conversation, :open, :sender_messageable, :receptor_messageable, :body_messages
       ],
         include: {
-          messages:{
-            only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
-          },
           cotization: {
             only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
             methods: [:details]
@@ -64,9 +61,7 @@ class ConversationChannel < ApplicationCable::Channel
       only: [
         :id
       ], methods: [
-        :type_conversation, :open, :sender_messageable, :receptor_messageable
-      ], include: [
-        :messages
+        :type_conversation, :open, :sender_messageable, :receptor_messageable, :body_messages
       ]
     )
 
@@ -100,9 +95,7 @@ class ConversationChannel < ApplicationCable::Channel
         only: [
           :id
         ], methods: [
-          :type_conversation, :open, :sender_messageable, :receptor_messageable
-        ], include: [
-          :messages
+          :type_conversation, :open, :sender_messageable, :receptor_messageable, :body_messages
         ]
       )
 
@@ -110,12 +103,9 @@ class ConversationChannel < ApplicationCable::Channel
         only: [
           :id
         ], methods: [
-          :type_conversation, :open, :sender_messageable, :receptor_messageable
+          :type_conversation, :open, :sender_messageable, :receptor_messageable, :body_messages
         ],
           include: {
-            messages:{
-              only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
-            },
             cotization: {
               only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
               methods: [:details]
@@ -153,12 +143,9 @@ class ConversationChannel < ApplicationCable::Channel
       only: [
         :id
       ], methods: [
-        :type_conversation, :open, :sender_messageable, :receptor_messageable
+        :type_conversation, :open, :sender_messageable, :receptor_messageable, :body_messages
       ],
         include: {
-          messages:{
-            only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
-          },
           cotization: {
             only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
             methods: [:details]
@@ -174,12 +161,9 @@ class ConversationChannel < ApplicationCable::Channel
         only: [
           :id
         ], methods: [
-          :type_conversation, :open, :sender_messageable, :receptor_messageable
+          :type_conversation, :open, :sender_messageable, :receptor_messageable, :body_messages
         ],
           include: {
-            messages:{
-              only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
-            },
             cotization: {
               only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
               methods: [:details]
@@ -245,12 +229,9 @@ class ConversationChannel < ApplicationCable::Channel
             only: [
               :id
             ], methods: [
-              :type_conversation, :open, :sender_messageable, :receptor_messageable
+              :type_conversation, :open, :sender_messageable, :receptor_messageable, :body_messages
             ],
               include: {
-                messages:{
-                  only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
-                },
                 cotization: {
                   only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
                   methods: [:details]
@@ -288,12 +269,9 @@ class ConversationChannel < ApplicationCable::Channel
       only: [
         :id
       ], methods: [
-        :type_conversation, :open, :sender_messageable, :receptor_messageable
+        :type_conversation, :open, :sender_messageable, :receptor_messageable, :body_messages
       ],
         include: {
-          messages:{
-            only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at]
-          },
           cotization: {
             only: %i[id cotizable_type cotizable_id client_id price status stage token currency address text created_at conversation_id],
             methods: [:details]

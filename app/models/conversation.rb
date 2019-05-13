@@ -159,6 +159,10 @@ class Conversation < ApplicationRecord
     chater == recipientable ? senderable : recipientable
   end
 
+  def body_messages
+    messages.sort_by{|message| message.id}.as_json(only: %i[id body read conversation_id image file messageable_type messageable_id created_at update_at])
+  end
+
   def assign_conversation_type
     if senderable.is_a? User and recipientable.is_a? User
       update(type_messages: 'user')
