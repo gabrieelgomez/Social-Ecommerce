@@ -7,7 +7,7 @@ class Message < ApplicationRecord
   after_create_commit { MessageBroadcastJob.perform_later(self) }
 
   def create_notify_new_conversation
-    return unless messageable == conversation.senderable && conversation.messages.count == 1 && conversation.type_messages == 'cotization'
+    return if messageable == conversation.senderable && conversation.messages.count == 1 && conversation.type_messages == 'cotization'
     recipient = conversation.recipientable.user
     sender    = conversation.senderable
     message   = "Tienes un nuevo mensaje de <strong>#{sender.name}</strong>"

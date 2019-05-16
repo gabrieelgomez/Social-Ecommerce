@@ -30,7 +30,7 @@ module Api::V1::ShoppingCarts
         # Create Notify, recipient, sender, type, message
         message = "¡<strong>#{client.clientable.name}</strong> le ha cotizado un producto, responde el mensaje!"
         return if cotizable.user == client.clientable
-        Notification.create_notify_models(cotizable.user, client.clientable, 'cotization', message)
+        Notification.create_notify_models(cotizable.user, client.clientable, 'cotization', message, conversation, current_user)
       end
     end
 
