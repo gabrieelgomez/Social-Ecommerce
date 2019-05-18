@@ -8,8 +8,13 @@ class Message < ApplicationRecord
 
   def create_notify_new_conversation
     return if messageable == conversation.senderable && conversation.messages.count == 1 && conversation.type_messages == 'cotization'
-    recipient = conversation.recipientable.user
-    sender    = conversation.senderable
+    sender = self.messageable
+    # sender = sender.user if sender.is_a?(Profile)
+
+    recipient = self.conversation.opposed_chater(sender)
+    recipient = recipient.user if recipient.is_a?(Profile)
+
+    Rails.logger.info(self)
     message   = "Tienes un nuevo mensaje de <strong>#{sender.name}</strong>"
     Notification.create_notify_models(recipient, sender, 'conversation', message)
   end
