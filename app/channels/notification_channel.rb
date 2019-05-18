@@ -7,7 +7,7 @@ class NotificationChannel < ApplicationCable::Channel
   def unreads
     ActionCable.server.broadcast(
       "notifications-#{current_user.id}",
-      data: current_user.notifications.where(read: false).order(id: :asc)
+      data: current_user.notifications.where(read: false).order(id: :asc).as_json(only: %i[id category metadata image read created_at])
     )
   end
 
