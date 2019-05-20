@@ -2,6 +2,8 @@ class Notification < NotificationHandler::Notification
   cattr_accessor :object_conversation
   mount_base64_uploader :image, ImageUploader
 
+  # belongs_to :productable, polymorphic: true
+
   def self.create_notify_models(recipient, sender, type, message, conversation=nil, current_user=nil)
     type_category = nil
     settings = recipient.notification_setting.category_settings
@@ -27,15 +29,19 @@ class Notification < NotificationHandler::Notification
       Notification.object_conversation = conversation
       Conversation.current_user = current_user
       ActionCable.server.broadcast(
+        # "notifications-#{recipient.id}",
+        # type: 'new_notification',
+        # body: notification.as_json(only: %i[id category metadata image read created_at], methods: %i[conversation] )
         "notifications-#{recipient.id}",
-        type: 'new_notification',
-        body: notification.as_json(only: %i[id category metadata image read created_at], methods: %i[conversation] )
+         data: notification.as_json(only: %i[id category metadata image read created_at], methods: %i[conversation] )
       )
     else
       ActionCable.server.broadcast(
+        # "notifications-#{recipient.id}",
+        # type: 'new_notification',
+        # body: notification.as_json(only: %i[id category metadata image read created_at])
         "notifications-#{recipient.id}",
-        type: 'new_notification',
-        body: notification.as_json(only: %i[id category metadata image read created_at])
+         data: notification.as_json(only: %i[id category metadata image read created_at])
       )
     end
 
