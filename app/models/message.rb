@@ -16,15 +16,18 @@ class Message < ApplicationRecord
 
     Rails.logger.info(self)
     message   = "Tienes un nuevo mensaje de <strong>#{sender.name}</strong>"
-    Notification.create_notify_models(recipient, sender, 'conversation', message)
+
+    current_user = messageable
+
+    Notification.create_notify_models(recipient, sender, 'conversation', message, conversation, current_user)
   end
 
-  def create_notify_new_cotization_message
-    return if messageable == conversation.senderable || conversation.type_messages != 'cotization'
-    recipient = conversation.senderable.user
-    sender    = conversation.recipientable
-    message   = "<strong>#{sender.name}</strong> ha respondido a su cotización"
-    Notification.create_notify_models(recipient, sender, 'cotization', message)
-  end
+  # def create_notify_new_cotization_message
+  #   return if messageable == conversation.senderable || conversation.type_messages != 'cotization'
+  #   recipient = conversation.senderable.user
+  #   sender    = conversation.recipientable
+  #   message   = "<strong>#{sender.name}</strong> ha respondido a su cotización"
+  #   Notification.create_notify_models(recipient, sender, 'cotization', message, conversation, current_user)
+  # end
 
 end
