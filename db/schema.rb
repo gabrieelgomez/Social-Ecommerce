@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190425001202) do
+ActiveRecord::Schema.define(version: 20190522145147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -478,6 +478,8 @@ ActiveRecord::Schema.define(version: 20190425001202) do
     t.datetime "updated_at", null: false
     t.bigint "subscription_id"
     t.string "category"
+    t.integer "current_user_id"
+    t.string "current_user_type"
     t.index ["object_type", "object_id"], name: "index_notifications_on_object_type_and_object_id"
     t.index ["read"], name: "index_notifications_on_read"
     t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id"

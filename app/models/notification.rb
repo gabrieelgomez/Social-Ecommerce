@@ -8,9 +8,8 @@ class Notification < NotificationHandler::Notification
     type_category = nil
     settings = recipient.notification_setting.category_settings
     settings.each{|c| type_category = c if c[0].eql?(type)}
-
     if type_category.second['app']
-      notification = recipient.notify category: type, object_id: object.id, object_type: object.class.to_s, metadata: {
+      notification = recipient.notify category: type, object_id: object.id, object_type: object.class.to_s, current_user_id: current_user.id, current_user_type: current_user.class.to_s, metadata: {
         title: message
       }
     end
@@ -32,6 +31,7 @@ class Notification < NotificationHandler::Notification
 
   def body
     Rails.logger.info(Notification.object)
+    Conversation.current_user = self.current_user
     case self.category
       when 'cotization'
         self.object.as_json(
@@ -67,7 +67,11 @@ class Notification < NotificationHandler::Notification
   end
 
   def object
-      self.object_type.constantize.where(id: self.object_id).first
+    self.object_type.constantize.where(id: self.object_id).first
+  end
+
+  def current_user
+    self.current_user_type.constantize.where(id: self.current_user_id).first
   end
 
 end
