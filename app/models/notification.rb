@@ -32,10 +32,9 @@ class Notification < NotificationHandler::Notification
 
   def body
     Rails.logger.info(Notification.object)
-
     case self.category
       when 'cotization'
-        Notification.object.as_json(
+        self.object.as_json(
           only: [
             :id
           ], methods: [
@@ -49,7 +48,7 @@ class Notification < NotificationHandler::Notification
             }
         )
       when 'conversation'
-        Notification.object.as_json(
+        self.object.as_json(
           only: [
             :id
           ], methods: [
@@ -65,6 +64,10 @@ class Notification < NotificationHandler::Notification
       else
         self.object
     end # End case
+  end
+
+  def object
+      self.object_type.constantize.where(id: self.object_id).first
   end
 
 end
