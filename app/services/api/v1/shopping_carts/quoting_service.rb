@@ -14,6 +14,7 @@ module Api::V1::ShoppingCarts
       ActiveRecord::Base.transaction do
         # Item.destroy(items)
 
+        current_user = conversation.opposed_chater(message.messageable)
         if message.save! && cotization.save!
           Conversation.current_user = current_user
           @conversation = message.conversation.as_json(
