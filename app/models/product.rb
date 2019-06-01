@@ -79,8 +79,8 @@ class Product < ApplicationRecord
   end
 
   def create_locations
-    # self.states_codes   = []
-    # self.countries_codes = []
+    self.states_codes   = []
+    self.countries_codes = []
     # self.productable.locations.collect do |location|
     #   self.countries_codes.push(location.country_code)
     #   self.states_codes.push([location.country_code, location.state_code])

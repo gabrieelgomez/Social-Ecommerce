@@ -16,7 +16,7 @@ class Location < ApplicationRecord
   def create_geocode
     return unless self.metadata.blank?
     results = Geocoder.search([latitude, longitude])
-    if results.first.data['error'] == 'Unable to geocode'
+    if results == [] || results.first.data['error'] == 'Unable to geocode'
       errors.add(:address, 'Unable to geocode')
     else
       self.address      = results.first.address
