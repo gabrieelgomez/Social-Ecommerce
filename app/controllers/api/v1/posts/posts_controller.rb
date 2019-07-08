@@ -1,6 +1,6 @@
 module Api::V1
   class Posts::PostsController < ApiController
-    before_action :authenticate_v1_user!, except: %i[index show]
+    before_action :authenticate_v1_user!, except: %i[index show history]
 
     private
 

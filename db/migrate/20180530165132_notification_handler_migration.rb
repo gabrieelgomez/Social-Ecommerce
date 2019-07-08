@@ -11,6 +11,8 @@ class NotificationHandlerMigration < ActiveRecord::Migration[5.1]
             t.text :metadata
             t.string :image
             t.string :url
+            t.integer :current_user_id
+            t.string  :current_user_type
             t.timestamps
 
         end

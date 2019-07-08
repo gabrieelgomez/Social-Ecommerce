@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190522145147) do
+ActiveRecord::Schema.define(version: 20190204175821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 20190522145147) do
     t.string "senderable_type"
     t.bigint "senderable_id"
     t.string "type_messages", default: "", null: false
+    t.boolean "open", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipientable_type", "recipientable_id"], name: "index_conversations_on_recipientable_type_and_recipientable_id"
@@ -151,10 +152,11 @@ ActiveRecord::Schema.define(version: 20190522145147) do
     t.string "cotizable_type"
     t.bigint "cotizable_id"
     t.bigint "client_id"
+    t.bigint "conversation_id"
     t.integer "deal_type_id"
     t.float "price"
     t.boolean "status", default: true
-    t.string "stage", default: "sent"
+    t.string "stage", default: "received"
     t.string "details", default: ""
     t.string "token", default: ""
     t.string "currency", default: "usd"
@@ -162,7 +164,6 @@ ActiveRecord::Schema.define(version: 20190522145147) do
     t.text "text", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "conversation_id"
     t.index ["client_id"], name: "index_cotizations_on_client_id"
     t.index ["conversation_id"], name: "index_cotizations_on_conversation_id"
     t.index ["cotizable_type", "cotizable_id"], name: "index_cotizations_on_cotizable_type_and_cotizable_id"
@@ -401,6 +402,7 @@ ActiveRecord::Schema.define(version: 20190522145147) do
   end
 
   create_table "locations", force: :cascade do |t|
+    t.string "title"
     t.text "address"
     t.float "latitude"
     t.float "longitude"
@@ -408,13 +410,12 @@ ActiveRecord::Schema.define(version: 20190522145147) do
     t.string "state_code"
     t.string "country"
     t.string "country_code"
+    t.boolean "prominent", default: false
+    t.jsonb "metadata"
     t.string "locatable_type"
     t.bigint "locatable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "metadata"
-    t.string "title"
-    t.boolean "prominent", default: false
     t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable_type_and_locatable_id"
   end
 
@@ -474,12 +475,12 @@ ActiveRecord::Schema.define(version: 20190522145147) do
     t.text "metadata"
     t.string "image"
     t.string "url"
+    t.integer "current_user_id"
+    t.string "current_user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "subscription_id"
     t.string "category"
-    t.integer "current_user_id"
-    t.string "current_user_type"
     t.index ["object_type", "object_id"], name: "index_notifications_on_object_type_and_object_id"
     t.index ["read"], name: "index_notifications_on_read"
     t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id"
@@ -545,6 +546,8 @@ ActiveRecord::Schema.define(version: 20190522145147) do
 
   create_table "posts", force: :cascade do |t|
     t.text "content"
+    t.string "title"
+    t.string "banner"
     t.string "postable_type"
     t.bigint "postable_id"
     t.datetime "created_at", null: false
@@ -643,10 +646,10 @@ ActiveRecord::Schema.define(version: 20190522145147) do
     t.jsonb "states_codes"
     t.jsonb "countries_codes"
     t.boolean "censured", default: false
+    t.integer "location_prominent", default: 0
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "location_prominent", default: false
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
   end
 
@@ -1127,7 +1130,6 @@ ActiveRecord::Schema.define(version: 20190522145147) do
   add_foreign_key "contacts", "contact_types"
   add_foreign_key "contacts", "profiles"
   add_foreign_key "cotizations", "clients"
-  add_foreign_key "cotizations", "conversations"
   add_foreign_key "cotizations_items", "cotizations"
   add_foreign_key "cotizations_items", "items"
   add_foreign_key "custom_fields_items", "custom_fields"
