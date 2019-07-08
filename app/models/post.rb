@@ -3,4 +3,6 @@ class Post < ApplicationRecord
   belongs_to :postable, polymorphic: true
   has_many :comments, as: :commentable
   has_many :rates, as: :rateable
+
+  validates :title, :content, :postable, presence: true
 end

@@ -18,7 +18,7 @@ module Api::V1
     end
 
     def post_params
-      params.require(:post).permit(:content, :postable_type, :postable_id)
+      params.require(:post).permit(:content, :title, :banner, :postable_type, :postable_id)
     end
 
     def set_postable
