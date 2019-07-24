@@ -19,7 +19,7 @@ module Api::V1::Wishes
     end
 
     def wishes_by_user
-      @wishes =  User.where(id: params[:user_id]).first.wishes
+      @wishes =  User.find_by(id: params[:user_id]).wishes
       render json: @wishes, status: 200
     end
 

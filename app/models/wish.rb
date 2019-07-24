@@ -58,6 +58,6 @@ class Wish < ApplicationRecord
   	sender = self.user
     message = "<strong>#{sender.name}</strong> ha deseado tu producto <strong>#{self.wisheable.name}</strong>"
     #Method for create_notify, in order is recipient, sender, type, message
-    Notification.create_notify_models(recipient, sender, 'wish', message)
+    Notification.create_notify_models(recipient, sender, 'wish', message, self, self.user)
   end
 end

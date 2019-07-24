@@ -1,3 +1,3 @@
 class AnswerWishSerializer < ActiveModel::Serializer
-  attributes :id, :profile, :user, :sended_wish
+  attributes :id, :profile, :sended_wish
 end
