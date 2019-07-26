@@ -1,0 +1,88 @@
+
+sudo apt-get update && sudo apt-get -y upgrade
+
+
+sudo useradd -d /home/deploy -m deploy
+
+sudo visudo
+
+sudo passwd deploy
+
+
+deploy ALL=(ALL:ALL) ALL
+
+
+su - deploy
+ssh-keygen
+
+cat .ssh/id_rsa.pub
+
+nano .ssh/authorized_keys
+
+sudo apt-get install git
+
+sudo nano /etc/nginx/sites-available/default
+
+sudo apt-get install postgresql postgresql-contrib libpq-dev
+
+
+sudo -u postgres createuser -s deploy
+
+sudo -u postgres psql
+
+postgres=# \password deploy
+
+
+sudo -u postgres createdb -O deploy bigwave_api
+
+
+su - deploy
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -sSL https://get.rvm.io | bash -s stable
+
+
+
+rvm install 2.2.3
+
+
+gem install bundler --no-ri --no-rdoc
+
+
+mkdir bigwave_api
+mkdir -p bigwave_api/shared/config
+nano bigwave_api/shared/config/database.yml
+nano bigwave_api/shared/config/secrets.yml
+
+database.yml
+production:
+  adapter: postgresql
+  encoding: unicode
+  username: deploy
+  password: 123456
+  pool: 5
+  timeout: 5000
+  database: bigwave_api
+
+
+secrets.yml
+
+production:
+  secret_key_base: 8919b87b428227407b8e80a7bcca7e8fc5ac9ee330e39b1a6996c5ecb1c97c9111dcf0f20e27361492879fb3a3a0168eddefc3877d11dcccd1d143ea2e8d$
+  patients_api_url: 'http://private-08781-pmed.apiary-mock.com/patients'
+  patients_api_auth_url: 'http://private-08781-pmed.apiary-mock.com/oauth'
+  patients_api_user: 'pmed-client'
+  patients_api_password: 'JBTGVb4vuZYLk2yjXtmU37rK8hRgaQ6C'
+
+  Instalar nginx y passenger:
+  https://www.phusionpassenger.com/library/install/nginx/install/oss/xenial/
+
+
+  server {
+   listen 80;
+   server_name 18.223.118.89 ec2-18-223-118-89.us-east-2.compute.amazonaws.com; #replace with your server ip or domain
+  # Tell Nginx and Passenger where your appâ€™s â€˜publicâ€™ directory is
+   root /home/deploy/bigwave_api/current/public;
+  # Turn on Passenger
+   passenger_enabled on;
+   passenger_ruby /usr/local/bin/ruby;
+  }
