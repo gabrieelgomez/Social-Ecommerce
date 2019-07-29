@@ -3,6 +3,8 @@ module Api::V1::Services
 
 
     def home
+      Profile.current_user = current_v1_user
+      Product.current_user = current_v1_user
       @result = build_json(params)
       render json: @result, status: 200
     end

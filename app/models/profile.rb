@@ -1,4 +1,6 @@
 class Profile < ApplicationRecord
+  cattr_accessor :current_user
+
   acts_as_paranoid
   acts_as_commentable
   resourcify
@@ -111,6 +113,10 @@ class Profile < ApplicationRecord
   end
   # ------------
 
+  def is_followed_by_user
+    followed = false
+    followed = current_user.follow_by_profile(model_name.to_s).pluck(:id).include?(self.id) if current_user
+  end
 
   # Method by used GPS services/model
   def products_locations(var_bool, product_ids)

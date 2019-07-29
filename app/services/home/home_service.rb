@@ -8,7 +8,7 @@ module Home
                  .reject{|i| i.photo.blank?}
                  .first(quantity)
       profiles = Profile.search_by_countries_states(profiles, states, countries) if countries || states
-      profiles.as_json(only: %i[id title slug photo type_profile created_at], methods: %i[category_ids follow])
+      profiles.as_json(only: %i[id title slug photo type_profile created_at], methods: %i[category_ids is_followed_by_user])
     end
 
     # Services #3 sellers_by_followers, Enmachs
@@ -20,7 +20,7 @@ module Home
             .reverse
             .first(quantity)
       profiles = Profile.search_by_countries_states(profiles, states, countries) if countries || states
-      profiles.as_json(only: %i[id title slug photo type_profile created_at], methods: %i[category_ids follow])
+      profiles.as_json(only: %i[id title slug photo type_profile created_at], methods: %i[category_ids is_followed_by_user])
     end
 
     # Services #5 products_by_created_at, Enmachs
@@ -32,7 +32,7 @@ module Home
       products = Product.search_by_countries_states(products, states, countries) if countries || states
       products.as_json(
                only: %i[id cover name price created_at],
-               methods: %i[owner wish links url_get]
+               methods: %i[owner is_wished_by_user links url_get]
              )
     end
 
@@ -46,7 +46,7 @@ module Home
              .first(quantity)
       products = Product.search_by_countries_states(products, states, countries) if countries || states
       products.as_json(only: %i[id cover name price created_at],
-               methods: %i[owner wish links url_get]
+               methods: %i[owner is_wished_by_user links url_get]
              )
     end
 
@@ -61,7 +61,7 @@ module Home
           .reverse
           .first(quantity)
       profiles = Profile.search_by_countries_states(profiles, states, countries) if countries || states
-      profiles.as_json(only: %i[id title slug photo type_profile], methods: %i[category_ids follow])
+      profiles.as_json(only: %i[id title slug photo type_profile], methods: %i[category_ids is_followed_by_user])
     end
 
     # Services #4 categories_listing_by_products, GabrielGomez
@@ -85,7 +85,7 @@ module Home
           profiles: category.by_sorting_profiles_products
                             .reverse
                             .take(6)
-                            .as_json(only: %i[id title slug photo type_profile], methods: %i[category_ids follow])
+                            .as_json(only: %i[id title slug photo type_profile], methods: %i[category_ids is_followed_by_user])
         }
       }.uniq
     end
