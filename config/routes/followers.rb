@@ -25,6 +25,10 @@ scope module: 'followers' do
     get 'current_user/following/:type_profile', to: 'action#following'
     #Dejar de seguir un usuario a partir de current_v1_profile
     post 'current_user/unfollow/:type_profile/:profile_id/', to: 'action#unfollow'
+
+    #Conocer si has seguido a un profile
+    get 'profiles/:type_profile/:profile_id/followed', to: 'action#followed'
+
   end
 
 end

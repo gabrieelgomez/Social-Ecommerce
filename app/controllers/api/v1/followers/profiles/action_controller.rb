@@ -29,5 +29,12 @@ module Api::V1::Followers::Profiles
       @following = @following.ransack(categories_id_in: categories).result
       render json: @following, status: 200
     end
+
+    # Conocer si has seguido a un profile
+    def followed
+      @response = current_v1_user.follow_by_profile(model_name.to_s).pluck(:id).include?(params[:profile_id].to_i)
+      render json: @response, status: 200
+    end
+
   end
 end
