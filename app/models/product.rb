@@ -146,6 +146,10 @@ class Product < ApplicationRecord
     !wishes.empty?
   end
 
+  def total_wishes
+    wishes.count
+  end
+
   def self.sorter_by_wish(priority)
     result = all.where.not(stock:0).sort_by { |prof| prof.wishes.size }
     return result if priority == 'low_to_high'

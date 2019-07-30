@@ -55,8 +55,29 @@ module Api::V1::Products
     end
 
     def wished_ones
-      @wished_products = @productable.products.select(&:wished?)
-      render json: @wished_products, status: 200
+      categories    = params[:categories].try(:split, '-').try(:map, &:to_i)
+      search        = params[:q] || nil
+      # byebug
+      @wished_products = @productable.products
+                                     .left_joins(:wishes)
+                                     .ransack(categories_id_in: categories).result
+                                     .where('wishes.id IS NOT NULL')
+      
+      @wished_products = Product.where(id: @wished_products.pluck(:id)).ransack(name_cont: search).result unless search.nil?
+
+      @wished_products = @wished_products.as_json(
+                                            only: %i[id cover name price created_at],
+                                            methods: %i[owner total_wishes links url_get]
+                                          )
+
+      @result = Kaminari.paginate_array(@wished_products).page(params[:page]).per(params[:per_page])
+      @total = @wished_products
+
+      render json: {
+            data: @result,
+            meta: set_meta_pagination
+        }, status: 200
+
     end
 
     def sorting_by
@@ -69,5 +90,12 @@ module Api::V1::Products
       render json: @sorted_by_wishes, status: 200
       # Product.all
     end
+
+    private
+
+    def set_meta_pagination
+      PaginationService.build_meta(@result, @total, params[:per_page], request)
+    end
+
   end
 end
