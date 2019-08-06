@@ -56,13 +56,15 @@ module Api::V1::Products
 
     def wished_ones
       categories    = params[:categories].try(:split, '-').try(:map, &:to_i)
+      subcategories    = params[:subcategories].try(:split, '-').try(:map, &:to_i)
       search        = params[:q] || nil
       # byebug
       @wished_products = @productable.products
                                      .left_joins(:wishes)
                                      .ransack(categories_id_in: categories).result
+                                     .ransack(subcategories_id_in: subcategories).result
                                      .where('wishes.id IS NOT NULL')
-      
+
       @wished_products = Product.where(id: @wished_products.pluck(:id)).ransack(name_cont: search).result unless search.nil?
 
       @wished_products = @wished_products.as_json(
