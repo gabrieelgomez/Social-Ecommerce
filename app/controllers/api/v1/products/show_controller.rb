@@ -67,7 +67,7 @@ module Api::V1::Products
 
       @wished_products = Product.where(id: @wished_products.pluck(:id)).ransack(name_cont: search).result unless search.nil?
 
-      @wished_products = @wished_products.as_json(
+      @wished_products = @wished_products.uniq.as_json(
                                             only: %i[id cover name price created_at],
                                             methods: %i[owner total_wishes links url_get]
                                           )
