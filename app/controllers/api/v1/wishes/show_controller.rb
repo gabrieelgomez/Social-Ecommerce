@@ -25,8 +25,11 @@ module Api::V1::Wishes
     end
 
     def wished_products
-      response = params[:response] || false
-      @wishes  = @product.wishes.where(response: response).page(params[:page]).per(params[:per_page])
+      response   = params[:response] || false
+      start_date = params[:start_date]
+      end_date   = params[:end_date]
+
+      @wishes  = @product.wishes.where(response: response).date_between(start_date, end_date)
       @result  = Kaminari.paginate_array(@wishes).page(params[:page]).per(params[:per_page])
       @total   = @wishes
 
