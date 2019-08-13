@@ -56,14 +56,20 @@ module Api::V1::Products
 
     def wished_ones
       categories    = params[:categories].try(:split, '-').try(:map, &:to_i)
-      subcategories    = params[:subcategories].try(:split, '-').try(:map, &:to_i)
+      subcategories = params[:subcategories].try(:split, '-').try(:map, &:to_i)
       search        = params[:q] || nil
-      # byebug
+      start_date    = params[:start_date]
+      end_date      = params[:end_date]
+
       @wished_products = @productable.products
-                                     .left_joins(:wishes)
+                                     .joins(:wishes)
+                                     .includes(:wishes)
+                                     .merge(Wish.date_between(start_date, end_date))
                                      .ransack(categories_id_in: categories).result
                                      .ransack(subcategories_id_in: subcategories).result
-                                     .where('wishes.id IS NOT NULL')
+                                     .order('wishes.id asc')
+                                     # .where('wishes.id IS NOT NULL')
+                                     # .left_joins(:wishes)
 
       @wished_products = Product.where(id: @wished_products.pluck(:id)).ransack(name_cont: search).result unless search.nil?
 

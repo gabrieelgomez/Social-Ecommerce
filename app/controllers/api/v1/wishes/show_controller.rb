@@ -30,13 +30,14 @@ module Api::V1::Wishes
       end_date   = params[:end_date]
 
       @wishes  = @product.wishes.where(response: response).date_between(start_date, end_date)
+      @wishes  = @wishes.as_json(only: %i[id name budget prority response sent private description created_at updated_at deleted_at], methods: %i[user wisheable])
       @result  = Kaminari.paginate_array(@wishes).page(params[:page]).per(params[:per_page])
       @total   = @wishes
 
       render json: {
             data: @result,
             meta: set_meta_pagination
-        }, status: 200
+        }, status: 200, each_serializer: WishSerializer
     end
 
     private

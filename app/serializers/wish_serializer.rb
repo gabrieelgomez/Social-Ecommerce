@@ -1,6 +1,6 @@
 class WishSerializer < ActiveModel::Serializer
   attributes :id, :name, :budget, :description, :user, :response, :sent,
-             :wisheable, :priority, :created_time
+             :wisheable, :priority, :private, :created_time, :deleted_at, :updated_at
 
   def wisheable
     wisheable = object.wisheable
