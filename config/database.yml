@@ -84,7 +84,10 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: bigwave-api_production
-  username: bigwave-api
-  password: <%= ENV['BIGWAVE-API_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  encoding: unicode
+  username: deploy
+  password: 123456
+  pool: 5
+  timeout: 5000
+  database: bigwave_api
