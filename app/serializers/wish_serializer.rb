@@ -1,6 +1,6 @@
 class WishSerializer < ActiveModel::Serializer
   attributes :id, :name, :budget, :description, :user, :response, :sent,
-             :wisheable, :priority, :private, :created_time, :deleted_at, :updated_at
+             :wisheable, :priority, :private, :created_time, :deleted_at, :updated_at, :sended_wish
 
   def wisheable
     wisheable = object.wisheable
@@ -18,4 +18,10 @@ class WishSerializer < ActiveModel::Serializer
   def created_time
     object.created_at.strftime("%F / %T")
   end
+
+  def sended_wish
+    sended_wish = object.sended_wish
+    sended_wish.as_json(only: %i[id user_id profile_id wish_id], methods: %i[answer_wish])
+  end
+
 end
