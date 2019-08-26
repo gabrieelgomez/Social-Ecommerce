@@ -1,5 +1,5 @@
 class WishSerializer < ActiveModel::Serializer
-  attributes :id, :name, :budget, :description, :user, :response, :sent,
+  attributes :id, :name, :budget, :description, :user, :owner, :response, :sent,
              :wisheable, :priority, :private, :created_time, :deleted_at, :updated_at, :sended_wish
 
   def wisheable
@@ -22,6 +22,11 @@ class WishSerializer < ActiveModel::Serializer
   def sended_wish
     sended_wish = object.sended_wish
     sended_wish.as_json(only: %i[id user_id profile_id wish_id], methods: %i[answer_wish])
+  end
+
+  def owner
+    wisheable = object.wisheable
+    wisheable.productable
   end
 
 end
