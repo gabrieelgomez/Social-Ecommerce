@@ -50,7 +50,7 @@ class Wish < ApplicationRecord
   end
 
   def mine?(user)
-    self.user == user
+    self.user == user || user.profile_ids.include?(wisheable.productable.id)
   end
 
   def create_notify
