@@ -17,7 +17,6 @@ class FilterService
     objects_ids = objects.map &:id
     @categories = []
 
-    # byebug
     categories.each do |category|
       total_category = 0
 

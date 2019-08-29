@@ -16,7 +16,6 @@ module Api::V1::ShoppingCarts
     end
 
     def multiple_remove
-      # byebug
       Item.destroy @multiple_items
     rescue ActiveRecord::RecordNotFound => err
       render json: {

@@ -15,7 +15,6 @@ class Profile < ApplicationRecord
 
   # scope :cotizations do
   #   # where(senderable: current_user).or(where(recipientable: current_user))
-  #   byebug
   # end
 
   # scope :cotizations, joins(:conversations).where(type_messages: 'cotizations')

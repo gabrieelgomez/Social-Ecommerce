@@ -5,7 +5,6 @@ class EducationalDescription < ApplicationRecord
 
   def add_coins
     average = [institution.blank?, degree.blank?, academic_discipline.blank?, note.blank?, activities_groups.blank?, start_date.blank?, end_date.blank?, current.blank?, description.blank?, files.blank?]
-    # byebug
     if average.count(false) >= 8 && !half_coins
       @type = "80% datos completados de educational description #{self.institution}"
       @amount = 80

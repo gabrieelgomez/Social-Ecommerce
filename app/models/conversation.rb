@@ -6,6 +6,7 @@ class Conversation < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :membership_conversations, dependent: :destroy
   has_one :cotization, dependent: :destroy
+  has_one :answer_wish, dependent: :destroy
   after_create :assign_conversation_membership
   after_create :create_crm_client, if: :between_client_and_profile?
   after_create :send_notify_cable

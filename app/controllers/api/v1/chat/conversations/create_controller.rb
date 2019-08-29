@@ -4,9 +4,7 @@ module Api::V1::Chat::Conversations
     before_action :set_senderable
 
     def create
-      # byebug
       @conversation = Conversation.get(@senderable, @recipientable, params[:type_messages])
-      # byebug
       if @conversation.valid?
         render json: @conversation, status: 200
       else

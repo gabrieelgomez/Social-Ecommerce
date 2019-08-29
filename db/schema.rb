@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190204175821) do
+ActiveRecord::Schema.define(version: 20190828210440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20190204175821) do
     t.text "special_conditions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "conversation_id"
     t.index ["profile_id"], name: "index_answer_wishes_on_profile_id"
     t.index ["sended_wish_id"], name: "index_answer_wishes_on_sended_wish_id"
   end

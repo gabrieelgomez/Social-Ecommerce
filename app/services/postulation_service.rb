@@ -1,12 +1,11 @@
 class PostulationService
 
   def self.create_structure(job_offer, user, postulation)
-    # byebug
     new_postulation = Postulation.new(
       user: user,
       job_offer: job_offer
     )
-    
+
     questions = postulation[:questions].map do |post|
       q = Question.find(post[:id])
       pq = PostulationsQuestion.new(

@@ -1,5 +1,5 @@
 module Search
-  
+
   class SearchService
     def self.deep_search(params)
       search = params[:q] || ''
@@ -10,9 +10,7 @@ module Search
       # profiles_by_q = filter_by_q(search)
       profiles_by_cat = filter_by_catgs(categories,
                                         search).to_a
-      # byebug
       # profiles = (profiles_by_cat)
-      # byebug
 
       # Filtering products
       products_q = products_by_q(search)
@@ -35,13 +33,11 @@ module Search
     #   Profile.ransack(name_or_description_or_title_cont: search)
     #          .result
     #          .to_a
-    #   # byebug
     # end
 
     # Filter products by :q param
     def self.products_by_q(search)
       return [] if search.blank?
-      # byebug
       Product.ransack(name_cont: search).result.to_a
     end
 
