@@ -11,8 +11,9 @@ module Api::V1::Wishes::AnswerWishes
       recipientable = @answer.sended_wish.user
       Conversation.current_user = senderable
       conversation  = Conversation.create(senderable: senderable, recipientable: recipientable, type_messages: 'wish')
+
       msg = conversation.messages.new(
-        body: @answer.message + '. ' + @answer.special_conditions,
+        body: @answer.message,
         messageable: senderable
       )
 
