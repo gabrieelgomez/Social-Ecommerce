@@ -24,9 +24,10 @@ class AnswerWish < ApplicationRecord
   end
 
   def set_profile
+    # new_answer_wish
     Conversation.current_user = sended_wish.profile
     @data = {
-      type: 'new_answer_wish',
+      type: 'new_conversation',
       body: self.conversation.as_json(
         only: [
           :id
@@ -43,9 +44,10 @@ class AnswerWish < ApplicationRecord
   end
 
   def set_user
+    # new_answer_wish
     Conversation.current_user = sended_wish.user
     @data = {
-      type: 'new_answer_wish',
+      type: 'new_conversation',
       body: self.conversation.as_json(
         only: [
           :id

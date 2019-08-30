@@ -5,7 +5,7 @@ class MessageBroadcastJob < ApplicationJob
     # Do something later
     senderable = message.messageable
     recipientable = message.conversation.opposed_chater(senderable)
-    return if message.conversation.type_conversation == 'cotization' && message.conversation.messages.count <= 1
+    return if (message.conversation.type_conversation == 'cotization' || message.conversation.type_conversation == 'wish') && message.conversation.messages.count <= 1
     broadcast_to_sender(senderable, message)
     broadcast_to_recipient(recipientable, message)
   end
