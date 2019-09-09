@@ -10,7 +10,7 @@ namespace :products do
 end
 
 scope module: 'products' do
-  get '/wished_products', to: 'show#wished_ones'
+  get '/wished_products', to: 'show#wished_products'
 end
 
 

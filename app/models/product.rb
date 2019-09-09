@@ -113,6 +113,9 @@ class Product < ApplicationRecord
     return products
   end
 
+  def last_wish_date
+    wishes.sort.reverse.last.created_at.strftime('%Y-%m-%d')
+  end
   # End Methods by filters and searchs
 
 

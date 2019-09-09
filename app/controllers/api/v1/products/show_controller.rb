@@ -1,7 +1,7 @@
 module Api::V1::Products
   class ShowController < ProductsController
     before_action :authenticate_v1_user!, only: %i[show_own]
-    before_action :public_productable, only: %i[show index wished_ones]
+    before_action :public_productable, only: %i[show index wished_products]
     before_action :set_product, only: %i[show]
 
     include ::Api::V1::Concerns::ProductSearch
@@ -54,12 +54,12 @@ module Api::V1::Products
       render json: Product.all, status: 200
     end
 
-    def wished_ones
+    def wished_products
       categories    = params[:categories].try(:split, '-').try(:map, &:to_i)
       subcategories = params[:subcategories].try(:split, '-').try(:map, &:to_i)
       search        = params[:q] || nil
-      start_date    = params[:start_date]
-      end_date      = params[:end_date]
+      start_date    = params[:start_date]&.to_datetime if params[:start_date]
+      end_date      = params[:end_date]&.to_datetime + 1.days if params[:end_date]
 
       @wished_products = @productable.products
                                      .joins(:wishes)
@@ -67,11 +67,12 @@ module Api::V1::Products
                                      .merge(Wish.date_between(start_date, end_date))
                                      .ransack(categories_id_in: categories).result
                                      .ransack(subcategories_id_in: subcategories).result
-                                     .order('wishes.id asc')
-                                     # .where('wishes.id IS NOT NULL')
+                                     .where('wishes.id IS NOT NULL')
+                                     # .order('wishes.id asc')
                                      # .left_joins(:wishes)
 
       @wished_products = Product.where(id: @wished_products.pluck(:id)).ransack(name_cont: search).result unless search.nil?
+      @wished_products = @wished_products.sort_by{|product| product.last_wish_date}.reverse if @wished_products
 
       @wished_products = @wished_products.uniq.as_json(
                                             only: %i[id cover name price created_at],
