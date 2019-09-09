@@ -5,6 +5,6 @@ namespace :wishes do
   post '/create', to: 'create#create'
   put '/:wish_id/destroy', to: 'destroy#destroy'
   put '/:wish_id/update', to: 'update#update'
-  get '/products/:product_id', to: 'show#wished_products'
+  get '/products/:product_id', to: 'show#wishes_by_products'
 end
 # --- Wishes routes - end

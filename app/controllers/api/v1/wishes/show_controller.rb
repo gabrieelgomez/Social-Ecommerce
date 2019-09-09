@@ -1,7 +1,7 @@
 module Api::V1::Wishes
   class ShowController < WishesController
-    before_action :authenticate_v1_user!, except: [:wishes_by_user, :wished_products]
-    before_action :set_product, only: %[wished_products]
+    before_action :authenticate_v1_user!, except: [:wishes_by_user, :wishes_by_products]
+    before_action :set_product, only: %[wishes_by_products]
 
     def my_wishes
       @user      = current_v1_user
@@ -24,12 +24,13 @@ module Api::V1::Wishes
       render json: @wishes, status: 200
     end
 
-    def wished_products
+    def wishes_by_products
+      return false unless @product
       response   = params[:response] || false
-      start_date = params[:start_date]
-      end_date   = params[:end_date]
+      start_date = params[:start_date]&.to_datetime
+      end_date   = params[:end_date]&.to_datetime + 1&.days
 
-      @wishes  = @product.wishes.where(response: response).date_between(start_date, end_date)
+      @wishes  = @product&.wishes&.where(response: response)&.date_between(start_date, end_date)
       @wishes  = @wishes.as_json(only: %i[id name budget prority response sent private description created_at updated_at deleted_at], methods: %i[user wisheable], include: [:sended_wish=>{only: %i[id user_id, profile_id wish_id], methods: %i[answer_wish]}])
       @result  = Kaminari.paginate_array(@wishes).page(params[:page]).per(params[:per_page])
       @total   = @wishes
