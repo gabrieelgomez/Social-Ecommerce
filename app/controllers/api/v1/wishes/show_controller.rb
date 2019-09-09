@@ -27,8 +27,8 @@ module Api::V1::Wishes
     def wishes_by_products
       return false unless @product
       response   = params[:response] || false
-      start_date = params[:start_date]&.to_datetime
-      end_date   = params[:end_date]&.to_datetime + 1&.days
+      start_date = params[:start_date]&.to_datetime if params[:start_date]
+      end_date   = params[:end_date]&.to_datetime + 1.days if params[:end_date]
 
       @wishes  = @product&.wishes&.where(response: response)&.date_between(start_date, end_date)
       @wishes  = @wishes.as_json(only: %i[id name budget prority response sent private description created_at updated_at deleted_at], methods: %i[user wisheable], include: [:sended_wish=>{only: %i[id user_id, profile_id wish_id], methods: %i[answer_wish]}])
