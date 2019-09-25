@@ -19,11 +19,44 @@ module DeviseTokenAuth
         @resource = find_resource(field, q_value)
       end
 
-      if @resource && valid_params?(field, q_value) && (!@resource.respond_to?(:active_for_authentication?) || @resource.active_for_authentication?)
+      if !params[:email].blank? && !params[:id].blank?
+        @resource = User.find_by(email: params[:email])
+
+        if @resource.nil?
+          @resource = User.new(
+            email:                 params[:email],
+            password:              '123123123',
+            password_confirmation: '123123123',
+            name:                  params[:firstName],
+            lastname:              params[:lastName],
+            omniauth_provider:     params[:provider],
+            omniauth_id:           params[:id]
+          )
+        elsif @resource.omniauth_id.nil?
+          @resource.update(
+            omniauth_provider:     params[:provider],
+            omniauth_id:           params[:id]
+          )
+        elsif @resource.omniauth_id
+          render_create_error_bad_credentials unless @resource.omniauth_id == params[:id]
+          return unless @resource.omniauth_id == params[:id]
+        end
+
+        @client_id, @token = @resource.create_token
+        @resource.save
+
+        sign_in(:user, @resource, store: false, bypass: false)
+
+        yield @resource if block_given?
+
+        render_create_success
+
+      elsif @resource && valid_params?(field, q_value) && (!@resource.respond_to?(:active_for_authentication?) || @resource.active_for_authentication?)
         valid_password = @resource.valid_password?(resource_params[:password])
         if (@resource.respond_to?(:valid_for_authentication?) && !@resource.valid_for_authentication? { valid_password }) || !valid_password
          return render_create_error_bad_credentials
         end
+
         @client_id, @token = @resource.create_token
         @resource.save
 
