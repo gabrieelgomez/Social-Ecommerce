@@ -167,6 +167,9 @@ GEM
     geocoder (1.5.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    haml (5.1.2)
+      temple (>= 0.8.0)
+      tilt
     has_secure_token (1.0.0)
       activerecord (>= 3.0)
     hashie (3.6.0)
@@ -305,8 +308,10 @@ GEM
     sshkit (1.19.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    temple (0.8.2)
     thor (0.20.3)
     thread_safe (0.3.6)
+    tilt (2.0.10)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     validates_email_format_of (1.6.3)
@@ -343,6 +348,7 @@ DEPENDENCIES
   faker!
   friendly_id (= 5.2.4)
   geocoder (~> 1.4, >= 1.4.7)
+  haml
   has_secure_token (~> 1.0)
   intranet!
   kaminari
