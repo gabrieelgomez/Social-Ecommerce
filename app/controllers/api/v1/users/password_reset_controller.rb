@@ -8,14 +8,14 @@ module Api::V1::Users
       expiration = ((Time.now) - @user.request_change_password)/60 > 5
 
       if expiration
-        @user.update(token: nil)
+        @user.update(custom_token: nil)
         render json: { errors: 'Token expiró, solicite uno nuevo' }, status: 500
 
       elsif params[:password] != params[:password_confirmation]
         render json: { errors: 'Las contraseñas no coinciden, solicite' }, status: 500
 
       else
-        @user.update(token: nil, request_change_password: Time.now, password: params[:password])
+        @user.update(custom_token: nil, request_change_password: Time.now, password: params[:password])
         render json: { message: '¡Contraseña cambiada satisfactoriamente!' }, status: 200
       end
     end
