@@ -9,13 +9,15 @@ module Api::V1::Users
 
       if expiration
         @user.update(custom_token: nil)
-        render json: { errors: 'Token expiró, solicite uno nuevo' }, status: 500
+        render json: { errors: 'Token expiró, solicite uno nuevo' }, status: 200
 
       elsif params[:password] != params[:password_confirmation]
-        render json: { errors: 'Las contraseñas no coinciden, solicite' }, status: 500
+        render json: { errors: 'Las contraseñas no coinciden, solicite' }, status: 200
 
       else
-        @user.update(custom_token: nil, request_change_password: Time.now, password: params[:password])
+        @user.tokens = nil
+        @user.update_columns(custom_token: nil, request_change_password: Time.now)
+        @user.update(password: params[:password])
         render json: { message: '¡Contraseña cambiada satisfactoriamente!' }, status: 200
       end
     end
@@ -28,7 +30,7 @@ module Api::V1::Users
     end
 
     def user_not_found
-      render json: { errors: 'User not found' }, status: 500
+      render json: { errors: 'User not found' }, status: 200
     end
 
   end

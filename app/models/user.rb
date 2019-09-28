@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
 
   def send_request_password_change
     token = SecureRandom.hex(3)
-    self.update(custom_token: token, request_change_password: Time.now)
+    self.update_columns(custom_token: token, request_change_password: Time.now)
     ResetPassword.send_token(self).deliver_now
   end
 
