@@ -51,7 +51,7 @@ gem 'city-state', '~> 0.0.13'
 
 # Devise for authentication
 gem 'devise_token_auth'
-gem 'omniauth-google-oauth2'
+# gem 'omniauth-google-oauth2'
 #gem 'omniauth-facebook'
 
 # Decorators
