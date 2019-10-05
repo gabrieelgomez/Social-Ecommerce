@@ -5,11 +5,11 @@ test:
   adapter: test
 
 production:
-  # adapter: async
+  adapter: async
 
-  # hola
   # url: redis://localhost:6379
   # adapter: redis
   # channel_prefix: bigwave_api_production
- adapter: redis
- url: redis://redis.api.ibigwave.com:6379
+
+ # adapter: redis
+ # url: redis://redis.api.ibigwave.com:6379
