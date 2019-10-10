@@ -13,6 +13,9 @@ class Profile < ApplicationRecord
   after_create :create_social_account_and_schedule
   before_save :set_url#, :create_locations
 
+  mount_base64_uploader :photo, ImageUploader
+  mount_base64_uploader :banner, ImageUploader
+
   # scope :cotizations do
   #   # where(senderable: current_user).or(where(recipientable: current_user))
   # end

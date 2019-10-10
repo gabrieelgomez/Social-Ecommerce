@@ -73,6 +73,10 @@ module DeviseTokenAuth
 
     def update
       if @resource
+        avatar = account_update_params.dig(:avatar)
+        banner = account_update_params.dig(:banner)
+        @resource.banner = banner.split('jpeg').join('png') unless banner.nil?
+        @resource.avatar = avatar.split('jpeg').join('png') unless avatar.nil?
         if @resource.send(resource_update_method, account_update_params)
           yield @resource if block_given?
           render_update_success

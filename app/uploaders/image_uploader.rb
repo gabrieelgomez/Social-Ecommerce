@@ -17,10 +17,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   return "http://localhost:3000"
   # end
 
-  def default_url
-    # "#{asset_host}#{ActionController::Base.helpers.asset_path("default.png")}"
-    "#{asset_host}/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  end
+  # def default_url
+  #   # "#{asset_host}#{ActionController::Base.helpers.asset_path("default.png")}"
+  #   "#{asset_host}/images/fallback/" + [version_name, "default.png"].compact.join('_')
+  # end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
