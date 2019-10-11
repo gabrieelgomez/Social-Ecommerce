@@ -5,12 +5,7 @@ module Api::V1::Users
     def create_or_find
       if @user
         @user.update!(temporal_password: SecureRandom.hex(3))
-
-        if @change_password
-          render json: {email: @user.email, temporal_password: @user.temporal_password, provider: params[:provider], change_password: true}, status: 200
-        else
-          render json: {email: @user.email, temporal_password: @user.temporal_password, provider: params[:provider]}, status: 200
-        end
+        render json: {email: @user.email, temporal_password: @user.temporal_password, provider: params[:provider], change_password: @change_password}, status: 200
 
       else
         render json: {errors: 'Not found provider.'}, status: 200
@@ -21,7 +16,7 @@ module Api::V1::Users
 
     def set_user
       @user = User.find_by(email: params[:email])
-
+      @change_password = false
       unless @user
         @user = User.new(
           name:              params[:firstName],
