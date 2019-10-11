@@ -96,7 +96,11 @@ module DeviseTokenAuth
         return render_update_error_missing_password
       end
 
-      if @resource.send(resource_update_method, password_resource_params)
+      # if @resource.send(resource_update_method, password_resource_params)
+      if @resource.update(password: password_resource_params[:password])
+
+        @resource.update(nickname: @resource.nickname.split('cp7cr7').join('')) if @resource.nickname.include?('cp7cr7')
+
         @resource.allow_password_change = false if recoverable_enabled?
         @resource.save!
 
