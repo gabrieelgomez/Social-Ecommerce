@@ -7,7 +7,7 @@ module Api::V1::Users
         @user.update!(temporal_password: SecureRandom.hex(3))
 
         if @change_password
-          render json: {email: @user.email, temporal_password: @user.temporal_password, provider: params[:provider], message: 'You have a provisional password, if you want to sign in normally, please change your password from the user profile.'}, status: 200
+          render json: {email: @user.email, temporal_password: @user.temporal_password, provider: params[:provider], message: true}, status: 200
         else
           render json: {email: @user.email, temporal_password: @user.temporal_password, provider: params[:provider]}, status: 200
         end
