@@ -17,7 +17,7 @@ module Api::V1::Users
       @user = User.find_by(email: params[:email])
 
       unless @user
-        @user.new(
+        @user = User.new(
           name:              params[:firstName],
           last_name:         params[:lastName],
           nickname:          params[:name]&.parameterize || SecureRandom.hex(6) + params[:email],
