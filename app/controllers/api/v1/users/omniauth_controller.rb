@@ -19,11 +19,12 @@ module Api::V1::Users
       unless @user
         @user = User.new(
           name:              params[:firstName],
-          last_name:         params[:lastName],
+          lastname:          params[:lastName],
           nickname:          params[:name]&.parameterize || SecureRandom.hex(6) + params[:email],
           email:             params[:email],
           omniauth_provider: params[:provider],
-          omniauth_id:       params[:id]
+          omniauth_id:       params[:id],
+          password:          SecureRandom.hex(6)
         )
 
         @user.save! if @user.valid?
