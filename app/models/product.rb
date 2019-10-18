@@ -152,7 +152,7 @@ class Product < ApplicationRecord
   end
 
   def total_wishes
-    wishes.count
+    wishes.to_a.uniq{|wish| wish.user_id}.uniq.count
   end
 
   def self.sorter_by_wish(priority)

@@ -14,7 +14,11 @@ module Api::V1::Wishes
       )
       @wish.sent = true
 
-      if @wish.save
+      have_wish = current_v1_user.wishes.where(wisheable_id: wish_params[:wisheable_id], wisheable_type: wish_params[:wisheable_type])&.count&.positive?
+
+      if have_wish
+        render json: {error: 'You have already wished this product'}, status: 200
+      elsif @wish.save
         render json: @wish, status: 200
       else
         render json: @wish.errors, status: 500
