@@ -163,6 +163,7 @@ Rails.application.routes.draw do
         get '/sort_by_wishes', to: 'show#sorting_by'
         put '/:id/status', to: 'products#status'
         get '/:id/wished', to: 'products#wished'
+        put '/:product_id/unwish', to: 'action#unwish'
       end
 
       # --- Product routes and related to them

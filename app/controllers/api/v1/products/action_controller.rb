@@ -1,9 +1,10 @@
 module Api::V1::Products
   class ActionController < ProductsController
     before_action :authenticate_v1_user!
-    before_action :current_user_productable
+    before_action :current_user_productable, except: %i[unwish]
     before_action :validate_password, only: %i[destroy]
     before_action :set_product, only: %i[destroy update update_status status]
+    before_action :set_wishes, only: %i[unwish]
 
     include ::Api::V1::Concerns::ProductSearch
     include ::Api::V1::Concerns::ModelModulation
@@ -98,5 +99,27 @@ module Api::V1::Products
                status: 500
       end
     end
+
+
+    def unwish
+      if @wishes.destroy_all
+        render json: {wish: 'Deleted'}, status: 200
+      else
+        render json: @wishes.errors, status: 202
+      end
+    end
+
+    private
+
+    def set_wishes
+      @wishes = current_v1_user&.wishes&.where(wisheable_id: params[:product_id])
+      return @wishes if @wishes
+      render json: {
+        error: [
+          'Register could not be found'
+        ]
+      }, status: 202
+    end
+
   end
 end
