@@ -11,6 +11,7 @@ module Api::V1::Independents
         render json: @independent, status: 200
       else
         render json: @independent.errors,
+               own: true,
                status: 500
       end
     end

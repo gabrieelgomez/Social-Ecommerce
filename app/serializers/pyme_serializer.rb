@@ -2,6 +2,7 @@ class PymeSerializer < ProfileSerializer
   attributes :products
 
   def products
+    return if @instance_options[:own]
     object.products.map do |product|
       product.as_json(
         include: [
@@ -14,4 +15,5 @@ class PymeSerializer < ProfileSerializer
       )
     end
   end
+
 end

@@ -6,4 +6,6 @@ namespace :users do
   get '/current', to: 'show#get_current_user'
   get '/:id', to: 'show#show'
   post 'omniauth/:provider', to: 'omniauth#create_or_find'
+  get 'validates/nickname', to: 'general#validate_nickname'
+  put 'update/nickname', to: 'general#update_nickname'
 end

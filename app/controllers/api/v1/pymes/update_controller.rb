@@ -9,7 +9,7 @@ module Api::V1::Pymes
       if @pyme.update(general_params(:pyme))
         @pyme.update(slug: params[:pyme][:slug].parameterize) if params[:pyme][:slug]
         @pyme.schedule.update(params[:schedule]) if params[:schedule]
-        render json: @pyme, status: 200
+        render json: @pyme, own: true, status: 200
       else
         render json: @pyme.errors, status: 500
       end

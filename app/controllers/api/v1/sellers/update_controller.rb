@@ -10,7 +10,7 @@ module Api::V1::Sellers
       if @seller.update(general_params(:seller))
         @seller.update(slug: params[:seller][:slug].parameterize) if params[:seller][:slug]
         @seller.schedule.update(params[:schedule]) if params[:schedule]
-        render json: @seller, status: 200
+        render json: @seller, own: true, status: 200
       else
         render json: @seller.errors, status: 500
       end

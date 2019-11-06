@@ -18,7 +18,7 @@ module Api::V1::Independents
     end
 
     def own_independents
-      render json: current_v1_user.independents, status: 200
+      render json: current_v1_user.independents, own: true, status: 200
     end
   end
 end

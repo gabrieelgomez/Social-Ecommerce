@@ -19,6 +19,7 @@ module Api::V1::Sellers
 
     def own_sellers
       render json: current_v1_user.seller,
+             own: true,
              status: 200
     end
   end

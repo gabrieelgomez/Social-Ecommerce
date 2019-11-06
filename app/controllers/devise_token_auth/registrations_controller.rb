@@ -2,7 +2,7 @@ module DeviseTokenAuth
   class RegistrationsController < DeviseTokenAuth::ApplicationController
     before_action :set_user_by_token, only: [:destroy, :update]
     before_action :validate_sign_up_params, only: :create
-    before_action :validate_account_update_params, only: :update
+    # before_action :validate_account_update_params, only: :update
     skip_after_action :update_auth_header, only: [:create, :destroy]
 
     def create
@@ -77,7 +77,8 @@ module DeviseTokenAuth
         banner = account_update_params.dig(:banner)
         @resource.banner = banner.split('jpeg').join('png') unless banner.nil?
         @resource.avatar = avatar.split('jpeg').join('png') unless avatar.nil?
-        if @resource.send(resource_update_method, account_update_params)
+        # if @resource.send(resource_update_method, account_update_params)
+        if @resource.send('update_attributes', account_update_params)
           yield @resource if block_given?
           render_update_success
         else
