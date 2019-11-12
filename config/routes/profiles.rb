@@ -27,6 +27,10 @@ namespace :profiles do
 
   put '/:profile_id/change_profile_type', to: 'update#change_type_profile'
 
+  # Features
+  get 'most_used_by_current_user', to: 'profiles#most_used_by_current_user'
+  get 'most_recent', to: 'profiles#most_recent'
+
   namespace :categories do
     post '/', to: 'actions#create'
     get '/', to: 'show#index'

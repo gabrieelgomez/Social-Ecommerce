@@ -29,9 +29,10 @@ module Api::V1::Users
         )
 
         @change_password = true
-
+        @user.update(tokens: nil)
         @user.save! if @user.valid?
       else
+        @user.update(tokens: nil)
         @user.update(
           omniauth_provider: params[:provider],
           omniauth_id:       params[:id]

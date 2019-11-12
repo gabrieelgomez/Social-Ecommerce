@@ -26,7 +26,7 @@ class Product < ApplicationRecord
   # has_and_belongs_to_many :shopping_cars
   has_many :shopping_carts, through: :items
   has_many :items
-  belongs_to :productable, polymorphic: true
+  belongs_to :productable, polymorphic: true, touch: true
   has_many :photos, as: :photoable, dependent: :delete_all
   has_many :documents, as: :documentable, dependent: :delete_all
   has_many :wishes, as: :wisheable
