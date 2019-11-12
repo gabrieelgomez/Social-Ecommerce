@@ -21,13 +21,13 @@ module Api::V1
     end
 
     def most_used_by_current_user
-      @profiles = current_v1_user.profiles.order(updated_at: :desc).take(5)
-      render json: @profiles, own: true, status: 200
+      @profiles = current_v1_user.profiles.order(updated_at: :desc).take(5).uniq.as_json(only: %i[id title slug photo created_at updated_at type_profile countries_codes states_codes], methods: :category_ids)
+      render json: {data: @profiles}, own: true, status: 200
     end
 
     def most_recent
-      @profiles = Profile.order(created_at: :desc)
-      render json: @profiles, own: true, status: 200
+      @profiles = Profile.order(created_at: :desc).uniq.as_json(only: %i[id title slug photo created_at updated_at type_profile countries_codes states_codes], methods: :category_ids)
+      render json: {data: @profiles}, own: true, status: 200
     end
 
     private
