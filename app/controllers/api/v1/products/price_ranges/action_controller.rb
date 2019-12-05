@@ -37,7 +37,7 @@ module Api::V1::Products::PriceRanges
     private
 
     def set_price_range
-      @price_range = custom_find { 
+      @price_range = custom_find {
         @product.price_ranges.find(params[:price_range_id])
       }
     end

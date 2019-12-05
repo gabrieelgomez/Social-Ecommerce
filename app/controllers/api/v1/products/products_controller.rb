@@ -3,6 +3,8 @@ module Api::V1
     before_action :authenticate_v1_user!, only: [:wished]
     before_action :set_product, only: %i[status]
 
+    include ::Api::V1::Concerns::ProductSearch
+    include ::Api::V1::Concerns::ModelModulation
 
     def wished
       @wish = Wish.find_by_wisheable_type_and_wisheable_id_and_user_id('Product', params[:id], current_v1_user.id)
