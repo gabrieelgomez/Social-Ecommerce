@@ -251,7 +251,7 @@ Rails.application.routes.draw do
       mount WaveWork::Engine, at: '/', as: 'wave_work'
 
       # WaveCitizen routes engine
-      mount WaveCitizen::Engine, at: '/', as: 'wave_citizen'
+      # mount WaveCitizen::Engine, at: '/', as: 'wave_citizen'
 
     end
   end
