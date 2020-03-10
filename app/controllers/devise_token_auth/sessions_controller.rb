@@ -45,7 +45,7 @@ module DeviseTokenAuth
 
           render_create_success
           @resource.update(temporal_password: SecureRandom.hex(8))
-          
+
         elsif @resource && !(!@resource.respond_to?(:active_for_authentication?) || @resource.active_for_authentication?)
           if @resource.respond_to?(:locked_at) && @resource.locked_at
             render_create_error_account_locked
@@ -112,7 +112,9 @@ module DeviseTokenAuth
 
     def render_create_success
       render json: {
-        data: resource_data(resource_json: @resource.token_validation_response)
+        data: resource_data(resource_json: @resource.token_validation_response).merge(
+          roles: @resource.roles
+        )
       }
     end
 
