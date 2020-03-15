@@ -8,4 +8,8 @@ namespace :users do
   post 'omniauth/:provider', to: 'omniauth#create_or_find'
   get 'validates/nickname', to: 'general#validate_nickname'
   put 'update/nickname', to: 'general#update_nickname'
+
+  post '/create', to: 'create#create'
+  put '/:user_id/update', to: 'update#update'
+  delete '/:user_id/destroy', to: 'destroy#destroy'
 end

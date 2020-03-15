@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
 
   after_create :create_wallet
 
+  accepts_nested_attributes_for :roles, allow_destroy: true
+
   # Helper para permitir que el modelo pueda ser seguido por otros modelos
   acts_as_followable
   # Helper para permitir que el modelo pueda seguir a otros modelos
@@ -48,11 +50,11 @@ class User < ActiveRecord::Base
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
   has_many :membership_conversations, as: :memberable
-  has_one  :shopping_cart
+  has_one  :shopping_cart, dependent: :destroy
   has_many :posts, as: :postable
   has_many :cotizations
   has_many :educational_descriptions, as: :educationable, dependent: :delete_all
-  has_many :wallets
+  has_many :wallets, dependent: :destroy
   has_many :transactions
   has_many :locations, as: :locatable
 

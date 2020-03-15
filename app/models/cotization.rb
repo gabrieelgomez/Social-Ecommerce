@@ -7,7 +7,7 @@ class Cotization < ApplicationRecord
   after_create :send_notify_cable
   after_update :send_changes
 
-  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
   validates_inclusion_of :stage, :in => %w(received answered sold lost)
 
