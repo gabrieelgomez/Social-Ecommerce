@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191011115133) do
+ActiveRecord::Schema.define(version: 20200323000626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -876,6 +876,62 @@ ActiveRecord::Schema.define(version: 20191011115133) do
     t.datetime "updated_at", null: false
     t.index ["coin_id"], name: "index_wallets_on_coin_id"
     t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
+  create_table "wave_citizen_citizens", force: :cascade do |t|
+    t.string "name"
+    t.string "banner"
+    t.string "nickname"
+    t.string "avatar"
+    t.string "email"
+    t.string "phone"
+    t.text "address"
+    t.string "web"
+    t.string "url", default: ""
+    t.string "slug"
+    t.text "description"
+    t.boolean "censured", default: false
+    t.string "dni"
+    t.datetime "birth_date"
+    t.integer "age"
+    t.string "gender"
+    t.integer "status_citizen", default: 0
+    t.jsonb "states_codes"
+    t.jsonb "countries_codes"
+    t.integer "user_id"
+    t.bigint "type_candidacy_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_wave_citizen_citizens_on_slug", unique: true
+    t.index ["type_candidacy_id"], name: "index_wave_citizen_citizens_on_type_candidacy_id"
+  end
+
+  create_table "wave_citizen_countries", force: :cascade do |t|
+    t.string "name"
+    t.string "country_code"
+    t.string "currency"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "wave_citizen_proposal_categories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "country_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_wave_citizen_proposal_categories_on_country_id"
+  end
+
+  create_table "wave_citizen_type_candidacies", force: :cascade do |t|
+    t.string "name"
+    t.bigint "country_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_wave_citizen_type_candidacies_on_country_id"
   end
 
   create_table "wave_educational_classes", force: :cascade do |t|

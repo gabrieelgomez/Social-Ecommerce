@@ -130,7 +130,12 @@ gem 'redis', '~> 4.0'
 
 #---- Intranet ----
 gem 'intranet', path: 'plugins/intranet'
+
+#---- WaveCitizen ----
+gem 'wave_citizen', path: 'plugins/wave_citizen'
+
 #---- WaveEducational ----
 gem 'wave_educational', path: 'plugins/wave_educational'
+
 #---- WaveWork ----
 gem 'wave_work', path: 'plugins/wave_work'

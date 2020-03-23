@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   scope module: 'api' do
     namespace :v1 do
 
-      # WaveEducational
+      # WaveWork
         namespace :wave_work do
 
           # JobOffers CRUD

@@ -244,6 +244,9 @@ Rails.application.routes.draw do
       # Intranet routes engine
       mount Intranet::Engine, at: '/', as: 'intranet'
 
+      # WaveCitizen routes engine
+      mount WaveCitizen::Engine, at: '/', as: 'wave_citizen'
+
       # WaveEducational routes engine
       mount WaveEducational::Engine, at: '/', as: 'wave_educational'
 
