@@ -53,6 +53,13 @@ module DeviseTokenAuth
             })
 
           else
+
+            if citizen = params.dig(:citizen, :status_citizen)
+              @resource.build_citizen(
+                status_citizen: citizen
+              )
+            end
+
             # email auth has been bypassed, authenticate user
             @client_id, @token = @resource.create_token
 
@@ -131,7 +138,7 @@ module DeviseTokenAuth
     def render_create_success
       render json: {
         status: 'success',
-        data:   resource_data
+        data:   resource_data.merge(citizen: @resource.citizen)
       }
     end
 

@@ -113,7 +113,8 @@ module DeviseTokenAuth
     def render_create_success
       render json: {
         data: resource_data(resource_json: @resource.token_validation_response).merge(
-          roles: @resource.roles
+          roles: @resource.roles,
+          citizen: @resource.citizen
         )
       }
     end
