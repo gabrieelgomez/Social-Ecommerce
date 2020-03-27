@@ -56,6 +56,9 @@ module DeviseTokenAuth
 
             if citizen = params.dig(:citizen, :status_citizen)
               @resource.build_citizen(
+                name:           @resource.name,
+                nickname:       @resource.nickname,
+                email:          @resource.email,
                 status_citizen: citizen
               )
             end
