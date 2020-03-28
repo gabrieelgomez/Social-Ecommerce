@@ -7,10 +7,10 @@ module Api::V1::WaveEducational::Sections
       @section = WaveEducational::Section.new(section_params)
       @section.course = @course
       if @section.save
-        render json: @section, status: 201
+        render json: @section, status: 200
       else
         render json: @section.errors,
-               status: 500
+               status: 422
       end
     end
 

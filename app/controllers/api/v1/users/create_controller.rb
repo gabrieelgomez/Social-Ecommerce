@@ -5,7 +5,7 @@ module Api::V1::Users
       if @user.save
         render json: @user, status: 200
       else
-        render json: @user.errors, status: 500
+        render json: @user.errors, status: 422
       end
     end
   end

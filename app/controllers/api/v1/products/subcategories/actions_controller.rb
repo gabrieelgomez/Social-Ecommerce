@@ -10,7 +10,7 @@ module Api::V1::Products::Subcategories
         render json: @subcategories, status: 200
       else
         render json: @subcategories.errors,
-               status: 500
+               status: 422
       end
     end
 
@@ -19,7 +19,7 @@ module Api::V1::Products::Subcategories
         render json: @subcategory, status: 200
       else
         render json: @subcategory.errors,
-               status: 500
+               status: 422
       end
     end
 
@@ -28,7 +28,7 @@ module Api::V1::Products::Subcategories
         render json: @subcategory, status: 200
       else
         render json: @subcategory.errors,
-               status: 500
+               status: 422
       end
     end
   end

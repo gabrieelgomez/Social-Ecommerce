@@ -4,10 +4,10 @@ module Api::V1::WaveWork::Areas
     def create
       @area = WaveWork::Area.new(area_params)
       if @area.save
-        render json: @area, status: 201
+        render json: @area, status: 200
       else
         render json: @area.errors,
-               status: 500
+               status: 422
       end
     end
 

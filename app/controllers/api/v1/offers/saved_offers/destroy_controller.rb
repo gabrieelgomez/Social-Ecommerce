@@ -8,7 +8,7 @@ module Api::V1::Offers::SavedOffers
         render json: @saved_offer, status: 200
       else
         render json: @saved_offer.errors,
-               status: 500
+               status: 422
       end
     end
 

@@ -35,7 +35,7 @@ module Api::V1::Products
         render json: @product, status: 200
       else
         render json: @product.errors,
-               status: 500
+               status: 422
       end
     end
 
@@ -67,7 +67,7 @@ module Api::V1::Products
         render json: @product, status: 200
       else
         render json: @product.errors,
-               status: 500
+               status: 422
       end
     end
 
@@ -77,7 +77,7 @@ module Api::V1::Products
       #   render json: @product.as_json(only: %i[id type name status]), status: 200
       # else
       #   render json: @product.errors,
-      #          status: 500
+      #          status: 422
       # end
     end
 
@@ -87,7 +87,7 @@ module Api::V1::Products
         render json: @product.as_json(only: %i[id type name status]), status: 200
       else
         render json: @product.errors,
-               status: 500
+               status: 422
       end
     end
 
@@ -96,7 +96,7 @@ module Api::V1::Products
         render json: @product, status: 200
       else
         render json: @product.errors,
-               status: 500
+               status: 422
       end
     end
 

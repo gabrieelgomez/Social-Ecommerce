@@ -7,7 +7,7 @@ module Api::V1::WaveWork::Exams
         render json: @exam, status: 200
       else
         render json: @exam.errors,
-               status: 500
+               status: 422
       end
     end
 

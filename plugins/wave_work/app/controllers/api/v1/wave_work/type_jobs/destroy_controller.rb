@@ -7,7 +7,7 @@ module Api::V1::WaveWork::TypeJobs
         render json: @type_job, status: 200
       else
         render json: @type_job.errors,
-               status: 500
+               status: 422
       end
     end
 

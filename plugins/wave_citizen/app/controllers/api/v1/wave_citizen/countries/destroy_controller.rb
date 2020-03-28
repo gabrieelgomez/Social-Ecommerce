@@ -7,7 +7,7 @@ module Api::V1::WaveCitizen::Countries
         render json: @country, status: 200
       else
         render json: @country.errors,
-               status: 500
+               status: 422
       end
     end
 

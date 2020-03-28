@@ -5,10 +5,10 @@ module Api::V1::WaveEducational::Teachers
       @teacher = WaveEducational::Teacher.new(teacher_params)
       @teacher.user = current_v1_user
       if @teacher.save
-        render json: @teacher, status: 201
+        render json: @teacher, status: 200
       else
         render json: @teacher.errors,
-               status: 500
+               status: 422
       end
     end
     

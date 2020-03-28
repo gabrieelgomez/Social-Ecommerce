@@ -7,7 +7,7 @@ module Api::V1::WaveWork::Requirements
       if @requirement.save
         render json: @requirement, status: 200
       else
-        render json: @requirement.errors, status: 500
+        render json: @requirement.errors, status: 422
       end
     end
 

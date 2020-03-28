@@ -9,7 +9,7 @@ module Api::V1::Intranet::Cards
         render json: @card, status: 200
       else
         render json: @card.errors,
-               status: 500
+               status: 422
       end
     end
 

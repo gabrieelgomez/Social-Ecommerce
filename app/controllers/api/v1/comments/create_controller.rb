@@ -10,7 +10,7 @@ module Api::V1::Comments
         render json: @comment, status: 200
       else
         render json: @comment.errors,
-               status: 500
+               status: 422
       end
     end
 

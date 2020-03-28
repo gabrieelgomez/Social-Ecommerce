@@ -22,7 +22,7 @@ module Api::V1
         if @profile.update(validation: params[:val_number])
           render json: @profile, status: 200
         else
-          render json: @profile.errors, status: 500
+          render json: @profile.errors, status: 422
         end
       end
 

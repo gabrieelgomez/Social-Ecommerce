@@ -8,7 +8,7 @@ module Api::V1::WaveWork::JobOffers
         render json: @job_offer, status: 200
       else
         render json: @job_offer.errors,
-               status: 500
+               status: 422
       end
     end
 

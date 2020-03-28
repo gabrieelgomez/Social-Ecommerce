@@ -8,7 +8,7 @@ module Api::V1::Chat::Messages
       if @message.save
         render json: @conversation, status: 200
       else
-        render json: @conversation.errors, status: 500
+        render json: @conversation.errors, status: 422
       end
     end
   end

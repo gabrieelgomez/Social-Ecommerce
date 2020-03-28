@@ -17,7 +17,7 @@ module Api::V1::Products::Options
                  status: 200
         else
           render json: @options.errors,
-                 status: 500
+                 status: 422
         end
       end
     end
@@ -29,7 +29,7 @@ module Api::V1::Products::Options
                status: 200
       else
         render json: @product.errors,
-               status: 500
+               status: 422
       end
     end
 
@@ -38,7 +38,7 @@ module Api::V1::Products::Options
       if @option.destroy
         render json: @option, status: 200
       else
-        render json: @option.errors, status: 500
+        render json: @option.errors, status: 422
       end
     end
 

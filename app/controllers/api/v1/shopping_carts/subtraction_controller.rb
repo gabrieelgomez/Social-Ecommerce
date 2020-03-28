@@ -11,7 +11,7 @@ module Api::V1::ShoppingCarts
       if @item.destroy
         render json: @shopping_cart, status: 200
       else
-        render json: @shopping_cart.errors, status: 500
+        render json: @shopping_cart.errors, status: 422
       end
     end
 

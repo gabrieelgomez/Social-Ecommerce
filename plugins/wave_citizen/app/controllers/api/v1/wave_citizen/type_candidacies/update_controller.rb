@@ -7,7 +7,7 @@ module Api::V1::WaveCitizen::TypeCandidacies
         render json: @type_candidacy, status: 200
       else
         render json: @type_candidacy.errors,
-               status: 500
+               status: 422
       end
     end
 

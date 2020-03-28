@@ -7,10 +7,10 @@ module Api::V1::WaveWork::Exams
       @exam = WaveWork::Exam.new(exam_params)
       @exam.examenable = @examenable
       if @exam.save
-        render json: @exam, status: 201
+        render json: @exam, status: 200
       else
         render json: @exam.errors,
-               status: 500
+               status: 422
       end
     end
 

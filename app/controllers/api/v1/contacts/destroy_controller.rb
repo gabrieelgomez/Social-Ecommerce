@@ -10,7 +10,7 @@ module Api::V1::Contacts
       if @contact.destroy
         render json: @contact, status: 200
       else
-        render json: @contact.errors, status: 500
+        render json: @contact.errors, status: 422
       end
     end
   end

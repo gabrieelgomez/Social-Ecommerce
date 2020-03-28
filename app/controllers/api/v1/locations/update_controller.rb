@@ -8,7 +8,7 @@ module Api::V1::Locations
       if @location.update(location_params)
         render json: @location, status: 200
       else
-        render json: @location.errors, status: 500
+        render json: @location.errors, status: 422
       end
     end
   end

@@ -8,7 +8,7 @@ module Api::V1::Wishes
       if @wish.update(wish_params)
         render json: @wish, status: 200
       else
-        render json: @wish.errors, status: 500
+        render json: @wish.errors, status: 422
       end
     end
   end

@@ -7,7 +7,7 @@ module Api::V1::WaveEducational::Sections
         render json: @section, status: 200
       else
         render json: @section.errors,
-               status: 500
+               status: 422
       end
     end
 

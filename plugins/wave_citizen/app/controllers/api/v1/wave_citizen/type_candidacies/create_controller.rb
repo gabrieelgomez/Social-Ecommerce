@@ -4,10 +4,10 @@ module Api::V1::WaveCitizen::TypeCandidacies
     def create
       @type_candidacy = WaveCitizen::TypeCandidacy.new(type_candidacy_params)
       if @type_candidacy.save
-        render json: @type_candidacy, status: 201
+        render json: @type_candidacy, status: 200
       else
         render json: @type_candidacy.errors,
-               status: 500
+               status: 422
       end
     end
 

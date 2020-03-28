@@ -9,7 +9,7 @@ module Api::V1::WaveEducational::CourseMemberships
         render json: @course_membership, status: 200
       else
         render json: @course_membership.errors,
-               status: 500
+               status: 422
       end
     end
 

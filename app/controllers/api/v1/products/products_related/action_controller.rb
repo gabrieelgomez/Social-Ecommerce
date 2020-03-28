@@ -12,7 +12,7 @@ module Api::V1::Products::ProductsRelated
       if @product.update(product_relations: present_prod)
         render json: @product, status: 200
       else
-        render json: @product.errors, status: 500
+        render json: @product.errors, status: 422
       end
     end
   end

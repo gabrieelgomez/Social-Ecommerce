@@ -4,10 +4,10 @@ module Api::V1::WaveCitizen::Countries
     def create
       @country = WaveCitizen::Country.new(country_params)
       if @country.save
-        render json: @country, status: 201
+        render json: @country, status: 200
       else
         render json: @country.errors,
-               status: 500
+               status: 422
       end
     end
 

@@ -8,7 +8,7 @@ module Api::V1::Products
         render json: @upload, status: 200
       else
         render json: @upload.errors,
-               status: 500
+               status: 422
       end
     end
 

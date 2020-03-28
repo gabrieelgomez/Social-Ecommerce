@@ -9,7 +9,7 @@ module Api::V1::Intranet::Checklists
         render json: @checklist, status: 200
       else
         render json: @checklist.errors,
-               status: 500
+               status: 422
       end
     end
 

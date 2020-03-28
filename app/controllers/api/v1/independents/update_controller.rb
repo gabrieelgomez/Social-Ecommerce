@@ -12,7 +12,7 @@ module Api::V1::Independents
       else
         render json: @independent.errors,
                own: true,
-               status: 500
+               status: 422
       end
     end
   end

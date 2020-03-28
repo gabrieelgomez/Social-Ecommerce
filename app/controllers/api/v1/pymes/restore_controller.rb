@@ -8,7 +8,7 @@ module Api::V1::Pymes
       if @pyme
         render json: @pyme, status: 200
       else
-        render json: @pyme.errors, status: 500
+        render json: @pyme.errors, status: 422
       end
     end
   end

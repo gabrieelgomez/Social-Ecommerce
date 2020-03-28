@@ -11,7 +11,7 @@ module Api::V1::JobOffers::Questions::QOptions
       if @option.destroy
         render json: @option, status: 200
       else
-        render json: @option.errors, status: 500
+        render json: @option.errors, status: 422
       end
     end
   end

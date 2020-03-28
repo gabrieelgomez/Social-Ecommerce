@@ -24,7 +24,7 @@ module Api::V1::Wishes::AnswerWishes
       if @answer.save
         render json: @answer, current_user: senderable, status: 200
       else
-        render json: @answer.errors, status: 500
+        render json: @answer.errors, status: 422
       end
     end
   end

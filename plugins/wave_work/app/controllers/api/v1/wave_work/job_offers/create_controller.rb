@@ -6,7 +6,7 @@ module Api::V1::WaveWork::JobOffers
       if @job_offer.save
         render json: @job_offer, status: 200
       else
-        render json: @job_offer.errors, status: 500
+        render json: @job_offer.errors, status: 422
       end
     end
 

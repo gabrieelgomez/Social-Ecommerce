@@ -7,7 +7,7 @@ module Api::V1::WaveCitizen::ProposalCategories
         render json: @proposal_category, status: 200
       else
         render json: @proposal_category.errors,
-               status: 500
+               status: 422
       end
     end
 

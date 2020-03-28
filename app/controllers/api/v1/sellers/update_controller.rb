@@ -12,7 +12,7 @@ module Api::V1::Sellers
         @seller.schedule.update(params[:schedule]) if params[:schedule]
         render json: @seller, own: true, status: 200
       else
-        render json: @seller.errors, status: 500
+        render json: @seller.errors, status: 422
       end
     end
   end

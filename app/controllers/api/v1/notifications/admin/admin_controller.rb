@@ -29,7 +29,7 @@ module Api::V1::Notifications
         render json: @notification, status: 200
       else
         render json: @notification.errors,
-               status: 500
+               status: 422
       end
     end
 

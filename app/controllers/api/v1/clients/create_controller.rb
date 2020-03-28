@@ -10,7 +10,7 @@ module Api::V1::Clients
       if @client.save
         render json: @client, status: 200
       else
-        render json: @client.errors, status: 500
+        render json: @client.errors, status: 422
       end
     end
 

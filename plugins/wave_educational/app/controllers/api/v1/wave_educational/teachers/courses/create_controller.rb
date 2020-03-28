@@ -6,10 +6,10 @@ module Api::V1::WaveEducational::Teachers::Courses
       @course = WaveEducational::Course.new(course_params)
       @course.teacher = @teacher
       if @course.save
-        render json: @course, status: 201
+        render json: @course, status: 200
       else
         render json: @course.errors,
-               status: 500
+               status: 422
       end
     end
 

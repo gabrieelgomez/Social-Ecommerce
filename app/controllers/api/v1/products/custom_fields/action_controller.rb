@@ -15,7 +15,7 @@ module Api::V1::Products::CustomFields
           render json: own_custom_fields(params[:profile_id], params[:product_id]),
                  status: 200
         else
-          render json: @custom_fields.errors, status: 500
+          render json: @custom_fields.errors, status: 422
         end
       end
     end
@@ -26,7 +26,7 @@ module Api::V1::Products::CustomFields
         render json: own_custom_fields(params[:profile_id], params[:product_id]),
                status: 200
       else
-        render json: @product.errors, status: 500
+        render json: @product.errors, status: 422
       end
 
     end
@@ -35,7 +35,7 @@ module Api::V1::Products::CustomFields
       if @custom_field.destroy
         render json: @custom_field, status: 200
       else
-        render json: @custom_field.errors, status: 500
+        render json: @custom_field.errors, status: 422
       end
     end
 

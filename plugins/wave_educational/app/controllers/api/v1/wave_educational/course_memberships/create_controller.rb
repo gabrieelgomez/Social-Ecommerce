@@ -8,10 +8,10 @@ module Api::V1::WaveEducational::CourseMemberships
       @course_membership.course = @course
 
       if @course_membership.save
-        render json: @course_membership, status: 201
+        render json: @course_membership, status: 200
       else
         render json: @course_membership.errors,
-               status: 500
+               status: 422
       end
     end
 

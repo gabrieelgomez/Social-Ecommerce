@@ -7,7 +7,7 @@ module Api::V1::Wallets
       if @wallets
         render json: @wallets, status: 200
       else
-        render json: @wallets.errors, status: 500
+        render json: @wallets.errors, status: 422
       end
     end
 
@@ -15,7 +15,7 @@ module Api::V1::Wallets
       if @wallet
         render json: @wallet, status: 200
       else
-        render json: @wallet.errors, status: 500
+        render json: @wallet.errors, status: 422
       end
     end
 

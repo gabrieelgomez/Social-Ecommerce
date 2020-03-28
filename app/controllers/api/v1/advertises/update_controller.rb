@@ -8,7 +8,7 @@ module Api::V1::Advertises
       if @advertise.update(advertise_params)
         render json: @advertise, status: 200
       else
-        render json: @advertise.errors, status: 500
+        render json: @advertise.errors, status: 422
       end
     end
 
@@ -16,7 +16,7 @@ module Api::V1::Advertises
       if @advertise.add_user_click(params[:user_id], params[:click_time])
         render json: @advertise, status: 200
       else
-        render json: @advertise.errors, status: 500
+        render json: @advertise.errors, status: 422
       end
     end
 
@@ -24,7 +24,7 @@ module Api::V1::Advertises
       if @advertise.increase_seen_count
         render json: @advertise, status: 200
       else
-        render json: @advertise.errors, status: 500
+        render json: @advertise.errors, status: 422
       end
     end
   end

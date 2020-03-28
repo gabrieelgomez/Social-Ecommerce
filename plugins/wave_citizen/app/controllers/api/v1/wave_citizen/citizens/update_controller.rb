@@ -7,7 +7,7 @@ module Api::V1::WaveCitizen::Citizens
         render json: @citizen, status: 200
       else
         render json: @citizen.errors,
-               status: 500
+               status: 422
       end
     end
 

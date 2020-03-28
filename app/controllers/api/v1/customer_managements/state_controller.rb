@@ -8,7 +8,7 @@ module Api::V1::CustomerManagements
       if @crm.toggle_active_state
         render json: @crm, status: 200
       else
-        render json: @crm, status: 500
+        render json: @crm, status: 422
       end
     end
   end

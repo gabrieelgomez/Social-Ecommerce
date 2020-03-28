@@ -14,7 +14,7 @@ module Api::V1::Wishes::SendedWishes
       if @sended_wish.save
         render json: @sended_wish, status: 200
       else
-        render json: @sended_wish.errors, status: 500
+        render json: @sended_wish.errors, status: 422
       end
     end
   end

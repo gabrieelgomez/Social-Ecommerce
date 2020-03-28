@@ -7,7 +7,7 @@ module Api::V1::WaveWork::Workers
         render json: @worker, status: 200
       else
         render json: @worker.errors,
-               status: 500
+               status: 422
       end
     end
 

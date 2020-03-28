@@ -8,7 +8,7 @@ module Api::V1::Posts
       if @post.save
         render json: @post, status: 200
       else
-        render json: @post.errors, status: 500
+        render json: @post.errors, status: 422
       end
     end
   end

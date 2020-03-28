@@ -15,7 +15,7 @@ module Api::V1::Profiles
         render json: @profile.schedule,
                status: 200
       else
-        render json: @profile.schedule.errors, status: 500
+        render json: @profile.schedule.errors, status: 422
       end
     end
 

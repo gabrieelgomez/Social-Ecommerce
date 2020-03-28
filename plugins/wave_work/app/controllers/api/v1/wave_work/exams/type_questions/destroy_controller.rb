@@ -7,7 +7,7 @@ module Api::V1::WaveWork::Exams::TypeQuestions
         render json: @type_question, status: 200
       else
         render json: @type_question.errors,
-               status: 500
+               status: 422
       end
     end
 

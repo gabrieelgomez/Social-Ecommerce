@@ -11,9 +11,9 @@ module Api::V1::Users
     def create
       @educational = @user.educational_descriptions.new(educational_description_params)
       if @educational.save!
-        render json: @educational, status: 201
+        render json: @educational, status: 200
       else
-        render json: @educational.errors, status: 500
+        render json: @educational.errors, status: 422
       end
     end
 
@@ -29,7 +29,7 @@ module Api::V1::Users
       if @educational.update(educational_description_params)
         render json: @educational, status: 200
       else
-        render json: @educational.errors, status: 500
+        render json: @educational.errors, status: 422
       end
     end
 
@@ -37,7 +37,7 @@ module Api::V1::Users
       if @educational.destroy
         render json: @educational, status: 200
       else
-        render json: @educational.errors, status: 500
+        render json: @educational.errors, status: 422
       end
     end
 

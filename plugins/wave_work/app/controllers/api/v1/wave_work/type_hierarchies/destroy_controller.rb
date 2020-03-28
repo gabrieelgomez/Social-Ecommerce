@@ -7,7 +7,7 @@ module Api::V1::WaveWork::TypeHierarchies
         render json: @type_hierarchy, status: 200
       else
         render json: @type_hierarchy.errors,
-               status: 500
+               status: 422
       end
     end
 

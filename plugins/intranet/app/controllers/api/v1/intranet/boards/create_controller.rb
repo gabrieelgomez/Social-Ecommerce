@@ -8,7 +8,7 @@ module Api::V1::Intranet::Boards
       if @board.save
         render json: @board, status: 200
       else
-        render json: @board.errors, status: 500
+        render json: @board.errors, status: 422
       end
     end
 

@@ -7,7 +7,7 @@ module Api::V1::Chat::Conversations
       if @membership.destroy
         render json: @conversation, status: 200
       else
-        render json: 'Error', status: 500
+        render json: 'Error', status: 422
       end
     end
 

@@ -11,7 +11,7 @@ module Api::V1::Rates
       if @rate.save
         render json: @rate, status: 200
       else
-        render json: @rate.errors, status: 500
+        render json: @rate.errors, status: 422
       end
     end
 
@@ -21,7 +21,7 @@ module Api::V1::Rates
         render json: @score_user, status: 200
       else
         render json: @score_user.errors,
-               status: 500
+               status: 422
       end
     end
 
@@ -30,7 +30,7 @@ module Api::V1::Rates
         render json: @rate, status: 200
       else
         render json: @rate.errors,
-               status: 500
+               status: 422
       end
     end
 

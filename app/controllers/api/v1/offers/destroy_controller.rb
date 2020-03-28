@@ -7,7 +7,7 @@ module Api::V1::Offers
       if @offer.destroy
         render json: @offer, status: 200
       else 
-        render json: @offer.errors, status: 500
+        render json: @offer.errors, status: 422
       end
     end
   end

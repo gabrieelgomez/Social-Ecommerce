@@ -7,7 +7,7 @@ module Api::V1::ContactTypes
       if @contact_type.save
         render json: @contact_type, status: 200
       else
-        render json: @contact_type.errors, status: 500
+        render json: @contact_type.errors, status: 422
       end
     end
   end

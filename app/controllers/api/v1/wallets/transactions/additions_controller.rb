@@ -16,7 +16,7 @@ module Api::V1::Wallets::Transactions
         if @transaction.save
           render json: @transaction, status: 200
         else
-          render json: @transaction.errors, status: 500
+          render json: @transaction.errors, status: 422
         end
       end
     end

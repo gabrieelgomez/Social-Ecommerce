@@ -21,7 +21,7 @@ module Api::V1::Wishes
       elsif @wish.save
         render json: @wish, status: 200
       else
-        render json: @wish.errors, status: 500
+        render json: @wish.errors, status: 422
       end
     end
   end

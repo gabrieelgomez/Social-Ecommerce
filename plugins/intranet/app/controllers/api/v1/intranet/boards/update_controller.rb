@@ -9,7 +9,7 @@ module Api::V1::Intranet::Boards
         render json: @board, status: 200
       else
         render json: @board.errors,
-               status: 500
+               status: 422
       end
     end
 

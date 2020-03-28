@@ -6,10 +6,10 @@ module Api::V1::WaveWork::Exams::TypeQuestions
       @type_question = WaveWork::TypeQuestion.new(type_question_params)
       @type_question.exam = @exam
       if @type_question.save
-        render json: @type_question, status: 201
+        render json: @type_question, status: 200
       else
         render json: @type_question.errors,
-               status: 500
+               status: 422
       end
     end
 

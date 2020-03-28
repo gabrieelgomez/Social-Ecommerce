@@ -9,7 +9,7 @@ module Api::V1::Intranet::Lists
         render json: @list, status: 200
       else
         render json: @list.errors,
-               status: 500
+               status: 422
       end
     end
 

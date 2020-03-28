@@ -8,7 +8,7 @@ module Api::V1::Advertises
       if @advertise.save
         render json: @advertise, status: 200
       else
-        render json: @advertise.errors, status: 500
+        render json: @advertise.errors, status: 422
       end
     end
   end

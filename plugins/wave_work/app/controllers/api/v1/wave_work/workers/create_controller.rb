@@ -4,10 +4,10 @@ module Api::V1::WaveWork::Workers
     def create
       @worker = WaveWork::Worker.new(worker_params)
       if @worker.save
-        render json: @worker, status: 201
+        render json: @worker, status: 200
       else
         render json: @worker.errors,
-               status: 500
+               status: 422
       end
     end
 

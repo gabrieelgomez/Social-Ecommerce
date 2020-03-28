@@ -12,7 +12,7 @@ module Api::V1::Products::PriceRanges
         render json: @price_range, status: 200
       else
         render json: @price_range.errors,
-               status: 500
+               status: 422
       end
     end
 
@@ -21,7 +21,7 @@ module Api::V1::Products::PriceRanges
         render json: @price_range, status: 200
       else
         render json: @price_range.errors,
-               status: 500
+               status: 422
       end
     end
 
@@ -30,7 +30,7 @@ module Api::V1::Products::PriceRanges
         render json: @price_range, status: 200
       else
         render json: @price_range.errors,
-               status: 500
+               status: 422
       end
     end
 

@@ -16,7 +16,7 @@ module Api::V1::Offers
         @offer.create_notify(@profile, @offer)
         render json: @offer, status: 200
       else
-        render json: @offer.errors, status: 500
+        render json: @offer.errors, status: 422
       end
     end
   end

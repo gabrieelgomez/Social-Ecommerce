@@ -11,7 +11,7 @@ module Api::V1::Pymes
         @pyme.schedule.update(params[:schedule]) if params[:schedule]
         render json: @pyme, own: true, status: 200
       else
-        render json: @pyme.errors, status: 500
+        render json: @pyme.errors, status: 422
       end
     end
   end

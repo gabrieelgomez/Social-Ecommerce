@@ -9,7 +9,7 @@ module Api::V1::Intranet::Tasks
         render json: @task, status: 200
       else
         render json: @task.errors,
-               status: 500
+               status: 422
       end
     end
 

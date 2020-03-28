@@ -9,7 +9,7 @@ module Api::V1::JobOffers::Questions
       if @question.destroy
         render json: @question, status: 200
       else
-        render json: @question.errors, status: 500
+        render json: @question.errors, status: 422
       end
     end
   end

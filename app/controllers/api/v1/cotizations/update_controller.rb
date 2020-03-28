@@ -24,7 +24,7 @@ module Api::V1::Cotizations
         render json: @cotization, status: 200
       else
         render json: @cotization.errors,
-               status: 500
+               status: 422
       end
     end
 

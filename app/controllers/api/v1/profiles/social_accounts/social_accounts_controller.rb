@@ -13,7 +13,7 @@ module Api::V1::Profiles
         render json: @profile.social_account,
                status: 200
       else
-        render json: @profile.social_account.errors, status: 500
+        render json: @profile.social_account.errors, status: 422
       end
     end
 

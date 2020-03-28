@@ -7,7 +7,7 @@ module Api::V1::WaveWork::Areas
         render json: @area, status: 200
       else
         render json: @area.errors,
-               status: 500
+               status: 422
       end
     end
 

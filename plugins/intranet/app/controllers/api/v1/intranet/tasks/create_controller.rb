@@ -8,7 +8,7 @@ module Api::V1::Intranet::Tasks
       if @task.save
         render json: @task, status: 200
       else
-        render json: @task.errors, status: 500
+        render json: @task.errors, status: 422
       end
     end
 

@@ -21,7 +21,7 @@ module Api::V1::Profiles
       title_location = params[:profile][:locations][:title]
 
       if latitude.nil? || longitude.nil?
-        render json: [errors: 'Location must exist minimum one'], status: 201
+        render json: [errors: 'Location must exist minimum one'], status: 200
       elsif @profile.save
         Location.create(
           latitude: latitude,
@@ -30,10 +30,10 @@ module Api::V1::Profiles
           prominent: true,
           locatable: @profile
         )
-        render json: @profile, status: 201
+        render json: @profile, status: 200
       else
         render json: @profile.errors,
-               status: 500
+               status: 422
       end
     end
 

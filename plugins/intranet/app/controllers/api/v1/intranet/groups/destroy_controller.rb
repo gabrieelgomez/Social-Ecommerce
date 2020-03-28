@@ -9,7 +9,7 @@ module Api::V1::Intranet::Groups
         render json: @group, status: 200
       else
         render json: @group.errors,
-               status: 500
+               status: 422
       end
     end
 

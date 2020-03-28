@@ -4,10 +4,10 @@ module Api::V1::WaveWork::TypeJobs
     def create
       @type_job = WaveWork::TypeJob.new(type_job_params)
       if @type_job.save
-        render json: @type_job, status: 201
+        render json: @type_job, status: 200
       else
         render json: @type_job.errors,
-               status: 500
+               status: 422
       end
     end
 

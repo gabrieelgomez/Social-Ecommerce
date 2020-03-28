@@ -8,7 +8,7 @@ module Api::V1::PolicyTerms
       if @policy_term.update(policy_term_params)
         render json: @policy_term, status: 200
       else
-        render json: @policy_term.errors, status: 500
+        render json: @policy_term.errors, status: 422
       end
     end
   end

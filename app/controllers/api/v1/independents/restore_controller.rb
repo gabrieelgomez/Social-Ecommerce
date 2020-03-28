@@ -9,7 +9,7 @@ module Api::V1::Independents
         render json: @independent, status: 200
       else
         render json: @independent.errors,
-               status: 500
+               status: 422
       end
     end
   end

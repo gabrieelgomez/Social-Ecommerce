@@ -13,7 +13,7 @@ module Api::V1::WaveCitizen::Citizens
                 citizen: @citizen.errors,
                 user: @user.errors,
               },
-               status: 201
+               status: 422
       end
     end
 

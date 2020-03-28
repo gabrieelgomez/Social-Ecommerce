@@ -7,7 +7,7 @@ module Api::V1::WaveEducational::Teachers
         render json: @teacher, status: 200
       else
         render json: @teacher.errors,
-               status: 500
+               status: 422
       end
     end
 
