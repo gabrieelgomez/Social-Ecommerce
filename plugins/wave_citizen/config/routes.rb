@@ -46,6 +46,36 @@ Rails.application.routes.draw do
           end
           # ProposalCategory CRUD
 
+          # PollCategory CRUD
+          namespace :poll_categories do
+            post '/create', to: 'create#create'
+            get '/:poll_category_id', to: 'show#show'
+            get '/', to: 'show#index'
+            put '/:poll_category_id/update', to: 'update#update'
+            delete '/:poll_category_id/destroy', to: 'destroy#destroy'
+          end
+          # PollCategory CRUD
+
+          # Proposal CRUD
+          namespace :proposals do
+            post '/create', to: 'create#create'
+            get '/:proposal_id', to: 'show#show'
+            get '/', to: 'show#index'
+            put '/:proposal_id/update', to: 'update#update'
+            delete '/:proposal_id/destroy', to: 'destroy#destroy'
+          end
+          # Proposal CRUD
+
+          # Poll CRUD
+          namespace :polls do
+            post '/create', to: 'create#create'
+            get '/:poll_id', to: 'show#show'
+            get '/', to: 'show#index'
+            put '/:poll_id/update', to: 'update#update'
+            delete '/:poll_id/destroy', to: 'destroy#destroy'
+          end
+          # Poll CRUD
+
         end
       end
     end

@@ -28,6 +28,12 @@ gem 'haml'
 ##
 # gem 'postgres_ext', git: 'https://github.com/DavyJonesLocker/postgres_ext.git', branch: 'master'
 
+# Model Follow any other model
+gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
+
+# Comments for Profile and nested comments/replies
+gem 'acts_as_commentable_with_threading'
+
 # Tags for Model
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 
@@ -62,12 +68,6 @@ gem 'friendly_id', '5.2.4'
 
 # Data Faker
 gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
-
-# Model Follow any other model
-gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
-
-# Comments for Profile and nested comments/replies
-gem 'acts_as_commentable_with_threading'
 
 # Validate email
 gem 'validates_email_format_of'

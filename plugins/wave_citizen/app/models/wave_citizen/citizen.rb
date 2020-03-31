@@ -2,6 +2,7 @@ module WaveCitizen
   class Citizen < ApplicationRecord
 
     # Relations Engine
+    acts_as_paranoid
     belongs_to :type_candidacy, optional: true
     enum status_citizen: {citizen: 0, candidate: 1}
 
