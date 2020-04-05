@@ -24,5 +24,16 @@ module WaveCitizen
       self.user = citizen&.user unless user
     end
 
+    def type_poll
+      if user&.has_role? :superadmin
+        return 'poll_admin'
+      elsif user&.citizen&.candidate?
+        return 'poll_candidate'
+      elsif user&.citizen&.citizen?
+        return 'poll_citizen'
+      end
+      'poll_user'
+    end
+
   end
 end
