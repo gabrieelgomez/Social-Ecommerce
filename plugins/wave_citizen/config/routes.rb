@@ -76,6 +76,16 @@ Rails.application.routes.draw do
           end
           # Poll CRUD
 
+          # Item CRUD
+          namespace :items do
+            post '/create', to: 'create#create'
+            get '/:item_id', to: 'show#show'
+            get '/', to: 'show#index'
+            put '/:item_id/update', to: 'update#update'
+            delete '/:item_id/destroy', to: 'destroy#destroy'
+          end
+          # Item CRUD
+
         end
       end
     end

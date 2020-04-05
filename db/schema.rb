@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200405134025) do
+ActiveRecord::Schema.define(version: 20200405152504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -914,6 +914,16 @@ ActiveRecord::Schema.define(version: 20200405134025) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "wave_citizen_items", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.bigint "poll_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["poll_id"], name: "index_wave_citizen_items_on_poll_id"
   end
 
   create_table "wave_citizen_poll_categories", force: :cascade do |t|
