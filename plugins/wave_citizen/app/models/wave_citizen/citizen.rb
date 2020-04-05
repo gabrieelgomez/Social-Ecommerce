@@ -9,9 +9,8 @@ module WaveCitizen
     # Core App
     belongs_to :user
 
-    validates :email, :nickname, uniqueness: true
-
     # Validations
+    validates :email, :nickname, uniqueness: true
     validates :user_id, uniqueness: {
       message: 'already has a citizen'
     }
