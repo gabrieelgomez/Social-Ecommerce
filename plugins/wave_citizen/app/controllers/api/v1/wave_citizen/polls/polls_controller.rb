@@ -8,7 +8,7 @@ module Api::V1::WaveCitizen
     end
 
     def poll_params
-      params.require(:poll).permit(:title, :description, :user_id, :citizen_id, :poll_category_id, :due_date, :available)
+      params.require(:poll).permit(:title, :description, :user_id, :citizen_id, :poll_category_id, :due_date, :available, items_attributes: [:id, :title, :_destroy])
     end
 
   end

@@ -8,6 +8,7 @@ module WaveCitizen
     # acts_as_paranoid
     # acts_as_ordered_taggable
     # acts_as_ordered_taggable_on :skills, :interests
+    has_many   :items
     belongs_to :poll_category
     belongs_to :citizen, optional: true
 
@@ -19,6 +20,9 @@ module WaveCitizen
 
     # Callbacks
     before_save :set_user
+
+    accepts_nested_attributes_for :items, allow_destroy: true
+
 
     def set_user
       self.user = citizen&.user unless user
