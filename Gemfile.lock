@@ -98,6 +98,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    activesupport-current_attributes (0.0.2)
+      activesupport (>= 4.2.0)
     acts_as_commentable_with_threading (2.0.1)
       activerecord (>= 4.0)
       activesupport (>= 4.0)
@@ -331,6 +333,7 @@ DEPENDENCIES
   aasm (= 4.12.3)
   action-cable-testing
   active_model_serializers
+  activesupport-current_attributes
   acts-as-taggable-on!
   acts_as_commentable_with_threading
   acts_as_follower!

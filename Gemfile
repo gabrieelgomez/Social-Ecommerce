@@ -25,6 +25,8 @@ gem 'rolify', '5.2'
 #Html to haml
 gem 'haml'
 
+gem 'activesupport-current_attributes'
+
 ##
 # gem 'postgres_ext', git: 'https://github.com/DavyJonesLocker/postgres_ext.git', branch: 'master'
 

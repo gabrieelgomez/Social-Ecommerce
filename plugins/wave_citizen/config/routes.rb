@@ -86,6 +86,16 @@ Rails.application.routes.draw do
           end
           # Item CRUD
 
+          # Vote CRUD
+          namespace :votes do
+            post '/create', to: 'create#create'
+            get '/:vote_id', to: 'show#show'
+            get '/', to: 'show#index'
+            put '/:vote_id/update', to: 'update#update'
+            delete '/:vote_id/destroy', to: 'destroy#destroy'
+          end
+          # Vote CRUD
+
         end
       end
     end

@@ -5,27 +5,36 @@ module WaveCitizen
     # gem 'acts_as_votable'
     # acts_as_votable
     # acts_as_commentable
-    # acts_as_paranoid
     # acts_as_ordered_taggable
     # acts_as_ordered_taggable_on :skills, :interests
+    acts_as_paranoid
     has_many   :items
+    has_many   :votes, through: :items
     belongs_to :poll_category
     belongs_to :citizen, optional: true
 
     # Relations Core App
-    belongs_to :user, optional: true
+    belongs_to :user
 
     # Validations
     validates :title, :description, :due_date, presence: true
 
     # Callbacks
-    before_save :set_user
+    before_save :set_citizen
 
     accepts_nested_attributes_for :items, allow_destroy: true
 
 
-    def set_user
-      self.user = citizen&.user unless user
+    def set_citizen
+      self.citizen = user.citizen
+    end
+
+    def total_poll_votes
+      votes.size
+    end
+
+    def voted_by_current_user?
+      votes.pluck(:user_id).flatten.uniq.include?(Current.user.id)
     end
 
     def type_poll

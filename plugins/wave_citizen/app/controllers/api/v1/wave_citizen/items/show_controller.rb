@@ -1,5 +1,6 @@
 module Api::V1::WaveCitizen::Items
   class ShowController < ItemsController
+    before_action :set_current_user_support
     before_action :set_item, only: [:show]
 
     def index

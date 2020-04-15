@@ -3,6 +3,7 @@ module Api::V1::WaveCitizen::Proposals
 
     def create
       @proposal = WaveCitizen::Proposal.new(proposal_params)
+      @poll.user = current_v1_user
       if @proposal.save
         render json: @proposal, status: 200
       else

@@ -1,9 +1,18 @@
 module Api::V1::WaveCitizen::Polls
   class ShowController < PollsController
+    before_action :set_current_user_support
     before_action :set_poll, only: [:show]
 
     def index
-      render json: WaveCitizen::Poll.all.order(id: :asc), status: 200
+      @polls =  WaveCitizen::Poll.all.includes(:items, :votes, :user, :poll_category, :citizen)
+
+      if params[:filter] == 'expired'
+        @polls =  @polls.where(["due_date <= :date",{ date: Time.now }])
+      elsif params[:filter] == 'not_expired'
+        @polls =  @polls.where(["due_date >= :date",{ date: Time.now }])
+      end
+
+      render json: @polls.order(id: :desc), status: 200
     end
 
     def show

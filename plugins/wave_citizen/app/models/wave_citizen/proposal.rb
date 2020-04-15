@@ -5,9 +5,9 @@ module WaveCitizen
     # gem 'acts_as_votable'
     # acts_as_votable
     # acts_as_commentable
-    # acts_as_paranoid
     # acts_as_ordered_taggable
     # acts_as_ordered_taggable_on :skills, :interests
+    acts_as_paranoid
     belongs_to :proposal_category
     belongs_to :citizen, optional: true
 
@@ -18,10 +18,10 @@ module WaveCitizen
     validates :title, :description, presence: true
 
     # Callbacks
-    before_save :set_user
+    before_save :set_citizen
 
-    def set_user
-      self.user = citizen&.user unless user
+    def set_citizen
+      self.citizen = user.citizen
     end
 
     def type_proposal
