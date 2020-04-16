@@ -1,5 +1,6 @@
 module Api::V1::WaveCitizen
   class Polls::PollsController < WaveCitizenController
+    before_action :set_current_user_support
 
     private
 

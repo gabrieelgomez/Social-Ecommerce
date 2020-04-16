@@ -1,6 +1,5 @@
 module Api::V1::WaveCitizen::Polls
   class ShowController < PollsController
-    before_action :set_current_user_support
     before_action :set_poll, only: [:show]
 
     def index
