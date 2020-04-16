@@ -7,7 +7,7 @@ class WaveCitizen::ItemSerializer < ActiveModel::Serializer
   end
 
   def voted_by_current_user
-    self.object.voted_by_current_user?
+    self.object.voted_by_current_user
   end
 
 end

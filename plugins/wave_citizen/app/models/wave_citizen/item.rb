@@ -12,7 +12,7 @@ module WaveCitizen
       votes.size
     end
 
-    def voted_by_current_user?
+    def voted_by_current_user
       votes.pluck(:user_id).flatten.uniq.include?(Current.user.id)
     end
 

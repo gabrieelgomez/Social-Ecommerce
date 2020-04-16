@@ -7,7 +7,7 @@ class WaveCitizen::PollSerializer < ActiveModel::Serializer
   end
 
   def voted_by_current_user
-    self.object.voted_by_current_user?
+    self.object.voted_by_current_user
   end
 
   def total_poll_votes
@@ -15,6 +15,6 @@ class WaveCitizen::PollSerializer < ActiveModel::Serializer
   end
 
   def items
-    self.object.items.as_json(only: %i[id title description poll_id created_at updated_at], methods: %i[total_item_votes voted_by_current_user?])
+    self.object.items.as_json(only: %i[id title description poll_id created_at updated_at], methods: %i[total_item_votes voted_by_current_user])
   end
 end
