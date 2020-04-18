@@ -33,7 +33,7 @@ module DeviseTokenAuth
 
         elsif @resource && valid_params?(field, q_value) && (!@resource.respond_to?(:active_for_authentication?) || @resource.active_for_authentication?)
 
-          if request.domain.include?('wave') || request.domain.include?('herokuapp') || request.domain.include?('localhost')
+          if request.domain.include?('ibigwave') || request.domain.include?('localhost')
             return render_create_error_not_citizen unless current_v1_user.has_role?(:citizen) || current_v1_user.has_role?(:candidate) || current_v1_user.has_role?(:superadmin)
           end
 
