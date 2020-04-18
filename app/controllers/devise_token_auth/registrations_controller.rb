@@ -61,6 +61,7 @@ module DeviseTokenAuth
                 email:          @resource.email,
                 status_citizen: citizen
               )
+              @resource.add_role citizen
             end
 
             # email auth has been bypassed, authenticate user
