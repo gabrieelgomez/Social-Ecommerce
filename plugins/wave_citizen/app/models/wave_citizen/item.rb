@@ -3,7 +3,7 @@ module WaveCitizen
 
     # Relations Engine
     belongs_to :poll
-    has_many   :votes, as: :votable
+    has_many   :votes, as: :votable, dependent: :delete_all
 
     # Validations
     validates :title, presence: true

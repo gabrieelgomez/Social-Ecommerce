@@ -32,6 +32,11 @@ module DeviseTokenAuth
           @resource.update(temporal_password: SecureRandom.hex(8))
 
         elsif @resource && valid_params?(field, q_value) && (!@resource.respond_to?(:active_for_authentication?) || @resource.active_for_authentication?)
+
+          if request.domain.include?('herokuapp') || request.domain.include?('localhost')
+            return render_create_error_not_citizen unless current_v1_user.has_role?(:citizen) || current_v1_user.has_role?(:candidate) || current_v1_user.has_role?(:superadmin)
+          end
+
           valid_password = @resource.valid_password?(resource_params[:password])
           if (@resource.respond_to?(:valid_for_authentication?) && !@resource.valid_for_authentication? { valid_password }) || !valid_password
            return render_create_error_bad_credentials
@@ -129,6 +134,10 @@ module DeviseTokenAuth
 
     def render_create_error_bad_credentials
       render_error(401, I18n.t("devise_token_auth.sessions.bad_credentials"))
+    end
+
+    def render_create_error_not_citizen
+      render_error(401, "You're not citizen or candidate or superadmin")
     end
 
     def render_destroy_success

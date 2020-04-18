@@ -4,6 +4,11 @@ module Api::V1::WaveCitizen::Citizens
 
     def update
       if @citizen.update(citizen_params)
+        @citizen.user.update(
+          email: @citizen.email,
+          nickname: @citizen.nickname,
+          name: @citizen.name
+        )
         render json: @citizen, status: 200
       else
         render json: @citizen.errors,

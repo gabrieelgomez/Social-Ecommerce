@@ -8,7 +8,7 @@ module WaveCitizen
     # acts_as_ordered_taggable
     # acts_as_ordered_taggable_on :skills, :interests
     acts_as_paranoid
-    has_many   :items
+    has_many   :items, dependent: :destroy
     has_many   :votes, through: :items
     belongs_to :poll_category
     belongs_to :citizen, optional: true

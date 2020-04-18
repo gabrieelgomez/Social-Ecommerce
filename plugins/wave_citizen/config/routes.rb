@@ -68,6 +68,7 @@ Rails.application.routes.draw do
 
           # Poll CRUD
           namespace :polls do
+            get 'current_user', to: 'show#current_user'
             post '/create', to: 'create#create'
             get '/:poll_id', to: 'show#show'
             get '/', to: 'show#index'
