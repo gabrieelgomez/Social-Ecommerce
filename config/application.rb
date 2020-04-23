@@ -63,5 +63,8 @@ module BigwaveApi
       end
     end
 
+    Raven.configure do |config|
+      config.dsn = 'https://49efb2de449b4febab7d07a63eb7afd3:4bbd48c5714744e58bdefce984f0c028@o382603.ingest.sentry.io/5211693'
+    end
   end
 end

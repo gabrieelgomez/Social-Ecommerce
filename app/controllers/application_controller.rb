@@ -3,12 +3,18 @@ class ApplicationController < ActionController::API
   include ActionController::Serialization
   # include ProductSearch
   serialization_scope :view_context
+  before_action :set_raven_context
   before_action :cors_preflight_check
   after_action :cors_set_access_control_headers
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
 
   private
+
+  def set_raven_context
+    Raven.user_context(id: session[:current_v1_user_id])
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  end
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
