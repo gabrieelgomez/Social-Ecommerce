@@ -11,6 +11,8 @@ module Api::V1::WaveCitizen::Polls
         @polls =  @polls.where(["due_date >= :date",{ date: Time.now }])
       end
 
+      @polls = @polls.where(citizen: params[:citizen_id]) if params[:citizen_id]
+
       render json: @polls.order(id: :desc), status: 200
     end
 
