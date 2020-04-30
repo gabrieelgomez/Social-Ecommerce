@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
   has_many :membership_conversations, as: :memberable
-  has_one  :shopping_cart, dependent: :delete_all
+  has_one  :shopping_cart, dependent: :delete
   has_many :posts, as: :postable
   has_many :cotizations, dependent: :delete_all
   has_many :educational_descriptions, as: :educationable, dependent: :delete_all
