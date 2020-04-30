@@ -42,20 +42,20 @@ class User < ActiveRecord::Base
   has_one  :seller, -> { where(type_profile: 'Seller') },
            class_name: 'Profile'
   has_many :profiles
-  has_many :offers
+  has_many :offers, dependent: :delete_all
   has_many :rates, as: :rateable
-  has_many :wishes
-  has_many :saved_offers
-  has_many :sended_wishes
+  has_many :wishes, dependent: :delete_all
+  has_many :saved_offers, dependent: :delete_all
+  has_many :sended_wishes, dependent: :delete_all
   has_many :messages, as: :messageable
   has_many :conversations, as: :senderable
   has_many :membership_conversations, as: :memberable
-  has_one  :shopping_cart, dependent: :destroy
+  has_one  :shopping_cart, dependent: :delete_all
   has_many :posts, as: :postable
-  has_many :cotizations
+  has_many :cotizations, dependent: :delete_all
   has_many :educational_descriptions, as: :educationable, dependent: :delete_all
-  has_many :wallets, dependent: :destroy
-  has_many :transactions
+  has_many :wallets, dependent: :delete_all
+  has_many :transactions, dependent: :delete_all
   has_many :locations, as: :locatable
 
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'

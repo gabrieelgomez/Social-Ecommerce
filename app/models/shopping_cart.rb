@@ -3,7 +3,7 @@ class ShoppingCart < ApplicationRecord
   belongs_to :user
   # has_and_belongs_to_many :products
   has_many :products, through: :items
-  has_many :items
+  has_many :items, dependent: :delete_all
 
   # Validations
   validates :code, uniqueness: true
