@@ -100,7 +100,7 @@ Rails.application.configure do
     port:                 587,
     domain:               'gmail.com',
     user_name:            'bigwave.ve@gmail.com',
-    password:             'sawders.bigwave',
+    password:             '#Bigwave00',
     authentication:       'plain',
     enable_starttls_auto: true
   }
