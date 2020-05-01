@@ -1,6 +1,5 @@
 module Api::V1::WaveCitizen::Polls
   class ShowController < PollsController
-    before_action :authenticate_v1_user!, except: %i[index]
     before_action :set_poll, only: [:show]
 
     def index
