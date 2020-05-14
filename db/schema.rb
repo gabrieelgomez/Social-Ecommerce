@@ -852,7 +852,7 @@ ActiveRecord::Schema.define(version: 20200415134626) do
     t.datetime "updated_at", null: false
     t.string "omniauth_provider"
     t.text "omniauth_id"
-    t.string "temporal_password", default: "ea42ce"
+    t.string "temporal_password", default: "ba82fc"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

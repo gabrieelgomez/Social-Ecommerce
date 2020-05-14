@@ -28,6 +28,7 @@ Rails.application.routes.draw do
         post 'auth/password/reset', to: 'password_reset#reset'
         post 'auth/password/regenerate', to: 'password_reset#regenerate'
         get 'countries', to: 'show#countries'
+        post 'wocommerce_webhook', to: 'show#wocommerce_webhook'
       end
 
       # Rutas para métodos del controlador API

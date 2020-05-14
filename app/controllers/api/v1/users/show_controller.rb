@@ -7,6 +7,10 @@ module Api::V1::Users
       render json: @users, status: 200
     end
 
+    def wocommerce_webhook
+      render json: { data: params }, status: 500
+    end
+
     # GET /v1/users/{id}
     def show
       @user = User.find(params[:id])
