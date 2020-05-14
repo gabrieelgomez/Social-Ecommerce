@@ -8,7 +8,7 @@ module Api::V1::Users
     end
 
     def wocommerce_webhook
-      render json: { data: params }, status: 500
+      render json: { data: params }, status: 200
     end
 
     # GET /v1/users/{id}
