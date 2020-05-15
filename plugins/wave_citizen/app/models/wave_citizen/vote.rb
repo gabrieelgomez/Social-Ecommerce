@@ -6,7 +6,7 @@ module WaveCitizen
 
     # Relations Core App
     belongs_to :user
-    belongs_to :citizen
+    belongs_to :citizen, optional: true
 
     # Validations
     validates  :votable_type, :votable_id, presence: true
