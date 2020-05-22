@@ -1,6 +1,8 @@
-module Api::V1::Comments
-  class CreateController < CommentsController
+# frozen_string_literal: true
 
+module Api::V1::Comments
+  # Comments CreateController
+  class CreateController < CommentsController
     def create
       commentable = commentable_type.constantize.find(commentable_id)
       @comment = Comment.build_from(commentable, current_v1_user.id, body)
@@ -13,6 +15,5 @@ module Api::V1::Comments
                status: 422
       end
     end
-
   end
 end

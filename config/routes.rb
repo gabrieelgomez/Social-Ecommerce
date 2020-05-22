@@ -123,6 +123,10 @@ Rails.application.routes.draw do
       draw :comments
       # --- Comments route - end
 
+      # --- Likes route
+      draw :likes
+      # --- Likes route - end
+
       # --- Job Offers
       draw :job_offers
       # --- Job Offers - end

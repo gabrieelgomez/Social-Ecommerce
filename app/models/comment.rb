@@ -27,6 +27,17 @@ class Comment < ActiveRecord::Base
       :body_update      => false
   end
 
+  def self.parse_comentable(commentable)
+    case commentable
+    when 'wave_citizen_polls'
+      'WaveCitizen::Poll'
+    when 'wave_citizen_proposals'
+      'WaveCitizen::Proposal'
+    else
+      commentable
+    end
+  end
+
   #helper method to check if a comment has children
   def has_children?
     children.any?

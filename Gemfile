@@ -37,6 +37,7 @@ gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 
 # Comments for Profile and nested comments/replies
 gem 'acts_as_commentable_with_threading'
+gem 'acts_as_votable'
 
 # Tags for Model
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
@@ -44,7 +45,7 @@ gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
-#Notifications
+# Notifications
 gem 'notification-handler', '1.2.5'
 # gem 'notification-pusher'
 # gem 'notification-pusher-actionmailer'

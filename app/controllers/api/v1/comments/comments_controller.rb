@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api::V1
   class Comments::CommentsController < ApiController
     before_action :authenticate_v1_user!, except: %i[index show]
@@ -32,7 +34,7 @@ module Api::V1
     end
 
     def make_child_comment
-      return "" if comment_id.blank?
+      return '' if comment_id.blank?
 
       parent_comment = Comment.find comment_id
       @comment.move_to_child_of(parent_comment)

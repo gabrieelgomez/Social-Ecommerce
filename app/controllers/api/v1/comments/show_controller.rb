@@ -2,8 +2,9 @@ module Api::V1::Comments
   class ShowController < CommentsController
 
     def index
+      comentable_type = Comment.parse_comentable(params[:commentable_type])
       commentable = custom_find {
-        params[:commentable_type].modelarize.find(params[:commentable_id])
+        comentable_type.modelarize.find(params[:commentable_id])
       }
       render json: commentable.root_comments, status: 200
     end
