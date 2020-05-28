@@ -38,6 +38,10 @@ module WaveCitizen
                         })
     end
 
+    def liked_by_current_user
+      get_likes.pluck(:voter_id).flatten.uniq.include?(Current.user.id)
+    end
+
     def total_comments
       root_comments.size
     end
