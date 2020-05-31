@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200522191247) do
+ActiveRecord::Schema.define(version: 20200531224542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,7 +112,10 @@ ActiveRecord::Schema.define(version: 20200522191247) do
     t.integer "rgt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "commentor_type"
+    t.bigint "commentor_id"
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
+    t.index ["commentor_type", "commentor_id"], name: "index_comments_on_commentor_type_and_commentor_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 

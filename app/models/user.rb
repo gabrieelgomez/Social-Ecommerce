@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
 
   # has_many :saved_offers, class_name: 'Offer', foreign_key: 'saved_offer_id'
 
+  def if_citizen?
+    return id if citizen
+  end
+
   def cotizations
     Cotization.select{|x| x.client.clientable_id == self.id}
   end

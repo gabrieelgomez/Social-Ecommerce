@@ -16,7 +16,7 @@ class CommentSerializer < ActiveModel::Serializer
 
   def childrens
     comment = self.object
-    profile = comment.commentable_type.constantize.find(comment.commentable_id)
+    # profile = comment.commentable_type.constantize.find(comment.commentable_id)
     comment.children.as_json(
       except: %i[title subject],
       include: {
@@ -29,7 +29,7 @@ class CommentSerializer < ActiveModel::Serializer
 
   def user
     comment = self.object
-    comment.user.as_json(only: %i[id email name nickname avatar])
+    comment.commentor.as_json(only: %i[id email name nickname avatar])
   end
 
 end

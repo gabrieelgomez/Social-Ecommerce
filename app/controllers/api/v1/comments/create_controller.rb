@@ -4,8 +4,9 @@ module Api::V1::Comments
   # Comments CreateController
   class CreateController < CommentsController
     def create
+      commentor = (current_v1_user&.citizen || current_v1_user)
       commentable = commentable_type.constantize.find(commentable_id)
-      @comment = Comment.build_from(commentable, current_v1_user.id, body)
+      @comment = Comment.build_from(commentable, commentor, body)
 
       if @comment.save
         make_child_comment

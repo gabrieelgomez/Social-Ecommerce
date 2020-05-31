@@ -10,21 +10,28 @@ class Comment < ActiveRecord::Base
   # want user to vote on the quality of comments.
   #acts_as_votable
 
-  belongs_to :commentable, :polymorphic => true
+  belongs_to :commentable, polymorphic: true
 
   # NOTE: Comments belong to a user
-  belongs_to :user
+  belongs_to :user, optional: true
+  belongs_to :commentor, polymorphic: true
 
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
   # example in readme
-  def self.build_from(obj, user_id, comment)
+  def self.build_from(obj, commentor, comment)
     new \
-      :commentable_id   => obj.id,
-      :commentable_type => obj.class.name,
-      :body             => comment,
-      :user_id          => user_id,
-      :body_update      => false
+      commentable_id: obj.id,
+      commentable_type: obj.class.name,
+      body: comment,
+      commentor_type: commentor.class.name,
+      commentor_id: commentor.id,
+      user_id: commentor.id,
+      body_update: false
+  end
+
+  def user
+    commentor
   end
 
   def self.parse_comentable(commentable)
