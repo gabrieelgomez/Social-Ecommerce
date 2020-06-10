@@ -175,7 +175,7 @@ GEM
     ffi (1.9.25)
     friendly_id (5.2.4)
       activerecord (>= 4.0.0)
-    geocoder (1.5.0)
+    geocoder (1.6.3)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.1.2)
@@ -359,7 +359,7 @@ DEPENDENCIES
   factory_bot_rails
   faker!
   friendly_id (= 5.2.4)
-  geocoder (~> 1.4, >= 1.4.7)
+  geocoder (~> 1.6)
   haml
   has_secure_token (~> 1.0)
   intranet!

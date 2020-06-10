@@ -55,7 +55,7 @@ gem 'notification-settings'
 gem 'ransack', '~> 1.8', '>= 1.8.8'
 
 # Geolocation
-gem 'geocoder', '~> 1.4', '>= 1.4.7'
+gem 'geocoder', '~> 1.6'
 
 # All countries gem
 gem 'city-state', '~> 0.0.13'
